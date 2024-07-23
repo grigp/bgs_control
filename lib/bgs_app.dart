@@ -1,15 +1,13 @@
 import 'dart:async';
 
 import 'package:bgs_control/features/invitation_to_connect_screen/view/invitation_to_connect_screen.dart';
-import 'package:bgs_control/router/routes.dart';
-import 'package:bgs_control/utils/snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 
 import 'features/bluetooth_off_screen/view/bluetooth_off_screen.dart';
 
 class BgsApp extends StatefulWidget {
-  const BgsApp({Key? key}) : super(key: key); //({super.key});
+  const BgsApp({super.key}); //({super.key});
 
   @override
   State<BgsApp> createState() => _BgsAppState();
@@ -23,8 +21,9 @@ class _BgsAppState extends State<BgsApp> {
   @override
   void initState() {
     super.initState();
-    _adapterStateStateSubscription =
-        FlutterBluePlus.adapterState.listen((state) {
+    _adapterStateStateSubscription = FlutterBluePlus.adapterState.listen((
+      state,
+    ) {
       _adapterState = state;
       if (mounted) {
         setState(() {});

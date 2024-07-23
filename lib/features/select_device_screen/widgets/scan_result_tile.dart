@@ -4,7 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 
 class ScanResultTile extends StatefulWidget {
-  const ScanResultTile({super.key, required this.result, this.onTap, this.onSelect});
+  const ScanResultTile({
+    super.key,
+    required this.result,
+    this.onTap,
+    this.onSelect,
+  });
 
   final ScanResult result;
   final VoidCallback? onTap;
@@ -15,18 +20,15 @@ class ScanResultTile extends StatefulWidget {
 }
 
 class _ScanResultTileState extends State<ScanResultTile> {
-  BluetoothConnectionState _connectionState =
-      BluetoothConnectionState.disconnected;
+  BluetoothConnectionState _connectionState = BluetoothConnectionState.disconnected;
 
-  late StreamSubscription<BluetoothConnectionState>
-      _connectionStateSubscription;
+  late StreamSubscription<BluetoothConnectionState> _connectionStateSubscription;
 
   @override
   void initState() {
     super.initState();
 
-    _connectionStateSubscription =
-        widget.result.device.connectionState.listen((state) {
+    _connectionStateSubscription = widget.result.device.connectionState.listen((state) {
       _connectionState = state;
       if (mounted) {
         setState(() {});
@@ -45,17 +47,11 @@ class _ScanResultTileState extends State<ScanResultTile> {
   }
 
   String getNiceManufacturerData(List<List<int>> data) {
-    return data
-        .map((val) => '${getNiceHexArray(val)}')
-        .join(', ')
-        .toUpperCase();
+    return data.map((val) => getNiceHexArray(val)).join(', ').toUpperCase();
   }
 
   String getNiceServiceData(Map<Guid, List<int>> data) {
-    return data.entries
-        .map((v) => '${v.key}: ${getNiceHexArray(v.value)}')
-        .join(', ')
-        .toUpperCase();
+    return data.entries.map((v) => '${v.key}: ${getNiceHexArray(v.value)}').join(', ').toUpperCase();
   }
 
   String getNiceServiceUuids(List<Guid> serviceUuids) {
@@ -79,7 +75,7 @@ class _ScanResultTileState extends State<ScanResultTile> {
           Text(
             widget.result.device.remoteId.str,
             style: Theme.of(context).textTheme.bodySmall,
-          )
+          ),
         ],
       );
     } else {
@@ -93,8 +89,7 @@ class _ScanResultTileState extends State<ScanResultTile> {
         backgroundColor: Colors.teal.shade900,
         foregroundColor: Colors.white,
       ),
-      onPressed:
-          (widget.result.advertisementData.connectable) ? widget.onTap : null,
+      onPressed: (widget.result.advertisementData.connectable) ? widget.onTap : null,
       child: isConnected ? const Text('Отключить') : const Text('Подключить'),
     );
   }
@@ -106,8 +101,7 @@ class _ScanResultTileState extends State<ScanResultTile> {
           backgroundColor: Colors.teal.shade900,
           foregroundColor: Colors.white,
         ),
-        onPressed:
-            (widget.result.advertisementData.connectable) ? widget.onSelect : null,
+        onPressed: (widget.result.advertisementData.connectable) ? widget.onSelect : null,
         child: const Text('Выбрать'),
       );
     }
@@ -127,10 +121,7 @@ class _ScanResultTileState extends State<ScanResultTile> {
           Expanded(
             child: Text(
               value,
-              style: Theme.of(context)
-                  .textTheme
-                  .bodySmall
-                  ?.apply(color: Colors.black),
+              style: Theme.of(context).textTheme.bodySmall?.apply(color: Colors.black),
               softWrap: true,
             ),
           ),
@@ -147,22 +138,12 @@ class _ScanResultTileState extends State<ScanResultTile> {
       leading: _buildSelectButton(context),
       trailing: _buildConnectButton(context),
       children: <Widget>[
-        if (adv.advName.isNotEmpty)
-          _buildAdvRow(context, 'Название', adv.advName),
-        if (adv.txPowerLevel != null)
-          _buildAdvRow(context, 'Tx Power Level', '${adv.txPowerLevel}'),
-        if ((adv.appearance ?? 0) > 0)
-          _buildAdvRow(
-              context, 'Appearance', '0x${adv.appearance!.toRadixString(16)}'),
-        if (adv.msd.isNotEmpty)
-          _buildAdvRow(
-              context, 'Manufacturer Data', getNiceManufacturerData(adv.msd)),
-        if (adv.serviceUuids.isNotEmpty)
-          _buildAdvRow(
-              context, 'Service UUIDs', getNiceServiceUuids(adv.serviceUuids)),
-        if (adv.serviceData.isNotEmpty)
-          _buildAdvRow(
-              context, 'Service Data', getNiceServiceData(adv.serviceData)),
+        if (adv.advName.isNotEmpty) _buildAdvRow(context, 'Название', adv.advName),
+        if (adv.txPowerLevel != null) _buildAdvRow(context, 'Tx Power Level', '${adv.txPowerLevel}'),
+        if ((adv.appearance ?? 0) > 0) _buildAdvRow(context, 'Appearance', '0x${adv.appearance!.toRadixString(16)}'),
+        if (adv.msd.isNotEmpty) _buildAdvRow(context, 'Manufacturer Data', getNiceManufacturerData(adv.msd)),
+        if (adv.serviceUuids.isNotEmpty) _buildAdvRow(context, 'Service UUIDs', getNiceServiceUuids(adv.serviceUuids)),
+        if (adv.serviceData.isNotEmpty) _buildAdvRow(context, 'Service Data', getNiceServiceData(adv.serviceData)),
       ],
     );
   }

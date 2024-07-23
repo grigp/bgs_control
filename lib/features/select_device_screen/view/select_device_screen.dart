@@ -8,7 +8,10 @@ import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import '../widgets/scan_result_tile.dart';
 
 class SelectDeviceScreen extends StatefulWidget {
-  const SelectDeviceScreen({super.key, required this.title});
+  const SelectDeviceScreen({
+    super.key,
+    required this.title,
+  });
 
   final String title;
 
@@ -78,7 +81,7 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
     if (mounted) {
       setState(() {});
     }
-    return Future.delayed(Duration(milliseconds: 500));
+    return Future.delayed(const Duration(milliseconds: 500));
   }
 
   void onConnectPressed(BluetoothDevice device) {
@@ -93,16 +96,15 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
       //     settings: RouteSettings(name: '/DeviceScreen'));
       // Navigator.of(context).push(route);
     } else {
-      device.disconnectAndUpdateStream().catchError((e){
-
-      });
+      device.disconnectAndUpdateStream().catchError((e) {});
     }
   }
 
   void onSelectPressed(BluetoothDevice device) {
     MaterialPageRoute route = MaterialPageRoute(
-        builder: (context) => DeviceControlScreen(title: 'Работа', device: device),
-        settings: const RouteSettings(name: '/control'));
+      builder: (context) => DeviceControlScreen(title: 'Работа', device: device),
+      settings: const RouteSettings(name: '/control'),
+    );
     Navigator.of(context).push(route);
   }
 
@@ -139,12 +141,9 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
       body: RefreshIndicator(
         onRefresh: onRefresh,
         child: ListView(
-          children: <Widget> [
-            ..._buildScanResultTiles(context)
-          ],
+          children: <Widget>[..._buildScanResultTiles(context)],
         ),
-
-      )
+      ),
     );
   }
 }
