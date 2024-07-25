@@ -38,22 +38,52 @@ class _DeviceControlScreenState extends State<DeviceControlScreen> {
   List<int> _value = [];
   int _dataCount = 0;
 
-  bool _isContinueGen = false;
   bool _isAM = false;
   bool _isFM = false;
   AmMode _amMode = AmMode.am_11;
-  double _power = 0;
+  double _powerSet = 0;
+  double _powerReal = 0;
   double _idxFreq = 0;
-  double _intensity = 1;
+  double _intensity = 0;
 
   void onSendData(List<int> value){
     setState(() {
       _value = value;
+      _powerReal = _value[5].toDouble();
+
+      _isAM = _value[9] > 0;
+      if (_isAM) {
+        _amMode = AmMode.values[_value[9] - 1];
+      } else {
+        _amMode = AmMode.am_11;
+      }
+
+      _isFM = _value[10] == 7;
+      if (!_isFM){
+        _idxFreq = _value[10].toDouble();
+      }
+
+      _intensity = _value[11].toDouble();
+
       ++_dataCount;
     });
   }
 
-  String getValue() {
+  void _setDeviceMode(){
+    int idxAM = 0;
+    if (_isAM) {
+      idxAM = _amMode.index + 1;
+    }
+
+    int idxFM = 7;
+    if (!_isFM) {
+      idxFM = _idxFreq.toInt();
+    }
+
+    _connect.setMode(idxAM, idxFM, _intensity.toInt());
+  }
+
+  String _valueToString() {
     String retval = '';
     for (int i = 0; i < _value.length; ++i) {
       retval = '$retval${_value[i]} ';
@@ -68,6 +98,12 @@ class _DeviceControlScreenState extends State<DeviceControlScreen> {
   }
 
   @override
+  void dispose() {
+    _connect.reset();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
@@ -78,32 +114,28 @@ class _DeviceControlScreenState extends State<DeviceControlScreen> {
           padding: const EdgeInsets.all(20),
           child: Column(
             children: [
-              Text(getValue(),
+              Text(_valueToString(),
                   style: Theme.of(context).textTheme.headlineSmall),
               Text('Принято пакетов : $_dataCount',
                   style: Theme.of(context).textTheme.headlineMedium),
               const SizedBox(height: 40),
-              Row(      ///< Флажок "Непрерывная генерация"
+              Row(
                 children: [
-                  Text('Непрерывная генерация',
-                  style: Theme.of(context).textTheme.titleLarge),
+                  const SizedBox(width: 100),
+                  Text(_powerReal.round().toString(),
+                      style: Theme.of(context).textTheme.displayLarge),
                   const Spacer(),
-                  Switch(
-                      value: _isContinueGen,
-                      activeColor: Colors.teal.shade900,
-                      onChanged: (bool? value) {
-                        setState(() {
-                          _isContinueGen = value!;
-                          if (_isContinueGen){
-                            _isAM = false;
-                            _isFM = false;
-                          }
-                        });
-                      })
+                  ElevatedButton(
+                      onPressed: () {
+                        _connect.reset();
+                      },
+                      child: Text('Сброс',
+                          style: Theme.of(context).textTheme.headlineSmall),
+                  )
                 ],
               ),
-              const SizedBox(height: 10),
-              if (!_isContinueGen) Row(  ///< Флажок "AM"
+              const SizedBox(height: 40),
+              Row(  ///< Флажок "AM"
                 children: [
                   Text('Ампл. модуляция (AM)',
                       style: Theme.of(context).textTheme.titleLarge),
@@ -115,11 +147,12 @@ class _DeviceControlScreenState extends State<DeviceControlScreen> {
                         setState(() {
                           _isAM = value!;
                         });
+                        _setDeviceMode();
                       })
                 ],
               ),
               const SizedBox(height: 10),
-              if (!_isContinueGen) Row(  ///< Флажок "FM"
+              Row(  ///< Флажок "FM"
                 children: [
                   Text('Част. модуляция (FM)',
                       style: Theme.of(context).textTheme.titleLarge),
@@ -131,11 +164,12 @@ class _DeviceControlScreenState extends State<DeviceControlScreen> {
                         setState(() {
                           _isFM = value!;
                         });
+                        _setDeviceMode();
                       })
                 ],
               ),
               const SizedBox(height: 10),
-              if (!_isContinueGen && _isAM) SegmentedButton<AmMode>(  ///< Переключатель амплитудной модуляции
+              if (_isAM) SegmentedButton<AmMode>(  ///< Переключатель амплитудной модуляции
                   segments:  <ButtonSegment<AmMode>>[
                     ButtonSegment<AmMode>(
                         value: AmMode.am_11,
@@ -154,29 +188,29 @@ class _DeviceControlScreenState extends State<DeviceControlScreen> {
                   onSelectionChanged: (Set<AmMode> newSelection){
                     setState(() {
                       _amMode = newSelection.first;
+                      _setDeviceMode();
                     });
                   },
               ),
               const SizedBox(height: 10),
               Column(          ///< Регулятор мощности
                 children: [
-                  Text('Мощность ${_power.toInt()}',
+                  Text('Мощность ${_powerSet.toInt()}',
                       style: Theme.of(context).textTheme.titleLarge),
                   Slider.adaptive(
-                      value: _power,
-                      label: _power.round().toString(),
+                      value: _powerSet,
+                      label: _powerSet.round().toString(),
                       min: 0,
                       max: 125,
                       divisions: 125,
                       onChanged: (double value){
                         setState(() {
-                          _power = value;
+                          _powerSet = value;
                         });
                       },
                       onChangeEnd: (double value){
                         ///< В этот момент мы будем устанавливать мощность
-                        _connect.setPower(_power);
-                        print('----------- power = $_power');
+                        _connect.setPower(_powerSet);
                       },
                   ),
                 ],
@@ -198,22 +232,23 @@ class _DeviceControlScreenState extends State<DeviceControlScreen> {
                       });
                     },
                     onChangeEnd: (double value){
-                      ///< В этот момент мы будем устанавливать мощность
+                      ///< В этот момент мы будем устанавливать частоту
+                      _setDeviceMode();
                       print('----------- frequency = $_idxFreq');
                     },
                   ),
                 ],
               ),
               const SizedBox(height: 10),
-              Column(          ///< Регулятор мощности
+              Column(          ///< Регулятор интенсивности
                 children: [
-                  Text('Интенсивность ${_intensity.toInt()}',
+                  Text('Интенсивность ${(_intensity + 1).toInt()}',
                       style: Theme.of(context).textTheme.titleLarge),
                   Slider.adaptive(
                     value: _intensity,
-                    label: _intensity.round().toString(),
-                    min: 1,
-                    max: 4,
+                    label: (_intensity + 1).round().toString(),
+                    min: 0,
+                    max: 3,
                     divisions: 3,
                     onChanged: (double value){
                       setState(() {
@@ -221,7 +256,8 @@ class _DeviceControlScreenState extends State<DeviceControlScreen> {
                       });
                     },
                     onChangeEnd: (double value){
-                      ///< В этот момент мы будем устанавливать мощность
+                      ///< В этот момент мы будем устанавливать интенсивность
+                      _setDeviceMode();
                       print('----------- intensity = $_intensity');
                     },
                   ),

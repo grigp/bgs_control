@@ -24,7 +24,9 @@ class BgsConnect{
           _characteristic = c;
           final subscription = c.lastValueStream.listen((value) async {
             _value = value;
-            sendData(_value);
+            if (_value.length == 14) {
+              sendData(_value);
+            }
             // setState(() {
             //   _value = value;
             //   ++_dataCount;
@@ -35,13 +37,15 @@ class BgsConnect{
 
           device.cancelWhenDisconnected(subscription);
           await c.setNotifyValue(true);
+
+          reset();
         }
       }
     });
   }
 
   Future<void> write(List<int> command) async {
-    await _characteristic.write(command);
+    await _characteristic.write(command, withoutResponse: true);
   }
 
   void setPower(double power) {
@@ -49,13 +53,13 @@ class BgsConnect{
     _curPower = _value[5];
     if (power != _curPower) {
       Timer.periodic(const Duration(milliseconds: 1000),
-          (timer) {
+          (timer) async {
             if (_curPower < _targetPower){
               ++_curPower;
             } else {
               --_curPower;
             }
-            write([0x91, _curPower]);
+            await write([0x91, _curPower]);
             if (_curPower == _targetPower){
               timer.cancel();
             }
@@ -64,4 +68,13 @@ class BgsConnect{
     }
   }
 
+  void reset() async {
+    await write([0x91, 0x00]);
+  }
+
+  void setMode(int idxAM, int idxFM, int idxIntencity) async {
+    await write([0xA1, idxAM]);
+    await write([0xA2, idxFM]);
+    await write([0xA3, idxIntencity]);
+  }
 }
