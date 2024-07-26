@@ -22,8 +22,11 @@ Map<double, double> freqValue = <double, double>{
 };
 
 class DeviceControlScreen extends StatefulWidget {
-  const DeviceControlScreen(
-      {super.key, required this.title, required this.device});
+  const DeviceControlScreen({
+    super.key,
+    required this.title,
+    required this.device,
+  });
 
   final String title;
   final BluetoothDevice device;
@@ -162,8 +165,9 @@ class _DeviceControlScreenState extends State<DeviceControlScreen> {
                     ),
                   ),
                   const SizedBox(width: 20),
-                  Text(_powerReal.round().toString(),
-                      style: _powerValueTextStyle,
+                  Text(
+                    _powerReal.round().toString(),
+                    style: _powerValueTextStyle,
                   ),
                   const SizedBox(width: 20),
                   ElevatedButton(

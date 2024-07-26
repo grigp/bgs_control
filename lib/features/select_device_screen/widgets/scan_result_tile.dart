@@ -4,7 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 
 class ScanResultTile extends StatefulWidget {
-  const ScanResultTile({super.key, required this.result, this.onTap, this.onSelect});
+  const ScanResultTile({
+    super.key,
+    required this.result,
+    this.onTap,
+    this.onSelect,
+  });
 
   final ScanResult result;
   final VoidCallback? onTap;
@@ -106,8 +111,9 @@ class _ScanResultTileState extends State<ScanResultTile> {
           backgroundColor: Colors.teal.shade900,
           foregroundColor: Colors.white,
         ),
-        onPressed:
-            (widget.result.advertisementData.connectable) ? widget.onSelect : null,
+        onPressed: (widget.result.advertisementData.connectable)
+            ? widget.onSelect
+            : null,
         child: const Text('Выбрать'),
       );
     }

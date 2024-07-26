@@ -1,13 +1,17 @@
 import 'package:bgs_control/features/select_device_screen/view/select_device_screen.dart';
 import 'package:flutter/material.dart';
 
-
 class InvitationToConnectScreen extends StatefulWidget {
-  const InvitationToConnectScreen({super.key, required this.title});
+  const InvitationToConnectScreen({
+    super.key,
+    required this.title,
+  });
+
   final String title;
 
   @override
-  State<InvitationToConnectScreen> createState() => _InvitationToConnectScreenState();
+  State<InvitationToConnectScreen> createState() =>
+      _InvitationToConnectScreenState();
 }
 
 class _InvitationToConnectScreenState extends State<InvitationToConnectScreen> {
@@ -30,15 +34,16 @@ class _InvitationToConnectScreenState extends State<InvitationToConnectScreen> {
                 'Отсутствует соединение с устройством. Включите писание на устройстве и нажмите кнопку "Подключить" ниже',
                 textAlign: TextAlign.center,
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               Center(
                 child: ElevatedButton(
                   onPressed: () {
                     MaterialPageRoute route = MaterialPageRoute(
-                        builder: (context) => const SelectDeviceScreen(title: 'Выбор устройства',),
+                        builder: (context) => const SelectDeviceScreen(
+                              title: 'Выбор устройства',
+                            ),
                         settings: const RouteSettings(name: '/select'));
                     Navigator.of(context).push(route);
-//                    Navigator.of(context).pushNamed('/connect');
                   },
                   style: ElevatedButton.styleFrom(
                       foregroundColor: Colors.white,
@@ -46,17 +51,16 @@ class _InvitationToConnectScreenState extends State<InvitationToConnectScreen> {
                       // backgroundColor: Colors.blue.shade900,
                       minimumSize: const Size(350, 55),
                       shape: const RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(5))
-                      )
+                          borderRadius: BorderRadius.all(Radius.circular(5)))),
+                  child: const Text(
+                    'Подключить',
+                    style: TextStyle(fontSize: 18),
                   ),
-                  child: const Text('Подключить',
-                    style: TextStyle(fontSize: 18),),
                 ),
               ),
             ],
           ),
         ),
-
       ),
     );
   }
