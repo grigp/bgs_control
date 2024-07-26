@@ -46,7 +46,7 @@ class _BgsAppState extends State<BgsApp> {
     return MaterialApp(
       title: 'bgs',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.teal),
         useMaterial3: true,
       ),
       home: screen,

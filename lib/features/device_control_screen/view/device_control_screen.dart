@@ -93,6 +93,10 @@ class _DeviceControlScreenState extends State<DeviceControlScreen> {
 
       _intensity = _value[11].toDouble();
 
+      if ((_value[4] & 0x80) != 0) {
+        _powerSet = 0;
+      }
+
       ++_dataCount;
     });
   }
