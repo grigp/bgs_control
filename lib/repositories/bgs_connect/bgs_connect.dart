@@ -7,9 +7,10 @@ class BgsConnect{
   }
 
   late BluetoothDevice device;
-  List<int> _value = [];
+  List<int> _value = [0,0,0,0,0,0,0,0,0,0,0,0,0,0];
   late Function sendData;
   late BluetoothCharacteristic _characteristic;
+  late StreamSubscription _subscription;
 
   int _curPower = 0;
   int _targetPower = 0;
@@ -27,8 +28,8 @@ class BgsConnect{
           _characteristic = c;
           _isSending = true;
           final subscription = c.lastValueStream.listen((value) async {
-            _value = value;
-            if (_isSending && _value.length == 14) {
+            if (_isSending && value.length == 14) {
+              _value = value;
               sendData(_value);
             }
             // setState(() {
@@ -39,6 +40,7 @@ class BgsConnect{
             // print('--- uuid : $uuid    value : ${value}');
           });
 
+          _subscription = subscription;
           device.cancelWhenDisconnected(subscription);
           await c.setNotifyValue(true);
 
@@ -50,10 +52,13 @@ class BgsConnect{
 
   void stop() {
     _isSending = false;
+    _subscription.cancel();
   }
 
   Future<void> write(List<int> command) async {
-    await _characteristic.write(command, withoutResponse: true);
+    if (_isSending) {
+      await _characteristic.write(command, withoutResponse: true);
+    }
   }
 
   void setPower(double power) {
