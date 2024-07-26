@@ -1,6 +1,7 @@
 import 'package:bgs_control/repositories/bgs_connect/bgs_connect.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
+import 'package:get_it/get_it.dart';
 
 enum AmMode { am_11, am_31, am_51 }
 
@@ -32,7 +33,6 @@ class DeviceControlScreen extends StatefulWidget {
 }
 
 class _DeviceControlScreenState extends State<DeviceControlScreen> {
-  late BgsConnect _connect;
   List<int> _value = [];
   int _dataCount = 0;
 
@@ -105,7 +105,7 @@ class _DeviceControlScreenState extends State<DeviceControlScreen> {
       idxFM = _idxFreq.toInt();
     }
 
-    _connect.setMode(idxAM, idxFM, _intensity.toInt());
+    GetIt.I<BgsConnect>().setMode(idxAM, idxFM, _intensity.toInt());
   }
 
   String _valueToString() {
@@ -119,13 +119,13 @@ class _DeviceControlScreenState extends State<DeviceControlScreen> {
   @override
   void initState() {
     super.initState();
-    _connect = BgsConnect(device: widget.device, sendData: onSendData);
+    GetIt.I<BgsConnect>().init(widget.device, onSendData);
   }
 
   @override
   void dispose() {
-    _connect.reset();
-    _connect.stop();
+    GetIt.I<BgsConnect>().reset();
+    GetIt.I<BgsConnect>().stop();
     super.dispose();
   }
 
@@ -152,7 +152,7 @@ class _DeviceControlScreenState extends State<DeviceControlScreen> {
                     onPressed: () {
                       setState(() {
                         --_powerSet;
-                        _connect.setPower(_powerSet);
+                        GetIt.I<BgsConnect>().setPower(_powerSet);
                       });
                     },
                     style: _powerButtonStyle,
@@ -170,7 +170,7 @@ class _DeviceControlScreenState extends State<DeviceControlScreen> {
                     onPressed: () {
                       setState(() {
                         ++_powerSet;
-                        _connect.setPower(_powerSet);
+                        GetIt.I<BgsConnect>().setPower(_powerSet);
                       });
                     },
                     style: _powerButtonStyle,
@@ -185,7 +185,7 @@ class _DeviceControlScreenState extends State<DeviceControlScreen> {
                 child: ElevatedButton(
                   onPressed: () {
                     _powerSet = 0;
-                    _connect.reset();
+                    GetIt.I<BgsConnect>().reset();
                   },
                   style: _resetButtonStyle,
                   child: Text(
@@ -276,7 +276,7 @@ class _DeviceControlScreenState extends State<DeviceControlScreen> {
                     },
                     onChangeEnd: (double value) {
                       ///< В этот момент мы будем устанавливать мощность
-                      _connect.setPower(_powerSet);
+                      GetIt.I<BgsConnect>().setPower(_powerSet);
                     },
                   ),
                 ],

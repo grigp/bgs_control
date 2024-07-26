@@ -3,11 +3,10 @@ import 'dart:async';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 
 class BgsConnect{
-  BgsConnect({required this.device, required this.sendData}){
-    _init();
+  BgsConnect(){
   }
 
-  final BluetoothDevice device;
+  late BluetoothDevice device;
   List<int> _value = [];
   late Function sendData;
   late BluetoothCharacteristic _characteristic;
@@ -16,7 +15,10 @@ class BgsConnect{
   int _targetPower = 0;
   bool _isSending = false;
   
-  Future<void> _init() async {
+  Future<void> init(BluetoothDevice device, Function sendData) async {
+    this.device = device;
+    this.sendData = sendData;
+
     List<BluetoothService> services = await device.discoverServices();
     services.forEach((service) async {
       if (service.uuid.toString() == 'ffe0') {
