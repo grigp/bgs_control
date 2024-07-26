@@ -14,6 +14,7 @@ class BgsConnect{
 
   int _curPower = 0;
   int _targetPower = 0;
+  bool _isSending = false;
   
   Future<void> _init() async {
     List<BluetoothService> services = await device.discoverServices();
@@ -22,9 +23,10 @@ class BgsConnect{
         var characteristics = service.characteristics;
         for (BluetoothCharacteristic c in characteristics) {
           _characteristic = c;
+          _isSending = true;
           final subscription = c.lastValueStream.listen((value) async {
             _value = value;
-            if (_value.length == 14) {
+            if (_isSending && _value.length == 14) {
               sendData(_value);
             }
             // setState(() {
@@ -44,6 +46,10 @@ class BgsConnect{
     });
   }
 
+  void stop() {
+    _isSending = false;
+  }
+
   Future<void> write(List<int> command) async {
     await _characteristic.write(command, withoutResponse: true);
   }
@@ -57,7 +63,7 @@ class BgsConnect{
             if (_curPower < _targetPower){
               ++_curPower;
             } else {
-              --_curPower;
+              _curPower = _targetPower;
             }
             await write([0x91, _curPower]);
             if (_curPower == _targetPower){

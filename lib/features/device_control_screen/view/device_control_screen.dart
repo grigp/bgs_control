@@ -1,18 +1,16 @@
-import 'dart:ffi';
-
 import 'package:bgs_control/repositories/bgs_connect/bgs_connect.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 
-enum AmMode {am_11, am_31, am_51}
-Map<AmMode, String> amModeNames = <AmMode, String> {
+enum AmMode { am_11, am_31, am_51 }
+
+Map<AmMode, String> amModeNames = <AmMode, String>{
   AmMode.am_11: '1:1',
   AmMode.am_31: '3:1',
   AmMode.am_51: '5:1',
 };
 
-Map <double, double> freqValue = <double, double> {
+Map<double, double> freqValue = <double, double>{
   0: 15,
   1: 30,
   2: 60,
@@ -46,7 +44,34 @@ class _DeviceControlScreenState extends State<DeviceControlScreen> {
   double _idxFreq = 0;
   double _intensity = 0;
 
-  void onSendData(List<int> value){
+  final ButtonStyle _powerButtonStyle = ElevatedButton.styleFrom(
+    foregroundColor: Colors.white,
+    backgroundColor: Colors.teal.shade900,
+    minimumSize: const Size(45, 45),
+    shape: const RoundedRectangleBorder(
+      borderRadius: BorderRadius.all(
+        Radius.circular(25),
+      ),
+    ),
+  );
+  final TextStyle _powerButtonTextStyle = const TextStyle(fontSize: 26);
+  final ButtonStyle _resetButtonStyle = ElevatedButton.styleFrom(
+    foregroundColor: Colors.white,
+    backgroundColor: Colors.teal.shade900,
+    minimumSize: const Size(350, 45),
+    shape: const RoundedRectangleBorder(
+      borderRadius: BorderRadius.all(
+        Radius.circular(25),
+      ),
+    ),
+  );
+  final _resetButtonTextStyle = const TextStyle(fontSize: 22);
+  final _powerValueTextStyle = TextStyle(
+    fontSize: 60,
+    color: Colors.teal.shade900,
+  );
+
+  void onSendData(List<int> value) {
     setState(() {
       _value = value;
       _powerReal = _value[5].toDouble();
@@ -59,7 +84,7 @@ class _DeviceControlScreenState extends State<DeviceControlScreen> {
       }
 
       _isFM = _value[10] == 7;
-      if (!_isFM){
+      if (!_isFM) {
         _idxFreq = _value[10].toDouble();
       }
 
@@ -69,7 +94,7 @@ class _DeviceControlScreenState extends State<DeviceControlScreen> {
     });
   }
 
-  void _setDeviceMode(){
+  void _setDeviceMode() {
     int idxAM = 0;
     if (_isAM) {
       idxAM = _amMode.index + 1;
@@ -100,6 +125,7 @@ class _DeviceControlScreenState extends State<DeviceControlScreen> {
   @override
   void dispose() {
     _connect.reset();
+    _connect.stop();
     super.dispose();
   }
 
@@ -118,24 +144,59 @@ class _DeviceControlScreenState extends State<DeviceControlScreen> {
                   style: Theme.of(context).textTheme.headlineSmall),
               Text('Принято пакетов : $_dataCount',
                   style: Theme.of(context).textTheme.headlineMedium),
-              const SizedBox(height: 40),
+              const SizedBox(height: 30),
               Row(
                 children: [
-                  const SizedBox(width: 100),
-                  Text(_powerReal.round().toString(),
-                      style: Theme.of(context).textTheme.displayLarge),
-                  const Spacer(),
+                  const SizedBox(width: 70),
                   ElevatedButton(
-                      onPressed: () {
-                        _connect.reset();
-                      },
-                      child: Text('Сброс',
-                          style: Theme.of(context).textTheme.headlineSmall),
-                  )
+                    onPressed: () {
+                      setState(() {
+                        --_powerSet;
+                        _connect.setPower(_powerSet);
+                      });
+                    },
+                    style: _powerButtonStyle,
+                    child: Text(
+                      '-',
+                      style: _powerButtonTextStyle,
+                    ),
+                  ),
+                  const SizedBox(width: 20),
+                  Text(_powerReal.round().toString(),
+                      style: _powerValueTextStyle,
+                  ),
+                  const SizedBox(width: 20),
+                  ElevatedButton(
+                    onPressed: () {
+                      setState(() {
+                        ++_powerSet;
+                        _connect.setPower(_powerSet);
+                      });
+                    },
+                    style: _powerButtonStyle,
+                    child: Text(
+                      '+',
+                      style: _powerButtonTextStyle,
+                    ),
+                  ),
                 ],
               ),
-              const SizedBox(height: 40),
-              Row(  ///< Флажок "AM"
+              Center(
+                child: ElevatedButton(
+                  onPressed: () {
+                    _powerSet = 0;
+                    _connect.reset();
+                  },
+                  style: _resetButtonStyle,
+                  child: Text(
+                    'Сброс',
+                    style: _resetButtonTextStyle,
+                  ),
+                ),
+              ),
+              const SizedBox(height: 30),
+              Row(
+                ///< Флажок "AM"
                 children: [
                   Text('Ампл. модуляция (AM)',
                       style: Theme.of(context).textTheme.titleLarge),
@@ -152,7 +213,8 @@ class _DeviceControlScreenState extends State<DeviceControlScreen> {
                 ],
               ),
               const SizedBox(height: 10),
-              Row(  ///< Флажок "FM"
+              Row(
+                ///< Флажок "FM"
                 children: [
                   Text('Част. модуляция (FM)',
                       style: Theme.of(context).textTheme.titleLarge),
@@ -169,11 +231,13 @@ class _DeviceControlScreenState extends State<DeviceControlScreen> {
                 ],
               ),
               const SizedBox(height: 10),
-              if (_isAM) SegmentedButton<AmMode>(  ///< Переключатель амплитудной модуляции
-                  segments:  <ButtonSegment<AmMode>>[
+              if (_isAM)
+                SegmentedButton<AmMode>(
+                  ///< Переключатель амплитудной модуляции
+                  segments: <ButtonSegment<AmMode>>[
                     ButtonSegment<AmMode>(
-                        value: AmMode.am_11,
-                        label: Text(amModeNames[AmMode.am_11]!),
+                      value: AmMode.am_11,
+                      label: Text(amModeNames[AmMode.am_11]!),
                     ),
                     ButtonSegment<AmMode>(
                       value: AmMode.am_31,
@@ -185,62 +249,68 @@ class _DeviceControlScreenState extends State<DeviceControlScreen> {
                     ),
                   ],
                   selected: <AmMode>{_amMode},
-                  onSelectionChanged: (Set<AmMode> newSelection){
+                  onSelectionChanged: (Set<AmMode> newSelection) {
                     setState(() {
                       _amMode = newSelection.first;
                       _setDeviceMode();
                     });
                   },
-              ),
+                ),
               const SizedBox(height: 10),
-              Column(          ///< Регулятор мощности
+              Column(
+                ///< Регулятор мощности
                 children: [
                   Text('Мощность ${_powerSet.toInt()}',
                       style: Theme.of(context).textTheme.titleLarge),
                   Slider.adaptive(
-                      value: _powerSet,
-                      label: _powerSet.round().toString(),
-                      min: 0,
-                      max: 125,
-                      divisions: 125,
-                      onChanged: (double value){
-                        setState(() {
-                          _powerSet = value;
-                        });
-                      },
-                      onChangeEnd: (double value){
-                        ///< В этот момент мы будем устанавливать мощность
-                        _connect.setPower(_powerSet);
-                      },
-                  ),
-                ],
-              ),
-              const SizedBox(height: 10),
-              if (!_isFM) Column(          ///< Регулятор частоты
-                children: [
-                  Text('Частота ${freqValue[_idxFreq]!.toInt()}',
-                      style: Theme.of(context).textTheme.titleLarge),
-                  Slider.adaptive(
-                    value: _idxFreq,
-                    label: freqValue[_idxFreq]!.round().toString(),
+                    value: _powerSet,
+                    label: _powerSet.round().toString(),
                     min: 0,
-                    max: 6,
-                    divisions: 6,
-                    onChanged: (double value){
+                    max: 125,
+                    divisions: 125,
+                    activeColor: Colors.teal.shade900,
+                    onChanged: (double value) {
                       setState(() {
-                        _idxFreq = value;
+                        _powerSet = value;
                       });
                     },
-                    onChangeEnd: (double value){
-                      ///< В этот момент мы будем устанавливать частоту
-                      _setDeviceMode();
-                      print('----------- frequency = $_idxFreq');
+                    onChangeEnd: (double value) {
+                      ///< В этот момент мы будем устанавливать мощность
+                      _connect.setPower(_powerSet);
                     },
                   ),
                 ],
               ),
               const SizedBox(height: 10),
-              Column(          ///< Регулятор интенсивности
+              if (!_isFM)
+                Column(
+                  ///< Регулятор частоты
+                  children: [
+                    Text('Частота ${freqValue[_idxFreq]!.toInt()}',
+                        style: Theme.of(context).textTheme.titleLarge),
+                    Slider.adaptive(
+                      value: _idxFreq,
+                      label: freqValue[_idxFreq]!.round().toString(),
+                      min: 0,
+                      max: 6,
+                      divisions: 6,
+                      activeColor: Colors.teal.shade900,
+                      onChanged: (double value) {
+                        setState(() {
+                          _idxFreq = value;
+                        });
+                      },
+                      onChangeEnd: (double value) {
+                        ///< В этот момент мы будем устанавливать частоту
+                        _setDeviceMode();
+                        print('----------- frequency = $_idxFreq');
+                      },
+                    ),
+                  ],
+                ),
+              const SizedBox(height: 10),
+              Column(
+                ///< Регулятор интенсивности
                 children: [
                   Text('Интенсивность ${(_intensity + 1).toInt()}',
                       style: Theme.of(context).textTheme.titleLarge),
@@ -250,12 +320,13 @@ class _DeviceControlScreenState extends State<DeviceControlScreen> {
                     min: 0,
                     max: 3,
                     divisions: 3,
-                    onChanged: (double value){
+                    activeColor: Colors.teal.shade900,
+                    onChanged: (double value) {
                       setState(() {
                         _intensity = value;
                       });
                     },
-                    onChangeEnd: (double value){
+                    onChangeEnd: (double value) {
                       ///< В этот момент мы будем устанавливать интенсивность
                       _setDeviceMode();
                       print('----------- intensity = $_intensity');
