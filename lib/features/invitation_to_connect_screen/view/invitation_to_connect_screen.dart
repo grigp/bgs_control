@@ -39,19 +39,22 @@ class _InvitationToConnectScreenState extends State<InvitationToConnectScreen> {
                 child: ElevatedButton(
                   onPressed: () {
                     MaterialPageRoute route = MaterialPageRoute(
-                        builder: (context) => const SelectDeviceScreen(
-                              title: 'Выбор устройства',
-                            ),
-                        settings: const RouteSettings(name: '/select'));
+                      builder: (context) => const SelectDeviceScreen(
+                        title: 'Выбор устройства',
+                      ),
+                      settings: const RouteSettings(name: '/select'),
+                    );
                     Navigator.of(context).push(route);
                   },
                   style: ElevatedButton.styleFrom(
-                      foregroundColor: Colors.white,
-                      backgroundColor: Colors.teal.shade900,
-                      // backgroundColor: Colors.blue.shade900,
-                      minimumSize: const Size(350, 55),
-                      shape: const RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(5)))),
+                    foregroundColor: Colors.white,
+                    backgroundColor: Colors.teal.shade900,
+                    // backgroundColor: Colors.blue.shade900,
+                    minimumSize: const Size(350, 55),
+                    shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(5)),
+                    ),
+                  ),
                   child: const Text(
                     'Подключить',
                     style: TextStyle(fontSize: 18),

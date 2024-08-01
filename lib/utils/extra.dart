@@ -1,35 +1,35 @@
-import 'utils.dart';
-
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
+
+import 'utils.dart';
 
 final Map<DeviceIdentifier, StreamControllerReemit<bool>> _cglobal = {};
 final Map<DeviceIdentifier, StreamControllerReemit<bool>> _dglobal = {};
 
 /// connect & disconnect + update stream
 extension Extra on BluetoothDevice {
-  // convenience
+  /// convenience
   StreamControllerReemit<bool> get _cstream {
     _cglobal[remoteId] ??= StreamControllerReemit(initialValue: false);
     return _cglobal[remoteId]!;
   }
 
-  // convenience
+  /// convenience
   StreamControllerReemit<bool> get _dstream {
     _dglobal[remoteId] ??= StreamControllerReemit(initialValue: false);
     return _dglobal[remoteId]!;
   }
 
-  // get stream
+  /// get stream
   Stream<bool> get isConnecting {
     return _cstream.stream;
   }
 
-  // get stream
+  /// get stream
   Stream<bool> get isDisconnecting {
     return _dstream.stream;
   }
 
-  // connect & update stream
+  /// connect & update stream
   Future<void> connectAndUpdateStream() async {
     _cstream.add(true);
     try {
@@ -39,7 +39,7 @@ extension Extra on BluetoothDevice {
     }
   }
 
-  // disconnect & update stream
+  /// disconnect & update stream
   Future<void> disconnectAndUpdateStream({bool queue = true}) async {
     _dstream.add(true);
     try {

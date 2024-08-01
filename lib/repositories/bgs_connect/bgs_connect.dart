@@ -2,12 +2,11 @@ import 'dart:async';
 
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 
-class BgsConnect{
-  BgsConnect(){
-  }
+class BgsConnect {
+  BgsConnect();
 
   late BluetoothDevice device;
-  List<int> _value = [0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+  List<int> _value = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
   late Function sendData;
   late BluetoothCharacteristic _characteristic;
   late StreamSubscription _subscription;
@@ -15,13 +14,13 @@ class BgsConnect{
   int _curPower = 0;
   int _targetPower = 0;
   bool _isSending = false;
-  
+
   Future<void> init(BluetoothDevice device, Function sendData) async {
     this.device = device;
     this.sendData = sendData;
 
     List<BluetoothService> services = await device.discoverServices();
-    services.forEach((service) async {
+    for (var service in services) {
       if (service.uuid.toString() == 'ffe0') {
         var characteristics = service.characteristics;
         for (BluetoothCharacteristic c in characteristics) {
@@ -39,7 +38,6 @@ class BgsConnect{
             // var uuid = c.uuid;
             // print('--- uuid : $uuid    value : ${value}');
           });
-
           _subscription = subscription;
           device.cancelWhenDisconnected(subscription);
           await c.setNotifyValue(true);
@@ -47,7 +45,8 @@ class BgsConnect{
           reset();
         }
       }
-    });
+    }
+    // services.forEach((service) async {});
   }
 
   void stop() {
@@ -56,28 +55,25 @@ class BgsConnect{
   }
 
   Future<void> write(List<int> command) async {
-    if (_isSending) {
-      await _characteristic.write(command, withoutResponse: true);
-    }
+    if (!_isSending) return;
+    await _characteristic.write(command, withoutResponse: true);
   }
 
   void setPower(double power) {
     _targetPower = power.toInt();
     _curPower = _value[5];
     if (power != _curPower) {
-      Timer.periodic(const Duration(milliseconds: 1000),
-          (timer) async {
-            if (_curPower < _targetPower){
-              ++_curPower;
-            } else {
-              _curPower = _targetPower;
-            }
-            await write([0x91, _curPower]);
-            if (_curPower == _targetPower){
-              timer.cancel();
-            }
-          }  
-      );
+      Timer.periodic(const Duration(milliseconds: 1000), (timer) async {
+        if (_curPower < _targetPower) {
+          ++_curPower;
+        } else {
+          _curPower = _targetPower;
+        }
+        await write([0x91, _curPower]);
+        if (_curPower == _targetPower) {
+          timer.cancel();
+        }
+      });
     }
   }
 
