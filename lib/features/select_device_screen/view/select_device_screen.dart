@@ -73,14 +73,9 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
     }
   }
 
-  Future onRefresh() {
-    if (_isScanning == false) {
-      FlutterBluePlus.startScan(timeout: const Duration(seconds: 15));
-    }
-    if (mounted) {
-      setState(() {});
-    }
-    return Future.delayed(const Duration(milliseconds: 500));
+  Future<void> onRefresh() async {
+    if (_isScanning == true) return;
+    FlutterBluePlus.startScan(timeout: const Duration(seconds: 15));
   }
 
   void onConnectPressed(BluetoothDevice device) {
@@ -101,9 +96,12 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
 
   void onSelectPressed(BluetoothDevice device) {
     MaterialPageRoute route = MaterialPageRoute(
-        builder: (context) =>
-            DeviceControlScreen(title: 'Работа', device: device),
-        settings: const RouteSettings(name: '/control'));
+      builder: (context) => DeviceControlScreen(
+        title: 'Работа',
+        device: device,
+      ),
+      settings: const RouteSettings(name: '/control'),
+    );
     Navigator.of(context).push(route);
   }
 

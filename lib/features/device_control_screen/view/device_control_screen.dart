@@ -139,211 +139,228 @@ class _DeviceControlScreenState extends State<DeviceControlScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-          title: Text('${widget.title}  :  ${widget.device.advName}'),
-        ),
-        body: Padding(
-          padding: const EdgeInsets.all(20),
-          child: Column(
-            children: [
-              Text(_valueToString(),
-                  style: Theme.of(context).textTheme.headlineSmall),
-              Text('Принято пакетов : $_dataCount',
-                  style: Theme.of(context).textTheme.headlineMedium),
-              const SizedBox(height: 30),
-              Row(
-                children: [
-                  const SizedBox(width: 70),
-                  ElevatedButton(
-                    onPressed: () {
-                      setState(() {
-                        --_powerSet;
-                        GetIt.I<BgsConnect>().setPower(_powerSet);
-                      });
-                    },
-                    style: _powerButtonStyle,
-                    child: Text(
-                      '-',
-                      style: _powerButtonTextStyle,
-                    ),
-                  ),
-                  const SizedBox(width: 20),
-                  Text(
-                    _powerReal.round().toString(),
-                    style: _powerValueTextStyle,
-                  ),
-                  const SizedBox(width: 20),
-                  ElevatedButton(
-                    onPressed: () {
-                      setState(() {
-                        ++_powerSet;
-                        GetIt.I<BgsConnect>().setPower(_powerSet);
-                      });
-                    },
-                    style: _powerButtonStyle,
-                    child: Text(
-                      '+',
-                      style: _powerButtonTextStyle,
-                    ),
-                  ),
-                ],
-              ),
-              Center(
-                child: ElevatedButton(
+      appBar: AppBar(
+        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        title: Text('${widget.title}  :  ${widget.device.advName}'),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(20),
+        child: Column(
+          children: [
+            Text(
+              _valueToString(),
+              style: Theme.of(context).textTheme.headlineSmall,
+            ),
+            Text(
+              'Принято пакетов : $_dataCount',
+              style: Theme.of(context).textTheme.headlineMedium,
+            ),
+            const SizedBox(height: 30),
+            Row(
+              children: [
+                const SizedBox(width: 70),
+                ElevatedButton(
                   onPressed: () {
-                    _powerSet = 0;
-                    GetIt.I<BgsConnect>().reset();
-                  },
-                  style: _resetButtonStyle,
-                  child: Text(
-                    'Сброс',
-                    style: _resetButtonTextStyle,
-                  ),
-                ),
-              ),
-              const SizedBox(height: 30),
-              Row(
-                ///< Флажок "AM"
-                children: [
-                  Text('Ампл. модуляция (AM)',
-                      style: Theme.of(context).textTheme.titleLarge),
-                  const Spacer(),
-                  Switch(
-                      value: _isAM,
-                      activeColor: Colors.teal.shade900,
-                      onChanged: (bool? value) {
-                        setState(() {
-                          _isAM = value!;
-                        });
-                        _setDeviceMode();
-                      })
-                ],
-              ),
-              const SizedBox(height: 10),
-              Row(
-                ///< Флажок "FM"
-                children: [
-                  Text('Част. модуляция (FM)',
-                      style: Theme.of(context).textTheme.titleLarge),
-                  const Spacer(),
-                  Switch(
-                      value: _isFM,
-                      activeColor: Colors.teal.shade900,
-                      onChanged: (bool? value) {
-                        setState(() {
-                          _isFM = value!;
-                        });
-                        _setDeviceMode();
-                      })
-                ],
-              ),
-              const SizedBox(height: 10),
-              if (_isAM)
-                SegmentedButton<AmMode>(
-                  ///< Переключатель амплитудной модуляции
-                  segments: <ButtonSegment<AmMode>>[
-                    ButtonSegment<AmMode>(
-                      value: AmMode.am_11,
-                      label: Text(amModeNames[AmMode.am_11]!),
-                    ),
-                    ButtonSegment<AmMode>(
-                      value: AmMode.am_31,
-                      label: Text(amModeNames[AmMode.am_31]!),
-                    ),
-                    ButtonSegment<AmMode>(
-                      value: AmMode.am_51,
-                      label: Text(amModeNames[AmMode.am_51]!),
-                    ),
-                  ],
-                  selected: <AmMode>{_amMode},
-                  onSelectionChanged: (Set<AmMode> newSelection) {
                     setState(() {
-                      _amMode = newSelection.first;
-                      _setDeviceMode();
+                      --_powerSet;
+                      GetIt.I<BgsConnect>().setPower(_powerSet);
                     });
                   },
+                  style: _powerButtonStyle,
+                  child: Text(
+                    '-',
+                    style: _powerButtonTextStyle,
+                  ),
                 ),
-              const SizedBox(height: 10),
-              Column(
-                ///< Регулятор мощности
-                children: [
-                  Text('Мощность ${_powerSet.toInt()}',
-                      style: Theme.of(context).textTheme.titleLarge),
-                  Slider.adaptive(
-                    value: _powerSet,
-                    label: _powerSet.round().toString(),
-                    min: 0,
-                    max: 125,
-                    divisions: 125,
-                    activeColor: Colors.teal.shade900,
-                    onChanged: (double value) {
-                      setState(() {
-                        _powerSet = value;
-                      });
-                    },
-                    onChangeEnd: (double value) {
-                      ///< В этот момент мы будем устанавливать мощность
+                const SizedBox(width: 20),
+                Text(
+                  _powerReal.round().toString(),
+                  style: _powerValueTextStyle,
+                ),
+                const SizedBox(width: 20),
+                ElevatedButton(
+                  onPressed: () {
+                    setState(() {
+                      ++_powerSet;
                       GetIt.I<BgsConnect>().setPower(_powerSet);
-                    },
+                    });
+                  },
+                  style: _powerButtonStyle,
+                  child: Text(
+                    '+',
+                    style: _powerButtonTextStyle,
+                  ),
+                ),
+              ],
+            ),
+            Center(
+              child: ElevatedButton(
+                onPressed: () {
+                  _powerSet = 0;
+                  GetIt.I<BgsConnect>().reset();
+                },
+                style: _resetButtonStyle,
+                child: Text(
+                  'Сброс',
+                  style: _resetButtonTextStyle,
+                ),
+              ),
+            ),
+            const SizedBox(height: 30),
+            Row(
+              /// Флажок "AM"
+              children: [
+                Text(
+                  'Ампл. модуляция (AM)',
+                  style: Theme.of(context).textTheme.titleLarge,
+                ),
+                const Spacer(),
+                Switch(
+                  value: _isAM,
+                  activeColor: Colors.teal.shade900,
+                  onChanged: (bool? value) {
+                    setState(() {
+                      _isAM = value!;
+                    });
+                    _setDeviceMode();
+                  },
+                ),
+              ],
+            ),
+            const SizedBox(height: 10),
+            Row(
+              /// Флажок "FM"
+              children: [
+                Text(
+                  'Част. модуляция (FM)',
+                  style: Theme.of(context).textTheme.titleLarge,
+                ),
+                const Spacer(),
+                Switch(
+                  value: _isFM,
+                  activeColor: Colors.teal.shade900,
+                  onChanged: (bool? value) {
+                    setState(() {
+                      _isFM = value!;
+                    });
+                    _setDeviceMode();
+                  },
+                ),
+              ],
+            ),
+            const SizedBox(height: 10),
+            if (_isAM)
+              SegmentedButton<AmMode>(
+                /// Переключатель амплитудной модуляции
+                segments: <ButtonSegment<AmMode>>[
+                  ButtonSegment<AmMode>(
+                    value: AmMode.am_11,
+                    label: Text(amModeNames[AmMode.am_11]!),
+                  ),
+                  ButtonSegment<AmMode>(
+                    value: AmMode.am_31,
+                    label: Text(amModeNames[AmMode.am_31]!),
+                  ),
+                  ButtonSegment<AmMode>(
+                    value: AmMode.am_51,
+                    label: Text(amModeNames[AmMode.am_51]!),
                   ),
                 ],
+                selected: <AmMode>{_amMode},
+                onSelectionChanged: (Set<AmMode> newSelection) {
+                  setState(() {
+                    _amMode = newSelection.first;
+                    _setDeviceMode();
+                  });
+                },
               ),
-              const SizedBox(height: 10),
-              if (!_isFM)
-                Column(
-                  ///< Регулятор частоты
-                  children: [
-                    Text('Частота ${freqValue[_idxFreq]!.toInt()}',
-                        style: Theme.of(context).textTheme.titleLarge),
-                    Slider.adaptive(
-                      value: _idxFreq,
-                      label: freqValue[_idxFreq]!.round().toString(),
-                      min: 0,
-                      max: 6,
-                      divisions: 6,
-                      activeColor: Colors.teal.shade900,
-                      onChanged: (double value) {
-                        setState(() {
-                          _idxFreq = value;
-                        });
-                      },
-                      onChangeEnd: (double value) {
-                        ///< В этот момент мы будем устанавливать частоту
-                        _setDeviceMode();
-                        print('----------- frequency = $_idxFreq');
-                      },
-                    ),
-                  ],
+            const SizedBox(height: 10),
+            Column(
+              /// Регулятор мощности
+              children: [
+                Text(
+                  'Мощность ${_powerSet.toInt()}',
+                  style: Theme.of(context).textTheme.titleLarge,
                 ),
-              const SizedBox(height: 10),
+                Slider.adaptive(
+                  value: _powerSet,
+                  label: _powerSet.round().toString(),
+                  min: 0,
+                  max: 125,
+                  divisions: 125,
+                  activeColor: Colors.teal.shade900,
+                  onChanged: (double value) {
+                    setState(() {
+                      _powerSet = value;
+                    });
+                  },
+                  onChangeEnd: (double value) {
+                    /// В этот момент мы будем устанавливать мощность
+                    GetIt.I<BgsConnect>().setPower(_powerSet);
+                  },
+                ),
+              ],
+            ),
+            const SizedBox(height: 10),
+            if (!_isFM)
               Column(
-                ///< Регулятор интенсивности
+                /// Регулятор частоты
                 children: [
-                  Text('Интенсивность ${(_intensity + 1).toInt()}',
-                      style: Theme.of(context).textTheme.titleLarge),
+                  Text(
+                    'Частота ${freqValue[_idxFreq]!.toInt()}',
+                    style: Theme.of(context).textTheme.titleLarge,
+                  ),
                   Slider.adaptive(
-                    value: _intensity,
-                    label: (_intensity + 1).round().toString(),
+                    value: _idxFreq,
+                    label: freqValue[_idxFreq]!.round().toString(),
                     min: 0,
-                    max: 3,
-                    divisions: 3,
+                    max: 6,
+                    divisions: 6,
                     activeColor: Colors.teal.shade900,
                     onChanged: (double value) {
                       setState(() {
-                        _intensity = value;
+                        _idxFreq = value;
                       });
                     },
                     onChangeEnd: (double value) {
-                      ///< В этот момент мы будем устанавливать интенсивность
+                      /// В этот момент мы будем устанавливать частоту
                       _setDeviceMode();
-                      print('----------- intensity = $_intensity');
+                      print('----------- frequency = $_idxFreq');
                     },
                   ),
                 ],
               ),
-            ],
-          ),
-        ));
+            const SizedBox(height: 10),
+            Column(
+              /// Регулятор интенсивности
+              children: [
+                Text(
+                  'Интенсивность ${(_intensity + 1).toInt()}',
+                  style: Theme.of(context).textTheme.titleLarge,
+                ),
+                Slider.adaptive(
+                  value: _intensity,
+                  label: (_intensity + 1).round().toString(),
+                  min: 0,
+                  max: 3,
+                  divisions: 3,
+                  activeColor: Colors.teal.shade900,
+                  onChanged: (double value) {
+                    setState(() {
+                      _intensity = value;
+                    });
+                  },
+                  onChangeEnd: (double value) {
+                    /// В этот момент мы будем устанавливать интенсивность
+                    _setDeviceMode();
+                    print('----------- intensity = $_intensity');
+                  },
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }

@@ -3,8 +3,6 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 
-import '../../../utils/snackbar.dart';
-
 class BluetoothOffScreen extends StatelessWidget {
   const BluetoothOffScreen({
     super.key,
@@ -24,7 +22,7 @@ class BluetoothOffScreen extends StatelessWidget {
   Widget buildTitle(BuildContext context) {
     String? state = adapterState.toString().split(".").last;
     return Text(
-      'Адаптер Bluetooth  $state   не доступен',
+      'Адаптер Bluetooth $state не доступен',
       style: Theme.of(context)
           .primaryTextTheme
           .titleSmall

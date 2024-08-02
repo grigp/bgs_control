@@ -5,10 +5,7 @@ import 'package:get_it/get_it.dart';
 import 'bgs_app.dart';
 
 void main() {
-  GetIt.I.registerLazySingleton<BgsConnect>(
-      () => BgsConnect()
-  );
+  GetIt.I.registerLazySingleton<BgsConnect>(() => BgsConnect());
 
   runApp(const BgsApp());
 }
-
