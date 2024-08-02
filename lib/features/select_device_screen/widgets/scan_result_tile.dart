@@ -144,7 +144,7 @@ class _ScanResultTileState extends State<ScanResultTile> {
       ),
     );
   }
-
+  
   @override
   Widget build(BuildContext context) {
     var adv = widget.result.advertisementData;
