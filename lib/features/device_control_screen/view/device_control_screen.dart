@@ -265,7 +265,7 @@ class _DeviceControlScreenState extends State<DeviceControlScreen> {
       ),
       bottomNavigationBar: BottomAppBar(
         color: Theme.of(context).colorScheme.inversePrimary,
-        height: 165,
+        height: 175,
         child: IconTheme(
           data: IconThemeData(color: Theme.of(context).colorScheme.onPrimary),
           child: Column(
