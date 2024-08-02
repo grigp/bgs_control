@@ -55,11 +55,6 @@ class _DeviceControlScreenState extends State<DeviceControlScreen> {
       ),
     ),
   );
-  final _resetButtonTextStyle = const TextStyle(fontSize: 22);
-  final _powerValueTextStyle = TextStyle(
-    fontSize: 60,
-    color: Colors.teal.shade900,
-  );
 
   @override
   void initState() {
@@ -303,7 +298,10 @@ class _DeviceControlScreenState extends State<DeviceControlScreen> {
                   const Spacer(),
                   Text(
                     _powerReal.round().toString(),
-                    style: _powerValueTextStyle,
+                    style: TextStyle(
+                      fontSize: 60,
+                      color: Colors.teal.shade900,
+                    ),
                   ),
                   const Spacer(),
                   GestureDetector(
@@ -339,9 +337,9 @@ class _DeviceControlScreenState extends State<DeviceControlScreen> {
                     GetIt.I<BgsConnect>().reset();
                   },
                   style: _resetButtonStyle,
-                  child: Text(
+                  child: const Text(
                     'Сброс',
-                    style: _resetButtonTextStyle,
+                    style: TextStyle(fontSize: 22),
                   ),
                 ),
               ),
