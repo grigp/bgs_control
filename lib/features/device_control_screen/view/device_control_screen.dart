@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:get_it/get_it.dart';
 
+import '../../../utils/charge_values.dart';
+
 class DeviceControlScreen extends StatefulWidget {
   const DeviceControlScreen({
     super.key,
@@ -28,6 +30,7 @@ class _DeviceControlScreenState extends State<DeviceControlScreen> {
   double _powerSet = 0;
   double _powerReal = 0;
   double _idxFreq = 0;
+  double _chargeLevel = 0;
 
   Map<AmMode, String> amModeNames = <AmMode, String>{
     AmMode.am_11: '1:1',
@@ -74,7 +77,15 @@ class _DeviceControlScreenState extends State<DeviceControlScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text('${widget.title}  :  ${widget.device.advName}'),
+        title: Text('${widget.title}: ${widget.device.advName}'),
+        actions: [
+          Icon(getChargeIconByLevel(_chargeLevel)), //  Icons.battery_0_bar),
+          Text(
+            '${_chargeLevel.toInt()}%',
+            style: Theme.of(context).textTheme.titleLarge,
+          ),
+          const SizedBox(width: 10),
+        ],
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -112,7 +123,7 @@ class _DeviceControlScreenState extends State<DeviceControlScreen> {
               ),
               if (_isAM)
 
-              /// Переключатель амплитудной модуляции
+                /// Переключатель амплитудной модуляции
                 SizedBox(
                   width: double.infinity,
                   child: SegmentedButton<AmMode>(
@@ -190,7 +201,7 @@ class _DeviceControlScreenState extends State<DeviceControlScreen> {
               const SizedBox(height: 10),
               if (!_isFM)
 
-              /// Регулятор частоты
+                /// Регулятор частоты
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -219,7 +230,8 @@ class _DeviceControlScreenState extends State<DeviceControlScreen> {
                   ],
                 ),
               const SizedBox(height: 10),
-              Column( /// Переключатель интенсивности
+              Column(
+                /// Переключатель интенсивности
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
@@ -370,6 +382,8 @@ class _DeviceControlScreenState extends State<DeviceControlScreen> {
       if ((_value[4] & 0x80) != 0) {
         _powerSet = 0;
       }
+
+      _chargeLevel = getChargeLevelByADC(_value[3]);
 
       ++_dataCount;
     });
