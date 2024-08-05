@@ -79,7 +79,7 @@ class _DeviceControlScreenState extends State<DeviceControlScreen> {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text('${widget.title}: ${widget.device.advName}'),
         actions: [
-          Icon(getChargeIconByLevel(_chargeLevel)), 
+          Icon(getChargeIconByLevel(_chargeLevel)),
           Text(
             '${_chargeLevel.toInt()}%',
             style: Theme.of(context).textTheme.titleLarge,
@@ -387,6 +387,10 @@ class _DeviceControlScreenState extends State<DeviceControlScreen> {
 
       ++_dataCount;
     });
+
+    if (_dataCount == 1) {
+      GetIt.I<BgsConnect>().setConnectionFailureMode(ConnectionFailureMode.cfmWorking);
+    }
   }
 
   void _setDeviceMode() {

@@ -2,6 +2,11 @@ import 'dart:async';
 
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 
+/// Режим работы при потере связи
+/// cfmResetPower - сбрасывать мощность
+/// cfmWorking - продолжать работу
+enum ConnectionFailureMode {cfmResetPower, cfmWorking}
+
 class BgsConnect {
   BgsConnect();
 
@@ -79,6 +84,16 @@ class BgsConnect {
 
   void reset() async {
     await write([0x91, 0x00]);
+  }
+
+  void setConnectionFailureMode(ConnectionFailureMode mode) async {
+    if (mode == ConnectionFailureMode.cfmResetPower) {
+      await write([0xBB, 0x5B]);
+    }
+    else
+    if (mode == ConnectionFailureMode.cfmWorking) {
+      await write([0xBB, 0x00]);
+    }
   }
 
   void setMode(int idxAM, int idxFM, int idxIntencity) async {
