@@ -79,7 +79,7 @@ class _DeviceControlScreenState extends State<DeviceControlScreen> {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text('${widget.title}: ${widget.device.advName}'),
         actions: [
-          Icon(getChargeIconByLevel(_chargeLevel)), //  Icons.battery_0_bar),
+          Icon(getChargeIconByLevel(_chargeLevel)), 
           Text(
             '${_chargeLevel.toInt()}%',
             style: Theme.of(context).textTheme.titleLarge,
