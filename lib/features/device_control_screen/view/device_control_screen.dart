@@ -63,6 +63,11 @@ class _DeviceControlScreenState extends State<DeviceControlScreen> {
   void initState() {
     super.initState();
     GetIt.I<BgsConnect>().init(widget.device, onSendData);
+    widget.device.connectionState.listen((event) {
+      if (event == BluetoothConnectionState.disconnected) {
+        Navigator.of(context).pop();
+      }
+    });
   }
 
   @override

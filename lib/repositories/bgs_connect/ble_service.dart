@@ -6,8 +6,8 @@ import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 class BleService {
   BleService();
 
-  ValueListenable<List<ScanResult>> get stateNewList => _stateNewList;
-  final _stateNewList = ValueNotifier<List<ScanResult>>([]);
+  ValueListenable<List<ScanResult>> get scanResultList => _scanResultList;
+  final _scanResultList = ValueNotifier<List<ScanResult>>([]);
 
   List<ScanResult> _scanResults = []; //  это не надо скорее всего
   late StreamSubscription<List<ScanResult>> _scanResultsSubscription;
@@ -17,9 +17,10 @@ class BleService {
   List<ScanResult> scanningStart(Function update) {
     _scanResultsSubscription = FlutterBluePlus.scanResults.listen((results) {
       _scanResults = results;
-      _stateNewList.value = results;
+      _scanResultList.value = results;
       update();
     }, onError: (e) {
+      throw e;
 //      Snackbar.show(ABC.b, prettyException("Scan Error:", e), success: false);
     });
 

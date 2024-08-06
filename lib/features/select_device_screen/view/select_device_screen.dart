@@ -22,77 +22,50 @@ class SelectDeviceScreen extends StatefulWidget {
 }
 
 class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
-  // List<ScanResult> _scanResults = [];  //  это не надо скорее всего
-  // bool _isScanning = false;
-  // late StreamSubscription<List<ScanResult>> _scanResultsSubscription;
-  // late StreamSubscription<bool> _isScanningSubscription;
 
   @override
   void initState() {
     super.initState();
 
     init();
-
-//     _scanResultsSubscription = FlutterBluePlus.scanResults.listen((results) {
-//       _scanResults = results;
-//       if (mounted) {
-//         setState(() {});
-//       }
-//     }, onError: (e) {
-// //      Snackbar.show(ABC.b, prettyException("Scan Error:", e), success: false);
-//     });
-//
-//     _isScanningSubscription = FlutterBluePlus.isScanning.listen((state) {
-//       _isScanning = state;
-//       if (mounted) {
-//         setState(() {});
-//       }
-//     });
-//
-//    onScanPressed();
   }
 
   void init() {
-    GetIt.I<BleService>().scanningStart(update);
+    try {
+      GetIt.I<BleService>().scanningStart(update);
+    } catch (e) {
+      //      Snackbar.show(ABC.b, prettyException("Scan Error:", e), success: false);
+    }
     onScanPressed();
   }
 
   void update() async { //  это не надо скорее всего
-    print('1 ----------- update $mounted');
     if (mounted) {
       setState(() {});  //  это не надо скорее всего
     }
   }
 
   Future<void> onScanPressed() async {
-    await GetIt.I<BleService>().bleStartScan();
-    // try {
-    //   await FlutterBluePlus.startScan(
-    //     timeout: const Duration(seconds: 15),
-    //     androidUsesFineLocation: true,
-    //     withKeywords: ['BG_'],
-    //   );
-    // } catch (e) {
-    //   // Snackbar.show(ABC.b, prettyException("Start Scan Error:", e),
-    //   //     success: false);
-    // }
+    try {
+      await GetIt.I<BleService>().bleStartScan();
+    } catch (e) {
+      // Snackbar.show(ABC.b, prettyException("Start Scan Error:", e),
+      //     success: false);
+    }
     setState(() {});  //  это не надо скорее всего
   }
 
   Future onStopPressed() async {
-    GetIt.I<BleService>().bleStopScan();
-    // try {
-    //   FlutterBluePlus.stopScan();
-    // } catch (e) {
-    //   // Snackbar.show(ABC.b, prettyException("Stop Scan Error:", e),
-    //   //     success: false);
-    // }
+    try {
+      GetIt.I<BleService>().bleStopScan();
+    } catch (e) {
+      // Snackbar.show(ABC.b, prettyException("Stop Scan Error:", e),
+      //     success: false);
+    }
   }
 
   Future<void> onRefresh() async {
     await GetIt.I<BleService>().bleStartScan();
-    //  if (_isScanning == true) return;
-    //  FlutterBluePlus.startScan(timeout: const Duration(seconds: 15));
     setState(() {});  //  это не надо скорее всего
   }
 
@@ -125,15 +98,12 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
 
   @override
   void dispose() {
-    // _scanResultsSubscription.cancel();
-    // _isScanningSubscription.cancel();
     GetIt.I<BleService>().scanningStop();
-
     super.dispose();
   }
 
   List<Widget> _buildScanResultTiles(BuildContext context) {
-    return GetIt.I<BleService>().stateNewList.value
+    return GetIt.I<BleService>().scanResultList.value
         .map(
           (r) => ScanResultTile(
             result: r,
