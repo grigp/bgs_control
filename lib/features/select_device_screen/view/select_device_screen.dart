@@ -22,8 +22,7 @@ class SelectDeviceScreen extends StatefulWidget {
 }
 
 class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
-  List<ScanResult> _scanResults = [];
-
+  // List<ScanResult> _scanResults = [];  //  это не надо скорее всего
   // bool _isScanning = false;
   // late StreamSubscription<List<ScanResult>> _scanResultsSubscription;
   // late StreamSubscription<bool> _isScanningSubscription;
@@ -53,20 +52,20 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
 //    onScanPressed();
   }
 
-  void init() async {
-    _scanResults = await GetIt.I<BleService>().scanningStart(update);
-    await onScanPressed();
+  void init() {
+    GetIt.I<BleService>().scanningStart(update);
+    onScanPressed();
   }
 
-  void update() {
-    print('----------- update $mounted');
+  void update() async {
+    print('1 ----------- update $mounted');
     if (mounted) {
-      setState(() {});
+      setState(() {});  //  это не надо скорее всего
     }
   }
 
-  Future onScanPressed() async {
-    GetIt.I<BleService>().bleStartScan();
+  Future<void> onScanPressed() async {
+    await GetIt.I<BleService>().bleStartScan();
     // try {
     //   await FlutterBluePlus.startScan(
     //     timeout: const Duration(seconds: 15),
@@ -77,9 +76,7 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
     //   // Snackbar.show(ABC.b, prettyException("Start Scan Error:", e),
     //   //     success: false);
     // }
-    if (mounted) {
-      setState(() {});
-    }
+    setState(() {});  //  это не надо скорее всего
   }
 
   Future onStopPressed() async {
@@ -93,9 +90,10 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
   }
 
   Future<void> onRefresh() async {
-    GetIt.I<BleService>().bleStartScan();
-  //  if (_isScanning == true) return;
-  //  FlutterBluePlus.startScan(timeout: const Duration(seconds: 15));
+    await GetIt.I<BleService>().bleStartScan();
+    //  if (_isScanning == true) return;
+    //  FlutterBluePlus.startScan(timeout: const Duration(seconds: 15));
+    setState(() {});  //  это не надо скорее всего
   }
 
   void onConnectPressed(BluetoothDevice device) {
@@ -135,7 +133,7 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
   }
 
   List<Widget> _buildScanResultTiles(BuildContext context) {
-    return _scanResults
+    return GetIt.I<BleService>().stateNewList.value
         .map(
           (r) => ScanResultTile(
             result: r,
