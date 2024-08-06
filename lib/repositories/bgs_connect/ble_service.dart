@@ -25,7 +25,7 @@ class BleService {
 
     _isScanningSubscription = FlutterBluePlus.isScanning.listen((state) {
       _isScanning = state;
-      update();
+      update();//  это не надо скорее всего
     });
 
     return _scanResults;

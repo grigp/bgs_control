@@ -57,7 +57,7 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
     onScanPressed();
   }
 
-  void update() async {
+  void update() async { //  это не надо скорее всего
     print('1 ----------- update $mounted');
     if (mounted) {
       setState(() {});  //  это не надо скорее всего
