@@ -94,6 +94,17 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
       settings: const RouteSettings(name: '/control'),
     );
     Navigator.of(context).push(route);
+
+    device.connectionState.listen((event) {
+      if (event == BluetoothConnectionState.disconnected) {
+        Navigator.of(context).popUntil(ModalRoute.withName('/select'));
+        // try {
+        //   Navigator.of(context).popUntil(ModalRoute.withName('/select'));
+        // } catch (e) {
+        //   print('---------------- error this page is active -----------------------------');
+        // }
+      }
+    });
   }
 
   @override

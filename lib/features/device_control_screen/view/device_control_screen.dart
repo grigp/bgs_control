@@ -66,13 +66,13 @@ class _DeviceControlScreenState extends State<DeviceControlScreen> {
     GetIt.I<BgsConnect>().init(widget.device, onSendData);
     widget.device.connectionState.listen((event) {
       _isConnected = event == BluetoothConnectionState.connected;
-      if (event == BluetoothConnectionState.disconnected) {
-        try {
-          Navigator.of(context).popUntil(ModalRoute.withName('/select'));
-        } catch (e) {
-          print('---------------- error this page is active -----------------------------');
-        }
-      }
+      // if (event == BluetoothConnectionState.disconnected) {
+      //   try {
+      //     Navigator.of(context).popUntil(ModalRoute.withName('/select'));
+      //   } catch (e) {
+      //     print('---------------- error this page is active -----------------------------');
+      //   }
+      // }
     });
   }
 
