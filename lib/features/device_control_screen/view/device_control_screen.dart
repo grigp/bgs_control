@@ -31,6 +31,7 @@ class _DeviceControlScreenState extends State<DeviceControlScreen> {
   double _powerReal = 0;
   double _idxFreq = 0;
   double _chargeLevel = 0;
+  bool _isConnected = false;
 
   Map<AmMode, String> amModeNames = <AmMode, String>{
     AmMode.am_11: '1:1',
@@ -64,16 +65,23 @@ class _DeviceControlScreenState extends State<DeviceControlScreen> {
     super.initState();
     GetIt.I<BgsConnect>().init(widget.device, onSendData);
     widget.device.connectionState.listen((event) {
+      _isConnected = event == BluetoothConnectionState.connected;
       if (event == BluetoothConnectionState.disconnected) {
-        Navigator.of(context).pop();
+        try {
+          Navigator.of(context).popUntil(ModalRoute.withName('/select'));
+        } catch (e) {
+          print('---------------- error this page is active -----------------------------');
+        }
       }
     });
   }
 
   @override
   void dispose() {
-    GetIt.I<BgsConnect>().reset();
-    GetIt.I<BgsConnect>().stop();
+    if (_isConnected) {
+      GetIt.I<BgsConnect>().reset();
+      GetIt.I<BgsConnect>().stop();
+    }
     super.dispose();
   }
 

@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 
 /// Режим работы при потере связи
@@ -15,6 +16,7 @@ class BgsConnect {
   late Function sendData;
   late BluetoothCharacteristic _characteristic;
   late StreamSubscription _subscription;
+//  late StreamSubscription<BluetoothConnectionState> _streamConnect;
 
   int _curPower = 0;
   int _targetPower = 0;
@@ -23,6 +25,15 @@ class BgsConnect {
   Future<void> init(BluetoothDevice device, Function sendData) async {
     this.device = device;
     this.sendData = sendData;
+
+    // _streamConnect = device.connectionState.listen((event) {
+    //   if (event == BluetoothConnectionState.disconnected) {
+    //     print('--------------------------------------------------------------------------');
+    //     print('--------------- ${event == BluetoothConnectionState.connected} -----------');
+    //     print('--------------------------------------------------------------------------');
+    //     disconnect();
+    //   }
+    // });
 
     List<BluetoothService> services = await device.discoverServices();
     for (var service in services) {
@@ -53,6 +64,10 @@ class BgsConnect {
     }
     // services.forEach((service) async {});
   }
+
+  // void disconnect() {
+  //   _streamConnect.cancel();
+  // }
 
   void stop() {
     _isSending = false;
