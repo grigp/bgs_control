@@ -35,17 +35,6 @@ class _DirectControlScreenState extends State<DirectControlScreen> {
   double _chargeLevel = 0;
   bool _isConnected = false;
 
-  // final ButtonStyle _resetButtonStyle = ElevatedButton.styleFrom(
-  //   foregroundColor: Colors.white,
-  //   backgroundColor: Colors.teal.shade900,
-  //   minimumSize: const Size(350, 45),
-  //   shape: const RoundedRectangleBorder(
-  //     borderRadius: BorderRadius.all(
-  //       Radius.circular(25),
-  //     ),
-  //   ),
-  // );
-  //
   @override
   void initState() {
     super.initState();
@@ -174,113 +163,6 @@ class _DirectControlScreenState extends State<DirectControlScreen> {
           onPowerSet: onPowerSet,
           onPowerReset: onPowerReset,
         ),
-        // child: IconTheme(
-        //   data: IconThemeData(color: Theme.of(context).colorScheme.onPrimary),
-        //   child: Column(
-        //     children: [
-        //       Column(
-        //         /// Регулятор мощности
-        //         crossAxisAlignment: CrossAxisAlignment.start,
-        //         children: [
-        //           Text(
-        //             'Мощность ${_powerSet.toInt()}',
-        //             style: Theme.of(context).textTheme.titleLarge,
-        //           ),
-        //           Slider.adaptive(
-        //             value: _powerSet,
-        //             label: _powerSet.round().toString(),
-        //             min: 0,
-        //             max: 125,
-        //             divisions: 125,
-        //             activeColor: Colors.teal.shade900,
-        //             onChanged: (double value) {
-        //               setState(() {
-        //                 _powerSet = value;
-        //               });
-        //             },
-        //             onChangeEnd: (double value) {
-        //               /// В этот момент мы будем устанавливать мощность
-        //               GetIt.I<BgsConnect>().setPower(_powerSet);
-        //             },
-        //           ),
-        //         ],
-        //       ),
-        //       Row(
-        //         children: [
-        //           const Spacer(flex: 2),
-        //           GestureDetector(
-        //             onTap: () {
-        //               setState(() {
-        //                 --_powerSet;
-        //                 GetIt.I<BgsConnect>().setPower(_powerSet);
-        //               });
-        //             },
-        //             child: Container(
-        //               width: 80,
-        //               height: 80,
-        //               decoration: BoxDecoration(
-        //                 borderRadius: BorderRadius.circular(50),
-        //                 color: Colors.teal.shade900,
-        //               ),
-        //               child: const Center(
-        //                 child: Icon(
-        //                   Icons.remove,
-        //                   color: Colors.white,
-        //                 ),
-        //               ),
-        //             ),
-        //           ),
-        //           const Spacer(),
-        //           Text(
-        //             _powerReal.round().toString(),
-        //             style: TextStyle(
-        //               fontSize: 60,
-        //               color: Colors.teal.shade900,
-        //             ),
-        //           ),
-        //           const Spacer(),
-        //           GestureDetector(
-        //             onTap: () {
-        //               setState(() {
-        //                 ++_powerSet;
-        //                 GetIt.I<BgsConnect>().setPower(_powerSet);
-        //               });
-        //             },
-        //             child: Container(
-        //               width: 80,
-        //               height: 80,
-        //               decoration: BoxDecoration(
-        //                 borderRadius: BorderRadius.circular(50),
-        //                 color: Colors.teal.shade900,
-        //               ),
-        //               child: const Center(
-        //                 child: Icon(
-        //                   Icons.add,
-        //                   color: Colors.white,
-        //                 ),
-        //               ),
-        //             ),
-        //           ),
-        //           const Spacer(flex: 2),
-        //         ],
-        //       ),
-        //       const SizedBox(height: 10),
-        //       Center(
-        //         child: ElevatedButton(
-        //           onPressed: () {
-        //             _powerSet = 0;
-        //             GetIt.I<BgsConnect>().reset();
-        //           },
-        //           style: _resetButtonStyle,
-        //           child: const Text(
-        //             'Сброс',
-        //             style: TextStyle(fontSize: 22),
-        //           ),
-        //         ),
-        //       ),
-        //     ],
-        //   ),
-        // ),
       ),
     );
   }
@@ -305,6 +187,8 @@ class _DirectControlScreenState extends State<DirectControlScreen> {
       if ((_value[4] & 0x80) != 0) {
         _powerSet = 0;
       }
+
+      _intensity = Intensity.values[_value[11]];
 
       _chargeLevel = getChargeLevelByADC(_value[3]);
 

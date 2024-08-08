@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:bgs_control/features/device_control_screen/view/device_control_screen.dart';
 import 'package:bgs_control/features/direct_control_screen/view/direct_control_screen.dart';
 import 'package:bgs_control/repositories/bgs_connect/ble_service.dart';
 import 'package:bgs_control/utils/extra.dart';
