@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:bgs_control/features/device_control_screen/view/device_control_screen.dart';
+import 'package:bgs_control/features/direct_control_screen/view/direct_control_screen.dart';
 import 'package:bgs_control/repositories/bgs_connect/ble_service.dart';
 import 'package:bgs_control/utils/extra.dart';
 import 'package:flutter/material.dart';
@@ -87,11 +88,11 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
 
   void onSelectPressed(BluetoothDevice device) {
     MaterialPageRoute route = MaterialPageRoute(
-      builder: (context) => DeviceControlScreen(
+      builder: (context) => DirectControlScreen(
         title: 'Direct',
         device: device,
       ),
-      settings: const RouteSettings(name: '/control'),
+      settings: const RouteSettings(name: '/direct_control'),
     );
     Navigator.of(context).push(route);
 

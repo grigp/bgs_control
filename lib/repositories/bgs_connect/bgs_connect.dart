@@ -1,7 +1,28 @@
 import 'dart:async';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
+
+enum AmMode { am_11, am_31, am_51 }
+
+enum Intensity { one, two, free, four }
+
+Map<AmMode, String> amModeNames = <AmMode, String>{
+  AmMode.am_11: '1:1',
+  AmMode.am_31: '3:1',
+  AmMode.am_51: '5:1',
+};
+
+Map<double, double> freqValue = <double, double>{
+  0: 15,
+  1: 30,
+  2: 60,
+  3: 90,
+  4: 120,
+  5: 180,
+  6: 350
+};
+
+
 
 /// Режим работы при потере связи
 /// cfmResetPower - сбрасывать мощность
