@@ -184,33 +184,33 @@ class _DeviceControlScreenState extends State<DeviceControlScreen> {
                 ],
               ),
               const SizedBox(height: 10),
-              Column(
-                /// Регулятор мощности
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Мощность ${_powerSet.toInt()}',
-                    style: Theme.of(context).textTheme.titleLarge,
-                  ),
-                  Slider.adaptive(
-                    value: _powerSet,
-                    label: _powerSet.round().toString(),
-                    min: 0,
-                    max: 125,
-                    divisions: 125,
-                    activeColor: Colors.teal.shade900,
-                    onChanged: (double value) {
-                      setState(() {
-                        _powerSet = value;
-                      });
-                    },
-                    onChangeEnd: (double value) {
-                      /// В этот момент мы будем устанавливать мощность
-                      GetIt.I<BgsConnect>().setPower(_powerSet);
-                    },
-                  ),
-                ],
-              ),
+              // Column(
+              //   /// Регулятор мощности
+              //   crossAxisAlignment: CrossAxisAlignment.start,
+              //   children: [
+              //     Text(
+              //       'Мощность ${_powerSet.toInt()}',
+              //       style: Theme.of(context).textTheme.titleLarge,
+              //     ),
+              //     Slider.adaptive(
+              //       value: _powerSet,
+              //       label: _powerSet.round().toString(),
+              //       min: 0,
+              //       max: 125,
+              //       divisions: 125,
+              //       activeColor: Colors.teal.shade900,
+              //       onChanged: (double value) {
+              //         setState(() {
+              //           _powerSet = value;
+              //         });
+              //       },
+              //       onChangeEnd: (double value) {
+              //         /// В этот момент мы будем устанавливать мощность
+              //         GetIt.I<BgsConnect>().setPower(_powerSet);
+              //       },
+              //     ),
+              //   ],
+              // ),
               const SizedBox(height: 10),
               if (!_isFM)
 
@@ -290,11 +290,38 @@ class _DeviceControlScreenState extends State<DeviceControlScreen> {
       ),
       bottomNavigationBar: BottomAppBar(
         color: Theme.of(context).colorScheme.inversePrimary,
-        height: 175,
+        height: 250,
         child: IconTheme(
           data: IconThemeData(color: Theme.of(context).colorScheme.onPrimary),
           child: Column(
             children: [
+              Column(
+                /// Регулятор мощности
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Мощность ${_powerSet.toInt()}',
+                    style: Theme.of(context).textTheme.titleLarge,
+                  ),
+                  Slider.adaptive(
+                    value: _powerSet,
+                    label: _powerSet.round().toString(),
+                    min: 0,
+                    max: 125,
+                    divisions: 125,
+                    activeColor: Colors.teal.shade900,
+                    onChanged: (double value) {
+                      setState(() {
+                        _powerSet = value;
+                      });
+                    },
+                    onChangeEnd: (double value) {
+                      /// В этот момент мы будем устанавливать мощность
+                      GetIt.I<BgsConnect>().setPower(_powerSet);
+                    },
+                  ),
+                ],
+              ),
               Row(
                 children: [
                   const Spacer(flex: 2),
@@ -402,7 +429,8 @@ class _DeviceControlScreenState extends State<DeviceControlScreen> {
     });
 
     if (_dataCount == 1) {
-      GetIt.I<BgsConnect>().setConnectionFailureMode(ConnectionFailureMode.cfmWorking);
+      GetIt.I<BgsConnect>()
+          .setConnectionFailureMode(ConnectionFailureMode.cfmWorking);
     }
   }
 
