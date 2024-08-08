@@ -11,6 +11,7 @@ final ButtonStyle _resetButtonStyle = ElevatedButton.styleFrom(
   ),
 );
 
+//ignore: must_be_immutable
 class PowerWidget extends StatefulWidget {
   PowerWidget({
     super.key,

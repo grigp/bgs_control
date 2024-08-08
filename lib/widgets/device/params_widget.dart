@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../repositories/bgs_connect/bgs_connect.dart';
 
+//ignore: must_be_immutable
 class ParamsWidget extends StatefulWidget {
   ParamsWidget({
     super.key,
