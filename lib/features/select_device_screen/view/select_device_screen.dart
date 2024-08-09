@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:bgs_control/features/direct_control_screen/view/direct_control_screen.dart';
 import 'package:bgs_control/repositories/bgs_connect/ble_service.dart';
 import 'package:bgs_control/utils/extra.dart';
+import 'package:bgs_control/utils/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:get_it/get_it.dart';
@@ -22,7 +23,6 @@ class SelectDeviceScreen extends StatefulWidget {
 }
 
 class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
-
   @override
   void initState() {
     super.initState();
@@ -39,9 +39,10 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
     onScanPressed();
   }
 
-  void update() async { //  это не надо скорее всего
+  void update() async {
+    //  это не надо скорее всего
     if (mounted) {
-      setState(() {});  //  это не надо скорее всего
+      setState(() {}); //  это не надо скорее всего
     }
   }
 
@@ -52,7 +53,7 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
       // Snackbar.show(ABC.b, prettyException("Start Scan Error:", e),
       //     success: false);
     }
-    setState(() {});  //  это не надо скорее всего
+    setState(() {}); //  это не надо скорее всего
   }
 
   Future onStopPressed() async {
@@ -66,7 +67,7 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
 
   Future<void> onRefresh() async {
     await GetIt.I<BleService>().bleStartScan();
-    setState(() {});  //  это не надо скорее всего
+    setState(() {}); //  это не надо скорее всего
   }
 
   void onConnectPressed(BluetoothDevice device) {
@@ -114,7 +115,9 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
   }
 
   List<Widget> _buildScanResultTiles(BuildContext context) {
-    return GetIt.I<BleService>().scanResultList.value
+    return GetIt.I<BleService>()
+        .scanResultList
+        .value
         .map(
           (r) => ScanResultTile(
             result: r,
@@ -132,10 +135,47 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(widget.title),
       ),
-      body: RefreshIndicator(
-        onRefresh: onRefresh,
-        child: ListView(
-          children: <Widget>[..._buildScanResultTiles(context)],
+      body: Padding(
+        padding: const EdgeInsets.all(20),
+        child: RefreshIndicator(
+          onRefresh: onRefresh,
+          child: GetIt.I<BleService>().scanResultListSize > 0
+              ? ListView(
+                  children: <Widget>[..._buildScanResultTiles(context)],
+                )
+              : Column(
+                  // mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Spacer(),
+                    const Center(
+                      child: SizedBox(
+                        width: 200,
+                        height: 200,
+                        child: CircularProgressIndicator(
+                          strokeWidth: 2,
+                          color: Colors.teal,
+                        ),
+                      ),
+                    ),
+                    Text(
+                      'Поиск стимуляторов',
+                      style: TextStyle(
+                        fontSize: 26,
+                        color: Colors.teal.shade900,
+                      ),
+                    ),
+                    const Spacer(),
+                    if (GetIt.I<BleService>().scanResultListSize == 0)
+                      ElevatedButton(
+                        onPressed: () {},
+                        style: controlButtonStyle,
+                        child: const Text(
+                          'Добавить устройство',
+                          style: TextStyle(fontSize: 18),
+                        ),
+                      ),
+                  ],
+                ),
         ),
       ),
     );

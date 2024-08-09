@@ -7,6 +7,7 @@ class BleService {
   BleService();
 
   ValueListenable<List<ScanResult>> get scanResultList => _scanResultList;
+  int get scanResultListSize => _scanResults.length;
   final _scanResultList = ValueNotifier<List<ScanResult>>([]);
 
   List<ScanResult> _scanResults = []; //  это не надо скорее всего

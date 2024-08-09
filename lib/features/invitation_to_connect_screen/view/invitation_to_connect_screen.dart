@@ -1,4 +1,5 @@
 import 'package:bgs_control/features/select_device_screen/view/select_device_screen.dart';
+import 'package:bgs_control/utils/styles.dart';
 import 'package:flutter/material.dart';
 
 class InvitationToConnectScreen extends StatefulWidget {
@@ -46,15 +47,7 @@ class _InvitationToConnectScreenState extends State<InvitationToConnectScreen> {
                     );
                     Navigator.of(context).push(route);
                   },
-                  style: ElevatedButton.styleFrom(
-                    foregroundColor: Colors.white,
-                    backgroundColor: Colors.teal.shade900,
-                    // backgroundColor: Colors.blue.shade900,
-                    minimumSize: const Size(350, 55),
-                    shape: const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(5)),
-                    ),
-                  ),
+                  style: controlButtonStyle,
                   child: const Text(
                     'Подключить',
                     style: TextStyle(fontSize: 18),
