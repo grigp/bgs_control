@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bgs_control/features/direct_control_screen/view/direct_control_screen.dart';
 import 'package:bgs_control/repositories/bgs_connect/ble_service.dart';
+import 'package:bgs_control/repositories/bgs_list/bgs_list.dart';
 import 'package:bgs_control/utils/extra.dart';
 import 'package:bgs_control/utils/styles.dart';
 import 'package:flutter/material.dart';
@@ -114,10 +115,26 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
     super.dispose();
   }
 
+  int _scanResultCount() {
+    var l = GetIt.I<BgsList>().getList();
+    var list = GetIt.I<BleService>()
+        .scanResultList
+        .value
+        .where((r) => l.contains(r.device.advName)) // GetIt.I<BgsList>().isContains(r.device.advName))
+        .map(
+          (r) => r.device.advName,
+        )
+        .toList();
+    return list.length;
+  }
+
   List<Widget> _buildScanResultTiles(BuildContext context) {
+    var list = GetIt.I<BgsList>().getList();
+    print('------------------------- $list');
     return GetIt.I<BleService>()
         .scanResultList
         .value
+        .where((r) => list.contains(r.device.advName))// GetIt.I<BgsList>().isContains(r.device.advName))
         .map(
           (r) => ScanResultTile(
             result: r,
@@ -126,6 +143,45 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
           ),
         )
         .toList();
+  }
+
+  Widget addNewDevice() {
+    List<String> list = GetIt.I<BleService>()
+        .scanResultList
+        .value
+        .map(
+          (r) => r.device.advName,
+        )
+        .toList();
+
+    return SizedBox(
+      height: 500,
+      width: double.infinity,
+      child: Padding(
+        padding: const EdgeInsets.all(20),
+        child: ListView.separated(
+            itemCount: list.length,
+            separatorBuilder: (BuildContext context, int index) =>
+                const SizedBox(height: 10), //Divider(),
+            itemBuilder: (BuildContext context, int index) {
+              return ElevatedButton(
+                style: deviceListItemStyle,
+                onPressed: () {
+                  GetIt.I<BgsList>().add(list[index]);
+                  Navigator.pop(context);
+                },
+                child: Text(
+                  list[index],
+                  style: const TextStyle(
+                    fontSize: 24,
+                    //   color: Colors.white,
+                    //   backgroundColor: Colors.teal.shade900,
+                  ),
+                ),
+              );
+            }),
+      ),
+    );
   }
 
   @override
@@ -139,7 +195,7 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
         padding: const EdgeInsets.all(20),
         child: RefreshIndicator(
           onRefresh: onRefresh,
-          child: GetIt.I<BleService>().scanResultListSize > 0
+          child: _scanResultCount() > 0
               ? ListView(
                   children: <Widget>[..._buildScanResultTiles(context)],
                 )
@@ -165,9 +221,16 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
                       ),
                     ),
                     const Spacer(),
-                    if (GetIt.I<BleService>().scanResultListSize == 0)
+                    if (_scanResultCount() == 0)
                       ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          showModalBottomSheet(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return addNewDevice();
+                            },
+                          );
+                        },
                         style: controlButtonStyle,
                         child: const Text(
                           'Добавить устройство',

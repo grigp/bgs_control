@@ -33,6 +33,7 @@ dependencies:
   flutter_blue_plus: ^1.32.8
   get_it: ^7.7.0
   cupertino_icons: ^1.0.6
+  flutter_secure_storage: ^9.2.2
 
 dev_dependencies:
   flutter_test:
