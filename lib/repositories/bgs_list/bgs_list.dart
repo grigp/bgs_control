@@ -1,9 +1,7 @@
-
-
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class BgsList {
-  BgsList(){
+  BgsList() {
     _init();
   }
 
@@ -12,7 +10,7 @@ class BgsList {
   void _init() async {
     const storage = FlutterSecureStorage();
     String? sList = await storage.read(key: 'bgs_list');
-    if (sList != null){
+    if (sList != null) {
       _list = sList.split(' ');
     }
   }
@@ -20,7 +18,7 @@ class BgsList {
   void _save() async {
     const storage = FlutterSecureStorage();
     var s = '';
-    for (int i = 0; i < _list.length; ++i){
+    for (int i = 0; i < _list.length; ++i) {
       if (i == 0) {
         s = _list[i];
       } else {
@@ -49,5 +47,4 @@ class BgsList {
   List<String> getList() {
     return _list;
   }
-
 }

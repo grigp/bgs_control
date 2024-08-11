@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:bgs_control/features/direct_control_screen/view/direct_control_screen.dart';
+import 'package:bgs_control/features/select_device_screen/widgets/add_new_device_bottom_sheet.dart';
 import 'package:bgs_control/repositories/bgs_connect/ble_service.dart';
 import 'package:bgs_control/repositories/bgs_list/bgs_list.dart';
 import 'package:bgs_control/utils/extra.dart';
@@ -120,7 +121,8 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
     var list = GetIt.I<BleService>()
         .scanResultList
         .value
-        .where((r) => l.contains(r.device.advName)) // GetIt.I<BgsList>().isContains(r.device.advName))
+        .where((r) => l.contains(r.device
+            .advName)) // GetIt.I<BgsList>().isContains(r.device.advName))
         .map(
           (r) => r.device.advName,
         )
@@ -134,7 +136,8 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
     return GetIt.I<BleService>()
         .scanResultList
         .value
-        .where((r) => list.contains(r.device.advName))// GetIt.I<BgsList>().isContains(r.device.advName))
+        .where((r) => list.contains(r.device
+            .advName)) // GetIt.I<BgsList>().isContains(r.device.advName))
         .map(
           (r) => ScanResultTile(
             result: r,
@@ -143,45 +146,6 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
           ),
         )
         .toList();
-  }
-
-  Widget addNewDevice() {
-    List<String> list = GetIt.I<BleService>()
-        .scanResultList
-        .value
-        .map(
-          (r) => r.device.advName,
-        )
-        .toList();
-
-    return SizedBox(
-      height: 500,
-      width: double.infinity,
-      child: Padding(
-        padding: const EdgeInsets.all(20),
-        child: ListView.separated(
-            itemCount: list.length,
-            separatorBuilder: (BuildContext context, int index) =>
-                const SizedBox(height: 10), //Divider(),
-            itemBuilder: (BuildContext context, int index) {
-              return ElevatedButton(
-                style: deviceListItemStyle,
-                onPressed: () {
-                  GetIt.I<BgsList>().add(list[index]);
-                  Navigator.pop(context);
-                },
-                child: Text(
-                  list[index],
-                  style: const TextStyle(
-                    fontSize: 24,
-                    //   color: Colors.white,
-                    //   backgroundColor: Colors.teal.shade900,
-                  ),
-                ),
-              );
-            }),
-      ),
-    );
   }
 
   @override
@@ -200,7 +164,6 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
                   children: <Widget>[..._buildScanResultTiles(context)],
                 )
               : Column(
-                  // mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     const Spacer(),
                     const Center(
@@ -227,7 +190,7 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
                           showModalBottomSheet(
                             context: context,
                             builder: (BuildContext context) {
-                              return addNewDevice();
+                              return const AddNewDeviceBottomSheet();
                             },
                           );
                         },
