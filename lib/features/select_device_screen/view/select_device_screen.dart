@@ -3,11 +3,11 @@ import 'dart:async';
 import 'package:bgs_control/features/direct_control_screen/view/direct_control_screen.dart';
 import 'package:bgs_control/repositories/bgs_connect/ble_service.dart';
 import 'package:bgs_control/utils/extra.dart';
-import 'package:bgs_control/utils/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:get_it/get_it.dart';
 
+import '../../../utils/styles.dart';
 import '../widgets/scan_result_tile.dart';
 
 class SelectDeviceScreen extends StatefulWidget {
@@ -135,47 +135,53 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(widget.title),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(20),
-        child: RefreshIndicator(
-          onRefresh: onRefresh,
-          child: GetIt.I<BleService>().scanResultListSize > 0
-              ? ListView(
-                  children: <Widget>[..._buildScanResultTiles(context)],
-                )
-              : Column(
-                  // mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Spacer(),
-                    const Center(
-                      child: SizedBox(
-                        width: 200,
-                        height: 200,
-                        child: CircularProgressIndicator(
-                          strokeWidth: 2,
-                          color: Colors.teal,
+      body: RefreshIndicator(
+        onRefresh: onRefresh,
+        child: Stack(
+          children: [
+            GetIt.I<BleService>().scanResultListSize > 0
+                ? ListView(
+                    children: <Widget>[
+                      ..._buildScanResultTiles(context),
+                      const SizedBox(height: 50), //  чтобы отступ был, если устройство дофига
+                    ],
+                  )
+                : Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Center(
+                        child: SizedBox(
+                          width: 200,
+                          height: 200,
+                          child: CircularProgressIndicator(
+                            strokeWidth: 2,
+                            color: Colors.teal,
+                          ),
                         ),
                       ),
-                    ),
-                    Text(
-                      'Поиск стимуляторов',
-                      style: TextStyle(
-                        fontSize: 26,
-                        color: Colors.teal.shade900,
-                      ),
-                    ),
-                    const Spacer(),
-                    if (GetIt.I<BleService>().scanResultListSize == 0)
-                      ElevatedButton(
-                        onPressed: () {},
-                        style: controlButtonStyle,
-                        child: const Text(
-                          'Добавить устройство',
-                          style: TextStyle(fontSize: 18),
+                      Text(
+                        'Поиск стимуляторов',
+                        style: TextStyle(
+                          fontSize: 26,
+                          color: Colors.teal.shade900,
                         ),
                       ),
-                  ],
+                    ],
+                  ),
+            Positioned(
+              bottom: 20,
+              right: 20,
+              left: 20,
+              child: ElevatedButton(
+                onPressed: () {},
+                style: controlButtonStyle,
+                child: const Text(
+                  'Добавить устройство',
+                  style: TextStyle(fontSize: 18),
                 ),
+              ),
+            ),
+          ],
         ),
       ),
     );
