@@ -7,6 +7,7 @@ import 'package:bgs_control/repositories/bgs_list/bgs_list.dart';
 import 'package:bgs_control/utils/extra.dart';
 import 'package:bgs_control/utils/styles.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:get_it/get_it.dart';
 
@@ -112,7 +113,36 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
   }
 
   void onDeletePressed(BluetoothDevice device) {
-    print('------------- ${device.advName}');
+    showDialog<String>(
+      context: context,
+      builder: (BuildContext context) => AlertDialog(
+        title: const Text('Удалить стимулятор из списка?'),
+        content: Text(
+          device.advName,
+          style: TextStyle(
+            fontSize: 24,
+            fontWeight: FontWeight.w900,
+            color: Colors.teal.shade900,
+          ),
+        ),
+        actions: <Widget>[
+          TextButton(
+            onPressed: () => Navigator.pop(context, 'Cancel'),
+            style: messageButtonStyle(),
+            child: const Text('Отмена'),
+          ),
+          TextButton(
+            onPressed: () {
+              GetIt.I<BgsList>().delete(device.advName);
+              onRefresh();
+              Navigator.pop(context, 'OK');
+            },
+            style: messageButtonStyle(),
+            child: const Text('ОК'),
+          ),
+        ],
+      ),
+    );
   }
 
   @override
@@ -147,7 +177,7 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
             result: r,
             onTap: () => onConnectPressed(r.device),
             onSelect: () => onSelectPressed(r.device),
-            onRemoveFromList: () => onDeletePressed(r.device),
+            onDelete: () => onDeletePressed(r.device),
           ),
         )
         .toList();

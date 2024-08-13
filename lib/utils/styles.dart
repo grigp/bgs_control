@@ -17,3 +17,17 @@ final ButtonStyle deviceListItemStyle = ElevatedButton.styleFrom(
   //   borderRadius: BorderRadius.all(Radius.circular(5)),
   // ),
 );
+
+ButtonStyle messageButtonStyle() {
+  return TextButton.styleFrom(
+    backgroundColor: Colors.teal.shade900,
+    foregroundColor: Colors.white,
+  );
+}
+
+ButtonStyle deleteDeviceButtonStyle(){
+  return ElevatedButton.styleFrom(
+    backgroundColor: Colors.teal.shade900,
+    foregroundColor: Colors.white,
+  );
+}

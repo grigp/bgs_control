@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:bgs_control/utils/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 
@@ -9,13 +10,13 @@ class ScanResultTile extends StatefulWidget {
     required this.result,
     this.onTap,
     this.onSelect,
-    this.onRemoveFromList,
+    this.onDelete,
   });
 
   final ScanResult result;
   final VoidCallback? onTap;
   final VoidCallback? onSelect;
-  final VoidCallback? onRemoveFromList;
+  final VoidCallback? onDelete;
 
   @override
   State<ScanResultTile> createState() => _ScanResultTileState();
@@ -177,13 +178,16 @@ class _ScanResultTileState extends State<ScanResultTile> {
         if (adv.serviceData.isNotEmpty)
           _buildAdvRow(
               context, 'Service Data', getNiceServiceData(adv.serviceData)),
-        ElevatedButton(
-          onPressed: () {
-            print('---   ${widget.result.advertisementData.connectable} ');
-            widget.onRemoveFromList;
-//            (widget.result.advertisementData.connectable) ? widget.onRemoveFromList : null;
-          },
-          child: const Icon(Icons.delete),
+        SizedBox(
+          width: 200,
+          child: TextButton.icon(
+            onPressed: () {
+              widget.onDelete?.call();
+            },
+            style: deleteDeviceButtonStyle(),
+            label: const Text('Удалить'),
+            icon: const Icon(Icons.delete),
+          ),
         ),
 
       ],
