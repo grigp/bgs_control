@@ -9,11 +9,13 @@ class ScanResultTile extends StatefulWidget {
     required this.result,
     this.onTap,
     this.onSelect,
+    this.onRemoveFromList,
   });
 
   final ScanResult result;
   final VoidCallback? onTap;
   final VoidCallback? onSelect;
+  final VoidCallback? onRemoveFromList;
 
   @override
   State<ScanResultTile> createState() => _ScanResultTileState();
@@ -73,18 +75,24 @@ class _ScanResultTileState extends State<ScanResultTile> {
 
   Widget _buildTitle(BuildContext context) {
     if (widget.result.device.platformName.isNotEmpty) {
-      return Column(
+      return Row(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Text(
-            widget.result.device.platformName,
-            overflow: TextOverflow.ellipsis,
+        children: [
+          Container(
+            margin:
+                const EdgeInsets.only(left: 0, top: 10, right: 10, bottom: 10),
+            child: Text(
+              widget.result.device.platformName,
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.w900,
+                color: Colors.teal.shade900,
+              ),
+              overflow: TextOverflow.ellipsis,
+            ),
           ),
-          Text(
-            widget.result.device.remoteId.str,
-            style: Theme.of(context).textTheme.bodySmall,
-          )
+          _buildConnectButton(context),
         ],
       );
     } else {
@@ -144,14 +152,14 @@ class _ScanResultTileState extends State<ScanResultTile> {
       ),
     );
   }
-  
+
   @override
   Widget build(BuildContext context) {
     var adv = widget.result.advertisementData;
     return ExpansionTile(
       title: _buildTitle(context),
       leading: _buildSelectButton(context),
-      trailing: _buildConnectButton(context),
+//      trailing: _buildConnectButton(context),
       children: <Widget>[
         if (adv.advName.isNotEmpty)
           _buildAdvRow(context, 'Название', adv.advName),
@@ -169,6 +177,15 @@ class _ScanResultTileState extends State<ScanResultTile> {
         if (adv.serviceData.isNotEmpty)
           _buildAdvRow(
               context, 'Service Data', getNiceServiceData(adv.serviceData)),
+        ElevatedButton(
+          onPressed: () {
+            print('---   ${widget.result.advertisementData.connectable} ');
+            widget.onRemoveFromList;
+//            (widget.result.advertisementData.connectable) ? widget.onRemoveFromList : null;
+          },
+          child: const Icon(Icons.delete),
+        ),
+
       ],
     );
   }

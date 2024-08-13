@@ -78,6 +78,7 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
         // Snackbar.show(ABC.c, prettyException("Connect Error:", e),
         //     success: false);
       });
+
       // Переход на следующий экран
       // MaterialPageRoute route = MaterialPageRoute(
       //     builder: (context) => DeviceScreen(device: device),
@@ -108,6 +109,10 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
         // }
       }
     });
+  }
+
+  void onDeletePressed(BluetoothDevice device) {
+    print('------------- ${device.advName}');
   }
 
   @override
@@ -142,6 +147,7 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
             result: r,
             onTap: () => onConnectPressed(r.device),
             onSelect: () => onSelectPressed(r.device),
+            onRemoveFromList: () => onDeletePressed(r.device),
           ),
         )
         .toList();
