@@ -39,7 +39,7 @@ class AddNewDeviceBottomSheet extends StatelessWidget {
               shrinkWrap: true,
               itemCount: list.length,
               separatorBuilder: (BuildContext context, int index) =>
-                  const SizedBox(height: 20), //Divider(),
+                  const SizedBox(height: 20),
               itemBuilder: (BuildContext context, int index) {
                 return SizedBox(
                   height: 40,

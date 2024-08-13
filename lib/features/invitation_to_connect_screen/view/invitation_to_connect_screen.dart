@@ -49,7 +49,7 @@ class _InvitationToConnectScreenState extends State<InvitationToConnectScreen> {
                   },
                   style: controlButtonStyle,
                   child: const Text(
-                    'Подключить',
+                    'Выбрать',
                     style: TextStyle(fontSize: 18),
                   ),
                 ),
