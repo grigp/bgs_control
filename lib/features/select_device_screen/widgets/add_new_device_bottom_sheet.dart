@@ -16,6 +16,8 @@ class AddNewDeviceBottomSheet extends StatelessWidget {
         )
         .toList();
 
+    var listRegistred = GetIt.I<BgsList>().getList();
+
     return SizedBox(
       height: 500,
       width: double.infinity,
@@ -37,7 +39,7 @@ class AddNewDeviceBottomSheet extends StatelessWidget {
               shrinkWrap: true,
               itemCount: list.length,
               separatorBuilder: (BuildContext context, int index) =>
-                  const Divider(),
+                  const SizedBox(height: 20), //Divider(),
               itemBuilder: (BuildContext context, int index) {
                 return SizedBox(
                   height: 40,
@@ -45,13 +47,22 @@ class AddNewDeviceBottomSheet extends StatelessWidget {
                     children: [
                       GestureDetector(
                         onTap: () {
-                          GetIt.I<BgsList>().add(list[index]);
-                          Navigator.pop(context);
+                          if (!listRegistred.contains(list[index])) {
+                            GetIt.I<BgsList>().add(list[index]);
+                            Navigator.pop(context);
+                          }
                         },
-                        child: Text(
-                          list[index],
-                          style: const TextStyle(fontSize: 24),
-                        ),
+                        child: Text(list[index],
+                            style: listRegistred.contains(list[index])
+                                ? TextStyle(
+                                    fontSize: 24,
+                                    color: Colors.teal.shade700,
+                                  )
+                                : TextStyle(
+                                    fontSize: 24,
+                                    fontWeight: FontWeight.w900,
+                                    color: Colors.teal.shade900,
+                                  )),
                       ),
                     ],
                   ),

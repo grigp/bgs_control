@@ -132,12 +132,11 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
 
   List<Widget> _buildScanResultTiles(BuildContext context) {
     var list = GetIt.I<BgsList>().getList();
-    print('------------------------- $list');
+//    print('------------------------- $list');
     return GetIt.I<BleService>()
         .scanResultList
         .value
-        .where((r) => list.contains(r.device
-            .advName)) // GetIt.I<BgsList>().isContains(r.device.advName))
+        .where((r) => list.contains(r.device.advName))
         .map(
           (r) => ScanResultTile(
             result: r,
@@ -159,49 +158,59 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
         padding: const EdgeInsets.all(20),
         child: RefreshIndicator(
           onRefresh: onRefresh,
-          child: _scanResultCount() > 0
-              ? ListView(
-                  children: <Widget>[..._buildScanResultTiles(context)],
-                )
-              : Column(
-                  children: [
-                    const Spacer(),
-                    const Center(
-                      child: SizedBox(
-                        width: 200,
-                        height: 200,
-                        child: CircularProgressIndicator(
-                          strokeWidth: 2,
-                          color: Colors.teal,
+          child: Stack(
+            children: [
+              _scanResultCount() > 0
+                  ? ListView(
+                      children: <Widget>[
+                        ..._buildScanResultTiles(context),
+                        const SizedBox(height: 50),
+                      ],
+                    )
+                  : Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Center(
+                          child: SizedBox(
+                            width: 200,
+                            height: 200,
+                            child: CircularProgressIndicator(
+                              strokeWidth: 2,
+                              color: Colors.teal,
+                            ),
+                          ),
                         ),
-                      ),
-                    ),
-                    Text(
-                      'Поиск стимуляторов',
-                      style: TextStyle(
-                        fontSize: 26,
-                        color: Colors.teal.shade900,
-                      ),
-                    ),
-                    const Spacer(),
-                    if (_scanResultCount() == 0)
-                      ElevatedButton(
-                        onPressed: () {
-                          showModalBottomSheet(
-                            context: context,
-                            builder: (BuildContext context) {
-                              return const AddNewDeviceBottomSheet();
-                            },
-                          );
-                        },
-                        style: controlButtonStyle,
-                        child: const Text(
-                          'Добавить устройство',
-                          style: TextStyle(fontSize: 18),
+                        Text(
+                          'Поиск стимуляторов',
+                          style: TextStyle(
+                            fontSize: 26,
+                            color: Colors.teal.shade900,
+                          ),
                         ),
-                      ),
-                  ],
+                      ],
+                    ),
+              Positioned(
+                bottom: 20,
+                right: 20,
+                left: 20,
+                child: ElevatedButton(
+                  onPressed: () {
+                    showModalBottomSheet(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return const AddNewDeviceBottomSheet();
+                      },
+                    );
+                  },
+                  style: controlButtonStyle,
+                  child: const Text(
+                    'Добавить устройство',
+                    style: TextStyle(fontSize: 18),
+                  ),
                 ),
+              ),
+            ],
+          ),
         ),
       ),
     );
