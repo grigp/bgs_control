@@ -1,11 +1,11 @@
-import 'package:bgs_control/widgets/device/params_widget.dart';
-import 'package:bgs_control/widgets/device/power_widget.dart';
+import 'package:bgs_control/features/direct_control_screen/widgets/params_widget.dart';
+import 'package:bgs_control/features/direct_control_screen/widgets/power_widget.dart';
+import 'package:bgs_control/repositories/bgs_connect/bgs_connect.dart';
+import 'package:bgs_control/utils/charge_values.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:get_it/get_it.dart';
 
-import '../../../repositories/bgs_connect/bgs_connect.dart';
-import '../../../utils/charge_values.dart';
 
 class DirectControlScreen extends StatefulWidget {
   const DirectControlScreen({
@@ -49,60 +49,6 @@ class _DirectControlScreenState extends State<DirectControlScreen> {
       //   }
       // }
     });
-  }
-
-  @override
-  void dispose() {
-    if (_isConnected) {
-      GetIt.I<BgsConnect>().reset();
-      GetIt.I<BgsConnect>().stop();
-    }
-    super.dispose();
-  }
-
-  void onAmChanged(bool isAm) {
-    setState(() {
-      _isAM = isAm;
-    });
-    _setDeviceMode();
-  }
-
-  void onAmModeChanged(AmMode amMode) {
-    setState(() {
-      _amMode = amMode;
-    });
-    _setDeviceMode();
-  }
-
-  void onFmChanged(bool isFm) {
-    setState(() {
-      _isFM = isFm;
-    });
-    _setDeviceMode();
-  }
-
-  void onFreqChanged(double idxFreq) {
-    setState(() {
-      _idxFreq = idxFreq;
-    });
-    _setDeviceMode();
-  }
-
-  void onIntensityChanged(Intensity intensity) {
-    setState(() {
-      _intensity = intensity;
-    });
-    _setDeviceMode();
-  }
-
-  void onPowerSet(double power) {
-    GetIt.I<BgsConnect>().setPower(power);
-    _powerSet = power;
-  }
-
-  void onPowerReset() {
-    GetIt.I<BgsConnect>().reset();
-    _powerSet = 0;
   }
 
   @override
@@ -165,6 +111,60 @@ class _DirectControlScreenState extends State<DirectControlScreen> {
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    if (_isConnected) {
+      GetIt.I<BgsConnect>().reset();
+      GetIt.I<BgsConnect>().stop();
+    }
+    super.dispose();
+  }
+
+  void onAmChanged(bool isAm) {
+    setState(() {
+      _isAM = isAm;
+    });
+    _setDeviceMode();
+  }
+
+  void onAmModeChanged(AmMode amMode) {
+    setState(() {
+      _amMode = amMode;
+    });
+    _setDeviceMode();
+  }
+
+  void onFmChanged(bool isFm) {
+    setState(() {
+      _isFM = isFm;
+    });
+    _setDeviceMode();
+  }
+
+  void onFreqChanged(double idxFreq) {
+    setState(() {
+      _idxFreq = idxFreq;
+    });
+    _setDeviceMode();
+  }
+
+  void onIntensityChanged(Intensity intensity) {
+    setState(() {
+      _intensity = intensity;
+    });
+    _setDeviceMode();
+  }
+
+  void onPowerSet(double power) {
+    GetIt.I<BgsConnect>().setPower(power);
+    _powerSet = power;
+  }
+
+  void onPowerReset() {
+    GetIt.I<BgsConnect>().reset();
+    _powerSet = 0;
   }
 
   void onSendData(List<int> value) {

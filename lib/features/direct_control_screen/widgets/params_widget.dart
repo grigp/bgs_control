@@ -1,6 +1,5 @@
+import 'package:bgs_control/repositories/bgs_connect/bgs_connect.dart';
 import 'package:flutter/material.dart';
-
-import '../../repositories/bgs_connect/bgs_connect.dart';
 
 //ignore: must_be_immutable
 class ParamsWidget extends StatefulWidget {
@@ -38,8 +37,7 @@ class _ParamsWidgetState extends State<ParamsWidget> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Row(
-          /// Флажок "AM"
+        Row(  /// Флажок "AM"
           children: [
             Text(
               'Ампл. модуляция (AM)',
@@ -58,9 +56,7 @@ class _ParamsWidgetState extends State<ParamsWidget> {
             ),
           ],
         ),
-        if (widget.isAm)
-
-          /// Переключатель амплитудной модуляции
+        if (widget.isAm)  /// Переключатель амплитудной модуляции
           SizedBox(
             width: double.infinity,
             child: SegmentedButton<AmMode>(
@@ -87,8 +83,7 @@ class _ParamsWidgetState extends State<ParamsWidget> {
               },
             ),
           ),
-        Row(
-          /// Флажок "FM"
+        Row(  /// Флажок "FM"
           children: [
             Text(
               'Част. модуляция (FM)',
@@ -108,9 +103,7 @@ class _ParamsWidgetState extends State<ParamsWidget> {
           ],
         ),
         const SizedBox(height: 10),
-        if (!widget.isFm)
-
-          /// Регулятор частоты
+        if (!widget.isFm) /// Регулятор частоты
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -138,8 +131,7 @@ class _ParamsWidgetState extends State<ParamsWidget> {
             ],
           ),
         const SizedBox(height: 10),
-        Column(
-          /// Переключатель интенсивности
+        Column( /// Переключатель интенсивности
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(

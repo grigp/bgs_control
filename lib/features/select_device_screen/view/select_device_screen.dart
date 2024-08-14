@@ -1,13 +1,12 @@
 import 'dart:async';
 
 import 'package:bgs_control/features/direct_control_screen/view/direct_control_screen.dart';
-import 'package:bgs_control/features/select_device_screen/widgets/add_new_device_bottom_sheet.dart';
+import 'package:bgs_control/features/select_device_screen/features/add_new_device_bottom_sheet/add_new_device_bottom_sheet.dart';
 import 'package:bgs_control/repositories/bgs_connect/ble_service.dart';
 import 'package:bgs_control/repositories/bgs_list/bgs_list.dart';
 import 'package:bgs_control/utils/extra.dart';
 import 'package:bgs_control/utils/styles.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:get_it/get_it.dart';
 
@@ -33,6 +32,104 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
     init();
   }
 
+  @override
+  void dispose() {
+    GetIt.I<BleService>().scanningStop();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        title: Text(widget.title),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(20),
+        child: RefreshIndicator(
+          onRefresh: onRefresh,
+          child: Stack(
+            children: [
+              _scanResultCount() > 0
+                  ? Column(
+                      children: [
+                        ListView(
+                          shrinkWrap: true,
+                          children: <Widget>[
+                            ..._buildScanResultTiles(context),
+                            const SizedBox(height: 50),
+                          ],
+                        ),
+                        const Spacer(),
+                        SizedBox(
+                          width: 250,
+                          height: 250,
+                          child: Image.asset('images/connected_device.png'),
+                        ),
+                        const SizedBox(height: 50),
+                      ],
+                    )
+                  : Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+
+                      /// center,
+                      children: [
+                        SizedBox(
+                          width: 250,
+                          height: 250,
+                          child: Image.asset('images/connect_device.png'),
+                        ),
+                        const Center(
+                          child: SizedBox(
+                            width: 200,
+                            height: 200,
+                            child: CircularProgressIndicator(
+                              strokeWidth: 2,
+                              color: Colors.teal,
+                            ),
+                          ),
+                        ),
+                        Text(
+                          'Поиск стимуляторов',
+                          style: TextStyle(
+                            fontSize: 26,
+                            color: Colors.teal.shade900,
+                          ),
+                        ),
+                      ],
+                    ),
+              Positioned(
+                bottom: 20,
+                right: 20,
+                left: 20,
+                child: ElevatedButton(
+                  onPressed: () {
+                    showModalBottomSheet(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return const AddNewDeviceBottomSheet();
+                      },
+                      barrierColor: Colors.teal.shade900,
+                      showDragHandle: true,
+                    );
+                  },
+                  style: _scanResultCount() > 0
+                      ? controlButtonStyleSecondary
+                      : controlButtonStylePrimary,
+                  child: const Text(
+                    'Добавить устройство',
+                    style: TextStyle(fontSize: 18),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
   void init() {
     try {
       GetIt.I<BleService>().scanningStart(update);
@@ -43,8 +140,7 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
   }
 
   void update() async {
-    //  это не надо скорее всего
-      setState(() {}); //  это не надо скорее всего
+    setState(() {});
   }
 
   Future<void> onScanPressed() async {
@@ -54,7 +150,7 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
       // Snackbar.show(ABC.b, prettyException("Start Scan Error:", e),
       //     success: false);
     }
-    setState(() {}); //  это не надо скорее всего
+    setState(() {});
   }
 
   Future onStopPressed() async {
@@ -68,7 +164,7 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
 
   Future<void> onRefresh() async {
     await GetIt.I<BleService>().bleStartScan();
-    setState(() {}); //  это не надо скорее всего
+    setState(() {});
   }
 
   void onConnectPressed(BluetoothDevice device) {
@@ -143,19 +239,14 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
     );
   }
 
-  @override
-  void dispose() {
-    GetIt.I<BleService>().scanningStop();
-    super.dispose();
-  }
-
   int _scanResultCount() {
     var l = GetIt.I<BgsList>().getList();
     var list = GetIt.I<BleService>()
         .scanResultList
         .value
-        .where((r) => l.contains(r.device
-            .advName)) // GetIt.I<BgsList>().isContains(r.device.advName))
+        .where(
+          (r) => l.contains(r.device.advName),
+        ) // GetIt.I<BgsList>().isContains(r.device.advName))
         .map(
           (r) => r.device.advName,
         )
@@ -179,95 +270,5 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
           ),
         )
         .toList();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(widget.title),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(20),
-        child: RefreshIndicator(
-          onRefresh: onRefresh,
-          child: Stack(
-            children: [
-              _scanResultCount() > 0
-                  ? Column(
-                      children: [
-                        ListView(
-                          shrinkWrap: true,
-                          children: <Widget>[
-                            ..._buildScanResultTiles(context),
-                            const SizedBox(height: 50),
-                          ],
-                        ),
-                        const Spacer(),
-                        SizedBox(
-                          width: 250,
-                          height: 250,
-                          child: Image.asset('images/connected_device.png'),
-                        ),
-                        const SizedBox(height: 50),
-                      ],
-                    )
-                  : Column(
-                      mainAxisAlignment: MainAxisAlignment.start, //center,
-                      children: [
-                        SizedBox(
-                          width: 250,
-                          height: 250,
-                          child: Image.asset('images/connect_device.png'),
-                        ),
-                        const Center(
-                          child: SizedBox(
-                            width: 200,
-                            height: 200,
-                            child: CircularProgressIndicator(
-                              strokeWidth: 2,
-                              color: Colors.teal,
-                            ),
-                          ),
-                        ),
-                        Text(
-                          'Поиск стимуляторов',
-                          style: TextStyle(
-                            fontSize: 26,
-                            color: Colors.teal.shade900,
-                          ),
-                        ),
-                      ],
-                    ),
-              Positioned(
-                bottom: 20,
-                right: 20,
-                left: 20,
-                child: ElevatedButton(
-                  onPressed: () {
-                    showModalBottomSheet(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return const AddNewDeviceBottomSheet();
-                      },
-                      barrierColor: Colors.teal.shade900,
-                      showDragHandle: true,
-                    );
-                  },
-                  style: _scanResultCount() > 0
-                      ? controlButtonStyleSecondary
-                      : controlButtonStylePrimary,
-                  child: const Text(
-                    'Добавить устройство',
-                    style: TextStyle(fontSize: 18),
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
   }
 }

@@ -22,12 +22,10 @@ Map<double, double> freqValue = <double, double>{
   6: 350
 };
 
-
-
 /// Режим работы при потере связи
 /// cfmResetPower - сбрасывать мощность
 /// cfmWorking - продолжать работу
-enum ConnectionFailureMode {cfmResetPower, cfmWorking}
+enum ConnectionFailureMode { cfmResetPower, cfmWorking }
 
 class BgsConnect {
   BgsConnect();
@@ -37,6 +35,7 @@ class BgsConnect {
   late Function sendData;
   late BluetoothCharacteristic _characteristic;
   late StreamSubscription _subscription;
+
 //  late StreamSubscription<BluetoothConnectionState> _streamConnect;
 
   int _curPower = 0;
@@ -125,9 +124,7 @@ class BgsConnect {
   void setConnectionFailureMode(ConnectionFailureMode mode) async {
     if (mode == ConnectionFailureMode.cfmResetPower) {
       await write([0xBB, 0x5B]);
-    }
-    else
-    if (mode == ConnectionFailureMode.cfmWorking) {
+    } else if (mode == ConnectionFailureMode.cfmWorking) {
       await write([0xBB, 0x00]);
     }
   }

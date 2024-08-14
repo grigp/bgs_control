@@ -36,9 +36,7 @@ class _ScanResultTileState extends State<ScanResultTile> {
     _connectionStateSubscription =
         widget.result.device.connectionState.listen((state) {
       _connectionState = state;
-      if (mounted) {
-        setState(() {});
-      }
+      setState(() {});
     });
   }
 
@@ -48,30 +46,74 @@ class _ScanResultTileState extends State<ScanResultTile> {
     super.dispose();
   }
 
-  String getNiceHexArray(List<int> bytes) {
+  @override
+  Widget build(BuildContext context) {
+    var adv = widget.result.advertisementData;
+    return ExpansionTile(
+      title: _buildTitle(context),
+      leading: _buildSelectButton(context),
+//      trailing: _buildConnectButton(context),
+      children: <Widget>[
+        if (adv.advName.isNotEmpty)
+          _buildAdvRow(context, 'Название', adv.advName),
+        if (adv.txPowerLevel != null)
+          _buildAdvRow(context, 'Tx Power Level', '${adv.txPowerLevel}'),
+        if ((adv.appearance ?? 0) > 0)
+          _buildAdvRow(
+            context,
+            'Appearance',
+            '0x${adv.appearance!.toRadixString(16)}',
+          ),
+        if (adv.msd.isNotEmpty)
+          _buildAdvRow(
+            context,
+            'Manufacturer Data',
+            _getNiceManufacturerData(adv.msd),
+          ),
+        if (adv.serviceUuids.isNotEmpty)
+          _buildAdvRow(
+            context,
+            'Service UUIDs',
+            _getNiceServiceUuids(adv.serviceUuids),
+          ),
+        if (adv.serviceData.isNotEmpty)
+          _buildAdvRow(
+            context,
+            'Service Data',
+            _getNiceServiceData(adv.serviceData),
+          ),
+        SizedBox(
+          width: 200,
+          child: TextButton.icon(
+            onPressed: () {
+              widget.onDelete?.call();
+            },
+            style: deleteDeviceButtonStyle(),
+            label: const Text('Удалить'),
+            icon: const Icon(Icons.delete),
+          ),
+        ),
+      ],
+    );
+  }
+
+  String _getNiceHexArray(List<int> bytes) {
     return '[${bytes.map((i) => i.toRadixString(16).padLeft(2, '0')).join(', ')}]';
   }
 
-  String getNiceManufacturerData(List<List<int>> data) {
-    return data
-        .map((val) => '${getNiceHexArray(val)}')
-        .join(', ')
-        .toUpperCase();
+  String _getNiceManufacturerData(List<List<int>> data) {
+    return data.map((val) => _getNiceHexArray(val)).join(', ').toUpperCase();
   }
 
-  String getNiceServiceData(Map<Guid, List<int>> data) {
+  String _getNiceServiceData(Map<Guid, List<int>> data) {
     return data.entries
-        .map((v) => '${v.key}: ${getNiceHexArray(v.value)}')
+        .map((v) => '${v.key}: ${_getNiceHexArray(v.value)}')
         .join(', ')
         .toUpperCase();
   }
 
-  String getNiceServiceUuids(List<Guid> serviceUuids) {
+  String _getNiceServiceUuids(List<Guid> serviceUuids) {
     return serviceUuids.join(', ').toUpperCase();
-  }
-
-  bool get isConnected {
-    return _connectionState == BluetoothConnectionState.connected;
   }
 
   Widget _buildTitle(BuildContext context) {
@@ -81,8 +123,12 @@ class _ScanResultTileState extends State<ScanResultTile> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-            margin:
-                const EdgeInsets.only(left: 0, top: 10, right: 10, bottom: 10),
+            margin: const EdgeInsets.only(
+              left: 0,
+              top: 10,
+              right: 10,
+              bottom: 10,
+            ),
             child: Text(
               widget.result.device.platformName,
               style: TextStyle(
@@ -109,12 +155,14 @@ class _ScanResultTileState extends State<ScanResultTile> {
       ),
       onPressed:
           (widget.result.advertisementData.connectable) ? widget.onTap : null,
-      child: isConnected ? const Text('Отключить') : const Text('Подключить'),
+      child: _connectionState == BluetoothConnectionState.connected
+          ? const Text('Отключить')
+          : const Text('Подключить'),
     );
   }
 
   Widget? _buildSelectButton(BuildContext context) {
-    if (isConnected) {
+    if (_connectionState == BluetoothConnectionState.connected) {
       return ElevatedButton(
         style: ElevatedButton.styleFrom(
           backgroundColor: Colors.teal.shade900,
@@ -151,46 +199,6 @@ class _ScanResultTileState extends State<ScanResultTile> {
           ),
         ],
       ),
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    var adv = widget.result.advertisementData;
-    return ExpansionTile(
-      title: _buildTitle(context),
-      leading: _buildSelectButton(context),
-//      trailing: _buildConnectButton(context),
-      children: <Widget>[
-        if (adv.advName.isNotEmpty)
-          _buildAdvRow(context, 'Название', adv.advName),
-        if (adv.txPowerLevel != null)
-          _buildAdvRow(context, 'Tx Power Level', '${adv.txPowerLevel}'),
-        if ((adv.appearance ?? 0) > 0)
-          _buildAdvRow(
-              context, 'Appearance', '0x${adv.appearance!.toRadixString(16)}'),
-        if (adv.msd.isNotEmpty)
-          _buildAdvRow(
-              context, 'Manufacturer Data', getNiceManufacturerData(adv.msd)),
-        if (adv.serviceUuids.isNotEmpty)
-          _buildAdvRow(
-              context, 'Service UUIDs', getNiceServiceUuids(adv.serviceUuids)),
-        if (adv.serviceData.isNotEmpty)
-          _buildAdvRow(
-              context, 'Service Data', getNiceServiceData(adv.serviceData)),
-        SizedBox(
-          width: 200,
-          child: TextButton.icon(
-            onPressed: () {
-              widget.onDelete?.call();
-            },
-            style: deleteDeviceButtonStyle(),
-            label: const Text('Удалить'),
-            icon: const Icon(Icons.delete),
-          ),
-        ),
-
-      ],
     );
   }
 }

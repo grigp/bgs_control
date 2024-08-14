@@ -35,8 +35,7 @@ class _PowerWidgetState extends State<PowerWidget> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Column(
-          /// Регулятор мощности
+        Column( /// Регулятор мощности
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
