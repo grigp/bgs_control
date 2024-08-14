@@ -44,9 +44,7 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
 
   void update() async {
     //  это не надо скорее всего
-    if (mounted) {
       setState(() {}); //  это не надо скорее всего
-    }
   }
 
   Future<void> onScanPressed() async {
