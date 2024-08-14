@@ -45,7 +45,7 @@ class BleService {
       await FlutterBluePlus.startScan(
         timeout: const Duration(seconds: 15),
         androidUsesFineLocation: true,
-        withKeywords: ['BG_'],
+        // withKeywords: ['BG_'],
       );
     } catch (e) {
       // Snackbar.show(ABC.b, prettyException("Start Scan Error:", e),
