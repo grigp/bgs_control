@@ -3,22 +3,50 @@ import 'package:bgs_control/repositories/bgs_list/bgs_list.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 
-class AddNewDeviceBottomSheet extends StatelessWidget {
-  const AddNewDeviceBottomSheet({super.key});
+class AddNewDeviceBottomSheet extends StatefulWidget {
+  const AddNewDeviceBottomSheet({
+    super.key,
+  });
 
   @override
-  Widget build(BuildContext context) {
-    List<String> list = GetIt.I<BleService>()
-        .scanResultList
-        .value
-        .map(
-          (r) => r.device.advName,
-        )
-        .toList();
+  State<AddNewDeviceBottomSheet> createState() => _AddNewDeviceBottomSheet();
+}
 
+class _AddNewDeviceBottomSheet extends State<AddNewDeviceBottomSheet> {
+  @override
+  void initState() {
+    super.initState();
+    init();
+  }
+
+  void init() {
+    try {
+      GetIt.I<BleService>().scanningStart(update);
+    } catch (e) {
+      //      Snackbar.show(ABC.b, prettyException("Scan Error:", e), success: false);
+    }
+    onScanPressed();
+  }
+
+  void update() async {
+    //  это не надо скорее всего
+    if (mounted) {
+      setState(() {}); //  это не надо скорее всего
+    }
+  }
+
+  Future<void> onScanPressed() async {
+    try {
+      await GetIt.I<BleService>().bleStartScan();
+    } catch (e) {
+      // Snackbar.show(ABC.b, prettyException("Start Scan Error:", e),
+      //     success: false);
+    }
+    setState(() {}); //  это не надо скорее всего
+  }
+
+  Widget wgtMain(BuildContext context, List<String> list) {
     var listRegistred = GetIt.I<BgsList>().getList();
-
-    print('AddNewDeviceBottomSheet.build : --------- devices: ${list.length}  ---------- registred: $listRegistred');
     return SizedBox(
       height: 500,
       width: double.infinity,
@@ -74,5 +102,52 @@ class AddNewDeviceBottomSheet extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Widget wgtWait(BuildContext context) {
+    return SizedBox(
+      height: 500,
+      width: double.infinity,
+      child: Padding(
+        padding: const EdgeInsets.all(20),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              const Spacer(),
+              const Center(
+                child: SizedBox(
+                  width: 200,
+                  height: 200,
+                  child: CircularProgressIndicator(
+                    strokeWidth: 2,
+                    color: Colors.teal,
+                  ),
+                ),
+              ),
+              Text(
+                'Поиск стимуляторов',
+                style: TextStyle(
+                  fontSize: 26,
+                  color: Colors.teal.shade900,
+                ),
+              ),
+              const Spacer(),
+            ],
+          ),
+        ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    List<String> list = GetIt.I<BleService>()
+        .scanResultList
+        .value
+        .map(
+          (r) => r.device.advName,
+        )
+        .toList();
+
+    return (list.isNotEmpty) ? wgtMain(context, list) : wgtWait(context);
   }
 }

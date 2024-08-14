@@ -253,6 +253,8 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
                       builder: (BuildContext context) {
                         return const AddNewDeviceBottomSheet();
                       },
+                      barrierColor: Colors.teal.shade900,
+                      showDragHandle: true,
                     );
                   },
                   style: _scanResultCount() > 0
