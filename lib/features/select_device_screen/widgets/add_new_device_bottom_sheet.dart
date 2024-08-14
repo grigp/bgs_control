@@ -18,6 +18,7 @@ class AddNewDeviceBottomSheet extends StatelessWidget {
 
     var listRegistred = GetIt.I<BgsList>().getList();
 
+    print('AddNewDeviceBottomSheet.build : --------- devices: ${list.length}  ---------- registred: $listRegistred');
     return SizedBox(
       height: 500,
       width: double.infinity,

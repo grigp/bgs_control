@@ -40,6 +40,7 @@ class BleService {
 
   Future<void> bleStartScan() async {
     if (_isScanning) return;
+//    _scanResults.clear();  //TODO: Добавлено grig. Оценить влияние
     try {
       await FlutterBluePlus.startScan(
         timeout: const Duration(seconds: 15),
