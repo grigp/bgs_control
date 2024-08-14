@@ -128,7 +128,7 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
         actions: <Widget>[
           TextButton(
             onPressed: () => Navigator.pop(context, 'Cancel'),
-            style: messageButtonStyle(),
+            style: messageButtonStylePrimary(),
             child: const Text('Отмена'),
           ),
           TextButton(
@@ -137,7 +137,7 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
               onRefresh();
               Navigator.pop(context, 'OK');
             },
-            style: messageButtonStyle(),
+            style: messageButtonStyleSecondary(),
             child: const Text('ОК'),
           ),
         ],
@@ -197,15 +197,32 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
           child: Stack(
             children: [
               _scanResultCount() > 0
-                  ? ListView(
-                      children: <Widget>[
-                        ..._buildScanResultTiles(context),
+                  ? Column(
+                      children: [
+                        ListView(
+                          shrinkWrap: true,
+                          children: <Widget>[
+                            ..._buildScanResultTiles(context),
+                            const SizedBox(height: 50),
+                          ],
+                        ),
+                        const Spacer(),
+                        SizedBox(
+                          width: 250,
+                          height: 250,
+                          child: Image.asset('images/connected_device.png'),
+                        ),
                         const SizedBox(height: 50),
                       ],
                     )
                   : Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.start, //center,
                       children: [
+                        SizedBox(
+                          width: 250,
+                          height: 250,
+                          child: Image.asset('images/connect_device.png'),
+                        ),
                         const Center(
                           child: SizedBox(
                             width: 200,
@@ -238,7 +255,9 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
                       },
                     );
                   },
-                  style: controlButtonStyle,
+                  style: _scanResultCount() > 0
+                      ? controlButtonStyleSecondary
+                      : controlButtonStylePrimary,
                   child: const Text(
                     'Добавить устройство',
                     style: TextStyle(fontSize: 18),

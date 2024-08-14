@@ -26,33 +26,38 @@ class _InvitationToConnectScreenState extends State<InvitationToConnectScreen> {
       body: Center(
         child: Padding(
           padding: const EdgeInsets.all(20),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              const Text(''),
-              const Spacer(),
-              const Text(
-                'Отсутствует соединение с устройством. Включите писание на устройстве и нажмите кнопку "Подключить" ниже',
-                textAlign: TextAlign.center,
-              ),
-              const SizedBox(height: 10),
-              Center(
-                child: ElevatedButton(
-                  onPressed: () {
-                    MaterialPageRoute route = MaterialPageRoute(
-                      builder: (context) => const SelectDeviceScreen(
-                        title: 'Выбор устройства',
-                      ),
-                      settings: const RouteSettings(name: '/select'),
-                    );
-                    Navigator.of(context).push(route);
-                  },
-                  style: controlButtonStyle,
-                  child: const Text(
-                    'Выбрать',
-                    style: TextStyle(fontSize: 18),
+          child: Stack(
+            children: [
+              Image.asset('images/background_woman.png'),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  const Text(''),
+                  const Spacer(),
+                  const Text(
+                    'Для перехода к выбору устройства и подключению к нему включите питание на устройстве и нажмите кнопку "Выбрать" ниже',
+                    textAlign: TextAlign.center,
                   ),
-                ),
+                  const SizedBox(height: 10),
+                  Center(
+                    child: ElevatedButton(
+                      onPressed: () {
+                        MaterialPageRoute route = MaterialPageRoute(
+                          builder: (context) => const SelectDeviceScreen(
+                            title: 'Выбор устройства',
+                          ),
+                          settings: const RouteSettings(name: '/select'),
+                        );
+                        Navigator.of(context).push(route);
+                      },
+                      style: controlButtonStylePrimary,
+                      child: const Text(
+                        'Выбрать',
+                        style: TextStyle(fontSize: 18),
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ],
           ),
