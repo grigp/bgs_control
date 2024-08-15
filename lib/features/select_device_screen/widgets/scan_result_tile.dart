@@ -52,36 +52,35 @@ class _ScanResultTileState extends State<ScanResultTile> {
     return ExpansionTile(
       title: _buildTitle(context),
       subtitle: _getSubTitleButtons(context),
-//      trailing: _buildConnectButton(context),
       children: <Widget>[
-        if (adv.advName.isNotEmpty)
-          _buildAdvRow(context, 'Название', adv.advName),
-        if (adv.txPowerLevel != null)
-          _buildAdvRow(context, 'Tx Power Level', '${adv.txPowerLevel}'),
-        if ((adv.appearance ?? 0) > 0)
-          _buildAdvRow(
-            context,
-            'Appearance',
-            '0x${adv.appearance!.toRadixString(16)}',
-          ),
-        if (adv.msd.isNotEmpty)
-          _buildAdvRow(
-            context,
-            'Manufacturer Data',
-            _getNiceManufacturerData(adv.msd),
-          ),
-        if (adv.serviceUuids.isNotEmpty)
-          _buildAdvRow(
-            context,
-            'Service UUIDs',
-            _getNiceServiceUuids(adv.serviceUuids),
-          ),
-        if (adv.serviceData.isNotEmpty)
-          _buildAdvRow(
-            context,
-            'Service Data',
-            _getNiceServiceData(adv.serviceData),
-          ),
+        // if (adv.advName.isNotEmpty)
+        //   _buildAdvRow(context, 'Название', adv.advName),
+        // if (adv.txPowerLevel != null)
+        //   _buildAdvRow(context, 'Tx Power Level', '${adv.txPowerLevel}'),
+        // if ((adv.appearance ?? 0) > 0)
+        //   _buildAdvRow(
+        //     context,
+        //     'Appearance',
+        //     '0x${adv.appearance!.toRadixString(16)}',
+        //   ),
+        // if (adv.msd.isNotEmpty)
+        //   _buildAdvRow(
+        //     context,
+        //     'Manufacturer Data',
+        //     _getNiceManufacturerData(adv.msd),
+        //   ),
+        // if (adv.serviceUuids.isNotEmpty)
+        //   _buildAdvRow(
+        //     context,
+        //     'Service UUIDs',
+        //     _getNiceServiceUuids(adv.serviceUuids),
+        //   ),
+        // if (adv.serviceData.isNotEmpty)
+        //   _buildAdvRow(
+        //     context,
+        //     'Service Data',
+        //     _getNiceServiceData(adv.serviceData),
+        //   ),
         SizedBox(
           width: 200,
           child: TextButton.icon(

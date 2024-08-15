@@ -49,7 +49,7 @@ class _InvitationToConnectScreenState extends State<InvitationToConnectScreen> {
                       onPressed: () {
                         MaterialPageRoute route = MaterialPageRoute(
                           builder: (context) => const SelectDeviceScreen(
-                            title: 'Выбор устройства',
+                            title: 'Мои стимуляторы',
                           ),
                           settings: const RouteSettings(name: '/select'),
                         );

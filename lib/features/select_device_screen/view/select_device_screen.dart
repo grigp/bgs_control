@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bgs_control/features/direct_control_screen/view/direct_control_screen.dart';
 import 'package:bgs_control/features/select_device_screen/features/add_new_device_bottom_sheet/add_new_device_bottom_sheet.dart';
+import 'package:bgs_control/features/select_device_screen/widgets/missing_result_tile.dart';
 import 'package:bgs_control/repositories/bgs_connect/ble_service.dart';
 import 'package:bgs_control/repositories/bgs_list/bgs_list.dart';
 import 'package:bgs_control/utils/extra.dart';
@@ -32,6 +33,9 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
     init();
   }
 
+  List<String> _missingDevices = [];
+  bool _isShowMissingDevices = false;
+
   @override
   void dispose() {
     GetIt.I<BleService>().scanningStop();
@@ -41,10 +45,10 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //   backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-      //   title: Text(widget.title),
-      // ),
+      appBar: AppBar(
+        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        title: Text(widget.title),
+      ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20),
         child: RefreshIndicator(
@@ -54,21 +58,61 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
               _scanResultCount() > 0
                   ? Column(
                       children: [
-                        const SizedBox(height: 40),
-                        SizedBox(
-                          width: 200,
-                          height: 200,
-                          child: Image.asset('images/connected_device.png'),
+                        // const SizedBox(height: 40),
+                        // SizedBox(
+                        //   width: 200,
+                        //   height: 200,
+                        //   child: Image.asset('images/connected_device.png'),
+                        // ),
+                        // Expanded(
+                        //   child: ListView(
+                        // Text(
+                        //   'Доступные стимуляторы',
+                        //   style: TextStyle(
+                        //     fontSize: 20,
+                        //     color: Colors.teal.shade900,
+                        //   ),
+                        // ),
+                        ListView(
+                          shrinkWrap: true,
+                          children: <Widget>[
+                            ..._buildScanResultTiles(context),
+                            const SizedBox(height: 50),
+                          ],
                         ),
-                        Expanded(
-                          child: ListView(
+//                        ),
+                        if (_missingDevices.isNotEmpty)
+                          SizedBox(
+                            width: double.infinity,
+                            height: 20,
+                            child: ElevatedButton(
+                              onPressed: () {
+                                setState(() {
+                                  _isShowMissingDevices =
+                                      !_isShowMissingDevices;
+                                });
+                              },
+                              child: (_isShowMissingDevices)
+                                  ? const Icon(Icons.arrow_drop_up)
+                                  : const Icon(Icons.arrow_drop_down),
+                            ),
+                          ),
+                        if (_missingDevices.isNotEmpty && _isShowMissingDevices)
+                          Text(
+                            'Подключенные ранее стимуляторы',
+                            style: TextStyle(
+                              fontSize: 20,
+                              color: Colors.teal.shade900,
+                            ),
+                          ),
+                        if (_missingDevices.isNotEmpty && _isShowMissingDevices)
+                          ListView(
                             shrinkWrap: true,
                             children: <Widget>[
-                              ..._buildScanResultTiles(context),
+                              ..._buildMissingDevicesTiles(context),
                               const SizedBox(height: 50),
                             ],
                           ),
-                        ),
                       ],
                     )
                   : Column(
@@ -141,7 +185,7 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
   }
 
   void update() async {
-    if (mounted){
+    if (mounted) {
       setState(() {});
     }
   }
@@ -242,6 +286,39 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
     );
   }
 
+  void onDeleteMissingPressed(String deviceName) {
+    showDialog<String>(
+      context: context,
+      builder: (BuildContext context) => AlertDialog(
+        title: const Text('Удалить стимулятор из списка?'),
+        content: Text(
+          deviceName,
+          style: TextStyle(
+            fontSize: 24,
+            fontWeight: FontWeight.w900,
+            color: Colors.teal.shade900,
+          ),
+        ),
+        actions: <Widget>[
+          TextButton(
+            onPressed: () => Navigator.pop(context, 'Cancel'),
+            style: messageButtonStylePrimary(),
+            child: const Text('Отмена'),
+          ),
+          TextButton(
+            onPressed: () {
+              GetIt.I<BgsList>().delete(deviceName);
+              onRefresh();
+              Navigator.pop(context, 'OK');
+            },
+            style: messageButtonStyleSecondary(),
+            child: const Text('ОК'),
+          ),
+        ],
+      ),
+    );
+  }
+
   int _scanResultCount() {
     var l = GetIt.I<BgsList>().getList();
     var list = GetIt.I<BleService>()
@@ -259,8 +336,7 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
 
   List<Widget> _buildScanResultTiles(BuildContext context) {
     var list = GetIt.I<BgsList>().getList();
-//    print('------------------------- $list');
-    return GetIt.I<BleService>()
+    var retval = GetIt.I<BleService>()
         .scanResultList
         .value
         .where((r) => list.contains(r.device.advName))
@@ -272,6 +348,24 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
             onDelete: () => onDeletePressed(r.device),
           ),
         )
+        .toList();
+
+    _missingDevices = [];
+    for (int i = 0; i < list.length; ++i) {
+      _missingDevices.add(list[i]);
+    }
+    for (int i = 0; i < retval.length; ++i) {
+      _missingDevices.remove(retval[i].result.device.advName);
+    }
+    return retval;
+  }
+
+  List<Widget> _buildMissingDevicesTiles(BuildContext context) {
+    return _missingDevices
+        .map((deviceName) => MissingResultTile(
+              deviceName: deviceName,
+              onDelete: () => onDeleteMissingPressed(deviceName),
+            ))
         .toList();
   }
 }
