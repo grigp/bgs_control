@@ -1,6 +1,7 @@
 import 'dart:async';
 
-import 'package:bgs_control/utils/styles.dart';
+import 'package:bgs_control/assets/colors/colors.dart';
+import 'package:bgs_control/features/uikit/texel_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 
@@ -81,15 +82,14 @@ class _ScanResultTileState extends State<ScanResultTile> {
         //     'Service Data',
         //     _getNiceServiceData(adv.serviceData),
         //   ),
-        SizedBox(
+        Container(
+          padding: const EdgeInsets.only(bottom: 5),
           width: 200,
-          child: TextButton.icon(
-            onPressed: () {
-              widget.onDelete?.call();
-            },
-            style: deleteDeviceButtonStyle(),
-            label: const Text('Удалить'),
-            icon: const Icon(Icons.delete),
+          child: TexelButton.secondary(
+            onPressed: () => widget.onDelete?.call(),
+            text: 'Удалить',
+            icon: const Icon(Icons.delete, color: filledAccentButtonColor),
+            height: 40,
           ),
         ),
       ],
@@ -147,35 +147,64 @@ class _ScanResultTileState extends State<ScanResultTile> {
   }
 
   Widget _getSubTitleButtons(BuildContext context) {
-    return Row(
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        ElevatedButton(
-          style: ElevatedButton.styleFrom(
-            backgroundColor: Colors.teal.shade900,
-            foregroundColor: Colors.white,
-          ),
-          onPressed: (widget.result.advertisementData.connectable)
-              ? widget.onTap
-              : null,
-          child: _connectionState == BluetoothConnectionState.connected
-              ? const Text('Отключить')
-              : const Text('Подключить'),
-        ),
-        const Spacer(flex: 1),
+        _getOnOffButton(),
+        // ElevatedButton(
+        //   style: ElevatedButton.styleFrom(
+        //     backgroundColor: Colors.teal.shade900,
+        //     foregroundColor: Colors.white,
+        //   ),
+        //   onPressed: (widget.result.advertisementData.connectable)
+        //       ? widget.onTap
+        //       : null,
+        //   child: _connectionState == BluetoothConnectionState.connected
+        //       ? const Text('Отключить')
+        //       : const Text('Подключить'),
+        // ),
+        const SizedBox(height: 5),
         if (_connectionState == BluetoothConnectionState.connected)
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.teal.shade900,
-              foregroundColor: Colors.white,
-            ),
+          TexelButton.accent(
             onPressed: (widget.result.advertisementData.connectable)
                 ? widget.onSelect
                 : null,
-            child: const Text('Выбрать'),
+            text: 'Выбрать',
+            width: 115,
+            height: 40,
           ),
-        const Spacer(flex: 2),
+        // ElevatedButton(
+        //   style: ElevatedButton.styleFrom(
+        //     backgroundColor: Colors.teal.shade900,
+        //     foregroundColor: Colors.white,
+        //   ),
+        //   onPressed: (widget.result.advertisementData.connectable)
+        //       ? widget.onSelect
+        //       : null,
+        //   child: const Text('Выбрать'),
+        // ),
       ],
     );
+  }
+
+  Widget _getOnOffButton() {
+    return _connectionState == BluetoothConnectionState.connected
+        ? TexelButton.secondary(
+            onPressed: (widget.result.advertisementData.connectable)
+                ? widget.onTap
+                : null,
+            text: 'Отключить',
+            width: 150,
+            height: 40,
+          )
+        : TexelButton.accent(
+            onPressed: (widget.result.advertisementData.connectable)
+                ? widget.onTap
+                : null,
+            text: 'Подключить',
+            width: 150,
+            height: 40,
+          );
   }
 
   Widget _buildAdvRow(BuildContext context, String title, String value) {

@@ -1,5 +1,6 @@
 import 'package:bgs_control/features/select_device_screen/view/select_device_screen.dart';
-import 'package:bgs_control/utils/styles.dart';
+import 'package:bgs_control/features/uikit/styles.dart';
+import 'package:bgs_control/features/uikit/texel_button.dart';
 import 'package:flutter/material.dart';
 
 class InvitationToConnectScreen extends StatefulWidget {
@@ -45,7 +46,8 @@ class _InvitationToConnectScreenState extends State<InvitationToConnectScreen> {
                   ),
                   const SizedBox(height: 10),
                   Center(
-                    child: ElevatedButton(
+                    child:
+                    TexelButton.accent(
                       onPressed: () {
                         MaterialPageRoute route = MaterialPageRoute(
                           builder: (context) => const SelectDeviceScreen(
@@ -55,11 +57,7 @@ class _InvitationToConnectScreenState extends State<InvitationToConnectScreen> {
                         );
                         Navigator.of(context).push(route);
                       },
-                      style: controlButtonStylePrimary,
-                      child: const Text(
-                        'Выбрать',
-                        style: TextStyle(fontSize: 18),
-                      ),
+                      text: 'Выбор устройства',
                     ),
                   ),
                 ],
