@@ -2,10 +2,11 @@ import 'dart:async';
 
 import 'package:bgs_control/features/direct_control_screen/view/direct_control_screen.dart';
 import 'package:bgs_control/features/select_device_screen/features/add_new_device_bottom_sheet/add_new_device_bottom_sheet.dart';
+import 'package:bgs_control/features/uikit/styles.dart';
+import 'package:bgs_control/features/uikit/texel_button.dart';
 import 'package:bgs_control/repositories/bgs_connect/ble_service.dart';
 import 'package:bgs_control/repositories/bgs_list/bgs_list.dart';
 import 'package:bgs_control/utils/extra.dart';
-import 'package:bgs_control/utils/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:get_it/get_it.dart';
@@ -96,7 +97,8 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
                 bottom: 20,
                 right: 20,
                 left: 20,
-                child: ElevatedButton(
+                child: TexelButton.accent(
+                  text: 'Добавить устройство',
                   onPressed: () {
                     showModalBottomSheet(
                       context: context,
@@ -107,14 +109,26 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
                       showDragHandle: true,
                     );
                   },
-                  style: _scanResultCount() > 0
-                      ? controlButtonStyleSecondary
-                      : controlButtonStylePrimary,
-                  child: const Text(
-                    'Добавить устройство',
-                    style: TextStyle(fontSize: 18),
-                  ),
                 ),
+                // ElevatedButton(
+                //   onPressed: () {
+                //     showModalBottomSheet(
+                //       context: context,
+                //       builder: (BuildContext context) {
+                //         return const AddNewDeviceBottomSheet();
+                //       },
+                //       barrierColor: Colors.teal.shade900,
+                //       showDragHandle: true,
+                //     );
+                //   },
+                //   style: _scanResultCount() > 0
+                //       ? controlButtonStyleSecondary
+                //       : controlButtonStylePrimary,
+                //   child: const Text(
+                //     'Добавить устройство',
+                //     style: TextStyle(fontSize: 18),
+                //   ),
+                // ),
               ),
             ],
           ),
@@ -133,7 +147,7 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
   }
 
   void update() async {
-    if (mounted){
+    if (mounted) {
       setState(() {});
     }
   }
