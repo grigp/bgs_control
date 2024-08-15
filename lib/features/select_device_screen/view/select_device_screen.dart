@@ -54,6 +54,12 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
               _scanResultCount() > 0
                   ? Column(
                       children: [
+                        const SizedBox(height: 40),
+                        SizedBox(
+                          width: 200,
+                          height: 200,
+                          child: Image.asset('images/connected_device.png'),
+                        ),
                         Expanded(
                           child: ListView(
                             shrinkWrap: true,
@@ -68,6 +74,7 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
                   : Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
+                        const Spacer(),
                         SizedBox(
                           width: 250,
                           height: 250,
@@ -90,6 +97,7 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
                             color: Colors.teal.shade900,
                           ),
                         ),
+                        const Spacer(),
                       ],
                     ),
               Positioned(
@@ -241,7 +249,7 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
         .value
         .where(
           (r) => l.contains(r.device.advName),
-        ) 
+        )
         .map(
           (r) => r.device.advName,
         )
