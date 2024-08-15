@@ -1,6 +1,7 @@
 import 'package:bgs_control/assets/colors/colors.dart';
 import 'package:flutter/material.dart';
 
+/// Универсальная кнопка для Texel App
 class TexelButton extends StatelessWidget {
   /// Конструктор accentColor.
   const TexelButton.transparent({
@@ -46,6 +47,7 @@ class TexelButton extends StatelessWidget {
   })  : _colorBackground = filledAccentButtonColor,
         _colorText = white;
 
+  /// Конструктор по умолчанию
   const TexelButton({
     super.key,
     required this.onPressed,
@@ -53,9 +55,10 @@ class TexelButton extends StatelessWidget {
     this.width,
     this.height,
     this.icon,
-  })  : _colorBackground = accentColor,
+  })  : _colorBackground = filledAccentButtonColor,
         _colorText = white;
 
+  /// Калбек по нажатию
   final VoidCallback? onPressed;
 
   /// Текст кнопки
@@ -89,7 +92,7 @@ class TexelButton extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            if (icon != null ) icon!,
+            if (icon != null) icon!,
             Text(
               text,
               style: TextStyle(color: _colorText, fontSize: 16),
