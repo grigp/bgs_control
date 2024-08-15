@@ -35,7 +35,7 @@ class WgtMain extends StatelessWidget {
                 shrinkWrap: true,
                 itemCount: list.length,
                 separatorBuilder: (BuildContext context, int index) =>
-                    const Divider(),
+                    const SizedBox(height: 10),
                 itemBuilder: (BuildContext context, int index) {
                   return SizedBox(
                     height: 30,

@@ -41,10 +41,10 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(widget.title),
-      ),
+      // appBar: AppBar(
+      //   backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+      //   title: Text(widget.title),
+      // ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20),
         child: RefreshIndicator(
@@ -241,7 +241,7 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
         .value
         .where(
           (r) => l.contains(r.device.advName),
-        ) // GetIt.I<BgsList>().isContains(r.device.advName))
+        ) 
         .map(
           (r) => r.device.advName,
         )

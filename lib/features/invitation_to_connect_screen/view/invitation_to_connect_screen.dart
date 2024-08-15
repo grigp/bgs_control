@@ -19,16 +19,21 @@ class _InvitationToConnectScreenState extends State<InvitationToConnectScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(widget.title),
-      ),
+      // appBar: AppBar(
+      //   backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+      //   title: Text(widget.title),
+      // ),
       body: Center(
         child: Padding(
           padding: const EdgeInsets.all(20),
           child: Stack(
             children: [
-              Image.asset('images/background_woman.png'),
+              Column(
+                children: [
+                  const SizedBox(height: 30),
+                  Image.asset('images/background_woman.png'),
+                ],
+              ),
               Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
