@@ -46,7 +46,7 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
         title: Text(widget.title),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(20),
+        padding: const EdgeInsets.symmetric(horizontal: 20),
         child: RefreshIndicator(
           onRefresh: onRefresh,
           child: Stack(
@@ -54,26 +54,19 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
               _scanResultCount() > 0
                   ? Column(
                       children: [
-                        ListView(
-                          shrinkWrap: true,
-                          children: <Widget>[
-                            ..._buildScanResultTiles(context),
-                            const SizedBox(height: 50),
-                          ],
+                        Expanded(
+                          child: ListView(
+                            shrinkWrap: true,
+                            children: <Widget>[
+                              ..._buildScanResultTiles(context),
+                              const SizedBox(height: 50),
+                            ],
+                          ),
                         ),
-                        const Spacer(),
-                        SizedBox(
-                          width: 250,
-                          height: 250,
-                          child: Image.asset('images/connected_device.png'),
-                        ),
-                        const SizedBox(height: 50),
                       ],
                     )
                   : Column(
                       mainAxisAlignment: MainAxisAlignment.start,
-
-                      /// center,
                       children: [
                         SizedBox(
                           width: 250,
@@ -140,7 +133,9 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
   }
 
   void update() async {
-    setState(() {});
+    if (mounted){
+      setState(() {});
+    }
   }
 
   Future<void> onScanPressed() async {

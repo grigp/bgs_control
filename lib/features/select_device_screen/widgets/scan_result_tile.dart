@@ -51,7 +51,7 @@ class _ScanResultTileState extends State<ScanResultTile> {
     var adv = widget.result.advertisementData;
     return ExpansionTile(
       title: _buildTitle(context),
-      leading: _buildSelectButton(context),
+      subtitle: _getSubTitleButtons(context),
 //      trailing: _buildConnectButton(context),
       children: <Widget>[
         if (adv.advName.isNotEmpty)
@@ -139,7 +139,7 @@ class _ScanResultTileState extends State<ScanResultTile> {
               overflow: TextOverflow.ellipsis,
             ),
           ),
-          _buildConnectButton(context),
+          // _buildConnectButton(context),
         ],
       );
     } else {
@@ -147,34 +147,36 @@ class _ScanResultTileState extends State<ScanResultTile> {
     }
   }
 
-  Widget _buildConnectButton(BuildContext context) {
-    return ElevatedButton(
-      style: ElevatedButton.styleFrom(
-        backgroundColor: Colors.teal.shade900,
-        foregroundColor: Colors.white,
-      ),
-      onPressed:
-          (widget.result.advertisementData.connectable) ? widget.onTap : null,
-      child: _connectionState == BluetoothConnectionState.connected
-          ? const Text('Отключить')
-          : const Text('Подключить'),
-    );
-  }
-
-  Widget? _buildSelectButton(BuildContext context) {
-    if (_connectionState == BluetoothConnectionState.connected) {
-      return ElevatedButton(
-        style: ElevatedButton.styleFrom(
-          backgroundColor: Colors.teal.shade900,
-          foregroundColor: Colors.white,
+  Widget _getSubTitleButtons(BuildContext context) {
+    return Row(
+      children: [
+        ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Colors.teal.shade900,
+            foregroundColor: Colors.white,
+          ),
+          onPressed: (widget.result.advertisementData.connectable)
+              ? widget.onTap
+              : null,
+          child: _connectionState == BluetoothConnectionState.connected
+              ? const Text('Отключить')
+              : const Text('Подключить'),
         ),
-        onPressed: (widget.result.advertisementData.connectable)
-            ? widget.onSelect
-            : null,
-        child: const Text('Выбрать'),
-      );
-    }
-    return null;
+        const Spacer(flex: 1),
+        if (_connectionState == BluetoothConnectionState.connected)
+          ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.teal.shade900,
+              foregroundColor: Colors.white,
+            ),
+            onPressed: (widget.result.advertisementData.connectable)
+                ? widget.onSelect
+                : null,
+            child: const Text('Выбрать'),
+          ),
+        const Spacer(flex: 2),
+      ],
+    );
   }
 
   Widget _buildAdvRow(BuildContext context, String title, String value) {

@@ -44,7 +44,9 @@ class _AddNewDeviceBottomSheet extends State<AddNewDeviceBottomSheet> {
   }
 
   void update() async {
-    setState(() {});
+    if (mounted){
+      setState(() {});
+    }
   }
 
   Future<void> onScanPressed() async {
@@ -54,6 +56,6 @@ class _AddNewDeviceBottomSheet extends State<AddNewDeviceBottomSheet> {
       // Snackbar.show(ABC.b, prettyException("Start Scan Error:", e),
       //     success: false);
     }
-    setState(() {}); //  это не надо скорее всего
+    setState(() {});
   }
 }
