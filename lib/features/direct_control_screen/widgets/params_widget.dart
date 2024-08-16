@@ -35,18 +35,18 @@ class ParamsWidget extends StatefulWidget {
 class _ParamsWidgetState extends State<ParamsWidget> {
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Column(
       children: [
         Row(  /// Флажок "AM"
           children: [
             Text(
               'Ампл. модуляция (AM)',
-              style: Theme.of(context).textTheme.titleLarge,
+              style: theme.textTheme.labelMedium,
             ),
             const Spacer(),
             Switch(
               value: widget.isAm,
-              activeColor: Colors.teal.shade900,
               onChanged: (bool? value) {
                 setState(() {
                   widget.isAm = value!;
@@ -83,16 +83,16 @@ class _ParamsWidgetState extends State<ParamsWidget> {
               },
             ),
           ),
+        const Divider(),
         Row(  /// Флажок "FM"
           children: [
             Text(
               'Част. модуляция (FM)',
-              style: Theme.of(context).textTheme.titleLarge,
+              style: theme.textTheme.labelMedium,
             ),
             const Spacer(),
             Switch(
               value: widget.isFm,
-              activeColor: Colors.teal.shade900,
               onChanged: (bool? value) {
                 setState(() {
                   widget.isFm = value!;
@@ -102,6 +102,7 @@ class _ParamsWidgetState extends State<ParamsWidget> {
             ),
           ],
         ),
+        const Divider(),
         const SizedBox(height: 10),
         if (!widget.isFm) /// Регулятор частоты
           Column(
@@ -109,7 +110,7 @@ class _ParamsWidgetState extends State<ParamsWidget> {
             children: [
               Text(
                 'Частота: ${freqValue[widget.idxFreq]!.toInt()}',
-                style: Theme.of(context).textTheme.titleLarge,
+                style: theme.textTheme.labelMedium,
               ),
               Slider.adaptive(
                 value: widget.idxFreq,
@@ -117,7 +118,6 @@ class _ParamsWidgetState extends State<ParamsWidget> {
                 min: 0,
                 max: 6,
                 divisions: 6,
-                activeColor: Colors.teal.shade900,
                 onChanged: (double value) {
                   setState(() {
                     widget.idxFreq = value;
@@ -128,6 +128,7 @@ class _ParamsWidgetState extends State<ParamsWidget> {
                   widget.onFreqChanged(widget.idxFreq);
                 },
               ),
+              const Divider(),
             ],
           ),
         const SizedBox(height: 10),
@@ -136,7 +137,7 @@ class _ParamsWidgetState extends State<ParamsWidget> {
           children: [
             Text(
               'Интенсивность',
-              style: Theme.of(context).textTheme.titleLarge,
+              style: theme.textTheme.labelMedium,
             ),
             const SizedBox(height: 10),
             SizedBox(

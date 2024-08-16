@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:get_it/get_it.dart';
 
-
 class DirectControlScreen extends StatefulWidget {
   const DirectControlScreen({
     super.key,
@@ -53,15 +52,18 @@ class _DirectControlScreenState extends State<DirectControlScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text('${widget.title}: ${widget.device.advName}'),
+        title: Text(
+          '${widget.title}: ${widget.device.advName}',
+          style: theme.textTheme.titleMedium,
+        ),
         actions: [
-          Icon(getChargeIconByLevel(_chargeLevel)),
+          Icon(getChargeIconByLevel(_chargeLevel), size: 20),
           Text(
             '${_chargeLevel.toInt()}%',
-            style: Theme.of(context).textTheme.titleLarge,
+            style: theme.textTheme.titleMedium,
           ),
           const SizedBox(width: 10),
         ],
@@ -73,16 +75,15 @@ class _DirectControlScreenState extends State<DirectControlScreen> {
             children: [
               Text(
                 _valueToString(),
-                style: Theme.of(context).textTheme.labelLarge,
+                style: theme.textTheme.bodySmall,
               ),
               Text(
                 'Принято пакетов : $_dataCount',
-                style: Theme.of(context).textTheme.headlineMedium,
+                style: theme.textTheme.headlineMedium,
               ),
               const SizedBox(height: 30),
               SizedBox(
                 width: double.infinity,
-                height: 500,
                 child: ParamsWidget(
                   isAm: _isAM,
                   onAmChanged: onAmChanged,
@@ -102,7 +103,7 @@ class _DirectControlScreenState extends State<DirectControlScreen> {
       ),
       bottomNavigationBar: BottomAppBar(
         color: Theme.of(context).colorScheme.inversePrimary,
-        height: 250,
+        height: 275,
         child: PowerWidget(
           powerSet: _powerSet,
           powerReal: _powerReal,

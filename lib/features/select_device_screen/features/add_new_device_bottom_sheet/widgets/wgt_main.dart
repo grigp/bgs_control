@@ -12,6 +12,7 @@ class WgtMain extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     var listRegistred = GetIt.I<BgsList>().getList();
     return SizedBox(
       height: 500,
@@ -19,15 +20,11 @@ class WgtMain extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Text(
               'Добавить устройство',
-              style: TextStyle(
-                fontSize: 26,
-                color: Colors.teal.shade900,
-                fontWeight: FontWeight.bold,
-              ),
+              style: theme.textTheme.titleMedium, /// TODO(Yasliks): добавить отдельный стиль для боттомШитов
             ),
             const SizedBox(height: 15),
             Expanded(
@@ -35,10 +32,10 @@ class WgtMain extends StatelessWidget {
                 shrinkWrap: true,
                 itemCount: list.length,
                 separatorBuilder: (BuildContext context, int index) =>
-                    const SizedBox(height: 10),
+                    const Divider(),
                 itemBuilder: (BuildContext context, int index) {
                   return SizedBox(
-                    height: 30,
+                    height: 40,
                     child: Row(
                       children: [
                         GestureDetector(
@@ -51,15 +48,8 @@ class WgtMain extends StatelessWidget {
                           child: Text(
                             list[index],
                             style: listRegistred.contains(list[index])
-                                ? TextStyle(
-                                    fontSize: 24,
-                                    color: Colors.teal.shade700,
-                                  )
-                                : TextStyle(
-                                    fontSize: 24,
-                                    fontWeight: FontWeight.w900,
-                                    color: Colors.teal.shade900,
-                                  ),
+                                ? theme.textTheme.labelMedium
+                                : theme.textTheme.labelMedium?.copyWith(fontWeight: FontWeight.bold),
                           ),
                         ),
                       ],

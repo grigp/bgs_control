@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:bgs_control/assets/themes/light_theme.dart';
 import 'package:bgs_control/features/invitation_to_connect_screen/view/invitation_to_connect_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
@@ -45,10 +46,7 @@ class _BgsAppState extends State<BgsApp> {
 
     return MaterialApp(
       title: 'bgs',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.teal),
-        useMaterial3: true,
-      ),
+      theme: lightTheme,
       home: screen,
     );
   }
