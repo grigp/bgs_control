@@ -1,15 +1,6 @@
+import 'package:bgs_control/assets/colors/colors.dart';
+import 'package:bgs_control/features/uikit/texel_button.dart';
 import 'package:flutter/material.dart';
-
-final ButtonStyle _resetButtonStyle = ElevatedButton.styleFrom(
-  foregroundColor: Colors.white,
-  backgroundColor: Colors.teal.shade900,
-  minimumSize: const Size(350, 45),
-  shape: const RoundedRectangleBorder(
-    borderRadius: BorderRadius.all(
-      Radius.circular(25),
-    ),
-  ),
-);
 
 //ignore: must_be_immutable
 class PowerWidget extends StatefulWidget {
@@ -33,14 +24,16 @@ class PowerWidget extends StatefulWidget {
 class _PowerWidgetState extends State<PowerWidget> {
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Column(
       children: [
-        Column( /// Регулятор мощности
+        Column(
+          /// Регулятор мощности
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
               'Мощность ${widget.powerSet.toInt()}',
-              style: Theme.of(context).textTheme.titleLarge,
+              style: theme.textTheme.headlineMedium,
             ),
             Slider.adaptive(
               value: widget.powerSet,
@@ -48,7 +41,6 @@ class _PowerWidgetState extends State<PowerWidget> {
               min: 0,
               max: 125,
               divisions: 125,
-              activeColor: Colors.teal.shade900,
               onChanged: (double value) {
                 setState(() {
                   widget.powerSet = value;
@@ -63,78 +55,70 @@ class _PowerWidgetState extends State<PowerWidget> {
         ),
         Row(
           children: [
-            const Spacer(flex: 2),
-            GestureDetector(
-              onTap: () {
-                setState(() {
-                  --widget.powerSet;
-                  widget.onPowerSet(widget.powerSet);
-                });
-              },
-              child: Container(
-                width: 80,
-                height: 80,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(50),
-                  color: Colors.teal.shade900,
-                ),
-                child: const Center(
-                  child: Icon(
-                    Icons.remove,
-                    color: Colors.white,
+            const Spacer(),
+            Container(
+              padding: const EdgeInsets.all(15),
+              decoration: BoxDecoration(
+                color: backgroundCarpetButtonToGoColor,
+                borderRadius: BorderRadius.circular(70),
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  _getChangePowerButton(TypeChangePowerButton.minus),
+                  const SizedBox(width: 15),
+                  Text(
+                    widget.powerReal.round().toString(),
+                    style: theme.textTheme.displayMedium,
                   ),
-                ),
+                  const SizedBox(width: 15),
+                  _getChangePowerButton(TypeChangePowerButton.plus),
+                ],
               ),
             ),
             const Spacer(),
-            Text(
-              widget.powerReal.round().toString(),
-              style: TextStyle(
-                fontSize: 60,
-                color: Colors.teal.shade900,
-              ),
-            ),
-            const Spacer(),
-            GestureDetector(
-              onTap: () {
-                setState(() {
-                  ++widget.powerSet;
-                  widget.onPowerSet(widget.powerSet);
-                });
-              },
-              child: Container(
-                width: 80,
-                height: 80,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(50),
-                  color: Colors.teal.shade900,
-                ),
-                child: const Center(
-                  child: Icon(
-                    Icons.add,
-                    color: Colors.white,
-                  ),
-                ),
-              ),
-            ),
-            const Spacer(flex: 2),
           ],
         ),
         const SizedBox(height: 10),
         Center(
-          child: ElevatedButton(
+          child: TexelButton.accent(
+            text: 'Сброс',
             onPressed: () {
               widget.powerSet = 0;
               widget.onPowerReset();
             },
-            style: _resetButtonStyle,
-            child: const Text(
-              'Сброс',
-              style: TextStyle(fontSize: 22),
-            ),
           ),
         ),
       ],
     );
   }
+
+  Widget _getChangePowerButton(TypeChangePowerButton icon) {
+    return GestureDetector(
+      onTap: () {
+        setState(() {
+          icon == TypeChangePowerButton.plus
+              ? ++widget.powerSet
+              : --widget.powerSet;
+          widget.onPowerSet(widget.powerSet);
+        });
+      },
+      child: Container(
+        width: 80,
+        height: 80,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(50),
+          color: white,
+        ),
+        child: Center(
+          child: Icon(
+            icon == TypeChangePowerButton.plus ? Icons.add : Icons.remove,
+            color: secondaryTextColor,
+          ),
+        ),
+      ),
+    );
+  }
 }
+
+enum TypeChangePowerButton { plus, minus }

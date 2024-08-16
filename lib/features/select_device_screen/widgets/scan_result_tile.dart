@@ -49,9 +49,10 @@ class _ScanResultTileState extends State<ScanResultTile> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     var adv = widget.result.advertisementData;
     return ExpansionTile(
-      title: _buildTitle(context),
+      title: _buildTitle(context, theme),
       subtitle: _getSubTitleButtons(context),
       children: <Widget>[
         // if (adv.advName.isNotEmpty)
@@ -115,7 +116,7 @@ class _ScanResultTileState extends State<ScanResultTile> {
     return serviceUuids.join(', ').toUpperCase();
   }
 
-  Widget _buildTitle(BuildContext context) {
+  Widget _buildTitle(BuildContext context, ThemeData theme) {
     if (widget.result.device.platformName.isNotEmpty) {
       return Row(
         mainAxisAlignment: MainAxisAlignment.start,
@@ -130,11 +131,7 @@ class _ScanResultTileState extends State<ScanResultTile> {
             ),
             child: Text(
               widget.result.device.platformName,
-              style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.w900,
-                color: Colors.teal.shade900,
-              ),
+              style: theme.textTheme.labelMedium,
               overflow: TextOverflow.ellipsis,
             ),
           ),

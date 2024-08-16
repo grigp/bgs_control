@@ -19,6 +19,7 @@ class InvitationToConnectScreen extends StatefulWidget {
 class _InvitationToConnectScreenState extends State<InvitationToConnectScreen> {
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Scaffold(
       // appBar: AppBar(
       //   backgroundColor: Theme.of(context).colorScheme.inversePrimary,
@@ -40,9 +41,10 @@ class _InvitationToConnectScreenState extends State<InvitationToConnectScreen> {
                 children: <Widget>[
                   const Text(''),
                   const Spacer(),
-                  const Text(
+                  Text(
                     'Для перехода к выбору устройства и подключению к нему включите питание на устройстве и нажмите кнопку "Выбрать" ниже',
                     textAlign: TextAlign.center,
+                    style: theme.textTheme.bodySmall,
                   ),
                   const SizedBox(height: 10),
                   Center(

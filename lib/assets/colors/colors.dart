@@ -19,6 +19,7 @@ const Color greenColor = _greenAccent;
 const Color backgroundMethodsColor = _greenPaleBackground;
 const Color red = _redAccent;
 const Color secondaryTextColor = _secondaryGrayAccent03;
+const Color iconColor = _secondaryGrayAccent03;
 const Color transparentButton = _transparentColor;
 
 /// Палитра цветов

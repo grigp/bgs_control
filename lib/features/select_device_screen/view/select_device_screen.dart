@@ -53,10 +53,13 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(widget.title),
+        title: Text(
+          widget.title,
+          style: theme.textTheme.titleMedium,
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -135,20 +138,17 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
                         ),
                         const Center(
                           child: SizedBox(
-                            width: 200,
-                            height: 200,
+                            width: 150,
+                            height: 150,
                             child: CircularProgressIndicator(
                               strokeWidth: 2,
-                              color: Colors.teal,
                             ),
                           ),
                         ),
+                        const SizedBox(height: 20),
                         Text(
                           'Поиск стимуляторов',
-                          style: TextStyle(
-                            fontSize: 26,
-                            color: Colors.teal.shade900,
-                          ),
+                          style: theme.textTheme.headlineMedium,
                         ),
                         const Spacer(),
                       ],
@@ -322,7 +322,6 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
       builder: (BuildContext context) {
         return const AddNewDeviceBottomSheet();
       },
-      barrierColor: Colors.teal.shade900,
       showDragHandle: true,
     );
   }

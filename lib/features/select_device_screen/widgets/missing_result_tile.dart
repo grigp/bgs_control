@@ -1,7 +1,7 @@
-import 'package:bgs_control/features/uikit/styles.dart';
+import 'package:bgs_control/features/uikit/texel_button.dart';
 import 'package:flutter/material.dart';
 
-class MissingResultTile extends StatefulWidget {
+class MissingResultTile extends StatelessWidget {
   const MissingResultTile({
     super.key,
     required this.deviceName,
@@ -12,25 +12,25 @@ class MissingResultTile extends StatefulWidget {
   final VoidCallback? onDelete;
 
   @override
-  State<MissingResultTile> createState() => _MissingResultTileState();
-}
-
-class _MissingResultTileState extends State<MissingResultTile> {
-  @override
   Widget build(BuildContext context) {
     return ExpansionTile(
-      title: Text(widget.deviceName),
+      title: Text(deviceName),
       children: <Widget>[
         SizedBox(
           width: 200,
-          child: TextButton.icon(
-            onPressed: () {
-              widget.onDelete?.call();
-            },
-            style: deleteDeviceButtonStyle(),
-            label: const Text('Удалить'),
+          child: TexelButton.secondary(
+            text: 'Удалить',
+            onPressed: () => onDelete?.call(),
             icon: const Icon(Icons.delete),
           ),
+          // TextButton.icon(
+          //   onPressed: () {
+          //     widget.onDelete?.call();
+          //   },
+          //   style: deleteDeviceButtonStyle(),
+          //   label: const Text('Удалить'),
+          //   icon: const Icon(Icons.delete),
+          // ),
         ),
       ],
     );
