@@ -32,6 +32,14 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
     super.initState();
 
     init();
+
+    /// Если у нас нет своих стимуляторов то вызовем диалог добавления
+    Future.delayed(const Duration(milliseconds: 500)).then((_){
+      var list = GetIt.I<BgsList>().getList();
+      if (list.isEmpty){
+        _addDeviceDialog(context);
+      }
+    });
   }
 
   List<String> _missingDevices = [];
@@ -45,10 +53,6 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // if (GetIt.I<BgsList>().getList().isEmpty){
-    //   addDeviceDialog(context);
-    // }
-    //
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
@@ -156,7 +160,7 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
                 child: TexelButton.accent(
                   text: 'Добавить устройство',
                   onPressed: () {
-                    addDeviceDialog(context);
+                    _addDeviceDialog(context);
                   },
                 ),
               ),
@@ -206,12 +210,13 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
     setState(() {});
   }
 
-  void onConnectPressed(BluetoothDevice device) {
+  void onConnectPressed(BluetoothDevice device) async {
     if (!device.isConnected) {
-      device.connectAndUpdateStream().catchError((e) {
+      await device.connectAndUpdateStream().catchError((e) {
         // Snackbar.show(ABC.c, prettyException("Connect Error:", e),
         //     success: false);
       });
+      onSelectPressed(device);
 
       // Переход на следующий экран
       // MaterialPageRoute route = MaterialPageRoute(
@@ -311,7 +316,7 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
     );
   }
 
-  void addDeviceDialog(BuildContext context){
+  void _addDeviceDialog(BuildContext context){
     showModalBottomSheet(
       context: context,
       builder: (BuildContext context) {

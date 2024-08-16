@@ -2,6 +2,7 @@ import 'package:bgs_control/features/direct_control_screen/widgets/params_widget
 import 'package:bgs_control/features/direct_control_screen/widgets/power_widget.dart';
 import 'package:bgs_control/repositories/bgs_connect/bgs_connect.dart';
 import 'package:bgs_control/utils/charge_values.dart';
+import 'package:bgs_control/utils/extra.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:get_it/get_it.dart';
@@ -118,6 +119,8 @@ class _DirectControlScreenState extends State<DirectControlScreen> {
     if (_isConnected) {
       GetIt.I<BgsConnect>().reset();
       GetIt.I<BgsConnect>().stop();
+
+      widget.device.disconnectAndUpdateStream().catchError((e) {});
     }
     super.dispose();
   }
