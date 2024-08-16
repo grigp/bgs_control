@@ -1,6 +1,5 @@
+import 'package:bgs_control/features/uikit/styles.dart';
 import 'package:flutter/material.dart';
-
-import '../../../utils/styles.dart';
 
 class MissingResultTile extends StatefulWidget {
   const MissingResultTile({
