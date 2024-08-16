@@ -10,7 +10,7 @@ class BgsList {
   void _init() async {
     const storage = FlutterSecureStorage();
     String? sList = await storage.read(key: 'bgs_list');
-    if (sList != null) {
+    if (sList != null && sList != '') {
       _list = sList.split(' ');
     }
   }
@@ -22,7 +22,11 @@ class BgsList {
       if (i == 0) {
         s = _list[i];
       } else {
-        s = '$s ${_list[i]}';
+        if (s != '') {
+          s = '$s ${_list[i]}';
+        } else {
+          s = _list[i];
+        }
       }
     }
     await storage.write(key: 'bgs_list', value: s);

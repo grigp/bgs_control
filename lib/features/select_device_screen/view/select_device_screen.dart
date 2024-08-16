@@ -45,6 +45,10 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
 
   @override
   Widget build(BuildContext context) {
+    // if (GetIt.I<BgsList>().getList().isEmpty){
+    //   addDeviceDialog(context);
+    // }
+    //
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
@@ -152,35 +156,9 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
                 child: TexelButton.accent(
                   text: 'Добавить устройство',
                   onPressed: () {
-                    showModalBottomSheet(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return const AddNewDeviceBottomSheet();
-                      },
-                      barrierColor: Colors.teal.shade900,
-                      showDragHandle: true,
-                    );
+                    addDeviceDialog(context);
                   },
                 ),
-                // ElevatedButton(
-                //   onPressed: () {
-                //     showModalBottomSheet(
-                //       context: context,
-                //       builder: (BuildContext context) {
-                //         return const AddNewDeviceBottomSheet();
-                //       },
-                //       barrierColor: Colors.teal.shade900,
-                //       showDragHandle: true,
-                //     );
-                //   },
-                //   style: _scanResultCount() > 0
-                //       ? controlButtonStyleSecondary
-                //       : controlButtonStylePrimary,
-                //   child: const Text(
-                //     'Добавить устройство',
-                //     style: TextStyle(fontSize: 18),
-                //   ),
-                // ),
               ),
             ],
           ),
@@ -330,6 +308,17 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
           ),
         ],
       ),
+    );
+  }
+
+  void addDeviceDialog(BuildContext context){
+    showModalBottomSheet(
+      context: context,
+      builder: (BuildContext context) {
+        return const AddNewDeviceBottomSheet();
+      },
+      barrierColor: Colors.teal.shade900,
+      showDragHandle: true,
     );
   }
 
