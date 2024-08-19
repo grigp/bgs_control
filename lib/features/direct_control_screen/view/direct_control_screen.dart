@@ -41,13 +41,6 @@ class _DirectControlScreenState extends State<DirectControlScreen> {
     GetIt.I<BgsConnect>().init(widget.device, onSendData);
     widget.device.connectionState.listen((event) {
       _isConnected = event == BluetoothConnectionState.connected;
-      // if (event == BluetoothConnectionState.disconnected) {
-      //   try {
-      //     Navigator.of(context).popUntil(ModalRoute.withName('/select'));
-      //   } catch (e) {
-      //     print('---------------- error this page is active -----------------------------');
-      //   }
-      // }
     });
   }
 
@@ -75,12 +68,8 @@ class _DirectControlScreenState extends State<DirectControlScreen> {
           child: Column(
             children: [
               Text(
-                _valueToString(),
+                '($_dataCount)  ${_valueToString()}',
                 style: theme.textTheme.bodySmall,
-              ),
-              Text(
-                'Принято пакетов : $_dataCount',
-                style: theme.textTheme.headlineMedium,
               ),
               const SizedBox(height: 30),
               SizedBox(
@@ -171,30 +160,23 @@ class _DirectControlScreenState extends State<DirectControlScreen> {
     _powerSet = 0;
   }
 
-  void onSendData(List<int> value) {
+  void onSendData(BlockData data) {
     setState(() {
-      _value = value;
-      _powerReal = _value[5].toDouble();
+      _value = data.source;
+      _powerReal = data.power;
 
-      _isAM = _value[9] > 0;
-      if (_isAM) {
-        _amMode = AmMode.values[_value[9] - 1];
-      } else {
-        _amMode = AmMode.am_11;
-      }
+      _isAM = data.isAM;
+      _amMode = data.amMode;
 
-      _isFM = _value[10] == 7;
-      if (!_isFM) {
-        _idxFreq = _value[10].toDouble();
-      }
+      _isFM = data.isFM;
+      _idxFreq = data.idxFreq;
 
-      if ((_value[4] & 0x80) != 0) {
+      if (data.isPowerReset) {
         _powerSet = 0;
       }
 
-      _intensity = Intensity.values[_value[11]];
-
-      _chargeLevel = getChargeLevelByADC(_value[3]);
+      _intensity = data.intensity;
+      _chargeLevel = data.chargeLevel;
 
       ++_dataCount;
     });

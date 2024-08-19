@@ -2,6 +2,8 @@ import 'dart:async';
 
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 
+import '../../utils/charge_values.dart';
+
 enum AmMode { am_11, am_31, am_51 }
 
 enum Intensity { one, two, free, four }
@@ -26,6 +28,31 @@ Map<double, double> freqValue = <double, double>{
 /// cfmResetPower - сбрасывать мощность
 /// cfmWorking - продолжать работу
 enum ConnectionFailureMode { cfmResetPower, cfmWorking }
+
+/// Класс пакета данных от устройства
+class BlockData {
+  const BlockData({
+    required this.power,
+    required this.isAM,
+    required this.isFM,
+    required this.amMode,
+    required this.idxFreq,
+    required this.isPowerReset,
+    required this.intensity,
+    required this.chargeLevel,
+    required this.source,
+  });
+
+  final double power;
+  final bool isAM;
+  final bool isFM;
+  final AmMode amMode;
+  final double idxFreq;
+  final bool isPowerReset;
+  final Intensity intensity;
+  final double chargeLevel;
+  final List<int> source;
+}
 
 class BgsConnect {
   BgsConnect();
@@ -65,7 +92,7 @@ class BgsConnect {
           final subscription = c.lastValueStream.listen((value) async {
             if (_isSending && value.length == 14) {
               _value = value;
-              sendData(_value);
+              sendData(_createBlockData(_value));
             }
             // setState(() {
             //   _value = value;
@@ -133,5 +160,43 @@ class BgsConnect {
     await write([0xA1, idxAM]);
     await write([0xA2, idxFM]);
     await write([0xA3, idxIntencity]);
+  }
+
+  BlockData _createBlockData(List<int> value) {
+    var power = value[5].toDouble();
+
+    var isAM = value[9] > 0;
+    AmMode amMode;
+    if (isAM) {
+      amMode = AmMode.values[value[9] - 1];
+    } else {
+      amMode = AmMode.am_11;
+    }
+
+    var isFM = value[10] == 7;
+    double idxFreq = 0;
+    if (!isFM) {
+      idxFreq = value[10].toDouble();
+    }
+
+    bool isPowerReset = false;
+    if ((value[4] & 0x80) != 0) {
+      isPowerReset = true;
+    }
+
+    var intensity = Intensity.values[value[11]];
+    var chargeLevel = getChargeLevelByADC(value[3]);
+
+    return BlockData(
+      power: power,
+      isAM: isAM,
+      isFM: isFM,
+      amMode: amMode,
+      idxFreq: idxFreq,
+      isPowerReset: isPowerReset,
+      intensity: intensity,
+      chargeLevel: chargeLevel,
+      source: value,
+    );
   }
 }
