@@ -51,7 +51,7 @@ class WgtMain extends StatelessWidget {
                                 builder: (context) => const AttentionScreen(
                                   title: 'Предупреждение',
                                 ),
-                                settings: const RouteSettings(name: '/select'),
+                                settings: const RouteSettings(name: '/attention'),
                               );
                               Navigator.of(context).push(route);
                             }

@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:nativewrappers/_internal/vm/lib/ffi_allocation_patch.dart';
 
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 
@@ -92,7 +93,7 @@ class BgsConnect {
           final subscription = c.lastValueStream.listen((value) async {
             if (_isSending && value.length == 14) {
               _value = value;
-              sendData(_createBlockData(_value));
+              this.sendData(_createBlockData(_value));
             }
             // setState(() {
             //   _value = value;
@@ -112,6 +113,10 @@ class BgsConnect {
     // services.forEach((service) async {});
   }
 
+  // void setHandler(Function sendData) {
+  //   this.sendData = sendData;
+  // }
+  //
   // void disconnect() {
   //   _streamConnect.cancel();
   // }

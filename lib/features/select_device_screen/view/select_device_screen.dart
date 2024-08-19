@@ -12,6 +12,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:get_it/get_it.dart';
 
+import '../../select_methodic_screen/view/select_methodic_screen.dart';
 import '../widgets/scan_result_tile.dart';
 
 class SelectDeviceScreen extends StatefulWidget {
@@ -230,11 +231,11 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
 
   void onSelectPressed(BluetoothDevice device) {
     MaterialPageRoute route = MaterialPageRoute(
-      builder: (context) => DirectControlScreen(
-        title: 'Direct',
+      builder: (context) => SelectMethodicScreen(
+        title: 'Выбор методики',
         device: device,
       ),
-      settings: const RouteSettings(name: '/direct_control'),
+      settings: const RouteSettings(name: '/select_method'),
     );
     Navigator.of(context).push(route);
 
