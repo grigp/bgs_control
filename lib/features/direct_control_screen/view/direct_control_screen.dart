@@ -93,7 +93,7 @@ class _DirectControlScreenState extends State<DirectControlScreen> {
       ),
       bottomNavigationBar: BottomAppBar(
         color: Theme.of(context).colorScheme.inversePrimary,
-        height: 275,
+        height: 290, 
         child: PowerWidget(
           powerSet: _powerSet,
           powerReal: _powerReal,
