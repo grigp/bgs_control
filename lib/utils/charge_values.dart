@@ -48,6 +48,8 @@ double getChargeLevelByADC(int val) {
     return 80 + (val - 0x7C) / 3 * 10;
   } else if (val >= 0x7F && val <= 0x81) {
     return 90 + (val - 0x7f) / 3 * 10;
+  } else if (val > 0x81) {
+    return 100;
   }
 
   return 0;
