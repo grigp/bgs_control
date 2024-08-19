@@ -1,3 +1,4 @@
+import 'package:bgs_control/features/attention_screen/view/attention_screen.dart';
 import 'package:bgs_control/features/select_device_screen/view/select_device_screen.dart';
 import 'package:bgs_control/features/uikit/styles.dart';
 import 'package:bgs_control/features/uikit/texel_button.dart';

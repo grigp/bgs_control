@@ -2,6 +2,8 @@ import 'package:bgs_control/repositories/bgs_list/bgs_list.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 
+import '../../../../attention_screen/view/attention_screen.dart';
+
 class WgtMain extends StatelessWidget {
   const WgtMain({
     super.key,
@@ -43,6 +45,15 @@ class WgtMain extends StatelessWidget {
                             if (!listRegistred.contains(list[index])) {
                               GetIt.I<BgsList>().add(list[index]);
                               Navigator.pop(context);
+
+                              /// Покажем окно предупреждения
+                              MaterialPageRoute route = MaterialPageRoute(
+                                builder: (context) => const AttentionScreen(
+                                  title: 'Предупреждение',
+                                ),
+                                settings: const RouteSettings(name: '/select'),
+                              );
+                              Navigator.of(context).push(route);
                             }
                           },
                           child: Text(
