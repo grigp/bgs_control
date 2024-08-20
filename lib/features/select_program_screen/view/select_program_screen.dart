@@ -1,3 +1,4 @@
+import 'package:bgs_control/features/togo_params_screen/view/togo_params_screen.dart';
 import 'package:bgs_control/utils/extra.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
@@ -58,6 +59,14 @@ class _SelectProgramScreenState extends State<SelectProgramScreen> {
                     child:
                     TexelButton.accent(
                       onPressed: () {
+                        MaterialPageRoute route = MaterialPageRoute(
+                          builder: (context) => TogoParamsScreen(
+                            title: 'Режим ToGo',
+                            device: widget.device,
+                          ),
+                          settings: const RouteSettings(name: '/togo_control'),
+                        );
+                        Navigator.of(context).push(route);
                       },
                       text: 'Режим ToGo',
                     ),
