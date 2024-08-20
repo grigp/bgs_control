@@ -1,6 +1,9 @@
+import 'package:bgs_control/utils/extra.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
+import 'package:get_it/get_it.dart';
 
+import '../../../repositories/bgs_connect/bgs_connect.dart';
 import '../../direct_control_screen/view/direct_control_screen.dart';
 import '../../uikit/texel_button.dart';
 
@@ -93,24 +96,22 @@ class _SelectMethodicScreenState extends State<SelectMethodicScreen> {
   @override
   void initState() {
     super.initState();
-    print('------------------------ initstate ');
 
-    // GetIt.I<BgsConnect>().init(widget.device, onSendData);
-    // widget.device.connectionState.listen((event) {
-    //   _isConnected = event == BluetoothConnectionState.connected;
-    // });
-    //
+    GetIt.I<BgsConnect>().init(widget.device);
+    widget.device.connectionState.listen((event) {
+      _isConnected = event == BluetoothConnectionState.connected;
+    });
+
   }
 
   @override
   void dispose() {
-    print('------------------------ dispose ');
-    // if (_isConnected) {
-    //   GetIt.I<BgsConnect>().reset();
-    //   GetIt.I<BgsConnect>().stop();
-    //
-    //   widget.device.disconnectAndUpdateStream().catchError((e) {});
-    // }
+    if (_isConnected) {
+      GetIt.I<BgsConnect>().reset();
+      GetIt.I<BgsConnect>().stop();
+
+      widget.device.disconnectAndUpdateStream().catchError((e) {});
+    }
 
     super.dispose();
   }

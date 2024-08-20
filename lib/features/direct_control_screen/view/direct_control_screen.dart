@@ -34,19 +34,14 @@ class _DirectControlScreenState extends State<DirectControlScreen> {
   double _powerReal = 0;
   double _idxFreq = 0;
   double _chargeLevel = 0;
-  bool _isConnected = false;
   String _uuidSendData = '';
 
 
   @override
   void initState() {
     super.initState();
-    GetIt.I<BgsConnect>().init(widget.device);
-    widget.device.connectionState.listen((event) {
-      _isConnected = event == BluetoothConnectionState.connected;
-    });
-    _uuidSendData = const Uuid().v1();
 
+    _uuidSendData = const Uuid().v1();
     GetIt.I<BgsConnect>().addHandler(_uuidSendData, onSendData);
   }
 
@@ -113,13 +108,6 @@ class _DirectControlScreenState extends State<DirectControlScreen> {
   @override
   void dispose() {
     GetIt.I<BgsConnect>().removeHandler(_uuidSendData);
-
-    if (_isConnected) {
-      GetIt.I<BgsConnect>().reset();
-      GetIt.I<BgsConnect>().stop();
-
-      widget.device.disconnectAndUpdateStream().catchError((e) {});
-    }
     super.dispose();
   }
 
