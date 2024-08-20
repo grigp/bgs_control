@@ -64,6 +64,7 @@ flutter:
      - images/connect_device.png
      - images/connected_device.png
      - images/attention.png
+     - images/background_hand.png
      - lib/assets/icons/device_menu.png
      - lib/assets/icons/methods_menu.png
 

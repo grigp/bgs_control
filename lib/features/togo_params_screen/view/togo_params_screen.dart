@@ -42,8 +42,8 @@ class _TogoParamsScreenState extends State<TogoParamsScreen> {
                   const SizedBox(height: 30),
                   SizedBox(
                     width: double.infinity,
-                    height: 370,
-                    child: Image.asset('images/background_woman.png'),
+//                    height: 290,
+                    child: Image.asset('images/background_hand.png'),
                   ),
 
                 ],
