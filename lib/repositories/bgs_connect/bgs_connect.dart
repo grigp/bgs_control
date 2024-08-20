@@ -3,7 +3,9 @@ import 'dart:async';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 
 import '../../utils/charge_values.dart';
-
+import 'package:uuid/data.dart';
+import 'package:uuid/uuid.dart';
+import 'package:uuid/rng.dart';
 enum AmMode { am_11, am_31, am_51 }
 
 enum Intensity { one, two, free, four }
@@ -23,6 +25,17 @@ Map<double, double> freqValue = <double, double>{
   5: 180,
   6: 350
 };
+
+/// Класс функций, вызываемых при получении данных
+class Handler {
+  const Handler({
+    required this.uid,
+    required this.handler,
+  });
+
+  final String uid;
+  final Function handler;
+}
 
 /// Режим работы при потере связи
 /// cfmResetPower - сбрасывать мощность
@@ -59,7 +72,8 @@ class BgsConnect {
 
   late BluetoothDevice device;
   List<int> _value = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-  late Function sendData;
+//  late Function sendData;
+  final List<Handler> _dataHandlers = [];
   late BluetoothCharacteristic _characteristic;
   late StreamSubscription _subscription;
 
@@ -69,9 +83,13 @@ class BgsConnect {
   int _targetPower = 0;
   bool _isSending = false;
 
+  var uid = const Uuid().v1();  //TODO: Убрать!!!
+
   Future<void> init(BluetoothDevice device, Function sendData) async {
     this.device = device;
-    this.sendData = sendData;
+    print('-------------------------------------- $uid');
+    await addHandler(uid, sendData);
+//    this.sendData = sendData;
 
     // _streamConnect = device.connectionState.listen((event) {
     //   if (event == BluetoothConnectionState.disconnected) {
@@ -92,7 +110,10 @@ class BgsConnect {
           final subscription = c.lastValueStream.listen((value) async {
             if (_isSending && value.length == 14) {
               _value = value;
-              sendData(_createBlockData(_value));
+              for (int i = 0; i < _dataHandlers.length; ++i){
+                _dataHandlers[i].handler(_createBlockData(_value));
+              }
+//              sendData(_createBlockData(_value));
             }
             // setState(() {
             //   _value = value;
@@ -117,8 +138,21 @@ class BgsConnect {
   // }
 
   void stop() {
+    removeHandler(uid);
     _isSending = false;
     _subscription.cancel();
+  }
+
+  Future addHandler(String uid, Function handler) async {
+    _dataHandlers.add(Handler(uid: uid, handler: handler));
+  }
+
+  Future removeHandler(String uid) async {
+    for (int i = 0; i < _dataHandlers.length; ++i) {
+      if (_dataHandlers[i].uid == uid) {
+        _dataHandlers.removeAt(i);
+      }
+    }
   }
 
   Future<void> write(List<int> command) async {
