@@ -85,11 +85,8 @@ class BgsConnect {
 
   var uid = const Uuid().v1();  //TODO: Убрать!!!
 
-  Future<void> init(BluetoothDevice device, Function sendData) async {
+  Future<void> init(BluetoothDevice device) async {
     this.device = device;
-    print('-------------------------------------- $uid');
-    await addHandler(uid, sendData);
-//    this.sendData = sendData;
 
     // _streamConnect = device.connectionState.listen((event) {
     //   if (event == BluetoothConnectionState.disconnected) {
@@ -113,7 +110,6 @@ class BgsConnect {
               for (int i = 0; i < _dataHandlers.length; ++i){
                 _dataHandlers[i].handler(_createBlockData(_value));
               }
-//              sendData(_createBlockData(_value));
             }
             // setState(() {
             //   _value = value;
@@ -138,7 +134,6 @@ class BgsConnect {
   // }
 
   void stop() {
-    removeHandler(uid);
     _isSending = false;
     _subscription.cancel();
   }

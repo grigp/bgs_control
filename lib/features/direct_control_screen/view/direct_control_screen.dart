@@ -6,6 +6,7 @@ import 'package:bgs_control/utils/extra.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:get_it/get_it.dart';
+import 'package:uuid/uuid.dart';
 
 class DirectControlScreen extends StatefulWidget {
   const DirectControlScreen({
@@ -34,11 +35,15 @@ class _DirectControlScreenState extends State<DirectControlScreen> {
   double _idxFreq = 0;
   double _chargeLevel = 0;
   bool _isConnected = false;
+  String _uuidSendData = '';
+
 
   @override
   void initState() {
     super.initState();
-    GetIt.I<BgsConnect>().init(widget.device, onSendData);
+    GetIt.I<BgsConnect>().init(widget.device);
+    _uuidSendData = const Uuid().v1();
+    GetIt.I<BgsConnect>().addHandler(_uuidSendData, onSendData);
     widget.device.connectionState.listen((event) {
       _isConnected = event == BluetoothConnectionState.connected;
     });
@@ -107,6 +112,7 @@ class _DirectControlScreenState extends State<DirectControlScreen> {
   @override
   void dispose() {
     if (_isConnected) {
+      GetIt.I<BgsConnect>().removeHandler(_uuidSendData);
       GetIt.I<BgsConnect>().reset();
       GetIt.I<BgsConnect>().stop();
 
