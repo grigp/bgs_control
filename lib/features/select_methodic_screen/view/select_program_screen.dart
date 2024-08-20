@@ -8,8 +8,8 @@ import '../../direct_control_screen/view/direct_control_screen.dart';
 import '../../uikit/texel_button.dart';
 
 
-class SelectMethodicScreen extends StatefulWidget {
-  const SelectMethodicScreen({
+class SelectProgramScreen extends StatefulWidget {
+  const SelectProgramScreen({
     super.key,
     required this.title,
     required this.device,
@@ -19,10 +19,10 @@ class SelectMethodicScreen extends StatefulWidget {
   final BluetoothDevice device;
 
   @override
-  State<SelectMethodicScreen> createState() => _SelectMethodicScreenState();
+  State<SelectProgramScreen> createState() => _SelectProgramScreenState();
 }
 
-class _SelectMethodicScreenState extends State<SelectMethodicScreen> {
+class _SelectProgramScreenState extends State<SelectProgramScreen> {
   List<String> _methodics = [];
   bool _isConnected = false;
 
