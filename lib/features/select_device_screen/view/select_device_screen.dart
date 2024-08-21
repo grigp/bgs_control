@@ -34,9 +34,9 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
     init();
 
     /// Если у нас нет своих стимуляторов то вызовем диалог добавления
-    Future.delayed(const Duration(milliseconds: 500)).then((_){
+    Future.delayed(const Duration(milliseconds: 500)).then((_) {
       var list = GetIt.I<BgsList>().getList();
-      if (list.isEmpty){
+      if (list.isEmpty) {
         _addDeviceDialog(context);
       }
     });
@@ -92,31 +92,51 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
                             const SizedBox(height: 50),
                           ],
                         ),
-//                        ),
                         if (_missingDevices.isNotEmpty)
-                          SizedBox(
-                            width: double.infinity,
-                            height: 20,
-                            child: ElevatedButton(
-                              onPressed: () {
-                                setState(() {
-                                  _isShowMissingDevices =
-                                      !_isShowMissingDevices;
-                                });
-                              },
-                              child: (_isShowMissingDevices)
-                                  ? const Icon(Icons.arrow_drop_up)
-                                  : const Icon(Icons.arrow_drop_down),
+                          GestureDetector(
+                            onTap: () {
+                              setState(() {
+                                _isShowMissingDevices = !_isShowMissingDevices;
+                              });
+                            },
+                            child: Row(
+                              children: [
+                                const SizedBox(width: 50),
+                                Text(
+                                  'Подключенные ранее',
+                                  style: theme.textTheme.titleLarge,
+                                ),
+                                const Spacer(),
+                                (_isShowMissingDevices)
+                                    ? const Icon(Icons.arrow_drop_up)
+                                    : const Icon(Icons.arrow_drop_down),
+                              ],
                             ),
                           ),
-                        if (_missingDevices.isNotEmpty && _isShowMissingDevices)
-                          Text(
-                            'Подключенные ранее стимуляторы',
-                            style: TextStyle(
-                              fontSize: 20,
-                              color: Colors.teal.shade900,
-                            ),
-                          ),
+                        // if (_missingDevices.isNotEmpty)
+                        //   SizedBox(
+                        //     width: double.infinity,
+                        //     height: 40,
+                        //     child: ElevatedButton(
+                        //       onPressed: () {
+                        //         setState(() {
+                        //           _isShowMissingDevices =
+                        //               !_isShowMissingDevices;
+                        //         });
+                        //       },
+                        //       child: (_isShowMissingDevices)
+                        //           ? const Icon(Icons.arrow_drop_up)
+                        //           : const Icon(Icons.arrow_drop_down),
+                        //     ),
+                        //   ),
+                        // if (_missingDevices.isNotEmpty && _isShowMissingDevices)
+                        //   Text(
+                        //     'Подключенные ранее стимуляторы',
+                        //     style: TextStyle(
+                        //       fontSize: 20,
+                        //       color: Colors.teal.shade900,
+                        //     ),
+                        //   ),
                         if (_missingDevices.isNotEmpty && _isShowMissingDevices)
                           ListView(
                             shrinkWrap: true,
@@ -316,7 +336,7 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
     );
   }
 
-  void _addDeviceDialog(BuildContext context){
+  void _addDeviceDialog(BuildContext context) {
     showModalBottomSheet(
       context: context,
       builder: (BuildContext context) {
