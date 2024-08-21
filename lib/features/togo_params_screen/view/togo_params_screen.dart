@@ -1,3 +1,4 @@
+import 'package:bgs_control/repositories/methodic_programs/model/methodic_program.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 
@@ -87,14 +88,16 @@ class _TogoParamsScreenState extends State<TogoParamsScreen> {
                   ),
                 ],
               ),
-
               Positioned(
                 bottom: 20,
                 right: 20,
                 left: 20,
                 child: TexelButton.accent(
                   text: 'Запустить',
-                  onPressed: () {},
+                  onPressed: () {
+                    var program = MethodicProgram.togo(_isAM, _isFM, _amMode,
+                        _intensity, freqValue[_idxFreq]!);
+                  },
                 ),
               ),
             ],

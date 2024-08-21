@@ -184,17 +184,7 @@ class _DirectControlScreenState extends State<DirectControlScreen> {
   }
 
   void _setDeviceMode() {
-    int idxAM = 0;
-    if (_isAM) {
-      idxAM = _amMode.index + 1;
-    }
-
-    int idxFM = 7;
-    if (!_isFM) {
-      idxFM = _idxFreq.toInt();
-    }
-
-    GetIt.I<BgsConnect>().setMode(idxAM, idxFM, _intensity.index);
+    GetIt.I<BgsConnect>().setMode(_isAM, _isFM, _amMode, _idxFreq, _intensity);
   }
 
   String _valueToString() {

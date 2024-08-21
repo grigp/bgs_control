@@ -185,10 +185,26 @@ class BgsConnect {
     }
   }
 
-  void setMode(int idxAM, int idxFM, int idxIntencity) async {
+  void setModeDepecated(int idxAM, int idxFM, int idxIntencity) async {
     await write([0xA1, idxAM]);
     await write([0xA2, idxFM]);
     await write([0xA3, idxIntencity]);
+  }
+
+  void setMode(bool isAM, bool isFM, AmMode amMode, double idxFreq, Intensity intensity) async {
+    int idxAM = 0;
+    if (isAM) {
+      idxAM = amMode.index + 1;
+    }
+
+    int idxFM = 7;
+    if (!isFM) {
+      idxFM = idxFreq.toInt();
+    }
+
+    await write([0xA1, idxAM]);
+    await write([0xA2, idxFM]);
+    await write([0xA3, intensity.index]);
   }
 
   BlockData _createBlockData(List<int> value) {
