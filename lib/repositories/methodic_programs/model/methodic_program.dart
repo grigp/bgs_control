@@ -1,8 +1,4 @@
-import 'dart:ui';
-
 import 'package:bgs_control/repositories/bgs_connect/bgs_connect.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 
 /// Класс, содержащий данные об этапе
 class ProgramStage {
@@ -45,7 +41,7 @@ class MethodicProgram {
       statsTitle: '',
       title: '',
       description: '',
-      image: Image.asset(''),
+      image: '',
     );
   }
 
@@ -57,7 +53,7 @@ class MethodicProgram {
       statsTitle: 'togo program',
       title: 'Режим ToGo',
       description: 'Автономный режим работы стимулятора',
-      image: Image.asset('images/togo.png'),
+      image: 'images/togo.png',
     ).._addStage('режим togo', -1, isAm, isFm, amMode, intensity, frequency);
   }
 
@@ -65,7 +61,7 @@ class MethodicProgram {
   String statsTitle;
   String title;
   String description;
-  Image image;
+  String image;
 
   final List<ProgramStage> _stages = [];
 

@@ -41,20 +41,6 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return Scaffold(
-      // appBar: AppBar(
-      //   title: Text(
-      //     '${widget.title}: ${widget.device.advName}',
-      //     style: theme.textTheme.titleMedium,
-      //   ),
-      //   actions: [
-      //     Icon(getChargeIconByLevel(_chargeLevel), size: 20),
-      //     Text(
-      //       '${_chargeLevel.toInt()}%',
-      //       style: theme.textTheme.titleMedium,
-      //     ),
-      //     const SizedBox(width: 10),
-      //   ],
-      // ),
       body: Column(
         children: [
           const SizedBox(height: 60),
@@ -64,6 +50,8 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
+                Image.asset(widget.program.image),
+                const SizedBox(width: 50),
                 Text(
                   widget.program.title,
                   style: theme.textTheme.titleLarge,
