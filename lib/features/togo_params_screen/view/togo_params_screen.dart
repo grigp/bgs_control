@@ -1,3 +1,4 @@
+import 'package:bgs_control/features/execute_screen/view/execute_screen.dart';
 import 'package:bgs_control/repositories/methodic_programs/model/methodic_program.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
@@ -97,6 +98,15 @@ class _TogoParamsScreenState extends State<TogoParamsScreen> {
                   onPressed: () {
                     var program = MethodicProgram.togo(_isAM, _isFM, _amMode,
                         _intensity, freqValue[_idxFreq]!);
+                    MaterialPageRoute route = MaterialPageRoute(
+                      builder: (context) => ExecuteScreen(
+                        title: 'Execution',
+                        device: widget.device,
+                        program: program,
+                      ),
+                      settings: const RouteSettings(name: '/execute'),
+                    );
+                    Navigator.of(context).push(route);
                   },
                 ),
               ),

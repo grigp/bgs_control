@@ -67,7 +67,7 @@ class MethodicProgram {
   String description;
   Image image;
 
-  late List<ProgramStage> _stages;
+  final List<ProgramStage> _stages = [];
 
   void _addStage(String comment, int duration, bool isAm, bool isFm,
       AmMode amMode, Intensity intensity, double frequency) {
