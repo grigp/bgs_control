@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 
+import '../../../assets/colors/colors.dart';
 import '../../../repositories/bgs_connect/bgs_connect.dart';
 import '../../direct_control_screen/widgets/params_widget.dart';
 import '../../uikit/texel_button.dart';
@@ -34,7 +35,7 @@ class _TogoParamsScreenState extends State<TogoParamsScreen> {
     return Scaffold(
       body: Center(
         child: Padding(
-          padding: const EdgeInsets.all(20),
+          padding: const EdgeInsets.all(5),
           child: Stack(
             children: [
               Column(
@@ -45,7 +46,6 @@ class _TogoParamsScreenState extends State<TogoParamsScreen> {
 //                    height: 290,
                     child: Image.asset('images/background_hand.png'),
                   ),
-
                 ],
               ),
               Column(
@@ -54,36 +54,47 @@ class _TogoParamsScreenState extends State<TogoParamsScreen> {
                     width: double.infinity,
                     height: 330,
                   ),
-                  Text(
-                    'Режим ToGo',
-                    style: theme.textTheme.headlineSmall,
-                  ),
-                  SizedBox(
-                    width: double.infinity,
-                    child: ParamsWidget(
-                      isAm: _isAM,
-                      onAmChanged: onAmChanged,
-                      amMode: _amMode,
-                      onAmModeChanged: onAmModeChanged,
-                      isFm: _isFM,
-                      onFmChanged: onFmChanged,
-                      idxFreq: _idxFreq,
-                      onFreqChanged: onFreqChanged,
-                      intensity: _intensity,
-                      onIntensityChanged: onIntensityChanged,
+                  Container(
+                    padding: const EdgeInsets.all(15),
+                    decoration: BoxDecoration(
+                      color: backgroundColor,
+                      borderRadius: BorderRadius.circular(30),
+                    ),
+                    child: Column(
+                      children: [
+                        Text(
+                          'Режим ToGo',
+                          style: theme.textTheme.headlineSmall,
+                        ),
+                        SizedBox(
+                          width: double.infinity,
+                          child: ParamsWidget(
+                            isAm: _isAM,
+                            onAmChanged: onAmChanged,
+                            amMode: _amMode,
+                            onAmModeChanged: onAmModeChanged,
+                            isFm: _isFM,
+                            onFmChanged: onFmChanged,
+                            idxFreq: _idxFreq,
+                            onFreqChanged: onFreqChanged,
+                            intensity: _intensity,
+                            onIntensityChanged: onIntensityChanged,
+                          ),
+                        ),
+                        const SizedBox(height: 110),
+                      ],
                     ),
                   ),
-                  const SizedBox(height: 110),
                 ],
               ),
+
               Positioned(
                 bottom: 20,
                 right: 20,
                 left: 20,
                 child: TexelButton.accent(
                   text: 'Запустить',
-                  onPressed: () {
-                  },
+                  onPressed: () {},
                 ),
               ),
             ],
@@ -122,6 +133,4 @@ class _TogoParamsScreenState extends State<TogoParamsScreen> {
       _intensity = intensity;
     });
   }
-
-
 }
