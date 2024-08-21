@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:bgs_control/repositories/bgs_connect/bgs_connect.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -6,7 +8,7 @@ import 'package:flutter/material.dart';
 class ProgramStage {
   ProgramStage({
     required this.comment,
-    required this.duration,
+    required this.duration,  /// Длительность. -1 - неограничена по времени
     required this.isAm,
     required this.isFm,
     required this.amMode,
@@ -31,9 +33,10 @@ class MethodicProgram {
     required this.statsTitle,
     required this.title,
     required this.description,
-    required this.icon,
+    required this.image,
   });
 
+  /// Конструктор из json
   factory MethodicProgram.fromJson(String data) {
     //TODO: Здесь написать код разбора методики в json
 
@@ -42,10 +45,11 @@ class MethodicProgram {
       statsTitle: '',
       title: '',
       description: '',
-      icon: Icons.add,
+      image: Image.asset(''),
     );
   }
 
+  /// Конструктор в режиме togo
   factory MethodicProgram.togo(bool isAm, bool isFm, AmMode amMode,
       Intensity intensity, double frequency) {
     return MethodicProgram(
@@ -53,7 +57,7 @@ class MethodicProgram {
       statsTitle: 'togo program',
       title: 'Режим ToGo',
       description: 'Автономный режим работы стимулятора',
-      icon: Icons.add,
+      image: Image.asset('images/togo.png'),
     ).._addStage('режим togo', -1, isAm, isFm, amMode, intensity, frequency);
   }
 
@@ -61,7 +65,7 @@ class MethodicProgram {
   String statsTitle;
   String title;
   String description;
-  IconData icon;
+  Image image;
 
   late List<ProgramStage> _stages;
 
@@ -77,5 +81,21 @@ class MethodicProgram {
       frequency: frequency,
     );
     _stages.add(stage);
+  }
+
+  /// Возвращает кол-во этапов
+  int stagesCount() => _stages.length;
+
+  ProgramStage stage(int idx) {
+    assert(idx >= 0 && idx < _stages.length);
+    return ProgramStage(
+      comment: _stages[idx].comment,
+      duration: _stages[idx].duration,
+      isAm: _stages[idx].isAm,
+      isFm: _stages[idx].isFm,
+      amMode: _stages[idx].amMode,
+      frequency: _stages[idx].frequency,
+      intensity: _stages[idx].intensity,
+    );
   }
 }
