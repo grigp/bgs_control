@@ -23,6 +23,6 @@ String getTimeBySecCount(int secCnt, bool isHour){
 
     return '$sh:$sm:$ss';
   }
-  
+
   return '$sm:$ss';
 }

@@ -54,7 +54,7 @@ class MethodicProgram {
       title: 'Режим ToGo',
       description: 'Автономный режим работы стимулятора',
       image: 'images/togo.png',
-    ).._addStage('режим togo', -1, isAm, isFm, amMode, intensity, frequency);
+    ).._addStage('свободная стимуляция', -1, isAm, isFm, amMode, intensity, frequency);
   }
 
   String uid;

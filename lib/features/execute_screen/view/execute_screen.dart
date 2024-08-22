@@ -35,7 +35,14 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
   int _dataCount = 0;
   String _uuidGetData = '';
   int _idxStage = -1;
-  late ProgramStage _stage;
+  late ProgramStage _stage = ProgramStage(
+      comment: '',
+      duration: -1,
+      isAm: false,
+      isFm: false,
+      amMode: AmMode.am_11,
+      intensity: Intensity.one,
+      frequency: 0);
   bool _isPlaying = false;
   int _playingTime = 0;
 
@@ -96,7 +103,7 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
               ],
             ),
           ),
-          const SizedBox(height: 100),
+          const SizedBox(height: 60),
           Row(
             /// Кнопка play / pause
             mainAxisAlignment: MainAxisAlignment.center,
@@ -107,11 +114,32 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
             ],
           ),
           Row(
+            /// Время воздействия
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
                 getTimeBySecCount(_playingTime, false),
                 style: theme.textTheme.headlineLarge,
+              ),
+            ],
+          ),
+          Row(
+            /// Нвзвание этапа
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                'Этап ${_idxStage + 1} : "${_stage.comment}"',
+                style: theme.textTheme.titleMedium,
+              ),
+            ],
+          ),
+          Row(
+            /// Параметры воздействия
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                _stimulationParamsToString(),
+                style: theme.textTheme.titleSmall,
               ),
             ],
           ),
@@ -252,6 +280,29 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
         ),
       ),
     );
+  }
+
+  String _stimulationParamsToString() {
+    String retval = '';
+
+    if (_stage.isAm) {
+      retval = '${retval}Am (${amModeNames[_stage.amMode]})';
+    }
+    if (_stage.isFm) {
+      retval = '$retval   Fm';
+    } else {
+      retval = '$retval   F = ${_stage.frequency.toInt()}';
+    }
+    retval = '$retval   Int = ${_stage.intensity.index + 1}';
+
+    if (_stage.duration >= 0) {
+      retval =
+          '$retval   Время : ${getTimeBySecCount(_stage.duration ~/ 1000, false)}';
+    } else {
+      retval = '$retval   Время не задано';
+    }
+
+    return retval;
   }
 }
 
