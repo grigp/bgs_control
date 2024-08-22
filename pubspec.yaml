@@ -66,6 +66,8 @@ flutter:
      - images/attention.png
      - images/background_hand.png
      - images/togo.png
+     - images/play.png
+     - images/pause.png
      - lib/assets/icons/device_menu.png
      - lib/assets/icons/methods_menu.png
 

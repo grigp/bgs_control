@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:bgs_control/utils/baseutils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:get_it/get_it.dart';
@@ -33,7 +34,10 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
   double _powerReal = 0;
   int _dataCount = 0;
   String _uuidGetData = '';
-  int _stage = -1;
+  int _idxStage = -1;
+  late ProgramStage _stage;
+  bool _isPlaying = false;
+  int _playingTime = 0;
 
   /// Этап воздействия
 
@@ -79,7 +83,7 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
               children: [
                 const SizedBox(width: 50),
                 Text(
-                  '${widget.device.advName}',
+                  widget.device.advName,
                   style: theme.textTheme.titleLarge,
                 ),
                 const Spacer(),
@@ -92,20 +96,40 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
               ],
             ),
           ),
-          const Spacer(),
-          Container(
-            padding: const EdgeInsets.all(15),
-            decoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.inversePrimary,
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: PowerWidget(
-              powerSet: _powerSet,
-              powerReal: _powerReal,
-              onPowerSet: onPowerSet,
-              onPowerReset: onPowerReset,
-            ),
+          const SizedBox(height: 100),
+          Row(
+            /// Кнопка play / pause
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              _getPlayPauseButton(_isPlaying
+                  ? TypePlayPauseButton.pause
+                  : TypePlayPauseButton.play),
+            ],
           ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                getTimeBySecCount(_playingTime, false),
+                style: theme.textTheme.headlineLarge,
+              ),
+            ],
+          ),
+          const Spacer(),
+          if (_isPlaying)
+            Container(
+              padding: const EdgeInsets.all(15),
+              decoration: BoxDecoration(
+                color: Theme.of(context).colorScheme.inversePrimary,
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: PowerWidget(
+                powerSet: _powerSet,
+                powerReal: _powerReal,
+                onPowerSet: onPowerSet,
+                onPowerReset: onPowerReset,
+              ),
+            ),
         ],
       ),
     );
@@ -127,10 +151,19 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
 
     _uuidGetData = const Uuid().v1();
     GetIt.I<BgsConnect>().addHandler(_uuidGetData, onGetData);
+
+    Timer.periodic(const Duration(seconds: 1), (timer) async {
+      if (_isPlaying) {
+        setState(() {
+          ++_playingTime;
+        });
+      }
+    });
   }
 
   @override
   void dispose() {
+    _isPlaying = false;
     GetIt.I<BgsConnect>().removeHandler(_uuidGetData);
     super.dispose();
   }
@@ -157,32 +190,69 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
           .setConnectionFailureMode(ConnectionFailureMode.cfmWorking);
 
       /// Запускаем первый этап
-      if (_stage == -1) {
+      if (_idxStage == -1) {
         newStage();
       }
     }
   }
 
   void newStage() {
-    ++_stage;
-    if (_stage < widget.program.stagesCount()) {
+    ++_idxStage;
+    if (_idxStage < widget.program.stagesCount()) {
       /// Если это не последний этап
-      var stage = widget.program.stage(_stage);
+      _stage = widget.program.stage(_idxStage);
       double idxFreq = 7;
       for (final element in freqValue.entries) {
-        if (element.value == stage.frequency) {
+        if (element.value == _stage.frequency) {
           idxFreq = element.key;
         }
       }
       GetIt.I<BgsConnect>().setMode(
-          stage.isAm, stage.isFm, stage.amMode, idxFreq, stage.intensity);
+          _stage.isAm, _stage.isFm, _stage.amMode, idxFreq, _stage.intensity);
 
-      if (stage.duration >= 0) {
-        Timer(Duration(milliseconds: stage.duration), newStage);
+      if (_stage.duration >= 0) {
+        Timer(Duration(milliseconds: _stage.duration), newStage);
       }
+
+      _isPlaying = true;
     } else {
       /// Все этапы прошли - выходим
       //TODO: написать выход
     }
   }
+
+  Widget _getPlayPauseButton(TypePlayPauseButton icon) {
+    return GestureDetector(
+      onTap: () {
+        setState(() {
+          _isPlaying = !_isPlaying;
+          if (!_isPlaying) {
+            GetIt.I<BgsConnect>().reset();
+            _powerSet = 0;
+          }
+          // icon == TypeChangePowerButton.plus
+          //     ? ++widget.powerSet
+          //     : --widget.powerSet;
+          // widget.onPowerSet(widget.powerSet);
+        });
+      },
+      child: Container(
+        width: 80,
+        height: 80,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(50),
+          color: white,
+        ),
+        child: Center(
+          child: Image.asset(
+            icon == TypePlayPauseButton.play
+                ? 'images/play.png'
+                : 'images/pause.png',
+          ),
+        ),
+      ),
+    );
+  }
 }
+
+enum TypePlayPauseButton { play, pause }
