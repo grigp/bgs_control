@@ -2,6 +2,8 @@ import 'package:bgs_control/features/execute_screen/view/execute_screen.dart';
 import 'package:bgs_control/repositories/methodic_programs/model/methodic_program.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
+import 'package:get_it/get_it.dart';
+import 'package:uuid/uuid.dart';
 
 import '../../../assets/colors/colors.dart';
 import '../../../repositories/bgs_connect/bgs_connect.dart';
@@ -30,6 +32,7 @@ class _TogoParamsScreenState extends State<TogoParamsScreen> {
   AmMode _amMode = AmMode.am_11;
   Intensity _intensity = Intensity.one;
   double _idxFreq = 0;
+  String _uuidGetData = '';
 
   @override
   Widget build(BuildContext context) {
@@ -115,6 +118,26 @@ class _TogoParamsScreenState extends State<TogoParamsScreen> {
         ),
       ),
     );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    _uuidGetData = const Uuid().v1();
+    GetIt.I<BgsConnect>().addHandler(_uuidGetData, onGetData);
+  }
+
+  void onGetData(BlockData data) {
+    setState(() {
+      _isAM = data.isAM;
+      _amMode = data.amMode;
+      _isFM = data.isFM;
+      _idxFreq = data.idxFreq;
+      _intensity = data.intensity;
+    });
+
+    GetIt.I<BgsConnect>().removeHandler(_uuidGetData);
   }
 
   void onAmChanged(bool isAm) {

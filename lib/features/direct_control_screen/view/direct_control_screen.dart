@@ -41,7 +41,7 @@ class _DirectControlScreenState extends State<DirectControlScreen> {
     super.initState();
 
     _uuidSendData = const Uuid().v1();
-    GetIt.I<BgsConnect>().addHandler(_uuidSendData, onSendData);
+    GetIt.I<BgsConnect>().addHandler(_uuidSendData, onGetData);
   }
 
   @override
@@ -155,10 +155,13 @@ class _DirectControlScreenState extends State<DirectControlScreen> {
     _powerSet = 0;
   }
 
-  void onSendData(BlockData data) {
+  void onGetData(BlockData data) {
     setState(() {
       _value = data.source;
       _powerReal = data.power;
+      if (_dataCount == 1) {
+        _powerSet = _powerReal;
+      }
 
       _isAM = data.isAM;
       _amMode = data.amMode;

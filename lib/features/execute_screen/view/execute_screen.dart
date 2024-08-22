@@ -32,7 +32,7 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
   double _powerSet = 0;
   double _powerReal = 0;
   int _dataCount = 0;
-  String _uuidSendData = '';
+  String _uuidGetData = '';
   int _stage = -1;
 
   /// Этап воздействия
@@ -125,17 +125,17 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
   void initState() {
     super.initState();
 
-    _uuidSendData = const Uuid().v1();
-    GetIt.I<BgsConnect>().addHandler(_uuidSendData, onSendData);
+    _uuidGetData = const Uuid().v1();
+    GetIt.I<BgsConnect>().addHandler(_uuidGetData, onGetData);
   }
 
   @override
   void dispose() {
-    GetIt.I<BgsConnect>().removeHandler(_uuidSendData);
+    GetIt.I<BgsConnect>().removeHandler(_uuidGetData);
     super.dispose();
   }
 
-  void onSendData(BlockData data) {
+  void onGetData(BlockData data) {
     setState(() {
       _powerReal = data.power;
       if (_dataCount == 1) {
