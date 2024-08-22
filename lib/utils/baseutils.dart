@@ -6,16 +6,16 @@ String intToSrt(int v) {
   return s;
 }
 
-String getTimeBySecCount(int secCnt, bool isHour){
+String getTimeBySecCount(int secCnt){
   int min = secCnt ~/ 60;
   int sec = secCnt % 60;
+  int hour = min ~/ 60;
 
   String sm = intToSrt(min);
   String ss = intToSrt(sec);
 
-  if (isHour)
+  if (hour > 0)
   {
-    int hour = min ~/ 60;
     min = min % 60;
 
     String sh = intToSrt(hour);

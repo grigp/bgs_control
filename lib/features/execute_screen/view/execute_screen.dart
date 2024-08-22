@@ -103,7 +103,7 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
               ],
             ),
           ),
-          const SizedBox(height: 60),
+          const SizedBox(height: 30),
           Row(
             /// Кнопка play / pause
             mainAxisAlignment: MainAxisAlignment.center,
@@ -118,7 +118,7 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                getTimeBySecCount(_playingTime, false),
+                getTimeBySecCount(_playingTime),
                 style: theme.textTheme.headlineLarge,
               ),
             ],
@@ -144,6 +144,16 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
             ],
           ),
           const Spacer(),
+
+          if (_isPlaying) SizedBox(
+            width: 50,
+            height: 50,
+            child: Image.asset('images/attention.png'),
+          ),
+          if (_isPlaying) Text(
+            'Увеличивайте мощность воздействия, не допуская появления болевых ощущений',
+            style: theme.textTheme.bodyLarge,
+          ),
           if (_isPlaying)
             Container(
               padding: const EdgeInsets.all(15),
@@ -258,10 +268,6 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
             GetIt.I<BgsConnect>().reset();
             _powerSet = 0;
           }
-          // icon == TypeChangePowerButton.plus
-          //     ? ++widget.powerSet
-          //     : --widget.powerSet;
-          // widget.onPowerSet(widget.powerSet);
         });
       },
       child: Container(
@@ -297,7 +303,7 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
 
     if (_stage.duration >= 0) {
       retval =
-          '$retval   Время : ${getTimeBySecCount(_stage.duration ~/ 1000, false)}';
+          '$retval   Время : ${getTimeBySecCount(_stage.duration ~/ 1000)}';
     } else {
       retval = '$retval   Время не задано';
     }
