@@ -287,20 +287,6 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
                 text: 'OK',
                 width: 120,
               ),
-              // TextButton(
-              //   onPressed: () => Navigator.pop(context, 'Cancel'),
-              //   style: messageButtonStylePrimary(),
-              //   child: const Text('Отмена'),
-              // ),
-              // TextButton(
-              //   onPressed: () {
-              //     GetIt.I<BgsList>().delete(deviceName);
-              //     onRefresh();
-              //     Navigator.pop(context, 'OK');
-              //   },
-              //   style: messageButtonStyleSecondary(),
-              //   child: const Text('ОК'),
-              // ),
             ],
           ),
     );
