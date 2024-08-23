@@ -14,6 +14,7 @@ class MissingDeviceTitle extends StatelessWidget{
   Widget build(BuildContext context) {
     return Row(
         children: [
+          const SizedBox(width: 17),
           Text(deviceName),
           const Spacer(),
           PopupMenuButton(
@@ -31,6 +32,7 @@ class MissingDeviceTitle extends StatelessWidget{
               ),
             ],
           ),
+          const SizedBox(width: 10),
         ],
       );
   }

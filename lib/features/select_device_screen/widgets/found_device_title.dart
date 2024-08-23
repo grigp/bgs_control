@@ -51,6 +51,7 @@ class _FoundDeviceTitleState extends State<FoundDeviceTitle> {
     final theme = Theme.of(context);
     return Row(
       children: [
+        const SizedBox(width: 10),
         GestureDetector(
           onTap: () {
             if (widget.result.advertisementData.connectable) {
@@ -75,6 +76,7 @@ class _FoundDeviceTitleState extends State<FoundDeviceTitle> {
             ),
           ],
         ),
+        const SizedBox(width: 10),
       ],
     );
   }
