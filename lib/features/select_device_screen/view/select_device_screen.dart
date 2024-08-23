@@ -97,34 +97,6 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
                               )
                             ],
                           ),
-                        // if (_missingDevices.isNotEmpty)
-                        //   GestureDetector(
-                        //     onTap: () {
-                        //       setState(() {
-                        //         _isShowMissingDevices = !_isShowMissingDevices;
-                        //       });
-                        //     },
-                        //     child: Row(
-                        //       children: [
-                        //         Text(
-                        //           'Подключенные ранее',
-                        //           style: theme.textTheme.titleLarge,
-                        //         ),
-                        //         const Spacer(),
-                        //         (_isShowMissingDevices)
-                        //             ? const Icon(Icons.arrow_drop_up)
-                        //             : const Icon(Icons.arrow_drop_down),
-                        //       ],
-                        //     ),
-                        //   ),
-                        // if (_missingDevices.isNotEmpty && _isShowMissingDevices)
-                        //   ListView(
-                        //     shrinkWrap: true,
-                        //     children: <Widget>[
-                        //       ..._buildMissingDevicesTiles(context),
-                        //       const SizedBox(height: 50),
-                        //     ],
-                        //   ),
                       ],
                     )
                   : Column(
