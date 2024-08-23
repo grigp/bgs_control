@@ -69,62 +69,62 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
             children: [
               _scanResultCount() > 0
                   ? Column(
-                      children: [
-                        ListView(
-                          shrinkWrap: true,
-                          children: <Widget>[
-                            ..._buildScanResultTiles(context),
-                            const SizedBox(height: 50),
-                          ],
-                        ),
-                        if (_missingDevices.isNotEmpty)
-                          ExpansionTile(
-                            title: Text(
-                              'Подключенные ранее',
-                              style: theme.textTheme.titleLarge,
-                            ),
+                children: [
+                  ListView(
+                    shrinkWrap: true,
+                    children: <Widget>[
+                      ..._buildScanResultTiles(context),
+                      const SizedBox(height: 50),
+                    ],
+                  ),
+                  if (_missingDevices.isNotEmpty)
+                    ExpansionTile(
+                      title: Text(
+                        'Подключенные ранее',
+                        style: theme.textTheme.titleLarge,
+                      ),
+                      children: <Widget>[
+                        SizedBox(
+                          width: double.infinity,
+                          height: 200,
+                          child: ListView(
+                            shrinkWrap: true,
                             children: <Widget>[
-                              SizedBox(
-                                width: double.infinity,
-                                height: 200,
-                                child: ListView(
-                                  shrinkWrap: true,
-                                  children: <Widget>[
-                                    ..._buildMissingDevicesTiles(context),
-                                    const SizedBox(height: 50),
-                                  ],
-                                ),
-                              )
+                              ..._buildMissingDevicesTiles(context),
+                              const SizedBox(height: 50),
                             ],
                           ),
-                      ],
-                    )
-                  : Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        const Spacer(),
-                        SizedBox(
-                          width: 250,
-                          height: 250,
-                          child: Image.asset('images/connect_device.png'),
-                        ),
-                        const Center(
-                          child: SizedBox(
-                            width: 150,
-                            height: 150,
-                            child: CircularProgressIndicator(
-                              strokeWidth: 2,
-                            ),
-                          ),
-                        ),
-                        const SizedBox(height: 20),
-                        Text(
-                          'Поиск стимуляторов',
-                          style: theme.textTheme.headlineMedium,
-                        ),
-                        const Spacer(),
+                        )
                       ],
                     ),
+                ],
+              )
+                  : Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  const Spacer(),
+                  SizedBox(
+                    width: 250,
+                    height: 250,
+                    child: Image.asset('images/connect_device.png'),
+                  ),
+                  const Center(
+                    child: SizedBox(
+                      width: 150,
+                      height: 150,
+                      child: CircularProgressIndicator(
+                        strokeWidth: 2,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+                  Text(
+                    'Поиск стимуляторов',
+                    style: theme.textTheme.headlineMedium,
+                  ),
+                  const Spacer(),
+                ],
+              ),
               Positioned(
                 bottom: 20,
                 right: 20,
@@ -203,10 +203,11 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
 
   void onSelectPressed(BluetoothDevice device) {
     MaterialPageRoute route = MaterialPageRoute(
-      builder: (context) => SelectProgramScreen(
-        title: 'Выбор методики',
-        device: device,
-      ),
+      builder: (context) =>
+          SelectProgramScreen(
+            title: 'Выбор методики',
+            device: device,
+          ),
       settings: const RouteSettings(name: '/select_method'),
     );
     Navigator.of(context).push(route);
@@ -226,66 +227,82 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
   void onDeletePressed(BluetoothDevice device) {
     showDialog<String>(
       context: context,
-      builder: (BuildContext context) => AlertDialog(
-        title: const Text('Удалить стимулятор из списка?'),
-        content: Text(
-          device.advName,
-          style: TextStyle(
-            fontSize: 24,
-            fontWeight: FontWeight.w900,
-            color: Colors.teal.shade900,
+      builder: (BuildContext context) =>
+          AlertDialog(
+            title: const Text('Удалить стимулятор из списка?'),
+            content: Text(
+              device.advName,
+              style: TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.w900,
+                color: Colors.teal.shade900,
+              ),
+            ),
+            actions: <Widget>[
+              TexelButton.accent(
+                onPressed: () => Navigator.pop(context, 'Cancel'),
+                text: 'Отмена',
+                width: 120,
+              ),
+              TexelButton.secondary(
+                onPressed: () {
+                  GetIt.I<BgsList>().delete(device.advName);
+                  onRefresh();
+                  Navigator.pop(context, 'OK');
+                },
+                text: 'OK',
+                width: 120,
+              ),
+            ],
           ),
-        ),
-        actions: <Widget>[
-          TextButton(
-            onPressed: () => Navigator.pop(context, 'Cancel'),
-            style: messageButtonStylePrimary(),
-            child: const Text('Отмена'),
-          ),
-          TextButton(
-            onPressed: () {
-              GetIt.I<BgsList>().delete(device.advName);
-              onRefresh();
-              Navigator.pop(context, 'OK');
-            },
-            style: messageButtonStyleSecondary(),
-            child: const Text('ОК'),
-          ),
-        ],
-      ),
     );
   }
 
   void onDeleteMissingPressed(String deviceName) {
     showDialog<String>(
       context: context,
-      builder: (BuildContext context) => AlertDialog(
-        title: const Text('Удалить стимулятор из списка?'),
-        content: Text(
-          deviceName,
-          style: TextStyle(
-            fontSize: 24,
-            fontWeight: FontWeight.w900,
-            color: Colors.teal.shade900,
+      builder: (BuildContext context) =>
+          AlertDialog(
+            title: const Text('Удалить стимулятор из списка?'),
+            content: Text(
+              deviceName,
+              style: TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.w900,
+                color: Colors.teal.shade900,
+              ),
+            ),
+            actions: <Widget>[
+              TexelButton.accent(
+                onPressed: () => Navigator.pop(context, 'Cancel'),
+                text: 'Отмена',
+                width: 120,
+              ),
+              TexelButton.secondary(
+                onPressed: () {
+                  GetIt.I<BgsList>().delete(deviceName);
+                  onRefresh();
+                  Navigator.pop(context, 'OK');
+                },
+                text: 'OK',
+                width: 120,
+              ),
+              // TextButton(
+              //   onPressed: () => Navigator.pop(context, 'Cancel'),
+              //   style: messageButtonStylePrimary(),
+              //   child: const Text('Отмена'),
+              // ),
+              // TextButton(
+              //   onPressed: () {
+              //     GetIt.I<BgsList>().delete(deviceName);
+              //     onRefresh();
+              //     Navigator.pop(context, 'OK');
+              //   },
+              //   style: messageButtonStyleSecondary(),
+              //   child: const Text('ОК'),
+              // ),
+            ],
           ),
-        ),
-        actions: <Widget>[
-          TextButton(
-            onPressed: () => Navigator.pop(context, 'Cancel'),
-            style: messageButtonStylePrimary(),
-            child: const Text('Отмена'),
-          ),
-          TextButton(
-            onPressed: () {
-              GetIt.I<BgsList>().delete(deviceName);
-              onRefresh();
-              Navigator.pop(context, 'OK');
-            },
-            style: messageButtonStyleSecondary(),
-            child: const Text('ОК'),
-          ),
-        ],
-      ),
     );
   }
 
@@ -301,33 +318,36 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
 
   int _scanResultCount() {
     var l = GetIt.I<BgsList>().getList();
-    var list = GetIt.I<BleService>()
+    var list = GetIt
+        .I<BleService>()
         .scanResultList
         .value
         .where(
           (r) => l.contains(r.device.advName),
-        )
+    )
         .map(
           (r) => r.device.advName,
-        )
+    )
         .toList();
     return list.length;
   }
 
   List<Widget> _buildScanResultTiles(BuildContext context) {
     var list = GetIt.I<BgsList>().getList();
-    var retval = GetIt.I<BleService>()
+    var retval = GetIt
+        .I<BleService>()
         .scanResultList
         .value
         .where((r) => list.contains(r.device.advName))
         .map(
-          (r) => FoundDeviceTitle(
+          (r) =>
+          FoundDeviceTitle(
             result: r,
             onTap: () => onConnectPressed(r.device),
             onSelect: () => onSelectPressed(r.device),
             onDelete: () => onDeletePressed(r.device),
           ),
-        )
+    )
         .toList();
 
     _missingDevices = [];
@@ -342,10 +362,11 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
 
   List<Widget> _buildMissingDevicesTiles(BuildContext context) {
     return _missingDevices
-        .map((deviceName) => MissingDeviceTitle(
-              deviceName: deviceName,
-              onDelete: () => onDeleteMissingPressed(deviceName),
-            ))
+        .map((deviceName) =>
+        MissingDeviceTitle(
+          deviceName: deviceName,
+          onDelete: () => onDeleteMissingPressed(deviceName),
+        ))
         .toList();
   }
 }
