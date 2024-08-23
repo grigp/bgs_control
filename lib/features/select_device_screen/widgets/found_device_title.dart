@@ -62,12 +62,12 @@ class _FoundDeviceTitleState extends State<FoundDeviceTitle> {
         const Spacer(),
         PopupMenuButton(
           icon: const Icon(Icons.more_horiz),
-          onSelected: (PopupMenu item) {
+          onSelected: (DeviceActions item) {
             widget.onDelete?.call();
           },
-          itemBuilder: (BuildContext context) => <PopupMenuEntry<PopupMenu>>[
-            const PopupMenuItem<PopupMenu>(
-              value: PopupMenu.delete,
+          itemBuilder: (BuildContext context) => <PopupMenuEntry<DeviceActions>>[
+            const PopupMenuItem<DeviceActions>(
+              value: DeviceActions.delete,
               child: ListTile(
                 leading: Icon(Icons.delete),
                 title: Text('Удалить'),
@@ -108,4 +108,4 @@ class _FoundDeviceTitleState extends State<FoundDeviceTitle> {
 
 }
 
-enum PopupMenu { delete }
+enum DeviceActions { delete }

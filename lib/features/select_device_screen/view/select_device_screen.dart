@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:bgs_control/features/select_device_screen/features/add_new_device_bottom_sheet/add_new_device_bottom_sheet.dart';
 import 'package:bgs_control/features/select_device_screen/widgets/found_device_title.dart';
-import 'package:bgs_control/features/select_device_screen/widgets/missing_result_tile.dart';
+import 'package:bgs_control/features/select_device_screen/widgets/missing_device_title.dart';
 import 'package:bgs_control/features/uikit/styles.dart';
 import 'package:bgs_control/features/uikit/texel_button.dart';
 import 'package:bgs_control/repositories/bgs_connect/ble_service.dart';
@@ -70,21 +70,6 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
               _scanResultCount() > 0
                   ? Column(
                       children: [
-                        // const SizedBox(height: 40),
-                        // SizedBox(
-                        //   width: 200,
-                        //   height: 200,
-                        //   child: Image.asset('images/connected_device.png'),
-                        // ),
-                        // Expanded(
-                        //   child: ListView(
-                        // Text(
-                        //   'Доступные стимуляторы',
-                        //   style: TextStyle(
-                        //     fontSize: 20,
-                        //     color: Colors.teal.shade900,
-                        //   ),
-                        // ),
                         ListView(
                           shrinkWrap: true,
                           children: <Widget>[
@@ -93,34 +78,53 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
                           ],
                         ),
                         if (_missingDevices.isNotEmpty)
-                          GestureDetector(
-                            onTap: () {
-                              setState(() {
-                                _isShowMissingDevices = !_isShowMissingDevices;
-                              });
-                            },
-                            child: Row(
-                              children: [
-//                                const SizedBox(width: 50),
-                                Text(
-                                  'Подключенные ранее',
-                                  style: theme.textTheme.titleLarge,
-                                ),
-                                const Spacer(),
-                                (_isShowMissingDevices)
-                                    ? const Icon(Icons.arrow_drop_up)
-                                    : const Icon(Icons.arrow_drop_down),
-                              ],
+                          ExpansionTile(
+                            title: Text(
+                              'Подключенные ранее',
+                              style: theme.textTheme.titleLarge,
                             ),
-                          ),
-                        if (_missingDevices.isNotEmpty && _isShowMissingDevices)
-                          ListView(
-                            shrinkWrap: true,
                             children: <Widget>[
-                              ..._buildMissingDevicesTiles(context),
-                              const SizedBox(height: 50),
+                              SizedBox(
+                                width: double.infinity,
+                                height: 200,
+                                child: ListView(
+                                  shrinkWrap: true,
+                                  children: <Widget>[
+                                    ..._buildMissingDevicesTiles(context),
+                                    const SizedBox(height: 50),
+                                  ],
+                                ),
+                              )
                             ],
                           ),
+                        // if (_missingDevices.isNotEmpty)
+                        //   GestureDetector(
+                        //     onTap: () {
+                        //       setState(() {
+                        //         _isShowMissingDevices = !_isShowMissingDevices;
+                        //       });
+                        //     },
+                        //     child: Row(
+                        //       children: [
+                        //         Text(
+                        //           'Подключенные ранее',
+                        //           style: theme.textTheme.titleLarge,
+                        //         ),
+                        //         const Spacer(),
+                        //         (_isShowMissingDevices)
+                        //             ? const Icon(Icons.arrow_drop_up)
+                        //             : const Icon(Icons.arrow_drop_down),
+                        //       ],
+                        //     ),
+                        //   ),
+                        // if (_missingDevices.isNotEmpty && _isShowMissingDevices)
+                        //   ListView(
+                        //     shrinkWrap: true,
+                        //     children: <Widget>[
+                        //       ..._buildMissingDevicesTiles(context),
+                        //       const SizedBox(height: 50),
+                        //     ],
+                        //   ),
                       ],
                     )
                   : Column(
@@ -153,7 +157,8 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
                 bottom: 20,
                 right: 20,
                 left: 20,
-                child: TexelButton.secondary( //.accent(
+                child: TexelButton.secondary(
+                  //.accent(
                   text: 'Добавить устройство',
                   onPressed: () {
                     _addDeviceDialog(context);
@@ -365,7 +370,7 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
 
   List<Widget> _buildMissingDevicesTiles(BuildContext context) {
     return _missingDevices
-        .map((deviceName) => MissingResultTile(
+        .map((deviceName) => MissingDeviceTitle(
               deviceName: deviceName,
               onDelete: () => onDeleteMissingPressed(deviceName),
             ))
