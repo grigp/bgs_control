@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:bgs_control/features/select_device_screen/features/add_new_device_bottom_sheet/add_new_device_bottom_sheet.dart';
+import 'package:bgs_control/features/select_device_screen/widgets/found_device_title.dart';
 import 'package:bgs_control/features/select_device_screen/widgets/missing_result_tile.dart';
 import 'package:bgs_control/features/uikit/styles.dart';
 import 'package:bgs_control/features/uikit/texel_button.dart';
@@ -12,7 +13,6 @@ import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:get_it/get_it.dart';
 
 import '../../select_program_screen/view/select_program_screen.dart';
-import '../widgets/scan_result_tile.dart';
 
 class SelectDeviceScreen extends StatefulWidget {
   const SelectDeviceScreen({
@@ -101,7 +101,7 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
                             },
                             child: Row(
                               children: [
-                                const SizedBox(width: 50),
+//                                const SizedBox(width: 50),
                                 Text(
                                   'Подключенные ранее',
                                   style: theme.textTheme.titleLarge,
@@ -113,30 +113,6 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
                               ],
                             ),
                           ),
-                        // if (_missingDevices.isNotEmpty)
-                        //   SizedBox(
-                        //     width: double.infinity,
-                        //     height: 40,
-                        //     child: ElevatedButton(
-                        //       onPressed: () {
-                        //         setState(() {
-                        //           _isShowMissingDevices =
-                        //               !_isShowMissingDevices;
-                        //         });
-                        //       },
-                        //       child: (_isShowMissingDevices)
-                        //           ? const Icon(Icons.arrow_drop_up)
-                        //           : const Icon(Icons.arrow_drop_down),
-                        //     ),
-                        //   ),
-                        // if (_missingDevices.isNotEmpty && _isShowMissingDevices)
-                        //   Text(
-                        //     'Подключенные ранее стимуляторы',
-                        //     style: TextStyle(
-                        //       fontSize: 20,
-                        //       color: Colors.teal.shade900,
-                        //     ),
-                        //   ),
                         if (_missingDevices.isNotEmpty && _isShowMissingDevices)
                           ListView(
                             shrinkWrap: true,
@@ -368,7 +344,7 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
         .value
         .where((r) => list.contains(r.device.advName))
         .map(
-          (r) => ScanResultTile(
+          (r) => FoundDeviceTitle(
             result: r,
             onTap: () => onConnectPressed(r.device),
             onSelect: () => onSelectPressed(r.device),
