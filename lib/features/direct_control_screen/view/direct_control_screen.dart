@@ -1,11 +1,14 @@
 import 'package:bgs_control/features/direct_control_screen/widgets/params_widget.dart';
 import 'package:bgs_control/features/direct_control_screen/widgets/power_widget.dart';
+import 'package:bgs_control/features/uikit/widgets/charge_message_widget.dart';
 import 'package:bgs_control/repositories/bgs_connect/bgs_connect.dart';
 import 'package:bgs_control/utils/charge_values.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:get_it/get_it.dart';
 import 'package:uuid/uuid.dart';
+
+import '../../../utils/base_defines.dart';
 
 class DirectControlScreen extends StatefulWidget {
   const DirectControlScreen({
@@ -32,9 +35,8 @@ class _DirectControlScreenState extends State<DirectControlScreen> {
   double _powerSet = 0;
   double _powerReal = 0;
   double _idxFreq = 0;
-  double _chargeLevel = 0;
+  double _chargeLevel = 100;
   String _uuidSendData = '';
-
 
   @override
   void initState() {
@@ -67,6 +69,12 @@ class _DirectControlScreenState extends State<DirectControlScreen> {
           padding: const EdgeInsets.all(20),
           child: Column(
             children: [
+              if (_chargeLevel <= chargeAlarmBoundLevel) const ChargeMessageWidget(),
+              // SizedBox(
+              //   width: double.infinity,
+              //   height: 30,
+              //   child:,
+              // )
               Text(
                 '($_dataCount)  ${_valueToString()}',
                 style: theme.textTheme.bodySmall,

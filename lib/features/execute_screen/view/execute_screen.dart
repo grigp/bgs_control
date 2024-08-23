@@ -9,8 +9,10 @@ import 'package:uuid/uuid.dart';
 import '../../../assets/colors/colors.dart';
 import '../../../repositories/bgs_connect/bgs_connect.dart';
 import '../../../repositories/methodic_programs/model/methodic_program.dart';
+import '../../../utils/base_defines.dart';
 import '../../../utils/charge_values.dart';
 import '../../direct_control_screen/widgets/power_widget.dart';
+import '../../uikit/widgets/charge_message_widget.dart';
 
 class ExecuteScreen extends StatefulWidget {
   const ExecuteScreen({
@@ -29,7 +31,7 @@ class ExecuteScreen extends StatefulWidget {
 }
 
 class _ExecuteScreenState extends State<ExecuteScreen> {
-  double _chargeLevel = 0;
+  double _chargeLevel = 100;
   double _powerSet = 0;
   double _powerReal = 0;
   int _dataCount = 0;
@@ -103,6 +105,7 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
               ],
             ),
           ),
+          if (_chargeLevel <= chargeAlarmBoundLevel) const ChargeMessageWidget(),
           const SizedBox(height: 30),
           Row(
             /// Кнопка play / pause
