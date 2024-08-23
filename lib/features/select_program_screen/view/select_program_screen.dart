@@ -61,14 +61,14 @@ class _SelectProgramScreenState extends State<SelectProgramScreen> {
                       onPressed: () {
                         MaterialPageRoute route = MaterialPageRoute(
                           builder: (context) => TogoParamsScreen(
-                            title: 'Режим ToGo',
+                            title: 'Свободный режим',
                             device: widget.device,
                           ),
                           settings: const RouteSettings(name: '/togo_control'),
                         );
                         Navigator.of(context).push(route);
                       },
-                      text: 'Режим ToGo',
+                      text: 'Свободный режим',
                     ),
                   ),
                   const SizedBox(height: 10),
@@ -131,7 +131,7 @@ class _SelectProgramScreenState extends State<SelectProgramScreen> {
   List<Widget> _buildMethodicTiles(BuildContext context) {
     return _methodics
         .map(
-          (deviceName) => Text(''),
+          (deviceName) => const Text(''),
     )
         .toList();
   }

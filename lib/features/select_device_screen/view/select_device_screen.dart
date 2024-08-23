@@ -177,7 +177,7 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
                 bottom: 20,
                 right: 20,
                 left: 20,
-                child: TexelButton.accent(
+                child: TexelButton.secondary( //.accent(
                   text: 'Добавить устройство',
                   onPressed: () {
                     _addDeviceDialog(context);

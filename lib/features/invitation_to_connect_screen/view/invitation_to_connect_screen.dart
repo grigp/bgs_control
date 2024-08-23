@@ -43,7 +43,7 @@ class _InvitationToConnectScreenState extends State<InvitationToConnectScreen> {
                   const Text(''),
                   const Spacer(),
                   Text(
-                    'Для перехода к выбору устройства и подключению к нему включите питание на устройстве и нажмите кнопку "Выбрать" ниже',
+                    'Подключите стимулятор к электроду и включите на нем питание, после чего нажмите кнопку "Подключить" ниже',
                     textAlign: TextAlign.center,
                     style: theme.textTheme.bodySmall,
                   ),
@@ -60,7 +60,7 @@ class _InvitationToConnectScreenState extends State<InvitationToConnectScreen> {
                         );
                         Navigator.of(context).push(route);
                       },
-                      text: 'Выбор устройства',
+                      text: 'Подключить',
                     ),
                   ),
                 ],

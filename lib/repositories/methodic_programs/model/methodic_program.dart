@@ -51,7 +51,7 @@ class MethodicProgram {
     return MethodicProgram(
       uid: '',
       statsTitle: 'togo program',
-      title: 'Режим ToGo',
+      title: 'Свободный режим',
       description: 'Автономный режим работы стимулятора',
       image: 'images/togo.png',
     ).._addStage('свободная стимуляция', -1, isAm, isFm, amMode, intensity, frequency);

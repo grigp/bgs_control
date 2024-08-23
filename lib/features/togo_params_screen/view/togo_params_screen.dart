@@ -68,7 +68,7 @@ class _TogoParamsScreenState extends State<TogoParamsScreen> {
                     child: Column(
                       children: [
                         Text(
-                          'Режим ToGo',
+                          'Свободный режим',
                           style: theme.textTheme.headlineSmall,
                         ),
                         SizedBox(
