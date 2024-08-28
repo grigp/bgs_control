@@ -1,0 +1,1018 @@
+{
+  "programs": [
+    {
+      "id": 1,
+      "title": "Суставы. Дискомфорт 1",
+      "description": "Состояние длительно присутствующего ощущения дискомфорта в области сустава, как в движении так и в покое",
+      "file": "ortez1.png",
+      "icon": "joints_discomfort_1.png",
+      "electrode": 6,
+      "stage": [
+        {
+          "num": 1,
+          "duration": 30000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 100,
+          "am": true,
+          "am_mode": 31,
+          "intensivity": 1,
+          "fm": true,
+          "comment": "Fm + AM 3:1 + Инт 1 - 5 минут"
+        },
+        {
+          "num": 2,
+          "duration": 30000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 60,
+          "am": true,
+          "am_mode": 31,
+          "intensivity": 3,
+          "fm": false,
+          "comment": "F-60 Гц + AM 3:1 + Инт 3 - 10 минут"
+        },
+        {
+          "num": 3,
+          "duration": 30000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 90,
+          "am": true,
+          "am_mode": 31,
+          "intensivity": 2,
+          "fm": false,
+          "comment": "F-90 Гц + AM 3:1 + Инт 2 - 10 минут"
+        },
+        {
+          "num": 4,
+          "duration": 30000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 100,
+          "am": true,
+          "am_mode": 31,
+          "intensivity": 1,
+          "fm": true,
+          "comment": "Fm + AM 3:1 + Инт 1 - 5 минут"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "title": "Суставы. Дискомфорт 2",
+      "description": "Состояние резко возникшего ощущения дискомфорта в области сустава, как в движении так и в покое",
+      "file": "ortez1.png",
+      "icon": "joints_discomfort_2.png",
+      "electrode": 6,
+      "stage": [
+        {
+          "num": 1,
+          "duration": 600000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 120,
+          "am": true,
+          "am_mode": 31,
+          "intensivity": 3,
+          "fm": false,
+          "comment": "F-120 Гц + AM 3:1 + Инт 3 - 10 минут"
+        },
+        {
+          "num": 2,
+          "duration": 600000,
+          "start_power": 1,
+          "power": 10,
+          "frequency": 60,
+          "am": true,
+          "am_mode": 11,
+          "intensivity": 2,
+          "fm": true,
+          "comment": "Fm + AM 2:1 + Инт 2 - 10 минут"
+        },
+        {
+          "num": 3,
+          "duration": 300000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 90,
+          "am": true,
+          "am_mode": 11,
+          "intensivity": 1,
+          "fm": true,
+          "comment": "F-90 Гц + AM 1:1 + Инт 1 - 5 минут"
+        },
+        {
+          "num": 4,
+          "duration": 300000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 120,
+          "am": true,
+          "am_mode": 31,
+          "intensivity": 3,
+          "fm": false,
+          "comment": "F-120 Гц + AM 3:1 + Инт 3 - 5 минут"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "title": "Мышцы. Длительное напряжение 1",
+      "description": "Состояние длительно присутствующего ощущения мышечного напряжения или дискомфорта в области спины (грудная область, область поясницы) и ягодиц, как в движении так и в покое.",
+      "file": "ortez1.png",
+      "icon": "muscles_longterm_voltage_1.png",
+      "electrode": 6,
+      "stage": [
+        {
+          "num": 1,
+          "duration": 30000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 14,
+          "am": true,
+          "am_mode": 11,
+          "intensivity": 3,
+          "fm": false,
+          "comment": "F-14 Гц + AM 2:1 + Инт 3 - 10 минут"
+        },
+        {
+          "num": 2,
+          "duration": 30000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 90,
+          "am": true,
+          "am_mode": 31,
+          "intensivity": 2,
+          "fm": true,
+          "comment": "Fm + АМ 3:1 + Инт 2 - 10 минут"
+        },
+        {
+          "num": 3,
+          "duration": 30000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 60,
+          "am": true,
+          "am_mode": 31,
+          "intensivity": 1,
+          "fm": true,
+          "comment": "F-60 Гц + AM 4:1 + Инт 1 - 10 минут"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "title": "Мышцы. Длительное напряжение 2",
+      "description": "Если область мышечного напряжения или дискомфорта не может быть закрыта площадками электрода то вначале необходимо разместить пояс на ту область позвоночника, которая будет связана с зоной мышечного дискомфорта по горизонтали",
+      "file": "ortez1.png",
+      "icon": "muscles_longterm_voltage_2.png",
+      "electrode": 6,
+      "stage": [
+        {
+          "num": 1,
+          "duration": 300000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 14,
+          "am": true,
+          "am_mode": 31,
+          "intensivity": 1,
+          "fm": true,
+          "comment": "Fm + АМ 3:1 + Инт 1 - 5 минут"
+        },
+        {
+          "num": 2,
+          "duration": 600000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 14,
+          "am": true,
+          "am_mode": 31,
+          "intensivity": 3,
+          "fm": false,
+          "comment": "F-14 Гц + АМ 3:1 + Инт 3 - 10 минут"
+        },
+        {
+          "num": 3,
+          "duration": 600000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 60,
+          "am": true,
+          "am_mode": 31,
+          "intensivity": 2,
+          "fm": false,
+          "comment": "F-60 Гц + АМ 4:1 + Инт 2 - 10 минут"
+        },
+        {
+          "num": 4,
+          "duration": 300000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 60,
+          "am": true,
+          "am_mode": 31,
+          "intensivity": 1,
+          "fm": true,
+          "comment": "Fm + АМ 3:1 + Инт 1 - 5 минут"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "title": "Мышцы. Резкое напряжение 1",
+      "description": "Если область мышечного напряжения расположена максимально близко к позвоночнику и может быть закрыта площадками электрода.",
+      "file": "ortez1.png",
+      "icon": "muscles_sharp_voltage_1.png",
+      "electrode": 6,
+      "stage": [
+        {
+          "num": 1,
+          "duration": 600000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 120,
+          "am": true,
+          "am_mode": 31,
+          "intensivity": 3,
+          "fm": false,
+          "comment": "F - 120 Гц + AM 3:1 + Инт 3 - 10 минут"
+        },
+        {
+          "num": 2,
+          "duration": 600000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 90,
+          "am": true,
+          "am_mode": 11,
+          "intensivity": 3,
+          "fm": true,
+          "comment": "Fm + AM2:1 + Инт 3 - 10 минут"
+        },
+        {
+          "num": 3,
+          "duration": 600000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 60,
+          "am": true,
+          "am_mode": 31,
+          "intensivity": 1,
+          "fm": false,
+          "comment": "F - 90 Гц + AM1:1 + Инт 1 - 10 минут"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "title": "Мышцы. Резкое напряжение 2",
+      "description": "Если область мышечного напряжения расположена удалённо от позвоночника и не может быть закрыта площадками электрода, то вначале необходимо разместить пояс на прямую проекцию области мышечного дискомфорта.",
+      "file": "ortez1.png",
+      "icon": "muscles_sharp_voltage_2.png",
+      "electrode": 6,
+      "stage": [
+        {
+          "num": 1,
+          "duration": 600000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 120,
+          "am": true,
+          "am_mode": 31,
+          "intensivity": 3,
+          "fm": false,
+          "comment": "F - 120 Гц + AM3:1 + Инт 3 - 10минут"
+        },
+        {
+          "num": 2,
+          "duration": 600000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 14,
+          "am": true,
+          "am_mode": 31,
+          "intensivity": 3,
+          "fm": false,
+          "comment": "F-14 Гц + АМ 3:1 + Инт 3 - 10 минут"
+        },
+        {
+          "num": 3,
+          "duration": 600000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 60,
+          "am": true,
+          "am_mode": 31,
+          "intensivity": 2,
+          "fm": false,
+          "comment": "F-60 Гц + АМ 4:1 + Инт 2 - 10 минут"
+        },
+        {
+          "num": 4,
+          "duration": 300000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 60,
+          "am": true,
+          "am_mode": 31,
+          "intensivity": 1,
+          "fm": true,
+          "comment": "Fm + АМ 3:1 + Инт 1 - 5 минут"
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "title": "Оздоравливающий массаж. Мышцы",
+      "description": "Оздоравливающий массаж (бытовое применение), а также для пользователей ведущих активный образ жизни (спорт и фитнес).",
+      "file": "ortez1.png",
+      "icon": "revitalizing_muscle_massage.png",
+      "electrode": 6,
+      "stage": [
+        {
+          "num": 1,
+          "duration": 300000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 60,
+          "am": true,
+          "am_mode": 31,
+          "intensivity": 2,
+          "fm": false,
+          "comment": "F - 60Гц + АМ 3:1 + Инт2 - 5 минут"
+        },
+        {
+          "num": 2,
+          "duration": 300000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 90,
+          "am": true,
+          "am_mode": 31,
+          "intensivity": 2,
+          "fm": true,
+          "comment": "Fm + АМ 3:1 + Инт 2 - 5  минут"
+        },
+        {
+          "num": 3,
+          "duration": 600000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 90,
+          "am": true,
+          "am_mode": 31,
+          "intensivity": 1,
+          "fm": false,
+          "comment": "F - 90 Гц + АМ 3:1 + Инт1 - 10 минут"
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "title": "Оздоравливающий массаж. Суставы",
+      "description": "Оздоравливающий массаж (бытовое применение), а также для пользователей ведущих активный образ жизни (спорт и фитнес).",
+      "file": "ortez1.png",
+      "icon": "healing_massage_joints.png",
+      "electrode": 6,
+      "stage": [
+        {
+          "num": 1,
+          "duration": 300000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 90,
+          "am": true,
+          "am_mode": 31,
+          "intensivity": 2,
+          "fm": false,
+          "comment": "F - 90Гц + АМ 3:1 + Инт2 - 5 минут"
+        },
+        {
+          "num": 2,
+          "duration": 300000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 90,
+          "am": false,
+          "am_mode": 11,
+          "intensivity": 2,
+          "fm": true,
+          "comment": "Fm + Инт 2 - 5 минут"
+        },
+        {
+          "num": 3,
+          "duration": 300000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 90,
+          "am": true,
+          "am_mode": 31,
+          "intensivity": 1,
+          "fm": false,
+          "comment": "F - 90Гц + АМ 3:1 + Инт1 - 5минут"
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "title": "Расслабляющий массаж. Мышцы",
+      "description": "Расслабляющий массаж (бытовое применение), а также  для пользователей ведущих активный образ жизни (спорт и фитнес).",
+      "file": "ortez1.png",
+      "icon": "relaxing_muscle_massage.png",
+      "electrode": 6,
+      "stage": [
+        {
+          "num": 1,
+          "duration": 300000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 60,
+          "am": true,
+          "am_mode": 31,
+          "intensivity": 3,
+          "fm": false,
+          "comment": "F - 60Гц + АМ 3:1 + Инт3 - 5 минут"
+        },
+        {
+          "num": 2,
+          "duration": 300000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 15,
+          "am": true,
+          "am_mode": 11,
+          "intensivity": 2,
+          "fm": false,
+          "comment": "F - 15 Гц + АМ 2:1 + Инт2 - 5 минут"
+        },
+        {
+          "num": 3,
+          "duration": 600000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 15,
+          "am": true,
+          "am_mode": 11,
+          "intensivity": 2,
+          "fm": false,
+          "comment": "F - 15Гц + AM 1:1 + Инт2 - 10 минут"
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "title": "Оздоравливающий массаж. Суставы",
+      "description": "Расслабляющий массаж (бытовое применение), а также  для пользователей ведущих активный образ жизни (спорт и фитнес).",
+      "file": "ortez1.png",
+      "icon": "relaxing_massage_joints.png",
+      "electrode": 6,
+      "stage": [
+        {
+          "num": 1,
+          "duration": 300000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 90,
+          "am": true,
+          "am_mode": 31,
+          "intensivity": 3,
+          "fm": false,
+          "comment": "F - 90Гц + АМ 3:1 + Инт3 - 5 минут"
+        },
+        {
+          "num": 2,
+          "duration": 300000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 15,
+          "am": false,
+          "am_mode": 11,
+          "intensivity": 2,
+          "fm": true,
+          "comment": "F - 15Гц + АМ 2:1 + Инт2 - 5 минут"
+        },
+        {
+          "num": 3,
+          "duration": 300000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 90,
+          "am": true,
+          "am_mode": 31,
+          "intensivity": 1,
+          "fm": false,
+          "comment": "F - 90Гц + АМ 3:1 + Инт1 - 5 минут"
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "title": "Спорт. Суставы. Разминка",
+      "description": "Локальный электроимпульсный  массаж для пользователей ведущих активный образ жизни (спорт и фитнес).",
+      "file": "ortez1.png",
+      "icon": "sport_joints_warmup.png",
+      "electrode": 6,
+      "stage": [
+        {
+          "num": 1,
+          "duration": 300000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 90,
+          "am": true,
+          "am_mode": 31,
+          "intensivity": 2,
+          "fm": false,
+          "comment": "F - 90Гц + АМ 3:1 + Инт2 - 5 минут"
+        },
+        {
+          "num": 2,
+          "duration": 300000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 60,
+          "am": true,
+          "am_mode": 31,
+          "intensivity": 3,
+          "fm": false,
+          "comment": "F - 60Гц + АМ 3:1 + Инт3 - 5 минут"
+        }
+      ]
+    },
+    {
+      "id": 12,
+      "title": "Спорт. Суставы. Тренировка",
+      "description": "Локальный электроимпульсный  массаж для пользователей ведущих активный образ жизни (спорт и фитнес).",
+      "file": "ortez1.png",
+      "icon": "sport_joints_workout.png",
+      "electrode": 6,
+      "stage": [
+        {
+          "num": 1,
+          "duration": 600000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 90,
+          "am": true,
+          "am_mode": 31,
+          "intensivity": 4,
+          "fm": true,
+          "comment": "Fm + АМ 3:1 + Инт4 - 10 минут"
+        },
+        {
+          "num": 2,
+          "duration": 300000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 60,
+          "am": true,
+          "am_mode": 31,
+          "intensivity": 4,
+          "fm": false,
+          "comment": "F - 60Гц + АМ 3:1 + Инт4 - 5 минут"
+        }
+      ]
+    },
+    {
+      "id": 13,
+      "title": "Спорт. Суставы. Расслабление",
+      "description": "Локальный электроимпульсный  массаж для пользователей ведущих активный образ жизни (спорт и фитнес).",
+      "file": "ortez1.png",
+      "icon": "sport_joints_relaxation.png",
+      "electrode": 6,
+      "stage": [
+        {
+          "num": 1,
+          "duration": 300000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 15,
+          "am": true,
+          "am_mode": 11,
+          "intensivity": 2,
+          "fm": false,
+          "comment": "F - 15Гц + АМ 2:1 + Инт2 - 5 минут"
+        },
+        {
+          "num": 2,
+          "duration": 300000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 15,
+          "am": true,
+          "am_mode": 11,
+          "intensivity": 3,
+          "fm": false,
+          "comment": "F - 15Гц + АМ 1:1 + Инт3 - 5 минут"
+        }
+      ]
+    },
+    {
+      "id": 14,
+      "title": "Спорт. Мышцы. Разминка",
+      "description": "Локальный электроимпульсный  массаж для пользователей ведущих активный образ жизни (спорт и фитнес).",
+      "file": "ortez1.png",
+      "icon": "sport_muscles_warmup.png",
+      "electrode": 6,
+      "stage": [
+        {
+          "num": 1,
+          "duration": 300000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 60,
+          "am": true,
+          "am_mode": 31,
+          "intensivity": 2,
+          "fm": false,
+          "comment": "F - 60Гц + АМ 3:1 + Инт2 - 5 минут"
+        },
+        {
+          "num": 2,
+          "duration": 300000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 60,
+          "am": true,
+          "am_mode": 31,
+          "intensivity": 3,
+          "fm": false,
+          "comment": "F - 60Гц + АМ 3:1 + Инт3 - 5 минут"
+        }
+      ]
+    },
+    {
+      "id": 15,
+      "title": "Спорт. Мышцы. Тренировка",
+      "description": "Локальный электроимпульсный  массаж для пользователей ведущих активный образ жизни (спорт и фитнес).",
+      "file": "ortez1.png",
+      "icon": "sport_muscles_workout.png",
+      "electrode": 6,
+      "stage": [
+        {
+          "num": 1,
+          "duration": 600000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 90,
+          "am": true,
+          "am_mode": 31,
+          "intensivity": 4,
+          "fm": true,
+          "comment": "Fm + АМ 4:1 + Инт4 - 10 минут"
+        },
+        {
+          "num": 2,
+          "duration": 600000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 60,
+          "am": true,
+          "am_mode": 31,
+          "intensivity": 4,
+          "fm": false,
+          "comment": "F - 60Гц + АМ 4:1 + Инт4 - 10 минут"
+        }
+      ]
+    },
+    {
+      "id": 16,
+      "title": "Спорт. Мышцы. Расслабление",
+      "description": "Локальный электроимпульсный  массаж для пользователей ведущих активный образ жизни (спорт и фитнес).",
+      "file": "ortez1.png",
+      "icon": "sport_muscles_relaxation.png",
+      "electrode": 6,
+      "stage": [
+        {
+          "num": 1,
+          "duration": 30000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 15,
+          "am": true,
+          "am_mode": 11,
+          "intensivity": 2,
+          "fm": false,
+          "comment": "F - 15Гц + АМ 2:1 + Инт2 - 5 минут"
+        },
+        {
+          "num": 2,
+          "duration": 30000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 15,
+          "am": true,
+          "am_mode": 11,
+          "intensivity": 3,
+          "fm": false,
+          "comment": "F - 15Гц + АМ 1:1 + Инт3 - 5 минут"
+        }
+      ]
+    },
+    {
+      "id": 1000,
+      "title": "Стандартная программа",
+      "description": "Программа общего применения для всех типов ортезов",
+      "file": "ortez1.png",
+      "icon": "ic_wind.png",
+      "electrode": 6,
+      "stage": [
+        {
+          "num": 1,
+          "duration": 2000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 100,
+          "am": false,
+          "am_mode": 11,
+          "intensivity": 1,
+          "fm": true,
+          "comment": "Начинаем программу!"
+        },
+        {
+          "num": 2,
+          "duration": 20000,
+          "start_power": 1,
+          "power": 20,
+          "frequency": 100,
+          "am": false,
+          "am_mode": 11,
+          "intensivity": 1,
+          "fm": true,
+          "comment": "Сейчас мощность воздействия будет плавно увеличиваться до рекомендуемого значения. Если станет некомфортно, то коснитесь экрана."
+        },
+        {
+          "num": 3,
+          "duration": 60000,
+          "start_power": 1,
+          "power": 30,
+          "frequency": 100,
+          "am": false,
+          "am_mode": 11,
+          "intensivity": 1,
+          "fm": true,
+          "comment": "Начнем с улучшения трофики."
+        },
+        {
+          "num": 4,
+          "duration": 60000,
+          "start_power": 1,
+          "power": 30,
+          "frequency": 100,
+          "am": true,
+          "am_mode": 11,
+          "intensivity": 1,
+          "fm": false,
+          "comment": "Теперь перейдем к сокращению мышц."
+        },
+        {
+          "num": 5,
+          "duration": 60000,
+          "start_power": 1,
+          "power": 20,
+          "frequency": 60,
+          "am": false,
+          "am_mode": 11,
+          "intensivity": 1,
+          "fm": true,
+          "comment": "Завершаем массаж улучшением трофики."
+        }
+      ]
+    },
+    {
+      "id": 100,
+      "title": "Фантомные боли в верхних конечностях - острое состояние",
+      "description": "Фантомные боли в ампутированных верхних конечностях",
+      "file": "ortez1.png",
+      "icon": "phantom_pain_upper_limb.png",
+      "electrode": 6,
+      "stage": [
+        {
+          "num": 1,
+          "duration": 600000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 120,
+          "am": true,
+          "am_mode": 31,
+          "intensivity": 3,
+          "fm": false,
+          "comment": "F-120 Гц - AM 3:1 - Инт 3 - 10 минут"
+        },
+        {
+          "num": 2,
+          "duration": 600000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 100,
+          "am": true,
+          "am_mode": 21,
+          "intensivity": 2,
+          "fm": true,
+          "comment": "Fm - AM 2:1 - Инт 2 - 10 минут"
+        },
+        {
+          "num": 3,
+          "duration": 300000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 90,
+          "am": true,
+          "am_mode": 11,
+          "intensivity": 1,
+          "fm": false,
+          "comment": "F-90 Гц - AM 1:1 - Инт1 - 5 минут"
+        },
+        {
+          "num": 4,
+          "duration": 300000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 120,
+          "am": true,
+          "am_mode": 31,
+          "intensivity": 3,
+          "fm": false,
+          "comment": "F-120 Гц - AM 3:1 - Инт 3 - 5минут"
+        }
+      ]
+    },
+    {
+      "id": 101,
+      "title": "Фантомные боли в верхних конечностях - реабилитация",
+      "description": "Фантомные боли в ампутированных верхних конечностях",
+      "file": "ortez2.png",
+      "icon": "phantom_pain_upper_limb.png",
+      "electrode": 6,
+      "stage": [
+        {
+          "num": 1,
+          "duration": 300000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 30,
+          "am": true,
+          "am_mode": 31,
+          "intensivity": 1,
+          "fm": true,
+          "comment": "Fm - AM 3:1 - Инт 1 - 5 минут"
+        },
+        {
+          "num": 2,
+          "duration": 600000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 60,
+          "am": true,
+          "am_mode": 31,
+          "intensivity": 3,
+          "fm": true,
+          "comment": "F-60 Гц - AM 3:1 - Инт 3 - 10 минут"
+        },
+        {
+          "num": 3,
+          "duration": 600000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 90,
+          "am": true,
+          "am_mode": 31,
+          "intensivity": 2,
+          "fm": false,
+          "comment": "F-90 Гц - AM 4:1 - Инт 2 - 10 минут"
+        },
+        {
+          "num": 4,
+          "duration": 120000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 100,
+          "am": true,
+          "am_mode": 31,
+          "intensivity": 1,
+          "fm": true,
+          "comment": "Fm - AM 3:1 - Инт 1 - 5 минут"
+        }
+      ]
+    },
+    {
+      "id": 102,
+      "title": "Фантомные боли в нижних конечностях - острое состояние",
+      "description": "Фантомные боли в ампутированных нижних конечностях",
+      "file": "ortez2.png",
+      "icon": "phantom_pains_lower_extremity.png",
+      "electrode": 6,
+      "stage": [
+        {
+          "num": 1,
+          "duration": 600000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 30,
+          "am": true,
+          "am_mode": 31,
+          "intensivity": 3,
+          "fm": false,
+          "comment": "F-120 Гц - AM 3:1 - Инт 3 - 10 минут"
+        },
+        {
+          "num": 2,
+          "duration": 600000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 60,
+          "am": true,
+          "am_mode": 31,
+          "intensivity": 2,
+          "fm": true,
+          "comment": "Fm - AM 3:1 - Инт 2 - 10 минут"
+        },
+        {
+          "num": 3,
+          "duration": 300000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 90,
+          "am": true,
+          "am_mode": 11,
+          "intensivity": 1,
+          "fm": false,
+          "comment": "F-90 Гц - AM 1:1 - Инт1 - 5 минут"
+        },
+        {
+          "num": 4,
+          "duration": 300000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 120,
+          "am": true,
+          "am_mode": 31,
+          "intensivity": 3,
+          "fm": false,
+          "comment": "F-120 Гц - AM 3:1 - Инт 3 - 5 минут"
+        }
+      ]
+    },
+    {
+      "id": 103,
+      "title": "Фантомные боли в нижних конечностях - реабилитация",
+      "description": "Фантомные боли в ампутированных нижних конечностях",
+      "file": "ortez1.png",
+      "icon": "phantom_pains_lower_extremity.png",
+      "electrode": 6,
+      "stage": [
+        {
+          "num": 1,
+          "duration": 300000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 1,
+          "am": true,
+          "am_mode": 31,
+          "intensivity": 1,
+          "fm": true,
+          "comment": "Fm - AM 3:1 - Инт 1 - 5 минут"
+        },
+        {
+          "num": 2,
+          "duration": 600000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 60,
+          "am": true,
+          "am_mode": 31,
+          "intensivity": 3,
+          "fm": false,
+          "comment": "F-60 Гц - AM 3:1 - Инт 3 - 10 минут"
+        },
+        {
+          "num": 3,
+          "duration": 600000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 90,
+          "am": true,
+          "am_mode": 31,
+          "intensivity": 2,
+          "fm": false,
+          "comment": "F-90 Гц - AM 3:1 - Инт 2 - 10 минут"
+        },
+        {
+          "num": 4,
+          "duration": 300000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 90,
+          "am": false,
+          "am_mode": 31,
+          "intensivity": 1,
+          "fm": true,
+          "comment": "Fm - AM 3:1 - Инт 1 - 5 минут"
+        }
+      ]
+    }
+  ]
+}

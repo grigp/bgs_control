@@ -1,4 +1,6 @@
 import 'package:bgs_control/features/togo_params_screen/view/togo_params_screen.dart';
+import 'package:bgs_control/repositories/methodic_programs/model/methodic_program.dart';
+import 'package:bgs_control/repositories/methodic_programs/storage/program_storage.dart';
 import 'package:bgs_control/utils/extra.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
@@ -26,7 +28,7 @@ class SelectProgramScreen extends StatefulWidget {
 }
 
 class _SelectProgramScreenState extends State<SelectProgramScreen> {
-  List<String> _methodics = [];
+  List<MethodicProgram> _methodics = [];
   bool _isConnected = false;
   String _uuidGetData = '';
   double _chargeLevel = 100;
@@ -132,6 +134,8 @@ class _SelectProgramScreenState extends State<SelectProgramScreen> {
   void initState() {
     super.initState();
 
+    readPrograms();
+
     GetIt.I<BgsConnect>().init(widget.device);
     widget.device.connectionState.listen((event) {
       _isConnected = event == BluetoothConnectionState.connected;
@@ -153,6 +157,10 @@ class _SelectProgramScreenState extends State<SelectProgramScreen> {
     }
 
     super.dispose();
+  }
+
+  void readPrograms() async {
+    _methodics = await GetIt.I<ProgramStorage>().getPrograms();
   }
 
   void onGetData(BlockData data) {
