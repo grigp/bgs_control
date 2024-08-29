@@ -1,3 +1,4 @@
+import 'package:bgs_control/features/select_program_screen/widgets/program_title.dart';
 import 'package:bgs_control/features/togo_params_screen/view/togo_params_screen.dart';
 import 'package:bgs_control/repositories/methodic_programs/model/methodic_program.dart';
 import 'package:bgs_control/repositories/methodic_programs/storage/program_storage.dart';
@@ -7,6 +8,7 @@ import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:get_it/get_it.dart';
 import 'package:uuid/uuid.dart';
 
+import '../../../assets/colors/colors.dart';
 import '../../../repositories/bgs_connect/bgs_connect.dart';
 import '../../../utils/base_defines.dart';
 import '../../direct_control_screen/view/direct_control_screen.dart';
@@ -54,11 +56,20 @@ class _SelectProgramScreenState extends State<SelectProgramScreen> {
                 mainAxisAlignment: MainAxisAlignment.start, //.center,
                 children: <Widget>[
                   const Spacer(),
+                  Text('Доступные методики'),
                   SizedBox(
                     width: double.infinity,
                     height: 500,
-                    child: ListView(
-                      shrinkWrap: true,
+                    child: Container(
+                      padding: const EdgeInsets.all(0),
+                      decoration: BoxDecoration(
+                        color: backgroundColor,
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: ListView(shrinkWrap: true, children: <Widget>[
+                        ..._buildProgramTiles(context),
+                        const SizedBox(height: 50),
+                      ]),
                     ),
                   ),
                   const SizedBox(height: 10),
@@ -112,7 +123,7 @@ class _SelectProgramScreenState extends State<SelectProgramScreen> {
     );
   }
 
-  void alertLowEnergy(){
+  void alertLowEnergy() {
     showDialog<String>(
       context: context,
       builder: (BuildContext context) => AlertDialog(
@@ -120,8 +131,7 @@ class _SelectProgramScreenState extends State<SelectProgramScreen> {
         content: const Text('Низкий заряд аккумулятора'),
         actions: <Widget>[
           TexelButton.accent(
-            onPressed: () =>
-                Navigator.pop(context, 'Cancel'),
+            onPressed: () => Navigator.pop(context, 'Cancel'),
             text: 'Закрыть',
             width: 120,
           ),
@@ -161,10 +171,10 @@ class _SelectProgramScreenState extends State<SelectProgramScreen> {
 
   void readPrograms() async {
     _programs = await GetIt.I<ProgramStorage>().getPrograms();
-    print('--------------- select program screen ---- ${_programs.length}');
-    for (int i = 0; i < _programs.length; ++i){
-      print('--------- $i: ${_programs[i].title}');
-    }
+    // print('--------------- select program screen ---- ${_programs.length}');
+    // for (int i = 0; i < _programs.length; ++i){
+    //   print('--------- $i: ${_programs[i].title}');
+    // }
   }
 
   void onGetData(BlockData data) {
@@ -173,10 +183,13 @@ class _SelectProgramScreenState extends State<SelectProgramScreen> {
     });
   }
 
-  List<Widget> _buildMethodicTiles(BuildContext context) {
+  List<Widget> _buildProgramTiles(BuildContext context) {
     return _programs
         .map(
-          (program) => const Text(),
+          (program) => ProgramTitle(
+            program: program,
+            onTap: () {},
+          ),
         )
         .toList();
   }
