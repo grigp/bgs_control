@@ -70,7 +70,40 @@ flutter:
      - images/pause.png
      - lib/assets/icons/device_menu.png
      - lib/assets/icons/methods_menu.png
+
      - lib/assets/programs/prg_main.json
+     - lib/assets/icons/programs/ankle_pain.png
+     - lib/assets/icons/programs/elbow_pain.png
+     - lib/assets/icons/programs/healing_massage_joints.png
+     - lib/assets/icons/programs/healing_massage_joints_active.png
+     - lib/assets/icons/programs/healing_massage_muscles_active.png
+     - lib/assets/icons/programs/hip_pain.png
+     - lib/assets/icons/programs/joints_discomfort_1.png
+     - lib/assets/icons/programs/joints_discomfort_2.png
+     - lib/assets/icons/programs/knee_pain.png
+     - lib/assets/icons/programs/lower_back_pain.png
+     - lib/assets/icons/programs/muscles_longterm_voltage_1.png
+     - lib/assets/icons/programs/muscles_longterm_voltage_2.png
+     - lib/assets/icons/programs/muscles_sharp_voltage_1.png
+     - lib/assets/icons/programs/muscles_sharp_voltage_2.png
+     - lib/assets/icons/programs/phantom_pain_amputated_limb.png
+     - lib/assets/icons/programs/phantom_pains_lower_limb.png
+     - lib/assets/icons/programs/relaxing_massage_joints.png
+     - lib/assets/icons/programs/relaxing_massage_joints_active.png
+     - lib/assets/icons/programs/relaxing_massage_muscles_active.png
+     - lib/assets/icons/programs/relaxing_muscle_massage.png
+     - lib/assets/icons/programs/revitalizing_muscle_massage.png
+     - lib/assets/icons/programs/shoulder_pain.png
+     - lib/assets/icons/programs/sport_joints_relaxation.png
+     - lib/assets/icons/programs/sport_joints_warmup.png
+     - lib/assets/icons/programs/sport_joints_workout.png
+     - lib/assets/icons/programs/sport_muscles_relaxation.png
+     - lib/assets/icons/programs/sport_muscles_warmup.png
+     - lib/assets/icons/programs/sport_muscles_workout.png
+     - lib/assets/icons/programs/tunnel_syndrome.png
+     - lib/assets/icons/programs/tunnel_syndrome_almost_round.png
+     - lib/assets/icons/programs/tunnel_syndrome_round.png
+     - lib/assets/icons/programs/tunnel_syndrome_round.psd
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
