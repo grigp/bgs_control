@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:bgs_control/repositories/bgs_connect/bgs_connect.dart';
 
 /// Класс, содержащий данные об этапе
@@ -33,16 +35,43 @@ class MethodicProgram {
   });
 
   /// Конструктор из json
-  factory MethodicProgram.fromJson(String data) {
-    //TODO: Здесь написать код разбора методики в json
-
-    return MethodicProgram(
-      uid: '',
-      statsTitle: '',
-      title: '',
-      description: '',
-      image: '',
+  factory MethodicProgram.fromJson(dynamic data) {
+    ///Разбор методики в json
+    /// Сначала сам объект с заголовочными полями
+    var retval =  MethodicProgram(
+      uid: data['id'].toString(),
+      statsTitle: 'program ${data['id']}',
+      title: data['title'],
+      description: data['description'],
+      image: data['icon'],
     );
+
+    /// Затем атрибуты из массива
+    var attr = data['attributes'] as List<dynamic>;
+    retval.attributes.clear();
+    for (int i = 0; i < attr.length; ++i){
+      retval.attributes.add(attr[i]['id']);
+    }
+
+    /// Ну и в конце - этапы
+    var stages = data['stage'] as List<dynamic>;
+    retval._stages.clear();
+    for (int i = 0; i < stages.length; ++i){
+      int f = stages[i]['frequency'];
+      var stage = ProgramStage(
+          comment: stages[i]['comment'],
+          duration: stages[i]['duration'],
+          isAm: stages[i]['am'],
+          isFm: stages[i]['fm'],
+          amMode: amModeFromJson[stages[i]['am_mode']]!,
+          intensity: intensityFromJson[stages[i]['intensivity']]!,
+          frequency: f.toDouble(),
+      );
+      retval._stages.add(stage);
+    }
+
+    /// И на сладкое - возвращаем программу
+    return retval;
   }
 
   /// Конструктор в режиме togo
@@ -62,6 +91,7 @@ class MethodicProgram {
   String title;
   String description;
   String image;
+  List<String> attributes = [];
 
   final List<ProgramStage> _stages = [];
 

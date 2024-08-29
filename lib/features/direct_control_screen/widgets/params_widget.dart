@@ -153,7 +153,7 @@ class _ParamsWidgetState extends State<ParamsWidget> {
                     label: Text('2'),
                   ),
                   ButtonSegment<Intensity>(
-                    value: Intensity.free,
+                    value: Intensity.three,
                     label: Text('3'),
                   ),
                   ButtonSegment<Intensity>(

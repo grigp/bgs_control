@@ -28,7 +28,7 @@ class SelectProgramScreen extends StatefulWidget {
 }
 
 class _SelectProgramScreenState extends State<SelectProgramScreen> {
-  List<MethodicProgram> _methodics = [];
+  List<MethodicProgram> _programs = [];
   bool _isConnected = false;
   String _uuidGetData = '';
   double _chargeLevel = 100;
@@ -160,7 +160,11 @@ class _SelectProgramScreenState extends State<SelectProgramScreen> {
   }
 
   void readPrograms() async {
-    _methodics = await GetIt.I<ProgramStorage>().getPrograms();
+    _programs = await GetIt.I<ProgramStorage>().getPrograms();
+    print('--------------- select program screen ---- ${_programs.length}');
+    for (int i = 0; i < _programs.length; ++i){
+      print('--------- $i: ${_programs[i].title}');
+    }
   }
 
   void onGetData(BlockData data) {
@@ -170,9 +174,9 @@ class _SelectProgramScreenState extends State<SelectProgramScreen> {
   }
 
   List<Widget> _buildMethodicTiles(BuildContext context) {
-    return _methodics
+    return _programs
         .map(
-          (deviceName) => const Text(''),
+          (program) => const Text(),
         )
         .toList();
   }

@@ -8,12 +8,25 @@ import 'package:uuid/uuid.dart';
 import 'package:uuid/rng.dart';
 enum AmMode { am_11, am_31, am_51 }
 
-enum Intensity { one, two, free, four }
+enum Intensity { one, two, three, four }
 
 Map<AmMode, String> amModeNames = <AmMode, String>{
   AmMode.am_11: '1:1',
   AmMode.am_31: '3:1',
   AmMode.am_51: '5:1',
+};
+
+Map<int, AmMode> amModeFromJson = <int, AmMode>{
+  11: AmMode.am_11,
+  31: AmMode.am_31,
+  51: AmMode.am_51,
+};
+
+Map<int, Intensity> intensityFromJson = <int, Intensity>{
+  1: Intensity.one,
+  2: Intensity.two,
+  3: Intensity.three,
+  4: Intensity.four
 };
 
 Map<double, double> freqValue = <double, double>{

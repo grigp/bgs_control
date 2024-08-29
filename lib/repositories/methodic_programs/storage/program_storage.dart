@@ -8,11 +8,9 @@ import '../model/methodic_program.dart';
 
 /// Класс, предоставляющий доступ к списку доступных программ
 class ProgramStorage {
-  ProgramStorage() {
-    init();
-  }
 
   List<dynamic>? _listPPWork = [];
+  List<MethodicProgram> _listPrograms = [];
 
   void init() async {
     await _fillWorkList();
@@ -20,7 +18,7 @@ class ProgramStorage {
 
   /// Возвращает список доступных программ
   Future<List<MethodicProgram>> getPrograms() async {
-    return [];
+    return _listPrograms;
   }
 
   /// Заполняет рабочий список программ в файле
@@ -51,9 +49,15 @@ class ProgramStorage {
       }
     }
 
-    /// записать в файл
+    /// Записать в файл
     String sp = '{"programs": ${json.encode(_listPPWork)}}';
     await File('${dir?.path}/programs.json').writeAsString(sp);
+
+    _listPrograms.clear();
+    for (int i = 0; i < _listPPWork!.length; ++i){
+      var program = MethodicProgram.fromJson(_listPPWork![i]);
+      _listPrograms.add(program);
+    }
   }
 
   /// Возвращает true, если в списке list имеется программа с заданным id
