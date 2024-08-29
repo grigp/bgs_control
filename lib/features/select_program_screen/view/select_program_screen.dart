@@ -39,85 +39,89 @@ class _SelectProgramScreenState extends State<SelectProgramScreen> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return Scaffold(
-      body: Center(
-        child: Padding(
-          padding: const EdgeInsets.all(20),
-          child: Stack(
-            children: [
-              Column(
-                children: [
-                  const SizedBox(height: 30),
-                  if (_chargeLevel <= chargeAlarmBoundLevel)
-                    const ChargeMessageWidget(),
-                  Image.asset('images/background_woman.png'),
-                ],
-              ),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.start, //.center,
-                children: <Widget>[
-                  const Spacer(),
-                  Text('Доступные методики'),
-                  SizedBox(
-                    width: double.infinity,
-                    height: 500,
-                    child: Container(
-                      padding: const EdgeInsets.all(0),
-                      decoration: BoxDecoration(
-                        color: backgroundColor,
-                        borderRadius: BorderRadius.circular(10),
+      body: Padding(
+        padding: const EdgeInsets.all(20),
+        child: Stack(
+          children: [
+            Column(
+              children: [
+                const SizedBox(height: 30),
+                if (_chargeLevel <= chargeAlarmBoundLevel)
+                  const ChargeMessageWidget(),
+                Image.asset('images/background_woman.png'),
+              ],
+            ),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.start, //.center,
+              children: <Widget>[
+                const Spacer(),
+                Container(
+                  width: double.infinity,
+                  height: 500,
+                  padding: const EdgeInsets.all(0),
+                  decoration: BoxDecoration(
+                    color: backgroundColor,
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Column(
+                    children: [
+                      Text('Доступные методики'),
+                      Expanded(
+                        child: ListView(
+                          shrinkWrap: true,
+                          children: <Widget>[
+                            ..._buildProgramTiles(context),
+                          ],
+                        ),
                       ),
-                      child: ListView(shrinkWrap: true, children: <Widget>[
-                        ..._buildProgramTiles(context),
-                        const SizedBox(height: 50),
-                      ]),
-                    ),
+                    ],
                   ),
-                  const SizedBox(height: 10),
-                  Center(
-                    child: TexelButton.accent(
-                      onPressed: () {
-                        if (_chargeLevel > chargeBreakBoundLevel) {
-                          MaterialPageRoute route = MaterialPageRoute(
-                            builder: (context) => TogoParamsScreen(
-                              title: 'Свободный режим',
-                              device: widget.device,
-                            ),
-                            settings:
-                                const RouteSettings(name: '/togo_control'),
-                          );
-                          Navigator.of(context).push(route);
-                        } else {
-                          alertLowEnergy();
-                        }
-                      },
-                      text: 'Свободный режим',
-                    ),
+                ),
+                const SizedBox(height: 10),
+                Center(
+                  child: TexelButton.accent(
+                    onPressed: () {
+                      if (_chargeLevel > chargeBreakBoundLevel) {
+                        MaterialPageRoute route = MaterialPageRoute(
+                          builder: (context) => TogoParamsScreen(
+                            title: 'Свободный режим',
+                            device: widget.device,
+                          ),
+                          settings:
+                              const RouteSettings(name: '/togo_control'),
+                        );
+                        Navigator.of(context).push(route);
+                      } else {
+                        alertLowEnergy();
+                      }
+                    },
+                    text: 'Свободный режим',
                   ),
-                  const SizedBox(height: 10),
-                  Center(
-                    child: TexelButton.accent(
-                      onPressed: () {
-                        if (_chargeLevel > chargeBreakBoundLevel) {
-                          MaterialPageRoute route = MaterialPageRoute(
-                            builder: (context) => DirectControlScreen(
-                              title: 'Direct',
-                              device: widget.device,
-                            ),
-                            settings:
-                                const RouteSettings(name: '/direct_control'),
-                          );
-                          Navigator.of(context).push(route);
-                        } else {
-                          alertLowEnergy();
-                        }
-                      },
-                      text: 'Прямое управление',
-                    ),
+                ),
+                const SizedBox(height: 10),
+                Center(
+                  child: TexelButton.accent(
+                    onPressed: () {
+                      if (_chargeLevel > chargeBreakBoundLevel) {
+                        MaterialPageRoute route = MaterialPageRoute(
+                          builder: (context) => DirectControlScreen(
+                            title: 'Direct',
+                            device: widget.device,
+                          ),
+                          settings:
+                              const RouteSettings(name: '/direct_control'),
+                        );
+                        Navigator.of(context).push(route);
+                      } else {
+                        alertLowEnergy();
+                      }
+                    },
+                    text: 'Прямое управление',
                   ),
-                ],
-              ),
-            ],
-          ),
+                ),
+              ],
+            ),
+          ],
         ),
       ),
     );
