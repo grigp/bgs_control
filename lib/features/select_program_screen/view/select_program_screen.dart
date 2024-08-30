@@ -1,3 +1,4 @@
+import 'package:bgs_control/features/program_params_screen/view/program_params_screen.dart';
 import 'package:bgs_control/features/select_program_screen/widgets/direct_title.dart';
 import 'package:bgs_control/features/select_program_screen/widgets/program_title.dart';
 import 'package:bgs_control/features/select_program_screen/widgets/togo_title.dart';
@@ -172,6 +173,20 @@ class _SelectProgramScreenState extends State<SelectProgramScreen> {
           (program) => ProgramTitle(
             program: program,
             onTap: () {
+              if (_chargeLevel > chargeBreakBoundLevel) {
+                MaterialPageRoute route = MaterialPageRoute(
+                  builder: (context) => ProgramParamsScreen(
+                    title: 'Программа ${program.title}',
+                    device: widget.device,
+                    program: program,
+                  ),
+                  settings:
+                  const RouteSettings(name: '/program_control'),
+                );
+                Navigator.of(context).push(route);
+              } else {
+                alertLowEnergy();
+              }
             },
           ),
         )
