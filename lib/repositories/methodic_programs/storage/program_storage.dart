@@ -17,7 +17,7 @@ class ProgramStorage {
   }
 
   /// Возвращает список доступных программ
-  Future<List<MethodicProgram>> getPrograms() async {
+  List<MethodicProgram> getPrograms() {
     return _listPrograms;
   }
 

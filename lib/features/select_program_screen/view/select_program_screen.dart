@@ -154,7 +154,7 @@ class _SelectProgramScreenState extends State<SelectProgramScreen> {
   }
 
   void readPrograms() async {
-    _programs = await GetIt.I<ProgramStorage>().getPrograms();
+    _programs =  GetIt.I<ProgramStorage>().getPrograms();
     // print('--------------- select program screen ---- ${_programs.length}');
     // for (int i = 0; i < _programs.length; ++i){
     //   print('--------- $i: ${_programs[i].title}');
