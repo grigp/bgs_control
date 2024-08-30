@@ -65,13 +65,13 @@ flutter:
      - images/connected_device.png
      - images/attention.png
      - images/background_hand.png
-     - images/togo.png
      - images/play.png
      - images/pause.png
      - lib/assets/icons/device_menu.png
      - lib/assets/icons/methods_menu.png
 
      - lib/assets/programs/prg_main.json
+     - lib/assets/icons/programs/togo.png
      - lib/assets/icons/programs/ankle_pain.png
      - lib/assets/icons/programs/elbow_pain.png
      - lib/assets/icons/programs/healing_massage_joints.png

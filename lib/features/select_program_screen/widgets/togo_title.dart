@@ -48,7 +48,7 @@ class _TogoTitleState extends State<TogoTitle> {
           ),
           child: Row(
             children: [
-              Image.asset('images/togo.png'),
+              Image.asset('lib/assets/icons/programs/togo.png'),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [

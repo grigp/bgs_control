@@ -4,6 +4,7 @@ import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 
 import '../../../assets/colors/colors.dart';
 import '../../../repositories/methodic_programs/model/methodic_program.dart';
+import '../../execute_screen/view/execute_screen.dart';
 import '../../uikit/texel_button.dart';
 
 class ProgramParamsScreen extends StatefulWidget {
@@ -85,13 +86,15 @@ class _ProgramParamsScreenState extends State<ProgramParamsScreen> {
                 Center(
                   child: TexelButton.accent(
                     onPressed: () {
-                      // MaterialPageRoute route = MaterialPageRoute(
-                      //   builder: (context) => const SelectDeviceScreen(
-                      //     title: 'Мои стимуляторы',
-                      //   ),
-                      //   settings: const RouteSettings(name: '/select'),
-                      // );
-                      // Navigator.of(context).push(route);
+                      MaterialPageRoute route = MaterialPageRoute(
+                        builder: (context) => ExecuteScreen(
+                          title: 'Execution',
+                          device: widget.device,
+                          program: widget.program,
+                        ),
+                        settings: const RouteSettings(name: '/execute'),
+                      );
+                      Navigator.of(context).push(route);
                     },
                     text: 'Начать',
                   ),

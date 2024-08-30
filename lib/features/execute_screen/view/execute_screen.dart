@@ -59,31 +59,38 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
           const SizedBox(height: 60),
           SizedBox(
             width: double.infinity,
-            height: 40,
+            height: 60,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Image.asset(widget.program.image),
+                Image.asset('lib/assets/icons/programs/${widget.program.image}'),
                 const SizedBox(width: 50),
-                Text(
-                  widget.program.title,
-                  style: theme.textTheme.titleLarge,
+                SizedBox(
+                  width: 300,
+                  child: Text(
+                    widget.program.title,
+                    style: theme.textTheme.titleLarge,
+                  ),
                 ),
               ],
             ),
           ),
           SizedBox(
-            width: double.infinity,
+            width: 400,
             height: 40,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  widget.program.description,
-                  style: theme.textTheme.labelMedium,
-                ),
-              ],
+            child: Text(
+              widget.program.description,
+              style: theme.textTheme.labelMedium,
             ),
+            // child: Row(
+            //   mainAxisAlignment: MainAxisAlignment.center,
+            //   children: [
+            //     Text(
+            //       widget.program.description,
+            //       style: theme.textTheme.labelMedium,
+            //     ),
+            //   ],
+            // ),
           ),
           SizedBox(
             width: double.infinity,
@@ -232,6 +239,7 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
 
       /// Запускаем первый этап
       if (_idxStage == -1) {
+        GetIt.I<BgsConnect>().setPower(0);
         newStage();
       }
     }
@@ -257,8 +265,9 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
 
       _isPlaying = true;
     } else {
+      GetIt.I<BgsConnect>().setPower(0);
       /// Все этапы прошли - выходим
-      //TODO: написать выход
+      Navigator.of(context).popUntil(ModalRoute.withName('/select_method'));
     }
   }
 

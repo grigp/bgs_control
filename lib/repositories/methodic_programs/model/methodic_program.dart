@@ -82,7 +82,7 @@ class MethodicProgram {
       statsTitle: 'togo program',
       title: 'Свободный режим',
       description: 'Автономный режим работы стимулятора',
-      image: 'images/togo.png',
+      image: 'togo.png',
     ).._addStage('свободная стимуляция', -1, isAm, isFm, amMode, intensity, frequency);
   }
 
