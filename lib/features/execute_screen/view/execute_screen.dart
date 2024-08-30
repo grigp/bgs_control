@@ -212,6 +212,7 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
   @override
   void dispose() {
     _isPlaying = false;
+    GetIt.I<BgsConnect>().setPower(0);
     GetIt.I<BgsConnect>().removeHandler(_uuidGetData);
     super.dispose();
   }

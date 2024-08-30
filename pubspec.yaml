@@ -97,9 +97,11 @@ flutter:
      - lib/assets/icons/programs/sport_joints_relaxation.png
      - lib/assets/icons/programs/sport_joints_warmup.png
      - lib/assets/icons/programs/sport_joints_workout.png
+     - lib/assets/icons/programs/sport_joints.png
      - lib/assets/icons/programs/sport_muscles_relaxation.png
      - lib/assets/icons/programs/sport_muscles_warmup.png
      - lib/assets/icons/programs/sport_muscles_workout.png
+     - lib/assets/icons/programs/sport_muscles.png
      - lib/assets/icons/programs/tunnel_syndrome.png
      - lib/assets/icons/programs/tunnel_syndrome_almost_round.png
      - lib/assets/icons/programs/tunnel_syndrome_round.png

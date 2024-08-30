@@ -15,7 +15,7 @@
       "stage": [
         {
           "num": 1,
-          "duration": 30000,
+          "duration": 300000,
           "start_power": 1,
           "power": 1,
           "frequency": 100,
@@ -27,7 +27,7 @@
         },
         {
           "num": 2,
-          "duration": 30000,
+          "duration": 600000,
           "start_power": 1,
           "power": 1,
           "frequency": 60,
@@ -39,7 +39,7 @@
         },
         {
           "num": 3,
-          "duration": 30000,
+          "duration": 600000,
           "start_power": 1,
           "power": 1,
           "frequency": 90,
@@ -51,7 +51,7 @@
         },
         {
           "num": 4,
-          "duration": 30000,
+          "duration": 300000,
           "start_power": 1,
           "power": 1,
           "frequency": 100,
@@ -108,8 +108,8 @@
           "frequency": 90,
           "am": true,
           "am_mode": 11,
-          "intensivity": 1,
-          "fm": true,
+          "intensivity": 2,
+          "fm": false,
           "comment": "F-90 Гц + AM 1:1 + Инт 1 - 5 минут"
         },
         {
@@ -141,10 +141,10 @@
       "stage": [
         {
           "num": 1,
-          "duration": 30000,
+          "duration": 600000,
           "start_power": 1,
           "power": 1,
-          "frequency": 14,
+          "frequency": 15,
           "am": true,
           "am_mode": 11,
           "intensivity": 3,
@@ -153,7 +153,7 @@
         },
         {
           "num": 2,
-          "duration": 30000,
+          "duration": 600000,
           "start_power": 1,
           "power": 1,
           "frequency": 90,
@@ -165,14 +165,14 @@
         },
         {
           "num": 3,
-          "duration": 30000,
+          "duration": 300000,
           "start_power": 1,
           "power": 1,
           "frequency": 60,
           "am": true,
           "am_mode": 31,
           "intensivity": 1,
-          "fm": true,
+          "fm": false,
           "comment": "F-60 Гц + AM 4:1 + Инт 1 - 10 минут"
         }
       ]
@@ -195,7 +195,7 @@
           "duration": 300000,
           "start_power": 1,
           "power": 1,
-          "frequency": 14,
+          "frequency": 15,
           "am": true,
           "am_mode": 31,
           "intensivity": 1,
@@ -207,12 +207,12 @@
           "duration": 600000,
           "start_power": 1,
           "power": 1,
-          "frequency": 14,
+          "frequency": 15,
           "am": true,
           "am_mode": 31,
           "intensivity": 3,
           "fm": false,
-          "comment": "F-14 Гц + АМ 3:1 + Инт 3 - 10 минут"
+          "comment": "F-14 Гц + АМ 3:1 + Инт 2 - 10 минут"
         },
         {
           "num": 3,
@@ -282,9 +282,9 @@
           "duration": 600000,
           "start_power": 1,
           "power": 1,
-          "frequency": 60,
+          "frequency": 90,
           "am": true,
-          "am_mode": 31,
+          "am_mode": 11,
           "intensivity": 1,
           "fm": false,
           "comment": "F - 90 Гц + AM1:1 + Инт 1 - 10 минут"
@@ -323,20 +323,20 @@
           "power": 1,
           "frequency": 14,
           "am": true,
-          "am_mode": 31,
-          "intensivity": 3,
-          "fm": false,
+          "am_mode": 11,
+          "intensivity": 2,
+          "fm": true,
           "comment": "F-14 Гц + АМ 3:1 + Инт 3 - 10 минут"
         },
         {
           "num": 3,
-          "duration": 600000,
+          "duration": 300000,
           "start_power": 1,
           "power": 1,
-          "frequency": 60,
+          "frequency": 90,
           "am": true,
-          "am_mode": 31,
-          "intensivity": 2,
+          "am_mode": 11,
+          "intensivity": 1,
           "fm": false,
           "comment": "F-60 Гц + АМ 4:1 + Инт 2 - 10 минут"
         },
@@ -345,11 +345,11 @@
           "duration": 300000,
           "start_power": 1,
           "power": 1,
-          "frequency": 60,
+          "frequency": 120,
           "am": true,
           "am_mode": 31,
-          "intensivity": 1,
-          "fm": true,
+          "intensivity": 3,
+          "fm": false,
           "comment": "Fm + АМ 3:1 + Инт 1 - 5 минут"
         }
       ]
@@ -550,10 +550,10 @@
           "start_power": 1,
           "power": 1,
           "frequency": 15,
-          "am": false,
+          "am": true,
           "am_mode": 11,
           "intensivity": 2,
-          "fm": true,
+          "fm": false,
           "comment": "F - 15Гц + АМ 2:1 + Инт2 - 5 минут"
         },
         {
@@ -561,9 +561,9 @@
           "duration": 300000,
           "start_power": 1,
           "power": 1,
-          "frequency": 90,
+          "frequency": 15,
           "am": true,
-          "am_mode": 31,
+          "am_mode": 11,
           "intensivity": 1,
           "fm": false,
           "comment": "F - 90Гц + АМ 3:1 + Инт1 - 5 минут"
@@ -798,7 +798,7 @@
       "stage": [
         {
           "num": 1,
-          "duration": 30000,
+          "duration": 300000,
           "start_power": 1,
           "power": 1,
           "frequency": 15,
@@ -810,7 +810,187 @@
         },
         {
           "num": 2,
-          "duration": 30000,
+          "duration": 300000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 15,
+          "am": true,
+          "am_mode": 11,
+          "intensivity": 3,
+          "fm": false,
+          "comment": "F - 15Гц + АМ 1:1 + Инт3 - 5 минут"
+        }
+      ]
+    },
+    {
+      "id": 17,
+      "title": "Фитнес. Суставы.",
+      "description": "Локальный электроимпульсный  массаж для пользователей ведущих активный образ жизни (спорт и фитнес).",
+      "file": "ortez1.png",
+      "icon": "sport_joints.png",
+	  "attributes": [
+	  {
+		  "id": "Суставы"
+	  },
+	  {
+		  "id": "Фитнес"
+	  }
+	  ],
+      "electrode": 6,
+      "stage": [
+        {
+          "num": 1,
+          "duration": 300000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 90,
+          "am": true,
+          "am_mode": 31,
+          "intensivity": 2,
+          "fm": false,
+          "comment": "F - 90Гц + АМ 3:1 + Инт2 - 5 минут"
+        },
+        {
+          "num": 2,
+          "duration": 300000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 60,
+          "am": true,
+          "am_mode": 31,
+          "intensivity": 3,
+          "fm": false,
+          "comment": "F - 60Гц + АМ 3:1 + Инт3 - 5 минут"
+        },
+        {
+          "num": 3,
+          "duration": 600000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 90,
+          "am": true,
+          "am_mode": 31,
+          "intensivity": 4,
+          "fm": true,
+          "comment": "Fm + АМ 3:1 + Инт4 - 10 минут"
+        },
+        {
+          "num": 4,
+          "duration": 300000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 60,
+          "am": true,
+          "am_mode": 31,
+          "intensivity": 4,
+          "fm": false,
+          "comment": "F - 60Гц + АМ 3:1 + Инт4 - 5 минут"
+        },
+        {
+          "num": 5,
+          "duration": 300000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 15,
+          "am": true,
+          "am_mode": 11,
+          "intensivity": 2,
+          "fm": false,
+          "comment": "F - 15Гц + АМ 2:1 + Инт2 - 5 минут"
+        },
+        {
+          "num": 6,
+          "duration": 300000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 15,
+          "am": true,
+          "am_mode": 11,
+          "intensivity": 3,
+          "fm": false,
+          "comment": "F - 15Гц + АМ 1:1 + Инт3 - 5 минут"
+        }
+      ]
+    },
+    {
+      "id": 18,
+      "title": "Фитнес. Мышцы.",
+      "description": "Локальный электроимпульсный  массаж для пользователей ведущих активный образ жизни (спорт и фитнес).",
+      "file": "ortez1.png",
+      "icon": "sport_muscles.png",
+	  "attributes": [
+	  {
+		  "id": "Мышцы"
+	  },
+	  {
+		  "id": "Фитнес"
+	  }
+	  ],
+      "electrode": 6,
+      "stage": [
+        {
+          "num": 1,
+          "duration": 300000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 60,
+          "am": true,
+          "am_mode": 31,
+          "intensivity": 2,
+          "fm": false,
+          "comment": "F - 60Гц + АМ 3:1 + Инт2 - 5 минут"
+        },
+        {
+          "num": 2,
+          "duration": 300000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 60,
+          "am": true,
+          "am_mode": 31,
+          "intensivity": 3,
+          "fm": false,
+          "comment": "F - 60Гц + АМ 3:1 + Инт3 - 5 минут"
+        },
+        {
+          "num": 3,
+          "duration": 600000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 90,
+          "am": true,
+          "am_mode": 31,
+          "intensivity": 4,
+          "fm": true,
+          "comment": "Fm + АМ 4:1 + Инт4 - 10 минут"
+        },
+        {
+          "num": 4,
+          "duration": 600000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 60,
+          "am": true,
+          "am_mode": 31,
+          "intensivity": 4,
+          "fm": false,
+          "comment": "F - 60Гц + АМ 4:1 + Инт4 - 10 минут"
+        },
+        {
+          "num": 5,
+          "duration": 300000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 15,
+          "am": true,
+          "am_mode": 11,
+          "intensivity": 2,
+          "fm": false,
+          "comment": "F - 15Гц + АМ 2:1 + Инт2 - 5 минут"
+        },
+        {
+          "num": 6,
+          "duration": 300000,
           "start_power": 1,
           "power": 1,
           "frequency": 15,
