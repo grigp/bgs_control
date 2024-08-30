@@ -1,4 +1,6 @@
+import 'package:bgs_control/features/select_program_screen/widgets/direct_title.dart';
 import 'package:bgs_control/features/select_program_screen/widgets/program_title.dart';
+import 'package:bgs_control/features/select_program_screen/widgets/togo_title.dart';
 import 'package:bgs_control/features/togo_params_screen/view/togo_params_screen.dart';
 import 'package:bgs_control/repositories/methodic_programs/model/methodic_program.dart';
 import 'package:bgs_control/repositories/methodic_programs/storage/program_storage.dart';
@@ -11,6 +13,7 @@ import 'package:uuid/uuid.dart';
 import '../../../assets/colors/colors.dart';
 import '../../../repositories/bgs_connect/bgs_connect.dart';
 import '../../../utils/base_defines.dart';
+import '../../../utils/charge_values.dart';
 import '../../direct_control_screen/view/direct_control_screen.dart';
 import '../../uikit/texel_button.dart';
 import '../../uikit/widgets/charge_message_widget.dart';
@@ -65,58 +68,34 @@ class _SelectProgramScreenState extends State<SelectProgramScreen> {
                   ),
                   child: Column(
                     children: [
-                      Text('Доступные методики'),
+                      Text(
+                        'Доступные программы',
+                        style: theme.textTheme.titleLarge,
+                      ),
+                      Row(
+                        children: [
+                          Text(
+                            widget.device.advName,
+                            style: theme.textTheme.titleMedium,
+                          ),
+                          const Spacer(),
+                          Icon(getChargeIconByLevel(_chargeLevel), size: 20),
+                          Text(
+                            '${_chargeLevel.toInt()}%',
+                            style: theme.textTheme.titleMedium,
+                          ),
+                        ],
+                      ),
                       Expanded(
                         child: ListView(
                           shrinkWrap: true,
                           children: <Widget>[
                             ..._buildProgramTiles(context),
+                            ..._buildHandleProgram(context),
                           ],
                         ),
                       ),
                     ],
-                  ),
-                ),
-                const SizedBox(height: 10),
-                Center(
-                  child: TexelButton.accent(
-                    onPressed: () {
-                      if (_chargeLevel > chargeBreakBoundLevel) {
-                        MaterialPageRoute route = MaterialPageRoute(
-                          builder: (context) => TogoParamsScreen(
-                            title: 'Свободный режим',
-                            device: widget.device,
-                          ),
-                          settings:
-                              const RouteSettings(name: '/togo_control'),
-                        );
-                        Navigator.of(context).push(route);
-                      } else {
-                        alertLowEnergy();
-                      }
-                    },
-                    text: 'Свободный режим',
-                  ),
-                ),
-                const SizedBox(height: 10),
-                Center(
-                  child: TexelButton.accent(
-                    onPressed: () {
-                      if (_chargeLevel > chargeBreakBoundLevel) {
-                        MaterialPageRoute route = MaterialPageRoute(
-                          builder: (context) => DirectControlScreen(
-                            title: 'Direct',
-                            device: widget.device,
-                          ),
-                          settings:
-                              const RouteSettings(name: '/direct_control'),
-                        );
-                        Navigator.of(context).push(route);
-                      } else {
-                        alertLowEnergy();
-                      }
-                    },
-                    text: 'Прямое управление',
                   ),
                 ),
               ],
@@ -192,9 +171,49 @@ class _SelectProgramScreenState extends State<SelectProgramScreen> {
         .map(
           (program) => ProgramTitle(
             program: program,
-            onTap: () {},
+            onTap: () {
+            },
           ),
         )
         .toList();
+  }
+
+  List<Widget> _buildHandleProgram(BuildContext context){
+    List<Widget> list = [];
+    list.add(TogoTitle(onTap: _runToGoMode));
+    list.add(DirectTitle(onTap: _runDirectControl));
+    return list;
+  }
+
+  void _runToGoMode(){
+    if (_chargeLevel > chargeBreakBoundLevel) {
+      MaterialPageRoute route = MaterialPageRoute(
+        builder: (context) => TogoParamsScreen(
+          title: 'Свободный режим',
+          device: widget.device,
+        ),
+        settings:
+        const RouteSettings(name: '/togo_control'),
+      );
+      Navigator.of(context).push(route);
+    } else {
+      alertLowEnergy();
+    }
+  }
+
+  void _runDirectControl(){
+    if (_chargeLevel > chargeBreakBoundLevel) {
+      MaterialPageRoute route = MaterialPageRoute(
+        builder: (context) => DirectControlScreen(
+          title: 'Direct',
+          device: widget.device,
+        ),
+        settings:
+        const RouteSettings(name: '/direct_control'),
+      );
+      Navigator.of(context).push(route);
+    } else {
+      alertLowEnergy();
+    }
   }
 }

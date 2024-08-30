@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 const Color accentColor = _mainAccent;
 const Color filledAccentButtonColor = _mainAccent;
 const Color filledSecondaryButtonColor = _secondaryGrayAccent;
+const Color filledSecondaryItemColor = _secondaryGrayAccent02;
 const Color filledBlackButtonColor = _black;
 const Color backgroundColor = _white;
 const Color white = _white;

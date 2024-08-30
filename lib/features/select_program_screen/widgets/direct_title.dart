@@ -1,21 +1,20 @@
-import 'package:bgs_control/repositories/methodic_programs/model/methodic_program.dart';
 import 'package:flutter/material.dart';
 
-class ProgramTitle extends StatefulWidget {
-  const ProgramTitle({
+import '../../../assets/colors/colors.dart';
+
+class DirectTitle extends StatefulWidget{
+  const DirectTitle({
     super.key,
-    required this.program,
     required this.onTap,
   });
 
-  final MethodicProgram program;
   final VoidCallback? onTap;
 
   @override
-  State<ProgramTitle> createState() => _ProgramTitleState();
+  State<DirectTitle> createState() => _DirectTitleState();
 }
 
-class _ProgramTitleState extends State<ProgramTitle> {
+class _DirectTitleState extends State<DirectTitle> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -43,14 +42,18 @@ class _ProgramTitleState extends State<ProgramTitle> {
             right: 10,
             bottom: 10,
           ),
+          decoration: BoxDecoration(
+            color: filledSecondaryItemColor,
+            borderRadius: BorderRadius.circular(10),
+          ),
           child: Row(
             children: [
-              Image.asset('lib/assets/icons/programs/${widget.program.image}'),
+              Image.asset('images/togo.png'),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    widget.program.title,
+                    'Прямое управление',
                     style: theme.textTheme.titleMedium,
                     overflow: TextOverflow.ellipsis,
                   ),
@@ -58,7 +61,7 @@ class _ProgramTitleState extends State<ProgramTitle> {
                     width: 300, //double.infinity,
                     height: 50,
                     child: Text(
-                      widget.program.description,
+                      'Прямое управление работой стимулятора в реальном времени',
                       style: theme.textTheme.labelSmall,
                       overflow: TextOverflow.ellipsis,
                       maxLines: 4,
