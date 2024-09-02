@@ -8,7 +8,6 @@ import '../model/methodic_program.dart';
 
 /// Класс, предоставляющий доступ к списку доступных программ
 class ProgramStorage {
-
   List<dynamic>? _listPPWork = [];
   List<MethodicProgram> _listPrograms = [];
 
@@ -30,7 +29,9 @@ class ProgramStorage {
     final listPPDef = dd['programs'] as List<dynamic>?;
 
     /// Список программ из рабочего файла
-    final dir = await getExternalStorageDirectory();
+    final dir = Platform.isAndroid
+        ? await getExternalStorageDirectory()
+        : await getApplicationSupportDirectory();
     var f = File('${dir?.path}/programs.json');
     if (await f.exists()) {
       await f.readAsString().then((String dataWork) {
@@ -54,7 +55,7 @@ class ProgramStorage {
     await File('${dir?.path}/programs.json').writeAsString(sp);
 
     _listPrograms.clear();
-    for (int i = 0; i < _listPPWork!.length; ++i){
+    for (int i = 0; i < _listPPWork!.length; ++i) {
       var program = MethodicProgram.fromJson(_listPPWork![i]);
       _listPrograms.add(program);
     }

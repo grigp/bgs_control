@@ -19,57 +19,48 @@ class _ProgramTitleState extends State<ProgramTitle> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    return Row(
-      children: [
-        const SizedBox(width: 10),
-        GestureDetector(
-          onTap: () {
-            widget.onTap?.call();
-          },
-          child: _buildTitle(context, theme),
-        ),
-      ],
+    return GestureDetector(
+      onTap: () {
+        widget.onTap?.call();
+      },
+      child: _buildTitle(context, theme),
     );
   }
 
   Widget _buildTitle(BuildContext context, ThemeData theme) {
-    return Row(
-      children: [
-        Container(
-          height: 80,
-          margin: const EdgeInsets.only(
-            left: 0,
-            top: 10,
-            right: 10,
-            bottom: 10,
-          ),
-          child: Row(
-            children: [
-              Image.asset('lib/assets/icons/programs/${widget.program.image}'),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    widget.program.title,
-                    style: theme.textTheme.titleMedium,
+    return Container(
+      height: 80,
+      margin: const EdgeInsets.only(
+        left: 0,
+        top: 10,
+        right: 10,
+        bottom: 10,
+      ),
+      child: Row(
+        children: [
+          Image.asset('lib/assets/icons/programs/${widget.program.image}'),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  widget.program.title,
+                  style: theme.textTheme.titleMedium,
+                  overflow: TextOverflow.ellipsis,
+                ),
+                Expanded(
+                  child: Text(
+                    widget.program.description,
+                    style: theme.textTheme.labelSmall,
                     overflow: TextOverflow.ellipsis,
+                    maxLines: 4,
                   ),
-                  SizedBox(
-                    width: 300, //double.infinity,
-                    height: 50,
-                    child: Text(
-                      widget.program.description,
-                      style: theme.textTheme.labelSmall,
-                      overflow: TextOverflow.ellipsis,
-                      maxLines: 4,
-                    ),
-                  ),
-                ],
-              ),
-            ],
+                ),
+              ],
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }
