@@ -9,6 +9,7 @@ import '../../../assets/colors/colors.dart';
 import '../../../repositories/bgs_connect/bgs_connect.dart';
 import '../../direct_control_screen/widgets/params_widget.dart';
 import '../../uikit/texel_button.dart';
+import '../../uikit/widgets/back_screen_button.dart';
 
 class TogoParamsScreen extends StatefulWidget {
   const TogoParamsScreen({
@@ -52,6 +53,11 @@ class _TogoParamsScreenState extends State<TogoParamsScreen> {
                     child: Image.asset('images/background_hand.png'),
                   ),
                 ],
+              ),
+              const Positioned(
+                top: 40,
+                left: 10,
+                child: BackScreenButton(),
               ),
               Column(
                 children: [

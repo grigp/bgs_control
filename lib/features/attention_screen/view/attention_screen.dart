@@ -51,7 +51,7 @@ class _AttentionScreenState extends State<AttentionScreen> {
               '- В местах заболевания кожи.',
               style: theme.textTheme.titleMedium,
             ),
-            Spacer(),
+            const Spacer(),
             Center(
               child:
               TexelButton.accent(

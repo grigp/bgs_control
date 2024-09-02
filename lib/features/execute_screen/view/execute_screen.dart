@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:bgs_control/features/uikit/widgets/back_screen_button.dart';
 import 'package:bgs_control/utils/baseutils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
@@ -63,10 +64,11 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Image.asset('lib/assets/icons/programs/${widget.program.image}'),
-                const SizedBox(width: 50),
-                SizedBox(
-                  width: 300,
+                const BackScreenButton(),
+                Image.asset(
+                    'lib/assets/icons/programs/${widget.program.image}'),
+                const SizedBox(width: 20),
+                Expanded(
                   child: Text(
                     widget.program.title,
                     style: theme.textTheme.titleLarge,
@@ -82,15 +84,6 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
               widget.program.description,
               style: theme.textTheme.labelMedium,
             ),
-            // child: Row(
-            //   mainAxisAlignment: MainAxisAlignment.center,
-            //   children: [
-            //     Text(
-            //       widget.program.description,
-            //       style: theme.textTheme.labelMedium,
-            //     ),
-            //   ],
-            // ),
           ),
           SizedBox(
             width: double.infinity,
@@ -112,7 +105,8 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
               ],
             ),
           ),
-          if (_chargeLevel <= chargeAlarmBoundLevel) const ChargeMessageWidget(),
+          if (_chargeLevel <= chargeAlarmBoundLevel)
+            const ChargeMessageWidget(),
           const SizedBox(height: 30),
           Row(
             /// Кнопка play / pause
@@ -154,16 +148,24 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
             ],
           ),
           const Spacer(),
-
-          if (_isPlaying) SizedBox(
-            width: 50,
-            height: 50,
-            child: Image.asset('images/attention.png'),
-          ),
-          if (_isPlaying) Text(
-            'Увеличивайте мощность воздействия, не допуская появления болевых ощущений',
-            style: theme.textTheme.bodyLarge,
-          ),
+          if (_isPlaying)
+            Row(
+              children: [
+                const SizedBox(width: 5),
+                SizedBox(
+                  width: 50,
+                  height: 50,
+                  child: Image.asset('images/attention.png'),
+                ),
+                const SizedBox(width: 5),
+                Expanded(
+                  child: Text(
+                    'Увеличивайте мощность воздействия, не допуская появления болевых ощущений',
+                    style: theme.textTheme.bodyLarge,
+                  ),
+                ),
+              ],
+            ),
           if (_isPlaying)
             Container(
               padding: const EdgeInsets.all(15),
@@ -267,6 +269,7 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
       _isPlaying = true;
     } else {
       GetIt.I<BgsConnect>().setPower(0);
+
       /// Все этапы прошли - выходим
       Navigator.of(context).popUntil(ModalRoute.withName('/select_method'));
     }

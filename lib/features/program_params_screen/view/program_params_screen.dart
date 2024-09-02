@@ -6,6 +6,7 @@ import '../../../assets/colors/colors.dart';
 import '../../../repositories/methodic_programs/model/methodic_program.dart';
 import '../../execute_screen/view/execute_screen.dart';
 import '../../uikit/texel_button.dart';
+import '../../uikit/widgets/back_screen_button.dart';
 
 class ProgramParamsScreen extends StatefulWidget {
   const ProgramParamsScreen({
@@ -39,6 +40,11 @@ class _ProgramParamsScreenState extends State<ProgramParamsScreen> {
                 //   const ChargeMessageWidget(),
                 Image.asset('images/background_hand.png'),
               ],
+            ),
+            const Positioned(
+              top: 40,
+              left: 10,
+              child: BackScreenButton(),
             ),
             Column(
               mainAxisAlignment: MainAxisAlignment.start, //.center,

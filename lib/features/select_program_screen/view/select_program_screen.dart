@@ -17,6 +17,7 @@ import '../../../utils/base_defines.dart';
 import '../../../utils/charge_values.dart';
 import '../../direct_control_screen/view/direct_control_screen.dart';
 import '../../uikit/texel_button.dart';
+import '../../uikit/widgets/back_screen_button.dart';
 import '../../uikit/widgets/charge_message_widget.dart';
 
 class SelectProgramScreen extends StatefulWidget {
@@ -54,6 +55,11 @@ class _SelectProgramScreenState extends State<SelectProgramScreen> {
                   const ChargeMessageWidget(),
                 Image.asset('images/background_woman.png'),
               ],
+            ),
+            const Positioned(
+              top: 40,
+              left: 20,
+              child: BackScreenButton(),
             ),
             Column(
               mainAxisAlignment: MainAxisAlignment.start, //.center,
