@@ -94,11 +94,22 @@ class _FoundDeviceTitleState extends State<FoundDeviceTitle> {
               right: 10,
               bottom: 10,
             ),
-            child: Text(
-              widget.result.device.platformName,
-              style: theme.textTheme.headlineLarge,
-              overflow: TextOverflow.ellipsis,
+            child: Row(
+              children: [
+                Image.asset(
+                  'lib/assets/icons/bluetooth.png',
+                  width: 30,
+                  height: 30,
+                ),
+                const SizedBox(width: 10),
+                Text(
+                  widget.result.device.platformName,
+                  style: theme.textTheme.headlineLarge,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ],
             ),
+
           ),
           // _buildConnectButton(context),
         ],

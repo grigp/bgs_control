@@ -56,11 +56,21 @@ class WgtMain extends StatelessWidget {
                               Navigator.of(context).push(route);
                             }
                           },
-                          child: Text(
-                            list[index],
-                            style: listRegistred.contains(list[index])
-                                ? theme.textTheme.labelMedium
-                                : theme.textTheme.labelMedium?.copyWith(fontWeight: FontWeight.bold),
+                          child: Row(
+                            children: [
+                              Image.asset(
+                                'lib/assets/icons/bluetooth.png',
+                                width: 20,
+                                height: 20,
+                              ),
+                              SizedBox(width: 10),
+                              Text(
+                                list[index],
+                                style: listRegistred.contains(list[index])
+                                    ? theme.textTheme.labelMedium
+                                    : theme.textTheme.labelMedium?.copyWith(fontWeight: FontWeight.bold),
+                              ),
+                            ],
                           ),
                         ),
                       ],

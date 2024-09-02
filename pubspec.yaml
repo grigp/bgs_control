@@ -69,6 +69,7 @@ flutter:
      - images/pause.png
      - lib/assets/icons/device_menu.png
      - lib/assets/icons/methods_menu.png
+     - lib/assets/icons/bluetooth.png
 
      - lib/assets/programs/prg_main.json
      - lib/assets/icons/programs/togo.png
