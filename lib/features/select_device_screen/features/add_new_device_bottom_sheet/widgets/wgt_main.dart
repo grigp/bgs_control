@@ -63,7 +63,7 @@ class WgtMain extends StatelessWidget {
                                 width: 20,
                                 height: 20,
                               ),
-                              SizedBox(width: 10),
+                              const SizedBox(width: 10),
                               Text(
                                 list[index],
                                 style: listRegistred.contains(list[index])
