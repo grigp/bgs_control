@@ -13,6 +13,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:get_it/get_it.dart';
 
+import '../../../repositories/running_manager/running_manager.dart';
 import '../../select_program_screen/view/select_program_screen.dart';
 
 class SelectDeviceScreen extends StatefulWidget {
@@ -228,10 +229,11 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
   }
 
   void onSelectPressed(BluetoothDevice device) {
+    var driver = GetIt.I<RunningManager>().openDevice(device);
     MaterialPageRoute route = MaterialPageRoute(
       builder: (context) => SelectProgramScreen(
         title: 'Выбор методики',
-        device: device,
+        driver: driver,
       ),
       settings: const RouteSettings(name: '/select_method'),
     );

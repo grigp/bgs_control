@@ -78,7 +78,7 @@ class MethodicProgram {
   factory MethodicProgram.togo(bool isAm, bool isFm, AmMode amMode,
       Intensity intensity, double frequency) {
     return MethodicProgram(
-      uid: '',
+      uid: '0',
       statsTitle: 'togo program',
       title: 'Свободный режим',
       description: 'Автономный режим работы стимулятора',

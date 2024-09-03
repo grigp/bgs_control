@@ -7,6 +7,7 @@ import 'package:uuid/uuid.dart';
 
 import '../../../assets/colors/colors.dart';
 import '../../../repositories/bgs_connect/bgs_connect.dart';
+import '../../../repositories/running_manager/device_driver.dart';
 import '../../direct_control_screen/widgets/params_widget.dart';
 import '../../uikit/texel_button.dart';
 import '../../uikit/widgets/back_screen_button.dart';
@@ -15,11 +16,11 @@ class TogoParamsScreen extends StatefulWidget {
   const TogoParamsScreen({
     super.key,
     required this.title,
-    required this.device,
+    required this.driver,
   });
 
   final String title;
-  final BluetoothDevice device;
+  final DeviceDriver driver;
 
   @override
   State<TogoParamsScreen> createState() => _TogoParamsScreenState();
@@ -110,7 +111,7 @@ class _TogoParamsScreenState extends State<TogoParamsScreen> {
                     MaterialPageRoute route = MaterialPageRoute(
                       builder: (context) => ExecuteScreen(
                         title: 'Execution',
-                        device: widget.device,
+                        driver: widget.driver,
                         program: program,
                       ),
                       settings: const RouteSettings(name: '/execute'),

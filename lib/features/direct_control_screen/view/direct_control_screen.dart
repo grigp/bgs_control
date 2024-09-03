@@ -8,17 +8,18 @@ import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:get_it/get_it.dart';
 import 'package:uuid/uuid.dart';
 
+import '../../../repositories/running_manager/device_driver.dart';
 import '../../../utils/base_defines.dart';
 
 class DirectControlScreen extends StatefulWidget {
   const DirectControlScreen({
     super.key,
     required this.title,
-    required this.device,
+    required this.driver,
   });
 
   final String title;
-  final BluetoothDevice device;
+  final DeviceDriver driver;
 
   @override
   State<DirectControlScreen> createState() => _DirectControlScreenState();
@@ -52,7 +53,7 @@ class _DirectControlScreenState extends State<DirectControlScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          '${widget.title}: ${widget.device.advName}',
+          '${widget.title}: ${widget.driver.device.advName}',
           style: theme.textTheme.titleMedium,
         ),
         actions: [

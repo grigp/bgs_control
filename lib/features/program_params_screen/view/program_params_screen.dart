@@ -4,6 +4,7 @@ import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 
 import '../../../assets/colors/colors.dart';
 import '../../../repositories/methodic_programs/model/methodic_program.dart';
+import '../../../repositories/running_manager/device_driver.dart';
 import '../../execute_screen/view/execute_screen.dart';
 import '../../uikit/texel_button.dart';
 import '../../uikit/widgets/back_screen_button.dart';
@@ -12,12 +13,12 @@ class ProgramParamsScreen extends StatefulWidget {
   const ProgramParamsScreen({
     super.key,
     required this.title,
-    required this.device,
+    required this.driver,
     required this.program,
   });
 
   final String title;
-  final BluetoothDevice device;
+  final DeviceDriver driver;
   final MethodicProgram program;
 
   @override
@@ -67,7 +68,7 @@ class _ProgramParamsScreenState extends State<ProgramParamsScreen> {
                       Row(
                         children: [
                           Text(
-                            widget.device.advName,
+                            widget.driver.device.advName,
                             style: theme.textTheme.titleMedium,
                           ),
                           const Spacer(),
@@ -95,7 +96,7 @@ class _ProgramParamsScreenState extends State<ProgramParamsScreen> {
                       MaterialPageRoute route = MaterialPageRoute(
                         builder: (context) => ExecuteScreen(
                           title: 'Execution',
-                          device: widget.device,
+                          driver: widget.driver,
                           program: widget.program,
                         ),
                         settings: const RouteSettings(name: '/execute'),

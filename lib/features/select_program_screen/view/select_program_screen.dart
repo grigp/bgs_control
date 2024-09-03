@@ -13,6 +13,7 @@ import 'package:uuid/uuid.dart';
 
 import '../../../assets/colors/colors.dart';
 import '../../../repositories/bgs_connect/bgs_connect.dart';
+import '../../../repositories/running_manager/device_driver.dart';
 import '../../../utils/base_defines.dart';
 import '../../../utils/charge_values.dart';
 import '../../direct_control_screen/view/direct_control_screen.dart';
@@ -24,11 +25,11 @@ class SelectProgramScreen extends StatefulWidget {
   const SelectProgramScreen({
     super.key,
     required this.title,
-    required this.device,
+    required this.driver,
   });
 
   final String title;
-  final BluetoothDevice device;
+  final DeviceDriver driver;
 
   @override
   State<SelectProgramScreen> createState() => _SelectProgramScreenState();
@@ -36,7 +37,7 @@ class SelectProgramScreen extends StatefulWidget {
 
 class _SelectProgramScreenState extends State<SelectProgramScreen> {
   List<MethodicProgram> _programs = [];
-  bool _isConnected = false;
+//  bool _isConnected = false;
   String _uuidGetData = '';
   double _chargeLevel = 100;
 
@@ -82,7 +83,7 @@ class _SelectProgramScreenState extends State<SelectProgramScreen> {
                       Row(
                         children: [
                           Text(
-                            widget.device.advName,
+                            widget.driver.device.advName,
                             style: theme.textTheme.titleMedium,
                           ),
                           const Spacer(),
@@ -136,25 +137,17 @@ class _SelectProgramScreenState extends State<SelectProgramScreen> {
 
     readPrograms();
 
-    GetIt.I<BgsConnect>().init(widget.device);
-    widget.device.connectionState.listen((event) {
-      _isConnected = event == BluetoothConnectionState.connected;
-    });
-
+    widget.driver.connect();
+    // TODO как-то по другому надо получать данные о зарядке
     _uuidGetData = const Uuid().v1();
     GetIt.I<BgsConnect>().addHandler(_uuidGetData, onGetData);
   }
 
   @override
   void dispose() {
+    // TODO как-то по другому надо получать данные о зарядке
     GetIt.I<BgsConnect>().removeHandler(_uuidGetData);
-
-    if (_isConnected) {
-      GetIt.I<BgsConnect>().reset();
-      GetIt.I<BgsConnect>().stop();
-
-      widget.device.disconnectAndUpdateStream().catchError((e) {});
-    }
+    widget.driver.disconnect();
 
     super.dispose();
   }
@@ -183,7 +176,7 @@ class _SelectProgramScreenState extends State<SelectProgramScreen> {
                 MaterialPageRoute route = MaterialPageRoute(
                   builder: (context) => ProgramParamsScreen(
                     title: 'Программа ${program.title}',
-                    device: widget.device,
+                    driver: widget.driver,
                     program: program,
                   ),
                   settings:
@@ -211,7 +204,7 @@ class _SelectProgramScreenState extends State<SelectProgramScreen> {
       MaterialPageRoute route = MaterialPageRoute(
         builder: (context) => TogoParamsScreen(
           title: 'Свободный режим',
-          device: widget.device,
+          driver: widget.driver,
         ),
         settings:
         const RouteSettings(name: '/togo_control'),
@@ -227,7 +220,7 @@ class _SelectProgramScreenState extends State<SelectProgramScreen> {
       MaterialPageRoute route = MaterialPageRoute(
         builder: (context) => DirectControlScreen(
           title: 'Direct',
-          device: widget.device,
+          driver: widget.driver,
         ),
         settings:
         const RouteSettings(name: '/direct_control'),
