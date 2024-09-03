@@ -221,6 +221,8 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
     _isPlaying = false;
     GetIt.I<BgsConnect>().setPower(0);
     GetIt.I<BgsConnect>().removeHandler(_uuidGetData);
+    widget.driver.stop();
+
     super.dispose();
   }
 
