@@ -11,7 +11,7 @@ import 'package:uuid/uuid.dart';
 import '../../../assets/colors/colors.dart';
 import '../../../repositories/bgs_connect/bgs_connect.dart';
 import '../../../repositories/methodic_programs/model/methodic_program.dart';
-import '../../../repositories/running_manager/device_driver.dart';
+import '../../../repositories/running_manager/device_program_executor.dart';
 import '../../../utils/base_defines.dart';
 import '../../../utils/charge_values.dart';
 import '../../direct_control_screen/widgets/power_widget.dart';
@@ -26,7 +26,7 @@ class ExecuteScreen extends StatefulWidget {
   });
 
   final String title;
-  final DeviceDriver driver;
+  final DeviceProgramExecutor driver;
   final MethodicProgram program;
 
   @override
@@ -188,12 +188,12 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
   }
 
   void onPowerSet(double power) {
-    GetIt.I<BgsConnect>().setPower(power);
+    widget.driver.setPower(power);
     _powerSet = power;
   }
 
   void onPowerReset() {
-    GetIt.I<BgsConnect>().reset();
+    widget.driver.reset();
     _powerSet = 0;
   }
 
@@ -205,7 +205,7 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
     widget.driver.run();
 
     _uuidGetData = const Uuid().v1();
-    GetIt.I<BgsConnect>().addHandler(_uuidGetData, onGetData);
+    widget.driver.addHandler(_uuidGetData, onGetData);
 
     Timer.periodic(const Duration(seconds: 1), (timer) async {
       if (_isPlaying) {
@@ -219,8 +219,8 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
   @override
   void dispose() {
     _isPlaying = false;
-    GetIt.I<BgsConnect>().setPower(0);
-    GetIt.I<BgsConnect>().removeHandler(_uuidGetData);
+    widget.driver.setPower(0);
+    widget.driver.removeHandler(_uuidGetData);
     widget.driver.stop();
 
     super.dispose();
@@ -244,12 +244,11 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
 
     /// Посылаем команду работать даже при прерывании связи
     if (_dataCount == 1) {
-      GetIt.I<BgsConnect>()
-          .setConnectionFailureMode(ConnectionFailureMode.cfmWorking);
+      widget.driver.setConnectionFailureMode(ConnectionFailureMode.cfmWorking);
 
       /// Запускаем первый этап
       if (_idxStage == -1) {
-        GetIt.I<BgsConnect>().setPower(0);
+        widget.driver.setPower(0);
         newStage();
       }
     }
@@ -266,7 +265,7 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
           idxFreq = element.key;
         }
       }
-      GetIt.I<BgsConnect>().setMode(
+      widget.driver.setMode(
           _stage.isAm, _stage.isFm, _stage.amMode, idxFreq, _stage.intensity);
 
       if (_stage.duration >= 0) {
@@ -275,7 +274,7 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
 
       _isPlaying = true;
     } else {
-      GetIt.I<BgsConnect>().setPower(0);
+      widget.driver.setPower(0);
 
       /// Все этапы прошли - выходим
       Navigator.of(context).popUntil(ModalRoute.withName('/select_method'));
@@ -288,7 +287,7 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
         setState(() {
           _isPlaying = !_isPlaying;
           if (!_isPlaying) {
-            GetIt.I<BgsConnect>().reset();
+            widget.driver.reset();
             _powerSet = 0;
           }
         });

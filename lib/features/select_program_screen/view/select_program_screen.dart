@@ -13,7 +13,7 @@ import 'package:uuid/uuid.dart';
 
 import '../../../assets/colors/colors.dart';
 import '../../../repositories/bgs_connect/bgs_connect.dart';
-import '../../../repositories/running_manager/device_driver.dart';
+import '../../../repositories/running_manager/device_program_executor.dart';
 import '../../../utils/base_defines.dart';
 import '../../../utils/charge_values.dart';
 import '../../direct_control_screen/view/direct_control_screen.dart';
@@ -29,7 +29,7 @@ class SelectProgramScreen extends StatefulWidget {
   });
 
   final String title;
-  final DeviceDriver driver;
+  final DeviceProgramExecutor driver;
 
   @override
   State<SelectProgramScreen> createState() => _SelectProgramScreenState();
@@ -140,13 +140,13 @@ class _SelectProgramScreenState extends State<SelectProgramScreen> {
     widget.driver.connect();
     // TODO как-то по другому надо получать данные о зарядке
     _uuidGetData = const Uuid().v1();
-    GetIt.I<BgsConnect>().addHandler(_uuidGetData, onGetData);
+    widget.driver.addHandler(_uuidGetData, onGetData);
   }
 
   @override
   void dispose() {
     // TODO как-то по другому надо получать данные о зарядке
-    GetIt.I<BgsConnect>().removeHandler(_uuidGetData);
+    widget.driver.removeHandler(_uuidGetData);
     widget.driver.disconnect();
 
     super.dispose();

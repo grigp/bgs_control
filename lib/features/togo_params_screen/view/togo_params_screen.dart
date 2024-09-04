@@ -7,7 +7,7 @@ import 'package:uuid/uuid.dart';
 
 import '../../../assets/colors/colors.dart';
 import '../../../repositories/bgs_connect/bgs_connect.dart';
-import '../../../repositories/running_manager/device_driver.dart';
+import '../../../repositories/running_manager/device_program_executor.dart';
 import '../../direct_control_screen/widgets/params_widget.dart';
 import '../../uikit/texel_button.dart';
 import '../../uikit/widgets/back_screen_button.dart';
@@ -20,7 +20,7 @@ class TogoParamsScreen extends StatefulWidget {
   });
 
   final String title;
-  final DeviceDriver driver;
+  final DeviceProgramExecutor driver;
 
   @override
   State<TogoParamsScreen> createState() => _TogoParamsScreenState();
@@ -132,7 +132,7 @@ class _TogoParamsScreenState extends State<TogoParamsScreen> {
     super.initState();
 
     _uuidGetData = const Uuid().v1();
-    GetIt.I<BgsConnect>().addHandler(_uuidGetData, onGetData);
+    widget.driver.addHandler(_uuidGetData, onGetData);
   }
 
   void onGetData(BlockData data) {
@@ -144,7 +144,7 @@ class _TogoParamsScreenState extends State<TogoParamsScreen> {
       _intensity = data.intensity;
     });
 
-    GetIt.I<BgsConnect>().removeHandler(_uuidGetData);
+    widget.driver.removeHandler(_uuidGetData);
   }
 
   void onAmChanged(bool isAm) {

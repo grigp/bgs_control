@@ -8,7 +8,7 @@ import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:get_it/get_it.dart';
 import 'package:uuid/uuid.dart';
 
-import '../../../repositories/running_manager/device_driver.dart';
+import '../../../repositories/running_manager/device_program_executor.dart';
 import '../../../utils/base_defines.dart';
 
 class DirectControlScreen extends StatefulWidget {
@@ -19,7 +19,7 @@ class DirectControlScreen extends StatefulWidget {
   });
 
   final String title;
-  final DeviceDriver driver;
+  final DeviceProgramExecutor driver;
 
   @override
   State<DirectControlScreen> createState() => _DirectControlScreenState();
@@ -44,7 +44,7 @@ class _DirectControlScreenState extends State<DirectControlScreen> {
     super.initState();
 
     _uuidSendData = const Uuid().v1();
-    GetIt.I<BgsConnect>().addHandler(_uuidSendData, onGetData);
+    widget.driver.addHandler(_uuidSendData, onGetData);
   }
 
   @override
@@ -70,7 +70,8 @@ class _DirectControlScreenState extends State<DirectControlScreen> {
           padding: const EdgeInsets.all(20),
           child: Column(
             children: [
-              if (_chargeLevel <= chargeAlarmBoundLevel) const ChargeMessageWidget(),
+              if (_chargeLevel <= chargeAlarmBoundLevel)
+                const ChargeMessageWidget(),
               // SizedBox(
               //   width: double.infinity,
               //   height: 30,
@@ -115,7 +116,7 @@ class _DirectControlScreenState extends State<DirectControlScreen> {
 
   @override
   void dispose() {
-    GetIt.I<BgsConnect>().removeHandler(_uuidSendData);
+    widget.driver.removeHandler(_uuidSendData);
     super.dispose();
   }
 
@@ -155,12 +156,12 @@ class _DirectControlScreenState extends State<DirectControlScreen> {
   }
 
   void onPowerSet(double power) {
-    GetIt.I<BgsConnect>().setPower(power);
+    widget.driver.setPower(power);
     _powerSet = power;
   }
 
   void onPowerReset() {
-    GetIt.I<BgsConnect>().reset();
+    widget.driver.reset();
     _powerSet = 0;
   }
 
@@ -189,13 +190,12 @@ class _DirectControlScreenState extends State<DirectControlScreen> {
     });
 
     if (_dataCount == 1) {
-      GetIt.I<BgsConnect>()
-          .setConnectionFailureMode(ConnectionFailureMode.cfmWorking);
+      widget.driver.setConnectionFailureMode(ConnectionFailureMode.cfmWorking);
     }
   }
 
   void _setDeviceMode() {
-    GetIt.I<BgsConnect>().setMode(_isAM, _isFM, _amMode, _idxFreq, _intensity);
+    widget.driver.setMode(_isAM, _isFM, _amMode, _idxFreq, _intensity);
   }
 
   String _valueToString() {

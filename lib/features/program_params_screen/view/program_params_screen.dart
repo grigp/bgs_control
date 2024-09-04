@@ -4,7 +4,7 @@ import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 
 import '../../../assets/colors/colors.dart';
 import '../../../repositories/methodic_programs/model/methodic_program.dart';
-import '../../../repositories/running_manager/device_driver.dart';
+import '../../../repositories/running_manager/device_program_executor.dart';
 import '../../execute_screen/view/execute_screen.dart';
 import '../../uikit/texel_button.dart';
 import '../../uikit/widgets/back_screen_button.dart';
@@ -18,7 +18,7 @@ class ProgramParamsScreen extends StatefulWidget {
   });
 
   final String title;
-  final DeviceDriver driver;
+  final DeviceProgramExecutor driver;
   final MethodicProgram program;
 
   @override

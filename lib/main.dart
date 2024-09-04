@@ -11,7 +11,6 @@ import 'bgs_app.dart';
 
 void main() {
   GetIt.I.registerLazySingleton<BleService>(() => BleService());
-  GetIt.I.registerLazySingleton<BgsConnect>(() => BgsConnect());
   GetIt.I.registerLazySingleton<BgsList>(() => BgsList());
   GetIt.I.registerLazySingleton<ProgramStorage>(() => ProgramStorage());
   GetIt.I.registerLazySingleton<RunningManager>(() => RunningManager());

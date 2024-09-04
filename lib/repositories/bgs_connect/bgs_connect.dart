@@ -80,6 +80,7 @@ class BlockData {
   final List<int> source;
 }
 
+/// Класс для управления устройством БГС
 class BgsConnect {
   BgsConnect();
 
@@ -146,7 +147,7 @@ class BgsConnect {
   //   _streamConnect.cancel();
   // }
 
-  void stop() {
+  void done() {
     _isSending = false;
     _subscription.cancel();
   }
@@ -163,11 +164,6 @@ class BgsConnect {
     }
   }
 
-  Future<void> write(List<int> command) async {
-    if (!_isSending) return;
-    await _characteristic.write(command, withoutResponse: true);
-  }
-
   void setPower(double power) {
     _targetPower = power.toInt();
     _curPower = _value[5];
@@ -178,7 +174,7 @@ class BgsConnect {
         } else {
           _curPower = _targetPower;
         }
-        await write([0x91, _curPower]);
+        await _write([0x91, _curPower]);
         if (_curPower == _targetPower) {
           timer.cancel();
         }
@@ -187,21 +183,21 @@ class BgsConnect {
   }
 
   void reset() async {
-    await write([0x91, 0x00]);
+    await _write([0x91, 0x00]);
   }
 
   void setConnectionFailureMode(ConnectionFailureMode mode) async {
     if (mode == ConnectionFailureMode.cfmResetPower) {
-      await write([0xBB, 0x5B]);
+      await _write([0xBB, 0x5B]);
     } else if (mode == ConnectionFailureMode.cfmWorking) {
-      await write([0xBB, 0x00]);
+      await _write([0xBB, 0x00]);
     }
   }
 
   void setModeDepecated(int idxAM, int idxFM, int idxIntencity) async {
-    await write([0xA1, idxAM]);
-    await write([0xA2, idxFM]);
-    await write([0xA3, idxIntencity]);
+    await _write([0xA1, idxAM]);
+    await _write([0xA2, idxFM]);
+    await _write([0xA3, idxIntencity]);
   }
 
   void setMode(bool isAM, bool isFM, AmMode amMode, double idxFreq, Intensity intensity) async {
@@ -215,9 +211,14 @@ class BgsConnect {
       idxFM = idxFreq.toInt();
     }
 
-    await write([0xA1, idxAM]);
-    await write([0xA2, idxFM]);
-    await write([0xA3, intensity.index]);
+    await _write([0xA1, idxAM]);
+    await _write([0xA2, idxFM]);
+    await _write([0xA3, intensity.index]);
+  }
+
+  Future<void> _write(List<int> command) async {
+    if (!_isSending) return;
+    await _characteristic.write(command, withoutResponse: true);
   }
 
   BlockData _createBlockData(List<int> value) {

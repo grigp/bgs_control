@@ -8,14 +8,15 @@ import 'package:uuid/uuid.dart';
 
 import '../bgs_connect/bgs_connect.dart';
 
-/// Класс управления устроййством - драйвер
-class DeviceDriver {
+/// Класс управления устройством при проведении методики
+class DeviceProgramExecutor {
   /// При создании задается только устройство, программа назначается позже
   /// И при одном сеансе могут быть назначены разные программы
-  DeviceDriver({
+  DeviceProgramExecutor({
     required this.device,
   });
 
+  final BgsConnect _connect = BgsConnect();
   final BluetoothDevice device;
   late MethodicProgram program = MethodicProgram(
       uid: '', statsTitle: '', title: '', description: '', image: '');
@@ -25,7 +26,7 @@ class DeviceDriver {
   /// Запуск программы
   void connect() {
     // if (!_isConnected) {  События в stream(.listen) срабатывает до connect при последующих запусках
-      GetIt.I<BgsConnect>().init(device);
+      _connect.init(device);
       device.connectionState.listen((event) {
         _isConnected = event == BluetoothConnectionState.connected;
       });
@@ -34,8 +35,8 @@ class DeviceDriver {
 
   void disconnect() {
     // if (_isConnected) {
-      GetIt.I<BgsConnect>().reset();
-      GetIt.I<BgsConnect>().stop();
+      _connect.reset();
+      _connect.done();
       _isConnected = false;
 
       device.disconnectAndUpdateStream().catchError((e) {});
@@ -45,7 +46,7 @@ class DeviceDriver {
   void run() {
     if (program.uid != '' && _isConnected) {
       _uuidGetData = const Uuid().v1();
-      GetIt.I<BgsConnect>().addHandler(_uuidGetData, onGetData);
+      _connect.addHandler(_uuidGetData, onGetData);
 
       Timer.periodic(const Duration(seconds: 1), onTimer);
     }
@@ -53,7 +54,7 @@ class DeviceDriver {
 
   void stop() {
     if (program.uid != '' && _isConnected) {
-      GetIt.I<BgsConnect>().removeHandler(_uuidGetData);
+      _connect.removeHandler(_uuidGetData);
     }
   }
 
@@ -61,12 +62,41 @@ class DeviceDriver {
     if (program.uid != '') {}
   }
 
+  /// Задает программу, по которой нужно двигаться
   void setProgram(MethodicProgram prg) {
     program = prg;
   }
 
   String deviceName() {
     return device.advName;
+  }
+
+  Future addHandler(String uid, Function handler) async {
+    await _connect.addHandler(uid, handler);
+  }
+
+  Future removeHandler(String uid) async {
+    await _connect.removeHandler(uid);
+  }
+
+  void setPower(double power) {
+    _connect.setPower(power);
+  }
+
+  void reset() async {
+    _connect.reset();
+  }
+
+  void setConnectionFailureMode(ConnectionFailureMode mode) async {
+    _connect.setConnectionFailureMode(mode);
+  }
+
+  void setModeDepecated(int idxAM, int idxFM, int idxIntencity) async {
+    _connect.setModeDepecated(idxAM, idxFM, idxIntencity);
+  }
+
+  void setMode(bool isAM, bool isFM, AmMode amMode, double idxFreq, Intensity intensity) async {
+    _connect.setMode(isAM, isFM, amMode, idxFreq, intensity);
   }
 
   void onGetData(BlockData data) {}
