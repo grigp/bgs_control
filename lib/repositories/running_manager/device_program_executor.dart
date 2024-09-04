@@ -143,7 +143,7 @@ class DeviceProgramExecutor {
   void onTimer(Timer timer) async {
     if (_isPlaying) {
       ++_playingTime;
-      if (stageTime() >= _duration / 1000){
+      if (_duration > 0 && (stageTime() >= _duration / 1000)){
         /// Если это не последний этап
         if (_idxStage + 1 < program.stagesCount()) {
           ++_idxStage;

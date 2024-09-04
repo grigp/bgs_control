@@ -134,16 +134,17 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
               ),
             ],
           ),
-          Row(
-            /// Время воздействия
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                getTimeBySecCount(widget.driver.stageTime()),
-                style: theme.textTheme.headlineSmall,
-              ),
-            ],
-          ),
+          if (widget.driver.stage().duration > 0)
+          /// Время этапа, если длительность этапа задана
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  getTimeBySecCount(widget.driver.stageTime()),
+                  style: theme.textTheme.headlineSmall,
+                ),
+              ],
+            ),
           const Spacer(),
           if (widget.driver.isPlaying())
             Row(
@@ -233,7 +234,7 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
       widget.driver.setConnectionFailureMode(ConnectionFailureMode.cfmWorking);
     }
 
-    if (widget.driver.isOver()){
+    if (widget.driver.isOver()) {
       /// Программа завершена - выходим
       Navigator.of(context).popUntil(ModalRoute.withName('/select_method'));
     }
