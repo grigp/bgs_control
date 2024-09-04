@@ -1,11 +1,8 @@
 import 'dart:async';
 
 import 'package:bgs_control/features/uikit/widgets/back_screen_button.dart';
-import 'package:bgs_control/repositories/running_manager/running_manager.dart';
 import 'package:bgs_control/utils/baseutils.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_blue_plus/flutter_blue_plus.dart';
-import 'package:get_it/get_it.dart';
 import 'package:uuid/uuid.dart';
 
 import '../../../assets/colors/colors.dart';
@@ -18,16 +15,17 @@ import '../../direct_control_screen/widgets/power_widget.dart';
 import '../../uikit/widgets/charge_message_widget.dart';
 
 class ExecuteScreen extends StatefulWidget {
-  const ExecuteScreen({
+  ExecuteScreen({
     super.key,
     required this.title,
     required this.driver,
-    required this.program,
-  });
+    required MethodicProgram program,
+  }) {
+    driver.setProgram(program);
+  }
 
   final String title;
   final DeviceProgramExecutor driver;
-  final MethodicProgram program;
 
   @override
   State<ExecuteScreen> createState() => _ExecuteScreenState();
@@ -39,19 +37,6 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
   double _powerReal = 0;
   int _dataCount = 0;
   String _uuidGetData = '';
-  int _idxStage = -1;
-  late ProgramStage _stage = ProgramStage(
-      comment: '',
-      duration: -1,
-      isAm: false,
-      isFm: false,
-      amMode: AmMode.am_11,
-      intensity: Intensity.one,
-      frequency: 0);
-  bool _isPlaying = false;
-  int _playingTime = 0;
-
-  /// Этап воздействия
 
   @override
   Widget build(BuildContext context) {
@@ -68,11 +53,11 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
               children: [
                 const BackScreenButton(),
                 Image.asset(
-                    'lib/assets/icons/programs/${widget.program.image}'),
+                    'lib/assets/icons/programs/${widget.driver.program.image}'),
                 const SizedBox(width: 20),
                 Expanded(
                   child: Text(
-                    widget.program.title,
+                    widget.driver.program.title,
                     style: theme.textTheme.titleLarge,
                   ),
                 ),
@@ -83,7 +68,7 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
             width: 400,
             height: 40,
             child: Text(
-              widget.program.description,
+              widget.driver.program.description,
               style: theme.textTheme.labelMedium,
             ),
           ),
@@ -114,7 +99,7 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
             /// Кнопка play / pause
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              _getPlayPauseButton(_isPlaying
+              _getPlayPauseButton(widget.driver.isPlaying()
                   ? TypePlayPauseButton.pause
                   : TypePlayPauseButton.play),
             ],
@@ -124,7 +109,7 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                getTimeBySecCount(_playingTime),
+                getTimeBySecCount(widget.driver.playingTime()),
                 style: theme.textTheme.headlineLarge,
               ),
             ],
@@ -134,7 +119,7 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                'Этап ${_idxStage + 1} : "${_stage.comment}"',
+                'Этап ${widget.driver.idxStage() + 1} : "${widget.driver.stage().comment}"',
                 style: theme.textTheme.titleMedium,
               ),
             ],
@@ -149,8 +134,18 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
               ),
             ],
           ),
+          Row(
+            /// Время воздействия
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                getTimeBySecCount(widget.driver.stageTime()),
+                style: theme.textTheme.headlineSmall,
+              ),
+            ],
+          ),
           const Spacer(),
-          if (_isPlaying)
+          if (widget.driver.isPlaying())
             Row(
               children: [
                 const SizedBox(width: 5),
@@ -168,7 +163,7 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
                 ),
               ],
             ),
-          if (_isPlaying)
+          if (widget.driver.isPlaying())
             Container(
               padding: const EdgeInsets.all(15),
               decoration: BoxDecoration(
@@ -201,24 +196,15 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
   void initState() {
     super.initState();
 
-    widget.driver.setProgram(widget.program);
+    widget.driver.setProgram(widget.driver.program);
     widget.driver.run();
 
     _uuidGetData = const Uuid().v1();
     widget.driver.addHandler(_uuidGetData, onGetData);
-
-    Timer.periodic(const Duration(seconds: 1), (timer) async {
-      if (_isPlaying) {
-        setState(() {
-          ++_playingTime;
-        });
-      }
-    });
   }
 
   @override
   void dispose() {
-    _isPlaying = false;
     widget.driver.setPower(0);
     widget.driver.removeHandler(_uuidGetData);
     widget.driver.stop();
@@ -245,38 +231,10 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
     /// Посылаем команду работать даже при прерывании связи
     if (_dataCount == 1) {
       widget.driver.setConnectionFailureMode(ConnectionFailureMode.cfmWorking);
-
-      /// Запускаем первый этап
-      if (_idxStage == -1) {
-        widget.driver.setPower(0);
-        newStage();
-      }
     }
-  }
 
-  void newStage() {
-    ++_idxStage;
-    if (_idxStage < widget.program.stagesCount()) {
-      /// Если это не последний этап
-      _stage = widget.program.stage(_idxStage);
-      double idxFreq = 7;
-      for (final element in freqValue.entries) {
-        if (element.value == _stage.frequency) {
-          idxFreq = element.key;
-        }
-      }
-      widget.driver.setMode(
-          _stage.isAm, _stage.isFm, _stage.amMode, idxFreq, _stage.intensity);
-
-      if (_stage.duration >= 0) {
-        Timer(Duration(milliseconds: _stage.duration), newStage);
-      }
-
-      _isPlaying = true;
-    } else {
-      widget.driver.setPower(0);
-
-      /// Все этапы прошли - выходим
+    if (widget.driver.isOver()){
+      /// Программа завершена - выходим
       Navigator.of(context).popUntil(ModalRoute.withName('/select_method'));
     }
   }
@@ -285,9 +243,8 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
     return GestureDetector(
       onTap: () {
         setState(() {
-          _isPlaying = !_isPlaying;
-          if (!_isPlaying) {
-            widget.driver.reset();
+          widget.driver.pause();
+          if (!widget.driver.isPlaying()) {
             _powerSet = 0;
           }
         });
@@ -313,19 +270,19 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
   String _stimulationParamsToString() {
     String retval = '';
 
-    if (_stage.isAm) {
-      retval = '${retval}Am (${amModeNames[_stage.amMode]})';
+    if (widget.driver.stage().isAm) {
+      retval = '${retval}Am (${amModeNames[widget.driver.stage().amMode]})';
     }
-    if (_stage.isFm) {
+    if (widget.driver.stage().isFm) {
       retval = '$retval   Fm';
     } else {
-      retval = '$retval   F = ${_stage.frequency.toInt()}';
+      retval = '$retval   F = ${widget.driver.stage().frequency.toInt()}';
     }
-    retval = '$retval   Int = ${_stage.intensity.index + 1}';
+    retval = '$retval   Int = ${widget.driver.stage().intensity.index + 1}';
 
-    if (_stage.duration >= 0) {
+    if (widget.driver.stage().duration >= 0) {
       retval =
-          '$retval   Время : ${getTimeBySecCount(_stage.duration ~/ 1000)}';
+          '$retval   Время : ${getTimeBySecCount(widget.driver.stage().duration ~/ 1000)}';
     } else {
       retval = '$retval   Время не задано';
     }
