@@ -13,6 +13,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:get_it/get_it.dart';
 
+import '../../../repositories/logger/communication_logger.dart';
 import '../../../repositories/running_manager/running_manager.dart';
 import '../../select_program_screen/view/select_program_screen.dart';
 
@@ -216,6 +217,7 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
         // Snackbar.show(ABC.c, prettyException("Connect Error:", e),
         //     success: false);
       });
+      GetIt.I<CommunicationLogger>().log('-- connect');
       onSelectPressed(device);
 
       // Переход на следующий экран
@@ -241,6 +243,7 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
 
     device.connectionState.listen((event) {
       if (event == BluetoothConnectionState.disconnected) {
+        GetIt.I<CommunicationLogger>().log('-- disconnect');
         Navigator.of(context).popUntil(ModalRoute.withName('/select'));
         // try {
         //   Navigator.of(context).popUntil(ModalRoute.withName('/select'));

@@ -1,11 +1,14 @@
 import 'dart:async';
 
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
+import 'package:get_it/get_it.dart';
 
 import '../../utils/charge_values.dart';
 import 'package:uuid/data.dart';
 import 'package:uuid/uuid.dart';
 import 'package:uuid/rng.dart';
+
+import '../logger/communication_logger.dart';
 enum AmMode { am_11, am_31, am_51 }
 
 enum Intensity { one, two, three, four }
@@ -121,6 +124,7 @@ class BgsConnect {
           final subscription = c.lastValueStream.listen((value) async {
             if (_isSending && value.length == 14) {
               _value = value;
+              GetIt.I<CommunicationLogger>().log('>> $_value');
               for (int i = 0; i < _dataHandlers.length; ++i){
                 _dataHandlers[i].handler(_createBlockData(_value));
               }
@@ -219,6 +223,7 @@ class BgsConnect {
   Future<void> _write(List<int> command) async {
     if (!_isSending) return;
     await _characteristic.write(command, withoutResponse: true);
+    GetIt.I<CommunicationLogger>().log('<< $command');
   }
 
   BlockData _createBlockData(List<int> value) {
