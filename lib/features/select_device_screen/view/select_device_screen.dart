@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:bgs_control/features/log_screen/view/log_screen.dart';
 import 'package:bgs_control/features/select_device_screen/features/add_new_device_bottom_sheet/add_new_device_bottom_sheet.dart';
 import 'package:bgs_control/features/select_device_screen/widgets/found_device_title.dart';
 import 'package:bgs_control/features/select_device_screen/widgets/missing_device_title.dart';
@@ -87,6 +88,20 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
             widget.title,
             style: theme.textTheme.titleMedium,
           ),
+          actions: <Widget>[
+            TextButton(
+                onPressed: () {
+                  MaterialPageRoute route = MaterialPageRoute(
+                    builder: (context) => const LogScreen(
+                      title: 'Лог обмена данными',
+                    ),
+                    settings: const RouteSettings(name: '/log_comm'),
+                  );
+                  Navigator.of(context).push(route);
+                },
+                child: const Icon(Icons.book),
+            ),
+          ],
         ),
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),

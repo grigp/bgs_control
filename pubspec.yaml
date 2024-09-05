@@ -35,6 +35,7 @@ dependencies:
   cupertino_icons: ^1.0.6
   flutter_secure_storage: ^9.2.2
   uuid: ^4.4.2
+  flutter_text_viewer: ^0.0.6
 
 dev_dependencies:
   flutter_test:
