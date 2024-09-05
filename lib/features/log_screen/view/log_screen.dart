@@ -1,7 +1,12 @@
+import 'dart:io';
+
 import 'package:bgs_control/repositories/logger/communication_logger.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_text_viewer/flutter_text_viewer.dart';
 import 'package:get_it/get_it.dart';
+import 'package:path_provider/path_provider.dart';
+
+import '../../uikit/texel_button.dart';
 
 class LogScreen extends StatefulWidget {
   const LogScreen({
@@ -39,13 +44,62 @@ class _LogScreenState extends State<LogScreen> {
           ),
         ],
       ),
+      floatingActionButton: Row(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          FloatingActionButton(
+            onPressed: () {
+              showDialog<String>(
+                context: context,
+                builder: (BuildContext context) => AlertDialog(
+                  title: const Text('Очистить лог?'),
+                  actions: <Widget>[
+                    TexelButton.accent(
+                      onPressed: () => Navigator.pop(context, 'Cancel'),
+                      text: 'Нет',
+                      width: 120,
+                    ),
+                    TexelButton.secondary(
+                      onPressed: () {
+                        setState(() {
+                          GetIt.I<CommunicationLogger>().clear();
+                        });
+                        Navigator.pop(context, 'Cancel');
+                      },
+                      text: 'Да',
+                      width: 120,
+                    ),
+                  ],
+                ),
+              );
+            },
+            heroTag: 'Clear',
+            tooltip: 'Очистить',
+            child: const Icon(Icons.clear),
+          ),
+          const SizedBox(width: 20),
+          FloatingActionButton(
+            onPressed: () async {
+              final dir = Platform.isAndroid
+                  ? await  getExternalStorageDirectory()
+                  : await getApplicationSupportDirectory();
+              print('--------------------${dir?.path}/exchange.log');
+              await File('${dir?.path}/exchange.log')
+                  .writeAsString(formatLog());
+            },
+            heroTag: 'Save',
+            tooltip: 'Сохранить',
+            child: const Icon(Icons.save),
+          ),
+        ],
+      ),
     );
   }
 
-  String formatLog(){
+  String formatLog() {
     String retval = '';
     var lines = GetIt.I<CommunicationLogger>().get();
-    for (int i = 0; i < lines.length; ++i){
+    for (int i = 0; i < lines.length; ++i) {
       retval = '$retval${lines[i]}\n';
     }
     return retval;

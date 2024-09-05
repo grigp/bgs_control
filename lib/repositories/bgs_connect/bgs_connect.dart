@@ -123,8 +123,8 @@ class BgsConnect {
           _isSending = true;
           final subscription = c.lastValueStream.listen((value) async {
             if (_isSending && value.length == 14) {
+              GetIt.I<CommunicationLogger>().log('>> $value');
               _value = value;
-              GetIt.I<CommunicationLogger>().log('>> $_value');
               for (int i = 0; i < _dataHandlers.length; ++i){
                 _dataHandlers[i].handler(_createBlockData(_value));
               }

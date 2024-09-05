@@ -7,4 +7,8 @@ class CommunicationLogger{
 
   List<String> get() =>_log;
 
+  void clear(){
+    _log.clear();
+  }
+
 }
