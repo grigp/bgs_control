@@ -48,6 +48,7 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
 
   List<String> _missingDevices = [];
   bool _isShowMissingDevices = false;
+  late StreamSubscription _subsDisconnect;
 
   @override
   void dispose() {
@@ -256,10 +257,12 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
     );
     Navigator.of(context).push(route);
 
-    device.connectionState.listen((event) {
+    /// Будем получать сообщения о дисконнекте
+    _subsDisconnect = device.connectionState.listen((event) {
       if (event == BluetoothConnectionState.disconnected) {
         GetIt.I<CommunicationLogger>().log('-- disconnect');
         Navigator.of(context).popUntil(ModalRoute.withName('/select'));
+        subsDisconnectStop();
         // try {
         //   Navigator.of(context).popUntil(ModalRoute.withName('/select'));
         // } catch (e) {
@@ -267,6 +270,11 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
         // }
       }
     });
+  }
+
+  void subsDisconnectStop(){
+    _subsDisconnect.cancel();
+
   }
 
   void onDeletePressed(BluetoothDevice device) {
