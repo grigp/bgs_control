@@ -76,7 +76,7 @@ class _LogScreenState extends State<LogScreen> {
             },
             heroTag: 'Clear',
             tooltip: 'Очистить',
-            child: const Icon(Icons.clear),
+            child: const Icon(Icons.delete_forever),
           ),
           const SizedBox(width: 20),
           FloatingActionButton(
@@ -84,15 +84,15 @@ class _LogScreenState extends State<LogScreen> {
               final dir = Platform.isAndroid
                   ? await getExternalStorageDirectory()
                   : await getApplicationSupportDirectory();
-              print('--------------------${dir?.path}/exchange.log');
-              var f = File('${dir?.path}/exchange.log');
-              // print('------------------ ${await f.exists()}');
-              await f.writeAsString(formatLog());
-              Share.share(formatLog());
+              /// TODO Если надо будет файл, то раскомментировать
+              // print('--------------------${dir?.path}/exchange.log');
+              // var f = File('${dir?.path}/exchange.log');
+              // await f.writeAsString(formatLog());
+              await Share.share(formatLog());
             },
-            heroTag: 'Save',
-            tooltip: 'Сохранить',
-            child: const Icon(Icons.save),
+            heroTag: 'Share',
+            tooltip: 'Поделиться',
+            child: const Icon(Icons.share),
           ),
         ],
       ),
