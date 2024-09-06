@@ -23,7 +23,7 @@
           "am_mode": 31,
           "intensivity": 1,
           "fm": true,
-          "comment": "Fm + AM 3:1 + Инт 1 - 5 минут"
+          "comment": "Подготовка к обработке"
         },
         {
           "num": 2,
@@ -35,7 +35,7 @@
           "am_mode": 31,
           "intensivity": 3,
           "fm": false,
-          "comment": "F-60 Гц + AM 3:1 + Инт 3 - 10 минут"
+          "comment": "Разогрев"
         },
         {
           "num": 3,
@@ -47,7 +47,7 @@
           "am_mode": 31,
           "intensivity": 2,
           "fm": false,
-          "comment": "F-90 Гц + AM 3:1 + Инт 2 - 10 минут"
+          "comment": "Обработка"
         },
         {
           "num": 4,
@@ -59,7 +59,7 @@
           "am_mode": 31,
           "intensivity": 1,
           "fm": true,
-          "comment": "Fm + AM 3:1 + Инт 1 - 5 минут"
+          "comment": "Закрепление"
         }
       ]
     },
@@ -86,7 +86,7 @@
           "am_mode": 31,
           "intensivity": 3,
           "fm": false,
-          "comment": "F-120 Гц + AM 3:1 + Инт 3 - 10 минут"
+          "comment": "Интенсивная обработка"
         },
         {
           "num": 2,
@@ -98,7 +98,7 @@
           "am_mode": 11,
           "intensivity": 2,
           "fm": true,
-          "comment": "Fm + AM 2:1 + Инт 2 - 10 минут"
+          "comment": "Адаптивная обработка"
         },
         {
           "num": 3,
@@ -110,7 +110,7 @@
           "am_mode": 11,
           "intensivity": 2,
           "fm": false,
-          "comment": "F-90 Гц + AM 1:1 + Инт 1 - 5 минут"
+          "comment": "Нормализация функций"
         },
         {
           "num": 4,
@@ -122,7 +122,7 @@
           "am_mode": 31,
           "intensivity": 3,
           "fm": false,
-          "comment": "F-120 Гц + AM 3:1 + Инт 3 - 5 минут"
+          "comment": "Закрепление"
         }
       ]
     },
@@ -149,7 +149,7 @@
           "am_mode": 11,
           "intensivity": 3,
           "fm": false,
-          "comment": "F-14 Гц + AM 2:1 + Инт 3 - 10 минут"
+          "comment": "Разогрев"
         },
         {
           "num": 2,
@@ -161,7 +161,7 @@
           "am_mode": 31,
           "intensivity": 2,
           "fm": true,
-          "comment": "Fm + АМ 3:1 + Инт 2 - 10 минут"
+          "comment": "Обработка"
         },
         {
           "num": 3,
@@ -173,7 +173,7 @@
           "am_mode": 31,
           "intensivity": 1,
           "fm": false,
-          "comment": "F-60 Гц + AM 4:1 + Инт 1 - 10 минут"
+          "comment": "Закрепление"
         }
       ]
     },
@@ -200,7 +200,7 @@
           "am_mode": 31,
           "intensivity": 1,
           "fm": true,
-          "comment": "Fm + АМ 3:1 + Инт 1 - 5 минут"
+          "comment": "Подготовка"
         },
         {
           "num": 2,
@@ -212,7 +212,7 @@
           "am_mode": 31,
           "intensivity": 3,
           "fm": false,
-          "comment": "F-14 Гц + АМ 3:1 + Инт 2 - 10 минут"
+          "comment": "Разогрев"
         },
         {
           "num": 3,
@@ -224,7 +224,7 @@
           "am_mode": 31,
           "intensivity": 2,
           "fm": false,
-          "comment": "F-60 Гц + АМ 4:1 + Инт 2 - 10 минут"
+          "comment": "Обработка"
         },
         {
           "num": 4,
@@ -236,7 +236,7 @@
           "am_mode": 31,
           "intensivity": 1,
           "fm": true,
-          "comment": "Fm + АМ 3:1 + Инт 1 - 5 минут"
+          "comment": "Закрепление"
         }
       ]
     },
@@ -263,7 +263,7 @@
           "am_mode": 31,
           "intensivity": 3,
           "fm": false,
-          "comment": "F - 120 Гц + AM 3:1 + Инт 3 - 10 минут"
+          "comment": "Интенсивная обработка"
         },
         {
           "num": 2,
@@ -275,7 +275,7 @@
           "am_mode": 11,
           "intensivity": 3,
           "fm": true,
-          "comment": "Fm + AM2:1 + Инт 3 - 10 минут"
+          "comment": "Адаптивная обработка"
         },
         {
           "num": 3,
@@ -287,7 +287,7 @@
           "am_mode": 11,
           "intensivity": 1,
           "fm": false,
-          "comment": "F - 90 Гц + AM1:1 + Инт 1 - 10 минут"
+          "comment": "Нормализация функций"
         }
       ]
     },
@@ -314,7 +314,7 @@
           "am_mode": 31,
           "intensivity": 3,
           "fm": false,
-          "comment": "F - 120 Гц + AM3:1 + Инт 3 - 10минут"
+          "comment": "Интенсивная обработка"
         },
         {
           "num": 2,
@@ -326,7 +326,7 @@
           "am_mode": 11,
           "intensivity": 2,
           "fm": true,
-          "comment": "F-14 Гц + АМ 3:1 + Инт 3 - 10 минут"
+          "comment": "Адаптивная обработка"
         },
         {
           "num": 3,
@@ -338,7 +338,7 @@
           "am_mode": 11,
           "intensivity": 1,
           "fm": false,
-          "comment": "F-60 Гц + АМ 4:1 + Инт 2 - 10 минут"
+          "comment": "Нормализация функций"
         },
         {
           "num": 4,
@@ -350,7 +350,7 @@
           "am_mode": 31,
           "intensivity": 3,
           "fm": false,
-          "comment": "Fm + АМ 3:1 + Инт 1 - 5 минут"
+          "comment": "Закрепление"
         }
       ]
     },
@@ -380,7 +380,7 @@
           "am_mode": 31,
           "intensivity": 2,
           "fm": false,
-          "comment": "F - 60Гц + АМ 3:1 + Инт2 - 5 минут"
+          "comment": "Разогрев"
         },
         {
           "num": 2,
@@ -392,7 +392,7 @@
           "am_mode": 31,
           "intensivity": 2,
           "fm": true,
-          "comment": "Fm + АМ 3:1 + Инт 2 - 5  минут"
+          "comment": "Разминание"
         },
         {
           "num": 3,
@@ -404,7 +404,7 @@
           "am_mode": 31,
           "intensivity": 1,
           "fm": false,
-          "comment": "F - 90 Гц + АМ 3:1 + Инт1 - 10 минут"
+          "comment": "Нормализация функций"
         }
       ]
     },
@@ -434,7 +434,7 @@
           "am_mode": 31,
           "intensivity": 2,
           "fm": false,
-          "comment": "F - 90Гц + АМ 3:1 + Инт2 - 5 минут"
+          "comment": "Разогрев"
         },
         {
           "num": 2,
@@ -446,7 +446,7 @@
           "am_mode": 11,
           "intensivity": 2,
           "fm": true,
-          "comment": "Fm + Инт 2 - 5 минут"
+          "comment": "Разминание"
         },
         {
           "num": 3,
@@ -458,7 +458,7 @@
           "am_mode": 31,
           "intensivity": 1,
           "fm": false,
-          "comment": "F - 90Гц + АМ 3:1 + Инт1 - 5минут"
+          "comment": "Нормализация функций"
         }
       ]
     },
@@ -488,7 +488,7 @@
           "am_mode": 31,
           "intensivity": 3,
           "fm": false,
-          "comment": "F - 60Гц + АМ 3:1 + Инт3 - 5 минут"
+          "comment": "Подготовка"
         },
         {
           "num": 2,
@@ -500,7 +500,7 @@
           "am_mode": 11,
           "intensivity": 2,
           "fm": false,
-          "comment": "F - 15 Гц + АМ 2:1 + Инт2 - 5 минут"
+          "comment": "Релаксация"
         },
         {
           "num": 3,
@@ -512,7 +512,7 @@
           "am_mode": 11,
           "intensivity": 2,
           "fm": false,
-          "comment": "F - 15Гц + AM 1:1 + Инт2 - 10 минут"
+          "comment": "Нормализация функций"
         }
       ]
     },
@@ -542,7 +542,7 @@
           "am_mode": 31,
           "intensivity": 3,
           "fm": false,
-          "comment": "F - 90Гц + АМ 3:1 + Инт3 - 5 минут"
+          "comment": "Подготовка"
         },
         {
           "num": 2,
@@ -554,7 +554,7 @@
           "am_mode": 11,
           "intensivity": 2,
           "fm": false,
-          "comment": "F - 15Гц + АМ 2:1 + Инт2 - 5 минут"
+          "comment": "Релаксация"
         },
         {
           "num": 3,
@@ -566,7 +566,7 @@
           "am_mode": 11,
           "intensivity": 1,
           "fm": false,
-          "comment": "F - 90Гц + АМ 3:1 + Инт1 - 5 минут"
+          "comment": "Нормализация функций"
         }
       ]
     },
@@ -596,7 +596,7 @@
           "am_mode": 31,
           "intensivity": 2,
           "fm": false,
-          "comment": "F - 90Гц + АМ 3:1 + Инт2 - 5 минут"
+          "comment": "Подготовка"
         },
         {
           "num": 2,
@@ -608,7 +608,7 @@
           "am_mode": 31,
           "intensivity": 3,
           "fm": false,
-          "comment": "F - 60Гц + АМ 3:1 + Инт3 - 5 минут"
+          "comment": "Разогрев"
         }
       ]
     },
@@ -638,7 +638,7 @@
           "am_mode": 31,
           "intensivity": 4,
           "fm": true,
-          "comment": "Fm + АМ 3:1 + Инт4 - 10 минут"
+          "comment": "Адаптация к нагрузке"
         },
         {
           "num": 2,
@@ -650,7 +650,7 @@
           "am_mode": 31,
           "intensivity": 4,
           "fm": false,
-          "comment": "F - 60Гц + АМ 3:1 + Инт4 - 5 минут"
+          "comment": "Интенсивная обработка"
         }
       ]
     },
@@ -680,7 +680,7 @@
           "am_mode": 11,
           "intensivity": 2,
           "fm": false,
-          "comment": "F - 15Гц + АМ 2:1 + Инт2 - 5 минут"
+          "comment": "Релаксация"
         },
         {
           "num": 2,
@@ -692,7 +692,7 @@
           "am_mode": 11,
           "intensivity": 3,
           "fm": false,
-          "comment": "F - 15Гц + АМ 1:1 + Инт3 - 5 минут"
+          "comment": "Нормализация функций"
         }
       ]
     },
@@ -722,7 +722,7 @@
           "am_mode": 31,
           "intensivity": 2,
           "fm": false,
-          "comment": "F - 60Гц + АМ 3:1 + Инт2 - 5 минут"
+          "comment": "Подготовка"
         },
         {
           "num": 2,
@@ -734,7 +734,7 @@
           "am_mode": 31,
           "intensivity": 3,
           "fm": false,
-          "comment": "F - 60Гц + АМ 3:1 + Инт3 - 5 минут"
+          "comment": "Разогрев"
         }
       ]
     },
@@ -764,7 +764,7 @@
           "am_mode": 31,
           "intensivity": 4,
           "fm": true,
-          "comment": "Fm + АМ 4:1 + Инт4 - 10 минут"
+          "comment": "Адаптация к нагрузке"
         },
         {
           "num": 2,
@@ -776,7 +776,7 @@
           "am_mode": 31,
           "intensivity": 4,
           "fm": false,
-          "comment": "F - 60Гц + АМ 4:1 + Инт4 - 10 минут"
+          "comment": "Интенсивная обработка"
         }
       ]
     },
@@ -806,7 +806,7 @@
           "am_mode": 11,
           "intensivity": 2,
           "fm": false,
-          "comment": "F - 15Гц + АМ 2:1 + Инт2 - 5 минут"
+          "comment": "Релаксация"
         },
         {
           "num": 2,
@@ -818,7 +818,7 @@
           "am_mode": 11,
           "intensivity": 3,
           "fm": false,
-          "comment": "F - 15Гц + АМ 1:1 + Инт3 - 5 минут"
+          "comment": "Нормализация функций"
         }
       ]
     },
@@ -848,7 +848,7 @@
           "am_mode": 31,
           "intensivity": 2,
           "fm": false,
-          "comment": "F - 90Гц + АМ 3:1 + Инт2 - 5 минут"
+          "comment": "Подготовка"
         },
         {
           "num": 2,
@@ -860,7 +860,7 @@
           "am_mode": 31,
           "intensivity": 3,
           "fm": false,
-          "comment": "F - 60Гц + АМ 3:1 + Инт3 - 5 минут"
+          "comment": "Разогрев"
         },
         {
           "num": 3,
@@ -872,7 +872,7 @@
           "am_mode": 31,
           "intensivity": 4,
           "fm": true,
-          "comment": "Fm + АМ 3:1 + Инт4 - 10 минут"
+          "comment": "Адаптация к нагрузке"
         },
         {
           "num": 4,
@@ -884,7 +884,7 @@
           "am_mode": 31,
           "intensivity": 4,
           "fm": false,
-          "comment": "F - 60Гц + АМ 3:1 + Инт4 - 5 минут"
+          "comment": "Интенсивная обработка"
         },
         {
           "num": 5,
@@ -896,7 +896,7 @@
           "am_mode": 11,
           "intensivity": 2,
           "fm": false,
-          "comment": "F - 15Гц + АМ 2:1 + Инт2 - 5 минут"
+          "comment": "Релаксация"
         },
         {
           "num": 6,
@@ -908,7 +908,7 @@
           "am_mode": 11,
           "intensivity": 3,
           "fm": false,
-          "comment": "F - 15Гц + АМ 1:1 + Инт3 - 5 минут"
+          "comment": "Нормализация функций"
         }
       ]
     },
@@ -938,7 +938,7 @@
           "am_mode": 31,
           "intensivity": 2,
           "fm": false,
-          "comment": "F - 60Гц + АМ 3:1 + Инт2 - 5 минут"
+          "comment": "Подготовка"
         },
         {
           "num": 2,
@@ -950,7 +950,7 @@
           "am_mode": 31,
           "intensivity": 3,
           "fm": false,
-          "comment": "F - 60Гц + АМ 3:1 + Инт3 - 5 минут"
+          "comment": "Разогрев"
         },
         {
           "num": 3,
@@ -962,7 +962,7 @@
           "am_mode": 31,
           "intensivity": 4,
           "fm": true,
-          "comment": "Fm + АМ 4:1 + Инт4 - 10 минут"
+          "comment": "Адаптация к нагрузке"
         },
         {
           "num": 4,
@@ -974,7 +974,7 @@
           "am_mode": 31,
           "intensivity": 4,
           "fm": false,
-          "comment": "F - 60Гц + АМ 4:1 + Инт4 - 10 минут"
+          "comment": "Интенсивная обработка"
         },
         {
           "num": 5,
@@ -986,7 +986,7 @@
           "am_mode": 11,
           "intensivity": 2,
           "fm": false,
-          "comment": "F - 15Гц + АМ 2:1 + Инт2 - 5 минут"
+          "comment": "Релаксация"
         },
         {
           "num": 6,
@@ -998,7 +998,7 @@
           "am_mode": 11,
           "intensivity": 3,
           "fm": false,
-          "comment": "F - 15Гц + АМ 1:1 + Инт3 - 5 минут"
+          "comment": "Нормализация функций"
         }
       ]
     }

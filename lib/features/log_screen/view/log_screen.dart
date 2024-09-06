@@ -7,6 +7,7 @@ import 'package:get_it/get_it.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
 
+import '../../../assets/colors/colors.dart';
 import '../../uikit/texel_button.dart';
 
 class LogScreen extends StatefulWidget {
@@ -76,7 +77,11 @@ class _LogScreenState extends State<LogScreen> {
             },
             heroTag: 'Clear',
             tooltip: 'Очистить',
-            child: const Icon(Icons.delete_forever),
+            backgroundColor: filledAccentButtonColor,
+            child: const Icon(
+              Icons.delete_forever,
+              color: white,
+            ),
           ),
           const SizedBox(width: 20),
           FloatingActionButton(
@@ -84,6 +89,7 @@ class _LogScreenState extends State<LogScreen> {
               final dir = Platform.isAndroid
                   ? await getExternalStorageDirectory()
                   : await getApplicationSupportDirectory();
+
               /// TODO Если надо будет файл, то раскомментировать
               // print('--------------------${dir?.path}/exchange.log');
               // var f = File('${dir?.path}/exchange.log');
@@ -92,7 +98,11 @@ class _LogScreenState extends State<LogScreen> {
             },
             heroTag: 'Share',
             tooltip: 'Поделиться',
-            child: const Icon(Icons.share),
+            backgroundColor: filledAccentButtonColor,
+            child: const Icon(
+              Icons.share,
+              color: white,
+            ),
           ),
         ],
       ),

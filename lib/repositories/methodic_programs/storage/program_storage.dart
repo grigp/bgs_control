@@ -30,8 +30,11 @@ class ProgramStorage {
 
     /// Список программ из рабочего файла
     final dir = Platform.isAndroid
-        ? await getExternalStorageDirectory()
-        : await getApplicationSupportDirectory();
+         ? await getExternalStorageDirectory()
+         : await getApplicationSupportDirectory();
+    ///-------------------------------------------------------------------
+    ///Закомментировать этот участок, если надо полностью обновить рабочий файл
+    /// из дефолтного списка доступных программ
     var f = File('${dir?.path}/programs.json');
     if (await f.exists()) {
       await f.readAsString().then((String dataWork) {
@@ -39,6 +42,7 @@ class ProgramStorage {
         _listPPWork = dd['programs'] as List<dynamic>?;
       });
     }
+    ///-------------------------------------------------------------------
 
     /// Добавление в спсисок программ рабочего файла отсутствующих в нем программ,
     /// но имеющихся в дефолтном
