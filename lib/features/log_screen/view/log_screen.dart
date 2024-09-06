@@ -75,22 +75,22 @@ class _LogScreenState extends State<LogScreen> {
             },
             heroTag: 'Clear',
             tooltip: 'Очистить',
-            child: const Icon(Icons.clear),
+            child: const Icon(Icons.delete_forever),
           ),
-          const SizedBox(width: 20),
-          FloatingActionButton(
-            onPressed: () async {
-              final dir = Platform.isAndroid
-                  ? await  getExternalStorageDirectory()
-                  : await getApplicationSupportDirectory();
-              print('--------------------${dir?.path}/exchange.log');
-              await File('${dir?.path}/exchange.log')
-                  .writeAsString(formatLog());
-            },
-            heroTag: 'Save',
-            tooltip: 'Сохранить',
-            child: const Icon(Icons.save),
-          ),
+          // const SizedBox(width: 20),
+          // FloatingActionButton(
+          //   onPressed: () async {
+          //     final dir = Platform.isAndroid
+          //         ? await  getExternalStorageDirectory()
+          //         : await getApplicationSupportDirectory();
+          //     print('--------------------${dir?.path}/exchange.log');
+          //     await File('${dir?.path}/exchange.log')
+          //         .writeAsString(formatLog());
+          //   },
+          //   heroTag: 'Save',
+          //   tooltip: 'Сохранить',
+          //   child: const Icon(Icons.save),
+          // ),
         ],
       ),
     );
