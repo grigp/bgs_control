@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_text_viewer/flutter_text_viewer.dart';
 import 'package:get_it/get_it.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:share_plus/share_plus.dart';
 
 import '../../uikit/texel_button.dart';
 
@@ -81,11 +82,13 @@ class _LogScreenState extends State<LogScreen> {
           FloatingActionButton(
             onPressed: () async {
               final dir = Platform.isAndroid
-                  ? await  getExternalStorageDirectory()
+                  ? await getExternalStorageDirectory()
                   : await getApplicationSupportDirectory();
               print('--------------------${dir?.path}/exchange.log');
-              await File('${dir?.path}/exchange.log')
-                  .writeAsString(formatLog());
+              var f = File('${dir?.path}/exchange.log');
+              // print('------------------ ${await f.exists()}');
+              await f.writeAsString(formatLog());
+              Share.share(formatLog());
             },
             heroTag: 'Save',
             tooltip: 'Сохранить',
