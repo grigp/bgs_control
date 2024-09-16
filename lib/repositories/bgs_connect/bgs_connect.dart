@@ -99,6 +99,7 @@ class BgsConnect {
   final List<Handler> _dataHandlers = [];
   late BluetoothCharacteristic _characteristic;
   late StreamSubscription _subscription;
+  late Timer _setPowerTimer;
 
 //  late StreamSubscription<BluetoothConnectionState> _streamConnect;
 
@@ -146,6 +147,8 @@ class BgsConnect {
           device.cancelWhenDisconnected(subscription);
           await c.setNotifyValue(true);
 
+          _setPowerTimer = Timer.periodic(const Duration(milliseconds: 1000), setPowerAction);
+
           reset();
         }
       }
@@ -177,23 +180,21 @@ class BgsConnect {
   void setPower(double power) {
     _targetPower = power.toInt();
     _curPower = _value[5];
-    if (power != _curPower) {
-      Timer.periodic(const Duration(milliseconds: 1000), (timer) async {
-        if (_curPower < _targetPower) {
-          ++_curPower;
-        } else {
-          _curPower = _targetPower;
-        }
-        await _write([0x91, _curPower]);
-        if (_curPower == _targetPower) {
-          timer.cancel();
-        }
-      });
-    }
   }
 
   void reset() async {
     await _write([0x91, 0x00]);
+  }
+
+  /// Функция, вызываемая раз в секунду и меняющая мощность, если нужно
+  void setPowerAction(Timer timer) async {
+    if (_curPower < _targetPower) {
+      ++_curPower;
+      await _write([0x91, _curPower]);
+    } else {
+      _curPower = _targetPower;
+      await _write([0x91, _curPower]);
+    }
   }
 
   void setConnectionFailureMode(ConnectionFailureMode mode) async {
