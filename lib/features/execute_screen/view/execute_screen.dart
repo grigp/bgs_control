@@ -225,9 +225,6 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
   void onGetData(BlockData data) {
     setState(() {
       _powerReal = data.power;
-      if (_dataCount == 1) {
-        _powerSet = _powerReal;
-      }
 
       if (data.isPowerReset) {
         _powerSet = 0;

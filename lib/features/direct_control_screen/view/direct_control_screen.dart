@@ -45,6 +45,7 @@ class _DirectControlScreenState extends State<DirectControlScreen> {
 
     _uuidSendData = const Uuid().v1();
     widget.driver.addHandler(_uuidSendData, onGetData);
+    widget.driver.reset();
   }
 
   @override
@@ -116,6 +117,7 @@ class _DirectControlScreenState extends State<DirectControlScreen> {
 
   @override
   void dispose() {
+    widget.driver.reset();
     widget.driver.removeHandler(_uuidSendData);
     super.dispose();
   }
@@ -169,9 +171,6 @@ class _DirectControlScreenState extends State<DirectControlScreen> {
     setState(() {
       _value = data.source;
       _powerReal = data.power;
-      if (_dataCount == 1) {
-        _powerSet = _powerReal;
-      }
 
       _isAM = data.isAM;
       _amMode = data.amMode;
