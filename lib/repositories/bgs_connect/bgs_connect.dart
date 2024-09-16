@@ -25,6 +25,12 @@ Map<int, AmMode> amModeFromJson = <int, AmMode>{
   51: AmMode.am_51,
 };
 
+Map<AmMode, int> amModeCode = <AmMode, int>{
+  AmMode.am_11: 3,
+  AmMode.am_31: 1,
+  AmMode.am_51: 2,
+};
+
 Map<int, Intensity> intensityFromJson = <int, Intensity>{
   1: Intensity.one,
   2: Intensity.two,
@@ -205,9 +211,9 @@ class BgsConnect {
   }
 
   void setMode(bool isAM, bool isFM, AmMode amMode, double idxFreq, Intensity intensity) async {
-    int idxAM = 0;
+    int? idxAM = 0;
     if (isAM) {
-      idxAM = amMode.index + 1;
+      idxAM = amModeCode[amMode];
     }
 
     int idxFM = 7;
@@ -215,7 +221,7 @@ class BgsConnect {
       idxFM = idxFreq.toInt();
     }
 
-    await _write([0xA1, idxAM]);
+    await _write([0xA1, idxAM!]);
     await _write([0xA2, idxFM]);
     await _write([0xA3, intensity.index]);
   }
@@ -230,11 +236,13 @@ class BgsConnect {
     var power = value[5].toDouble();
 
     var isAM = value[9] > 0;
-    AmMode amMode;
+    AmMode amMode = AmMode.am_11;
     if (isAM) {
-      amMode = AmMode.values[value[9] - 1];
-    } else {
-      amMode = AmMode.am_11;
+      for (final element in amModeCode.entries) {
+        if (element.value == value[9]) {
+          amMode = element.key;
+        }
+      }
     }
 
     var isFM = value[10] == 7;

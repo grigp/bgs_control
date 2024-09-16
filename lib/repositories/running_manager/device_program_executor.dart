@@ -29,6 +29,7 @@ class DeviceProgramExecutor {
   bool _isOver = false;         /// завершена ли программа
   int _playingTime = 0;         /// Время процесса
   int _stageStartTime = 0;      /// Время начала этапа
+  late Timer _timer;
 
   /// Запуск программы
   void connect() {
@@ -55,7 +56,7 @@ class DeviceProgramExecutor {
       _uuidGetData = const Uuid().v1();
       _connect.addHandler(_uuidGetData, onGetData);
 
-      Timer.periodic(const Duration(seconds: 1), onTimer);
+      _timer = Timer.periodic(const Duration(seconds: 1), onTimer);
       _isPlaying = true;
       _isOver = false;
       _idxStage = 0;
@@ -67,6 +68,7 @@ class DeviceProgramExecutor {
   }
 
   void stop() {
+    _timer.cancel();
     _isPlaying = false;
     _idxStage = -1;
     _playingTime = 0;
@@ -141,9 +143,9 @@ class DeviceProgramExecutor {
   void onGetData(BlockData data) {}
 
   void onTimer(Timer timer) async {
+    print('---------------------------- isPlaying: $_isPlaying      timer:  $_playingTime');
     if (_isPlaying) {
       ++_playingTime;
-      print('---------------------------- timer:  $_playingTime   stage start time: $_stageStartTime   stage time: ${stageTime()}   duration: ${_duration / 1000}');
       if (_duration > 0 && (stageTime() >= _duration / 1000)){
         /// Если это не последний этап
         if (_idxStage + 1 < program.stagesCount()) {
