@@ -143,12 +143,14 @@ class DeviceProgramExecutor {
   void onTimer(Timer timer) async {
     if (_isPlaying) {
       ++_playingTime;
+      print('---------------------------- timer:  $_playingTime   stage start time: $_stageStartTime   stage time: ${stageTime()}   duration: ${_duration / 1000}');
       if (_duration > 0 && (stageTime() >= _duration / 1000)){
         /// Если это не последний этап
         if (_idxStage + 1 < program.stagesCount()) {
           ++_idxStage;
           _setParamsStageToDevice();
           _stageStartTime = _playingTime;
+          _duration = program.stage(_idxStage).duration;
         } else {
           /// Все этапы прошли - выходим
           setPower(0);
