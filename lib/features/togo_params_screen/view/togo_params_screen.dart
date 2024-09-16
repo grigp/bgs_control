@@ -75,8 +75,9 @@ class _TogoParamsScreenState extends State<TogoParamsScreen> {
                     child: Column(
                       children: [
                         Text(
-                          'Свободный режим',
+                          'Индивидуальный режим',
                           style: theme.textTheme.headlineSmall,
+                          textScaler: const TextScaler.linear(1.0),
                         ),
                         SizedBox(
                           width: double.infinity,

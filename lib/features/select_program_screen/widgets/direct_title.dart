@@ -35,7 +35,7 @@ class _DirectTitleState extends State<DirectTitle> {
     return Row(
       children: [
         Container(
-          height: 80,
+          height: 90,
           margin: const EdgeInsets.only(
             left: 0,
             top: 10,

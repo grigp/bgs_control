@@ -59,6 +59,7 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
                   child: Text(
                     widget.driver.program.title,
                     style: theme.textTheme.titleLarge,
+                    textScaler: const TextScaler.linear(1.0),
                   ),
                 ),
               ],
@@ -70,6 +71,7 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
             child: Text(
               widget.driver.program.description,
               style: theme.textTheme.labelMedium,
+              textScaler: const TextScaler.linear(1.0),
             ),
           ),
           SizedBox(
@@ -81,12 +83,14 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
                 Text(
                   widget.driver.device.advName,
                   style: theme.textTheme.titleLarge,
+                  textScaler: const TextScaler.linear(1.0),
                 ),
                 const Spacer(),
                 Icon(getChargeIconByLevel(_chargeLevel), size: 20),
                 Text(
                   '${_chargeLevel.toInt()}%',
                   style: theme.textTheme.titleLarge,
+                  textScaler: const TextScaler.linear(1.0),
                 ),
                 const SizedBox(width: 50),
               ],
@@ -111,6 +115,7 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
               Text(
                 getTimeBySecCount(widget.driver.playingTime()),
                 style: theme.textTheme.headlineLarge,
+                textScaler: const TextScaler.linear(1.0),
               ),
             ],
           ),
@@ -121,6 +126,7 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
               Text(
                 'Этап ${widget.driver.idxStage() + 1} : "${widget.driver.stage().comment}"',
                 style: theme.textTheme.titleMedium,
+                textScaler: const TextScaler.linear(1.0),
               ),
             ],
           ),
@@ -131,6 +137,7 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
               Text(
                 _stimulationParamsToString(),
                 style: theme.textTheme.titleSmall,
+                textScaler: const TextScaler.linear(1.0),
               ),
             ],
           ),
@@ -142,6 +149,7 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
                 Text(
                   getTimeBySecCount(widget.driver.stageTime()),
                   style: theme.textTheme.headlineSmall,
+                  textScaler: const TextScaler.linear(1.0),
                 ),
               ],
             ),
@@ -160,6 +168,7 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
                   child: Text(
                     'Увеличивайте мощность воздействия, не допуская появления болевых ощущений',
                     style: theme.textTheme.bodyLarge,
+                    textScaler: const TextScaler.linear(1.0),
                   ),
                 ),
               ],

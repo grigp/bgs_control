@@ -36,7 +36,7 @@ class _StageTitleState extends State<StageTitle> {
     return Row(
       children: [
         Container(
-          height: 60,
+          height: 80,
           margin: const EdgeInsets.only(
             left: 0,
             top: 10,

@@ -35,7 +35,7 @@ class _TogoTitleState extends State<TogoTitle> {
     return Row(
       children: [
         Container(
-          height: 80,
+          height: 90,
           margin: const EdgeInsets.only(
             left: 0,
             top: 10,
@@ -53,7 +53,7 @@ class _TogoTitleState extends State<TogoTitle> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Свободный режим',
+                    'Индивидуальный режим',
                     style: theme.textTheme.titleMedium,
                     overflow: TextOverflow.ellipsis,
                   ),
@@ -61,7 +61,7 @@ class _TogoTitleState extends State<TogoTitle> {
                     width: 300, //double.infinity,
                     height: 50,
                     child: Text(
-                      'Автономный режим работы стимулятора',
+                      'Режим работы стимулятора с индивидуальными настройками',
                       style: theme.textTheme.labelSmall,
                       overflow: TextOverflow.ellipsis,
                       maxLines: 4,

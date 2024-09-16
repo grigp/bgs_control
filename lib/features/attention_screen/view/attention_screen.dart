@@ -41,17 +41,22 @@ class _AttentionScreenState extends State<AttentionScreen> {
               style: theme.textTheme.titleMedium,
             ),
             const SizedBox(height: 10),
-            Text(
-              '- При беременности;\n'
-              '- У людей, страдающих от грыжи или выпячивания органов;\n'
-              '- К голове;\n'
-              '- К людям, страдающим эпилепсией;\n'
-              '- В местах травматических повреждений нервов, мышц и сухожилий;\n'
-              '- В острый период пишемических поражений тканей мозга и сердца;\n'
-              '- В местах заболевания кожи.',
-              style: theme.textTheme.titleMedium,
+            Expanded(
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.vertical,
+                  child: Text(
+                    '- При беременности;\n'
+                        '- У людей, страдающих от грыжи или выпячивания органов;\n'
+                        '- К голове;\n'
+                        '- К людям, страдающим эпилепсией;\n'
+                        '- В местах травматических повреждений нервов, мышц и сухожилий;\n'
+                        '- В острый период пишемических поражений тканей мозга и сердца;\n'
+                        '- В местах заболевания кожи.',
+                    style: theme.textTheme.titleMedium,
+                  ),
+                ),
+
             ),
-            const Spacer(),
             Center(
               child:
               TexelButton.accent(

@@ -81,7 +81,7 @@ class _DirectControlScreenState extends State<DirectControlScreen> {
                 '($_dataCount)  ${_valueToString()}',
                 style: theme.textTheme.bodySmall,
               ),
-              const SizedBox(height: 30),
+              const SizedBox(height: 10),
               SizedBox(
                 width: double.infinity,
                 child: ParamsWidget(
@@ -103,7 +103,7 @@ class _DirectControlScreenState extends State<DirectControlScreen> {
       ),
       bottomNavigationBar: BottomAppBar(
         color: Theme.of(context).colorScheme.inversePrimary,
-        height: 290,
+        height: 300,
         child: PowerWidget(
           powerSet: _powerSet,
           powerReal: _powerReal,

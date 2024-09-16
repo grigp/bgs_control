@@ -80,10 +80,10 @@ class MethodicProgram {
     return MethodicProgram(
       uid: '0',
       statsTitle: 'togo program',
-      title: 'Свободный режим',
-      description: 'Автономный режим работы стимулятора',
+      title: 'Индивидуальный режим',
+      description: 'Работа с индивидуальными настройками',
       image: 'togo.png',
-    ).._addStage('свободная стимуляция', -1, isAm, isFm, amMode, intensity, frequency);
+    ).._addStage('индивидуальные настройки', -1, isAm, isFm, amMode, intensity, frequency);
   }
 
   String uid;

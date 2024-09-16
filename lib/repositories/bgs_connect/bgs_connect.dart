@@ -100,6 +100,7 @@ class BgsConnect {
   late BluetoothCharacteristic _characteristic;
   late StreamSubscription _subscription;
   late Timer _setPowerTimer;
+  bool _isPowerTimer = false;
 
 //  late StreamSubscription<BluetoothConnectionState> _streamConnect;
 
@@ -147,7 +148,12 @@ class BgsConnect {
           device.cancelWhenDisconnected(subscription);
           await c.setNotifyValue(true);
 
-          _setPowerTimer = Timer.periodic(const Duration(milliseconds: 1000), setPowerAction);
+          /// Запускаем события от таймера, по которым будем растить мощность
+          if (!_isPowerTimer) {
+            _setPowerTimer = Timer.periodic(
+                const Duration(milliseconds: 1000), setPowerAction);
+            _isPowerTimer = true;
+          }
 
           reset();
         }

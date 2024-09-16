@@ -203,7 +203,7 @@ class _SelectProgramScreenState extends State<SelectProgramScreen> {
     if (_chargeLevel > chargeBreakBoundLevel) {
       MaterialPageRoute route = MaterialPageRoute(
         builder: (context) => TogoParamsScreen(
-          title: 'Свободный режим',
+          title: 'Индивидуальный режим',
           driver: widget.driver,
         ),
         settings:

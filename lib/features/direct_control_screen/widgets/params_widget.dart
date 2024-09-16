@@ -43,6 +43,7 @@ class _ParamsWidgetState extends State<ParamsWidget> {
             Text(
               'Ампл. модуляция (AM)',
               style: theme.textTheme.labelMedium,
+              textScaler: const TextScaler.linear(1.0),
             ),
             const Spacer(),
             Switch(
@@ -89,6 +90,7 @@ class _ParamsWidgetState extends State<ParamsWidget> {
             Text(
               'Част. модуляция (FM)',
               style: theme.textTheme.labelMedium,
+              textScaler: const TextScaler.linear(1.0),
             ),
             const Spacer(),
             Switch(
@@ -111,6 +113,7 @@ class _ParamsWidgetState extends State<ParamsWidget> {
               Text(
                 'Частота: ${freqValue[widget.idxFreq]!.toInt()}',
                 style: theme.textTheme.labelMedium,
+                textScaler: const TextScaler.linear(1.0),
               ),
               Slider.adaptive(
                 value: widget.idxFreq,
@@ -138,6 +141,7 @@ class _ParamsWidgetState extends State<ParamsWidget> {
             Text(
               'Интенсивность',
               style: theme.textTheme.labelMedium,
+              textScaler: const TextScaler.linear(1.0),
             ),
             const SizedBox(height: 10),
             SizedBox(
