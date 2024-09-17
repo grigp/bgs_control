@@ -11,7 +11,7 @@ import 'package:uuid/rng.dart';
 import '../logger/communication_logger.dart';
 enum AmMode { am_11, am_31, am_51 }
 
-enum Intensity { one, two, three, four }
+enum Intensivity { one, two, three, four }
 
 Map<AmMode, String> amModeNames = <AmMode, String>{
   AmMode.am_11: '1:1',
@@ -31,11 +31,11 @@ Map<AmMode, int> amModeCode = <AmMode, int>{
   AmMode.am_51: 2,
 };
 
-Map<int, Intensity> intensityFromJson = <int, Intensity>{
-  1: Intensity.one,
-  2: Intensity.two,
-  3: Intensity.three,
-  4: Intensity.four
+Map<int, Intensivity> intensivityFromJson = <int, Intensivity>{
+  1: Intensivity.one,
+  2: Intensivity.two,
+  3: Intensivity.three,
+  4: Intensivity.four
 };
 
 Map<double, double> freqValue = <double, double>{
@@ -84,7 +84,7 @@ class BlockData {
   final AmMode amMode;
   final double idxFreq;
   final bool isPowerReset;
-  final Intensity intensity;
+  final Intensivity intensity;
   final double chargeLevel;
   final List<int> source;
 }
@@ -217,7 +217,7 @@ class BgsConnect {
     await _write([0xA3, idxIntencity]);
   }
 
-  void setMode(bool isAM, bool isFM, AmMode amMode, double idxFreq, Intensity intensity) async {
+  void setMode(bool isAM, bool isFM, AmMode amMode, double idxFreq, Intensivity intensity) async {
     int? idxAM = 0;
     if (isAM) {
       idxAM = amModeCode[amMode];
@@ -263,7 +263,7 @@ class BgsConnect {
       isPowerReset = true;
     }
 
-    var intensity = Intensity.values[value[11]];
+    var intensity = Intensivity.values[value[11]];
     var chargeLevel = getChargeLevelByADC(value[3]);
 
     return BlockData(

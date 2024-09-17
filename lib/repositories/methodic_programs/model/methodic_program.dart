@@ -19,7 +19,7 @@ class ProgramStage {
   bool isAm;
   bool isFm;
   AmMode amMode;
-  Intensity intensity;
+  Intensivity intensity;
   double frequency;
 }
 
@@ -64,7 +64,7 @@ class MethodicProgram {
           isAm: stages[i]['am'],
           isFm: stages[i]['fm'],
           amMode: amModeFromJson[stages[i]['am_mode']]!,
-          intensity: intensityFromJson[stages[i]['intensivity']]!,
+          intensity: intensivityFromJson[stages[i]['intensivity']]!,
           frequency: f.toDouble(),
       );
       retval._stages.add(stage);
@@ -76,7 +76,7 @@ class MethodicProgram {
 
   /// Конструктор в режиме togo
   factory MethodicProgram.togo(bool isAm, bool isFm, AmMode amMode,
-      Intensity intensity, double frequency) {
+      Intensivity intensity, double frequency) {
     return MethodicProgram(
       uid: '0',
       statsTitle: 'togo program',
@@ -96,7 +96,7 @@ class MethodicProgram {
   final List<ProgramStage> _stages = [];
 
   void _addStage(String comment, int duration, bool isAm, bool isFm,
-      AmMode amMode, Intensity intensity, double frequency) {
+      AmMode amMode, Intensivity intensity, double frequency) {
     var stage = ProgramStage(
       comment: comment,
       duration: duration,

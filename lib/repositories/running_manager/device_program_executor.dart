@@ -136,7 +136,7 @@ class DeviceProgramExecutor {
     _connect.setModeDepecated(idxAM, idxFM, idxIntencity);
   }
 
-  void setMode(bool isAM, bool isFM, AmMode amMode, double idxFreq, Intensity intensity) async {
+  void setMode(bool isAM, bool isFM, AmMode amMode, double idxFreq, Intensivity intensity) async {
     _connect.setMode(isAM, isFM, amMode, idxFreq, intensity);
   }
 

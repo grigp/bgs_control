@@ -32,7 +32,7 @@ class _TogoParamsScreenState extends State<TogoParamsScreen> {
   bool _isAM = false;
   bool _isFM = false;
   AmMode _amMode = AmMode.am_11;
-  Intensity _intensity = Intensity.one;
+  Intensivity _intensity = Intensivity.one;
   double _idxFreq = 0;
   String _uuidGetData = '';
 
@@ -172,7 +172,7 @@ class _TogoParamsScreenState extends State<TogoParamsScreen> {
     });
   }
 
-  void onIntensityChanged(Intensity intensity) {
+  void onIntensityChanged(Intensivity intensity) {
     setState(() {
       _intensity = intensity;
     });

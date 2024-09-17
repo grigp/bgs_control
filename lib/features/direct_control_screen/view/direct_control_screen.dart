@@ -1,11 +1,11 @@
+import 'dart:async';
+
 import 'package:bgs_control/features/direct_control_screen/widgets/params_widget.dart';
 import 'package:bgs_control/features/direct_control_screen/widgets/power_widget.dart';
 import 'package:bgs_control/features/uikit/widgets/charge_message_widget.dart';
 import 'package:bgs_control/repositories/bgs_connect/bgs_connect.dart';
 import 'package:bgs_control/utils/charge_values.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_blue_plus/flutter_blue_plus.dart';
-import 'package:get_it/get_it.dart';
 import 'package:uuid/uuid.dart';
 
 import '../../../repositories/running_manager/device_program_executor.dart';
@@ -29,13 +29,18 @@ class _DirectControlScreenState extends State<DirectControlScreen> {
   List<int> _value = [];
   int _dataCount = 0;
 
-  bool _isAM = false;
-  bool _isFM = false;
+  bool _isAm = false;
+  bool _isAmChange = true;
+  bool _isFm = false;
+  bool _isFmChange = true;
   AmMode _amMode = AmMode.am_11;
-  Intensity _intensity = Intensity.one;
+  bool _isAmModeChange = true;
+  Intensivity _intensivity = Intensivity.one;
+  bool _intensivityChange = true;
   double _powerSet = 0;
   double _powerReal = 0;
   double _idxFreq = 0;
+  bool _idxFreqChange = true;
   double _chargeLevel = 100;
   String _uuidSendData = '';
 
@@ -86,15 +91,15 @@ class _DirectControlScreenState extends State<DirectControlScreen> {
               SizedBox(
                 width: double.infinity,
                 child: ParamsWidget(
-                  isAm: _isAM,
+                  isAm: _isAm,
                   onAmChanged: onAmChanged,
                   amMode: _amMode,
                   onAmModeChanged: onAmModeChanged,
-                  isFm: _isFM,
+                  isFm: _isFm,
                   onFmChanged: onFmChanged,
                   idxFreq: _idxFreq,
                   onFreqChanged: onFreqChanged,
-                  intensity: _intensity,
+                  intensity: _intensivity,
                   onIntensityChanged: onIntensityChanged,
                 ),
               ),
@@ -123,38 +128,58 @@ class _DirectControlScreenState extends State<DirectControlScreen> {
   }
 
   void onAmChanged(bool isAm) {
-    setState(() {
-      _isAM = isAm;
+    Timer(const Duration(seconds: 2), (){
+      _isAmChange = true;
     });
-    _setDeviceMode();
+    _isAmChange = false;
+    _setDeviceMode(isAm, _isFm, _amMode, _idxFreq, _intensivity);
+    setState(() {
+      _isAm = isAm;
+    });
   }
 
   void onAmModeChanged(AmMode amMode) {
+    Timer(const Duration(seconds: 2), (){
+      _isAmModeChange = true;
+    });
+    _isAmModeChange = false;
+    _setDeviceMode(_isAm, _isFm, amMode, _idxFreq, _intensivity);
     setState(() {
       _amMode = amMode;
     });
-    _setDeviceMode();
   }
 
   void onFmChanged(bool isFm) {
-    setState(() {
-      _isFM = isFm;
+    Timer(const Duration(seconds: 2), (){
+      _isFmChange = true;
     });
-    _setDeviceMode();
+    _isFmChange = false;
+    _setDeviceMode(_isAm, isFm, _amMode, _idxFreq, _intensivity);
+    setState(() {
+      _isFm = isFm;
+    });
   }
 
   void onFreqChanged(double idxFreq) {
+    Timer(const Duration(seconds: 2), (){
+      _idxFreqChange = true;
+    });
+    _idxFreqChange = false;
+    _setDeviceMode(_isAm, _isFm, _amMode, idxFreq, _intensivity);
     setState(() {
       _idxFreq = idxFreq;
     });
-    _setDeviceMode();
   }
 
-  void onIntensityChanged(Intensity intensity) {
-    setState(() {
-      _intensity = intensity;
+  void onIntensityChanged(Intensivity intensivity) {
+    Timer(const Duration(seconds: 2), (){
+      _intensivityChange = true;
     });
-    _setDeviceMode();
+    _intensivityChange = false;
+    _setDeviceMode(_isAm, _isFm, _amMode, _idxFreq, intensivity);
+    setState(() {
+      _intensivity = intensivity;
+    });
   }
 
   void onPowerSet(double power) {
@@ -172,17 +197,27 @@ class _DirectControlScreenState extends State<DirectControlScreen> {
       _value = data.source;
       _powerReal = data.power;
 
-      _isAM = data.isAM;
-      _amMode = data.amMode;
+      if (_isAmChange) {
+        _isAm = data.isAM;
+      }
+      if (_isAmModeChange) {
+        _amMode = data.amMode;
+      }
 
-      _isFM = data.isFM;
-      _idxFreq = data.idxFreq;
+      if (_isFmChange) {
+        _isFm = data.isFM;
+      }
+      if (_idxFreqChange) {
+        _idxFreq = data.idxFreq;
+      }
 
       if (data.isPowerReset) {
         _powerSet = 0;
       }
 
-      _intensity = data.intensity;
+      if (_intensivityChange) {
+        _intensivity = data.intensity;
+      }
       _chargeLevel = data.chargeLevel;
 
       ++_dataCount;
@@ -193,8 +228,8 @@ class _DirectControlScreenState extends State<DirectControlScreen> {
     }
   }
 
-  void _setDeviceMode() {
-    widget.driver.setMode(_isAM, _isFM, _amMode, _idxFreq, _intensity);
+  void _setDeviceMode(bool isAM, bool isFM, AmMode amMode, double idxFreq, Intensivity intensity) {
+    widget.driver.setMode(isAM, isFM, amMode, idxFreq, intensity);
   }
 
   String _valueToString() {

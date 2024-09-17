@@ -25,7 +25,7 @@ class ParamsWidget extends StatefulWidget {
   final Function onFmChanged;
   double idxFreq;
   final Function onFreqChanged;
-  Intensity intensity;
+  Intensivity intensity;
   final Function onIntensityChanged;
 
   @override
@@ -146,27 +146,27 @@ class _ParamsWidgetState extends State<ParamsWidget> {
             const SizedBox(height: 10),
             SizedBox(
               width: double.infinity,
-              child: SegmentedButton<Intensity>(
-                segments: const <ButtonSegment<Intensity>>[
-                  ButtonSegment<Intensity>(
-                    value: Intensity.one,
+              child: SegmentedButton<Intensivity>(
+                segments: const <ButtonSegment<Intensivity>>[
+                  ButtonSegment<Intensivity>(
+                    value: Intensivity.one,
                     label: Text('1'),
                   ),
-                  ButtonSegment<Intensity>(
-                    value: Intensity.two,
+                  ButtonSegment<Intensivity>(
+                    value: Intensivity.two,
                     label: Text('2'),
                   ),
-                  ButtonSegment<Intensity>(
-                    value: Intensity.three,
+                  ButtonSegment<Intensivity>(
+                    value: Intensivity.three,
                     label: Text('3'),
                   ),
-                  ButtonSegment<Intensity>(
-                    value: Intensity.four,
+                  ButtonSegment<Intensivity>(
+                    value: Intensivity.four,
                     label: Text('4'),
                   ),
                 ],
-                selected: <Intensity>{widget.intensity},
-                onSelectionChanged: (Set<Intensity> newSelection) {
+                selected: <Intensivity>{widget.intensity},
+                onSelectionChanged: (Set<Intensivity> newSelection) {
                   setState(() {
                     widget.intensity = newSelection.first;
                   });
