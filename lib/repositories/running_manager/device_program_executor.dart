@@ -1,14 +1,16 @@
 import 'dart:async';
+//import 'dart:isolate';
 
 import 'package:bgs_control/repositories/methodic_programs/model/methodic_program.dart';
 import 'package:bgs_control/utils/extra.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:uuid/uuid.dart';
 
 import '../bgs_connect/bgs_connect.dart';
 
 /// Класс управления устройством при проведении методики
-class DeviceProgramExecutor {
+class DeviceProgramExecutor  {
   /// При создании задается только устройство, программа назначается позже
   /// И при одном сеансе могут быть назначены разные программы
   DeviceProgramExecutor({
@@ -31,6 +33,10 @@ class DeviceProgramExecutor {
   int _stageStartTime = 0;      /// Время начала этапа
   late Timer _timer;
 
+  // late Isolate _isolate;
+  // final receivePort = ReceivePort();
+
+
   /// Запуск программы
   void connect() {
     // if (!_isConnected) {  События в stream(.listen) срабатывает до connect при последующих запусках
@@ -51,12 +57,13 @@ class DeviceProgramExecutor {
     // }
   }
 
-  void run() {
+  void run() async {
     if (program.uid != '' && _isConnected) {
       _uuidGetData = const Uuid().v1();
       _connect.addHandler(_uuidGetData, onGetData);
 
       _timer = Timer.periodic(const Duration(seconds: 1), onTimer);
+
       _isPlaying = true;
       _isOver = false;
       _idxStage = 0;
@@ -64,6 +71,8 @@ class DeviceProgramExecutor {
       _stageStartTime = 0;
       _setParamsStageToDevice();
       _duration = program.stage(_idxStage).duration;
+
+      // _isolate = await Isolate.spawn(onTimerIsolate, receivePort.sendPort);
     }
   }
 
@@ -140,7 +149,11 @@ class DeviceProgramExecutor {
     _connect.setMode(isAM, isFM, amMode, idxFreq, intensity);
   }
 
-  void onGetData(BlockData data) {}
+  int n = 0;
+  void onGetData(BlockData data) {
+    print('------------------------------------ getdata : ${++n}');
+
+  }
 
   void onTimer(Timer timer) async {
     print('---------------------------- isPlaying: $_isPlaying      timer:  $_playingTime');
@@ -166,6 +179,13 @@ class DeviceProgramExecutor {
       timer.cancel();
     }
   }
+
+  // static void onTimerIsolate(SendPort sendPort){
+  //   int n = 0;
+  //   Timer.periodic(const Duration(seconds: 1), (Timer timer){
+  //     print('---------------------------- isolate ${++n}');
+  //   });
+  // }
 
   void _setParamsStageToDevice() {
     double idxFreq = 7;

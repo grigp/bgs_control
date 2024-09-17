@@ -16,7 +16,7 @@ class BgsApp extends StatefulWidget {
   State<BgsApp> createState() => _BgsAppState();
 }
 
-class _BgsAppState extends State<BgsApp> {
+class _BgsAppState extends State<BgsApp> with WidgetsBindingObserver {
   BluetoothAdapterState _adapterState = BluetoothAdapterState.unknown;
 
   late StreamSubscription<BluetoothAdapterState> _adapterStateStateSubscription;
@@ -24,6 +24,8 @@ class _BgsAppState extends State<BgsApp> {
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addObserver(this);
+
     /// Инициализируем хранилище программ
     GetIt.I<ProgramStorage>().init();
 
@@ -40,6 +42,7 @@ class _BgsAppState extends State<BgsApp> {
   @override
   void dispose() {
     _adapterStateStateSubscription.cancel();
+    WidgetsBinding.instance.removeObserver(this);
     super.dispose();
   }
 
@@ -55,6 +58,20 @@ class _BgsAppState extends State<BgsApp> {
       home: screen,
     );
   }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    super.didChangeAppLifecycleState(state);
+    print(
+        '=============================================================================');
+    print('======================================== ${state.toString()}');
+    print(
+        '=============================================================================');
+    // setState(() {
+    //   _appLifecycleState = state;
+    // });
+  }
+
 }
 
 // class BgsApp extends StatelessWidget {
