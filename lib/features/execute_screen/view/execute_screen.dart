@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:bgs_control/features/uikit/widgets/back_screen_button.dart';
+import 'package:bgs_control/features/uikit/widgets/program_progress_bar.dart';
 import 'package:bgs_control/utils/baseutils.dart';
 import 'package:flutter/material.dart';
 import 'package:uuid/uuid.dart';
@@ -19,13 +20,14 @@ class ExecuteScreen extends StatefulWidget {
     super.key,
     required this.title,
     required this.driver,
-    required MethodicProgram program,
+    required this.program,
   }) {
     driver.setProgram(program);
   }
 
   final String title;
   final DeviceProgramExecutor driver;
+  final MethodicProgram program;
 
   @override
   State<ExecuteScreen> createState() => _ExecuteScreenState();
@@ -142,7 +144,7 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
             ],
           ),
           if (widget.driver.stage().duration > 0)
-          /// Время этапа, если длительность этапа задана
+            /// Время этапа, если длительность этапа задана
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -150,6 +152,23 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
                   getTimeBySecCount(widget.driver.stageTime()),
                   style: theme.textTheme.headlineSmall,
                   textScaler: const TextScaler.linear(1.0),
+                ),
+              ],
+            ),
+          const Spacer(),
+          if (widget.driver.stage().duration > 0)
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SizedBox(
+                  width: 300, //double.infinity,
+                  height: 20,
+                  child: CustomPaint(
+                    painter: ProgramProgressBar(
+                      program: widget.program,
+                      position: widget.driver.playingTime(),
+                    ),
+                  ),
                 ),
               ],
             ),
