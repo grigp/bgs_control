@@ -13,6 +13,7 @@ import '../../../repositories/running_manager/device_program_executor.dart';
 import '../../../utils/base_defines.dart';
 import '../../../utils/charge_values.dart';
 import '../../direct_control_screen/widgets/power_widget.dart';
+import '../../uikit/texel_button.dart';
 import '../../uikit/widgets/charge_message_widget.dart';
 
 class ExecuteScreen extends StatefulWidget {
@@ -43,170 +44,197 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    return Scaffold(
-      body: Column(
-        children: [
-          const SizedBox(height: 60),
-          SizedBox(
-            width: double.infinity,
-            height: 60,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const BackScreenButton(),
-                Image.asset(
-                    'lib/assets/icons/programs/${widget.driver.program.image}'),
-                const SizedBox(width: 20),
-                Expanded(
-                  child: Text(
-                    widget.driver.program.title,
+    return PopScope(
+      canPop: false,
+      onPopInvoked: (didPop) async {
+        final bool? dr = await showDialog<bool>(
+          context: context,
+          builder: (BuildContext context) => AlertDialog(
+            title: const Text('Отменить выполнение программы?'),
+            actions: <Widget>[
+              TexelButton.accent(
+                onPressed: () => Navigator.pop(context, false),
+                text: 'Нет',
+                width: 120,
+              ),
+              TexelButton.secondary(
+                onPressed: () => Navigator.pop(context, true),
+                text: 'Да',
+                width: 120,
+              ),
+            ],
+          ),
+        );
+        if (dr!){
+          Navigator.of(context).popUntil(ModalRoute.withName('/select_method'));
+        }
+      },
+      child: Scaffold(
+        body: Column(
+          children: [
+            const SizedBox(height: 60),
+            SizedBox(
+              width: double.infinity,
+              height: 60,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const BackScreenButton(),
+                  Image.asset(
+                      'lib/assets/icons/programs/${widget.driver.program.image}'),
+                  const SizedBox(width: 20),
+                  Expanded(
+                    child: Text(
+                      widget.driver.program.title,
+                      style: theme.textTheme.titleLarge,
+                      textScaler: const TextScaler.linear(1.0),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(
+              width: 400,
+              height: 40,
+              child: Text(
+                widget.driver.program.description,
+                style: theme.textTheme.labelMedium,
+                textScaler: const TextScaler.linear(1.0),
+              ),
+            ),
+            SizedBox(
+              width: double.infinity,
+              height: 40,
+              child: Row(
+                children: [
+                  const SizedBox(width: 50),
+                  Text(
+                    widget.driver.device.advName,
                     style: theme.textTheme.titleLarge,
                     textScaler: const TextScaler.linear(1.0),
                   ),
-                ),
-              ],
-            ),
-          ),
-          SizedBox(
-            width: 400,
-            height: 40,
-            child: Text(
-              widget.driver.program.description,
-              style: theme.textTheme.labelMedium,
-              textScaler: const TextScaler.linear(1.0),
-            ),
-          ),
-          SizedBox(
-            width: double.infinity,
-            height: 40,
-            child: Row(
-              children: [
-                const SizedBox(width: 50),
-                Text(
-                  widget.driver.device.advName,
-                  style: theme.textTheme.titleLarge,
-                  textScaler: const TextScaler.linear(1.0),
-                ),
-                const Spacer(),
-                Icon(getChargeIconByLevel(_chargeLevel), size: 20),
-                Text(
-                  '${_chargeLevel.toInt()}%',
-                  style: theme.textTheme.titleLarge,
-                  textScaler: const TextScaler.linear(1.0),
-                ),
-                const SizedBox(width: 50),
-              ],
-            ),
-          ),
-          if (_chargeLevel <= chargeAlarmBoundLevel)
-            const ChargeMessageWidget(),
-          const SizedBox(height: 30),
-          Row(
-            /// Кнопка play / pause
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              _getPlayPauseButton(widget.driver.isPlaying()
-                  ? TypePlayPauseButton.pause
-                  : TypePlayPauseButton.play),
-            ],
-          ),
-          Row(
-            /// Время воздействия
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                getTimeBySecCount(widget.driver.playingTime()),
-                style: theme.textTheme.headlineLarge,
-                textScaler: const TextScaler.linear(1.0),
-              ),
-            ],
-          ),
-          Row(
-            /// Нвзвание этапа
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                'Этап ${widget.driver.idxStage() + 1} : "${widget.driver.stage().comment}"',
-                style: theme.textTheme.titleMedium,
-                textScaler: const TextScaler.linear(1.0),
-              ),
-            ],
-          ),
-          Row(
-            /// Параметры воздействия
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                _stimulationParamsToString(),
-                style: theme.textTheme.titleSmall,
-                textScaler: const TextScaler.linear(1.0),
-              ),
-            ],
-          ),
-          if (widget.driver.stage().duration > 0)
-            /// Время этапа, если длительность этапа задана
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  getTimeBySecCount(widget.driver.stageTime()),
-                  style: theme.textTheme.headlineSmall,
-                  textScaler: const TextScaler.linear(1.0),
-                ),
-              ],
-            ),
-          const Spacer(),
-          if (widget.driver.stage().duration > 0)
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                SizedBox(
-                  width: 300, //double.infinity,
-                  height: 20,
-                  child: CustomPaint(
-                    painter: ProgramProgressBar(
-                      program: widget.program,
-                      position: widget.driver.playingTime(),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          const Spacer(),
-          if (widget.driver.isPlaying())
-            Row(
-              children: [
-                const SizedBox(width: 5),
-                SizedBox(
-                  width: 50,
-                  height: 50,
-                  child: Image.asset('images/attention.png'),
-                ),
-                const SizedBox(width: 5),
-                Expanded(
-                  child: Text(
-                    'Увеличивайте мощность воздействия, не допуская появления болевых ощущений',
-                    style: theme.textTheme.bodyLarge,
+                  const Spacer(),
+                  Icon(getChargeIconByLevel(_chargeLevel), size: 20),
+                  Text(
+                    '${_chargeLevel.toInt()}%',
+                    style: theme.textTheme.titleLarge,
                     textScaler: const TextScaler.linear(1.0),
                   ),
+                  const SizedBox(width: 50),
+                ],
+              ),
+            ),
+            if (_chargeLevel <= chargeAlarmBoundLevel)
+              const ChargeMessageWidget(),
+            const SizedBox(height: 30),
+            Row(
+              /// Кнопка play / pause
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                _getPlayPauseButton(widget.driver.isPlaying()
+                    ? TypePlayPauseButton.pause
+                    : TypePlayPauseButton.play),
+              ],
+            ),
+            Row(
+              /// Время воздействия
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  getTimeBySecCount(widget.driver.playingTime()),
+                  style: theme.textTheme.headlineLarge,
+                  textScaler: const TextScaler.linear(1.0),
                 ),
               ],
             ),
-          if (widget.driver.isPlaying())
-            Container(
-              padding: const EdgeInsets.all(15),
-              decoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.inversePrimary,
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: PowerWidget(
-                powerSet: _powerSet,
-                powerReal: _powerReal,
-                onPowerSet: onPowerSet,
-                onPowerReset: onPowerReset,
-              ),
+            Row(
+              /// Нвзвание этапа
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  'Этап ${widget.driver.idxStage() + 1} : "${widget.driver.stage().comment}"',
+                  style: theme.textTheme.titleMedium,
+                  textScaler: const TextScaler.linear(1.0),
+                ),
+              ],
             ),
-        ],
+            Row(
+              /// Параметры воздействия
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  _stimulationParamsToString(),
+                  style: theme.textTheme.titleSmall,
+                  textScaler: const TextScaler.linear(1.0),
+                ),
+              ],
+            ),
+            if (widget.driver.stage().duration > 0)
+
+              /// Время этапа, если длительность этапа задана
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    getTimeBySecCount(widget.driver.stageTime()),
+                    style: theme.textTheme.headlineSmall,
+                    textScaler: const TextScaler.linear(1.0),
+                  ),
+                ],
+              ),
+            const Spacer(),
+            if (widget.driver.stage().duration > 0)
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SizedBox(
+                    width: 300, //double.infinity,
+                    height: 20,
+                    child: CustomPaint(
+                      painter: ProgramProgressBar(
+                        program: widget.program,
+                        position: widget.driver.playingTime(),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            const Spacer(),
+            if (widget.driver.isPlaying())
+              Row(
+                children: [
+                  const SizedBox(width: 5),
+                  SizedBox(
+                    width: 50,
+                    height: 50,
+                    child: Image.asset('images/attention.png'),
+                  ),
+                  const SizedBox(width: 5),
+                  Expanded(
+                    child: Text(
+                      'Увеличивайте мощность воздействия, не допуская появления болевых ощущений',
+                      style: theme.textTheme.bodyLarge,
+                      textScaler: const TextScaler.linear(1.0),
+                    ),
+                  ),
+                ],
+              ),
+            if (widget.driver.isPlaying())
+              Container(
+                padding: const EdgeInsets.all(15),
+                decoration: BoxDecoration(
+                  color: Theme.of(context).colorScheme.inversePrimary,
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: PowerWidget(
+                  powerSet: _powerSet,
+                  powerReal: _powerReal,
+                  onPowerSet: onPowerSet,
+                  onPowerReset: onPowerReset,
+                ),
+              ),
+          ],
+        ),
       ),
     );
   }
