@@ -37,6 +37,7 @@ class SelectProgramScreen extends StatefulWidget {
 
 class _SelectProgramScreenState extends State<SelectProgramScreen> {
   List<MethodicProgram> _programs = [];
+
 //  bool _isConnected = false;
   String _uuidGetData = '';
   double _chargeLevel = 100;
@@ -52,8 +53,6 @@ class _SelectProgramScreenState extends State<SelectProgramScreen> {
             Column(
               children: [
                 const SizedBox(height: 30),
-                if (_chargeLevel <= chargeAlarmBoundLevel)
-                  const ChargeMessageWidget(),
                 Container(
                   color: backgroundTestColor,
                   child: Image.asset('images/background_woman.png'),
@@ -63,12 +62,16 @@ class _SelectProgramScreenState extends State<SelectProgramScreen> {
             Positioned(
               top: 40,
               left: 20,
-              child: BackScreenButton(onBack: (){Navigator.pop(context);}),
+              child: BackScreenButton(onBack: () {
+                Navigator.pop(context);
+              }),
             ),
             Column(
               mainAxisAlignment: MainAxisAlignment.start, //.center,
               children: <Widget>[
                 const Spacer(),
+                if (_chargeLevel <= chargeAlarmBoundLevel)
+                  const ChargeMessageWidget(),
                 Container(
                   width: double.infinity,
                   height: 500,
@@ -156,7 +159,7 @@ class _SelectProgramScreenState extends State<SelectProgramScreen> {
   }
 
   void readPrograms() async {
-    _programs =  GetIt.I<ProgramStorage>().getPrograms();
+    _programs = GetIt.I<ProgramStorage>().getPrograms();
     // print('--------------- select program screen ---- ${_programs.length}');
     // for (int i = 0; i < _programs.length; ++i){
     //   print('--------- $i: ${_programs[i].title}');
@@ -182,8 +185,7 @@ class _SelectProgramScreenState extends State<SelectProgramScreen> {
                     driver: widget.driver,
                     program: program,
                   ),
-                  settings:
-                  const RouteSettings(name: '/program_control'),
+                  settings: const RouteSettings(name: '/program_control'),
                 );
                 Navigator.of(context).push(route);
               } else {
@@ -195,22 +197,21 @@ class _SelectProgramScreenState extends State<SelectProgramScreen> {
         .toList();
   }
 
-  List<Widget> _buildHandleProgram(BuildContext context){
+  List<Widget> _buildHandleProgram(BuildContext context) {
     List<Widget> list = [];
     list.add(TogoTitle(onTap: _runToGoMode));
     list.add(DirectTitle(onTap: _runDirectControl));
     return list;
   }
 
-  void _runToGoMode(){
+  void _runToGoMode() {
     if (_chargeLevel > chargeBreakBoundLevel) {
       MaterialPageRoute route = MaterialPageRoute(
         builder: (context) => TogoParamsScreen(
           title: 'Индивидуальный режим',
           driver: widget.driver,
         ),
-        settings:
-        const RouteSettings(name: '/togo_control'),
+        settings: const RouteSettings(name: '/togo_control'),
       );
       Navigator.of(context).push(route);
     } else {
@@ -218,15 +219,14 @@ class _SelectProgramScreenState extends State<SelectProgramScreen> {
     }
   }
 
-  void _runDirectControl(){
+  void _runDirectControl() {
     if (_chargeLevel > chargeBreakBoundLevel) {
       MaterialPageRoute route = MaterialPageRoute(
         builder: (context) => DirectControlScreen(
           title: 'Direct',
           driver: widget.driver,
         ),
-        settings:
-        const RouteSettings(name: '/direct_control'),
+        settings: const RouteSettings(name: '/direct_control'),
       );
       Navigator.of(context).push(route);
     } else {

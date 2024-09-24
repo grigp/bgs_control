@@ -49,6 +49,7 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
       onPopInvoked: (didPop) async {
         final bool? dr = await showCancelDialog();
         if (dr!) {
+          if (!context.mounted) return;
           Navigator.of(context).popUntil(ModalRoute.withName('/select_method'));
         }
       },
@@ -65,6 +66,7 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
                   BackScreenButton(onBack: () async {
                     final bool? dr = await showCancelDialog();
                     if (dr!) {
+                      if (!context.mounted) return;
                       Navigator.of(context)
                           .popUntil(ModalRoute.withName('/select_method'));
                     }
