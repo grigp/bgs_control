@@ -4,6 +4,8 @@ import 'package:bgs_control/features/uikit/styles.dart';
 import 'package:bgs_control/features/uikit/texel_button.dart';
 import 'package:flutter/material.dart';
 
+import '../../../assets/colors/colors.dart';
+
 class InvitationToConnectScreen extends StatefulWidget {
   const InvitationToConnectScreen({
     super.key,
@@ -28,13 +30,16 @@ class _InvitationToConnectScreenState extends State<InvitationToConnectScreen> {
       // ),
       body: Center(
         child: Padding(
-          padding: const EdgeInsets.all(20),
+          padding: const EdgeInsets.only(top: 20, bottom: 20),
           child: Stack(
             children: [
               Column(
                 children: [
                   const SizedBox(height: 30),
-                  Image.asset('images/background_woman.png'),
+                  Container(
+                    color: backgroundTestColor,
+                    child: Image.asset('images/background_woman.png'),
+                  ),
                 ],
               ),
               Column(
@@ -42,25 +47,35 @@ class _InvitationToConnectScreenState extends State<InvitationToConnectScreen> {
                 children: <Widget>[
                   const Text(''),
                   const Spacer(),
-                  Text(
-                    'Подключите стимулятор к электроду и включите на нем питание, после чего нажмите кнопку "Подключить" ниже',
-                    textAlign: TextAlign.center,
-                    style: theme.textTheme.bodySmall,
-                  ),
-                  const SizedBox(height: 10),
-                  Center(
-                    child:
-                    TexelButton.accent(
-                      onPressed: () {
-                        MaterialPageRoute route = MaterialPageRoute(
-                          builder: (context) => const SelectDeviceScreen(
-                            title: 'Мои стимуляторы',
+                  Container(
+                    color: Colors.white,
+                    child: Padding(
+                      padding: const EdgeInsets.all(10),
+                      child: Column(
+                        children: [
+                          Text(
+                            'Подключите стимулятор к электроду и включите на нем питание, после чего нажмите кнопку "Подключить" ниже',
+                            textAlign: TextAlign.center,
+                            style: theme.textTheme.bodySmall,
                           ),
-                          settings: const RouteSettings(name: '/select'),
-                        );
-                        Navigator.of(context).push(route);
-                      },
-                      text: 'Подключить',
+                          const SizedBox(height: 10),
+                          Center(
+                            child:
+                            TexelButton.accent(
+                              onPressed: () {
+                                MaterialPageRoute route = MaterialPageRoute(
+                                  builder: (context) => const SelectDeviceScreen(
+                                    title: 'Мои стимуляторы',
+                                  ),
+                                  settings: const RouteSettings(name: '/select'),
+                                );
+                                Navigator.of(context).push(route);
+                              },
+                              text: 'Подключить',
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ],

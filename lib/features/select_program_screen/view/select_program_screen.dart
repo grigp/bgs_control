@@ -54,7 +54,10 @@ class _SelectProgramScreenState extends State<SelectProgramScreen> {
                 const SizedBox(height: 30),
                 if (_chargeLevel <= chargeAlarmBoundLevel)
                   const ChargeMessageWidget(),
-                Image.asset('images/background_woman.png'),
+                Container(
+                  color: backgroundTestColor,
+                  child: Image.asset('images/background_woman.png'),
+                ),
               ],
             ),
             const Positioned(
