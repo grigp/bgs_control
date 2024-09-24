@@ -9,6 +9,7 @@ import 'package:bgs_control/features/uikit/styles.dart';
 import 'package:bgs_control/features/uikit/texel_button.dart';
 import 'package:bgs_control/repositories/bgs_connect/ble_service.dart';
 import 'package:bgs_control/repositories/bgs_list/bgs_list.dart';
+import 'package:bgs_control/repositories/methodic_programs/model/methodic_program.dart';
 import 'package:bgs_control/utils/extra.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
@@ -93,16 +94,16 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
           ),
           actions: <Widget>[
             TextButton(
-                onPressed: () {
-                  MaterialPageRoute route = MaterialPageRoute(
-                    builder: (context) => const LogScreen(
-                      title: 'Лог обмена данными',
-                    ),
-                    settings: const RouteSettings(name: '/log_comm'),
-                  );
-                  Navigator.of(context).push(route);
-                },
-                child: const Icon(Icons.book),
+              onPressed: () {
+                MaterialPageRoute route = MaterialPageRoute(
+                  builder: (context) => const LogScreen(
+                    title: 'Лог обмена данными',
+                  ),
+                  settings: const RouteSettings(name: '/log_comm'),
+                );
+                Navigator.of(context).push(route);
+              },
+              child: const Icon(Icons.book),
             ),
           ],
         ),
@@ -249,11 +250,11 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
   }
 
   void onSelectPressed(BluetoothDevice device) async {
-    var driver =  GetIt.I<RunningManager>().openDevice(device);
+    var driver = GetIt.I<RunningManager>().openDevice(device);
 
-    if (!driver.isOver()){
+    if (!driver.isOver()) {
       final bool? isCont = await _showContinueProgramDialog();
-      if (isCont!){
+      if (isCont!) {
         _runExecuteScreen(driver);
       } else {
         driver.resetProgram();
@@ -288,12 +289,13 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
     });
   }
 
-  void _runExecuteScreen(DeviceProgramExecutor driver){
+  void _runExecuteScreen(DeviceProgramExecutor driver) {
     MaterialPageRoute route = MaterialPageRoute(
       builder: (context) => ExecuteScreen(
         title: 'Execution',
         driver: driver,
-        program: driver.program,   ///TODO: надо обойтись без этого параметра
+        program: MethodicProgram(    ///TODO: надо обойтись без этого параметра
+            uid: '', statsTitle: '', title: '', description: '', image: ''),
         isSetProgram: false,
       ),
       settings: const RouteSettings(name: '/execute'),
@@ -301,7 +303,7 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
     Navigator.of(context).push(route);
   }
 
-  void _runSelectProgramScreen(DeviceProgramExecutor driver){
+  void _runSelectProgramScreen(DeviceProgramExecutor driver) {
     MaterialPageRoute route = MaterialPageRoute(
       builder: (context) => SelectProgramScreen(
         title: 'Выбор методики',
@@ -312,9 +314,8 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
     Navigator.of(context).push(route);
   }
 
-  void subsDisconnectStop(){
+  void subsDisconnectStop() {
     _subsDisconnect.cancel();
-
   }
 
   Future<bool?> _showContinueProgramDialog() async {

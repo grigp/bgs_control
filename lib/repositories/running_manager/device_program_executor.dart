@@ -96,7 +96,7 @@ class DeviceProgramExecutor  {
   }
 
   void resetProgram(){
-    _idxStage = -1;
+    _idxStage = 0;
     _playingTime = 0;
   }
 
