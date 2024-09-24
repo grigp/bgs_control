@@ -25,10 +25,10 @@ class DeviceProgramExecutor  {
   String _uuidGetData = '';
 
   /// Управление процессом выполнения программы
-  int _idxStage = -1;  /// Номер этапа
+  int _idxStage = 0;  /// Номер этапа
   int _duration = 0;   /// Длительность этапа
   bool _isPlaying = false;      /// Идет ли процесс или поставлен на паузу
-  bool _isOver = false;         /// завершена ли программа
+  bool _isOver = true;          /// завершена ли программа
   int _playingTime = 0;         /// Время процесса
   int _stageStartTime = 0;      /// Время начала этапа
   late Timer _timer;
@@ -65,9 +65,11 @@ class DeviceProgramExecutor  {
       _timer = Timer.periodic(const Duration(seconds: 1), onTimer);
 
       _isPlaying = true;
+      if (_isOver) {
+        _idxStage = 0;
+        _playingTime = 0;
+      }
       _isOver = false;
-      _idxStage = 0;
-      _playingTime = 0;
       _stageStartTime = 0;
       _setParamsStageToDevice();
       _duration = program.stage(_idxStage).duration;
@@ -79,8 +81,8 @@ class DeviceProgramExecutor  {
   void stop() {
     _timer.cancel();
     _isPlaying = false;
-    _idxStage = -1;
-    _playingTime = 0;
+    // _idxStage = -1;
+    // _playingTime = 0;
     if (program.uid != '' && _isConnected) {
       _connect.removeHandler(_uuidGetData);
     }
@@ -91,6 +93,11 @@ class DeviceProgramExecutor  {
       _isPlaying = !_isPlaying;
       reset();
     }
+  }
+
+  void resetProgram(){
+    _idxStage = -1;
+    _playingTime = 0;
   }
 
   /// Задает программу, по которой нужно двигаться

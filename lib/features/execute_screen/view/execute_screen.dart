@@ -22,13 +22,18 @@ class ExecuteScreen extends StatefulWidget {
     required this.title,
     required this.driver,
     required this.program,
-  }) {
-    driver.setProgram(program);
+    required this.isSetProgram,
+  }
+  ) {
+    if (isSetProgram) {
+      driver.setProgram(program);
+    }
   }
 
   final String title;
   final DeviceProgramExecutor driver;
   final MethodicProgram program;
+  final bool isSetProgram;
 
   @override
   State<ExecuteScreen> createState() => _ExecuteScreenState();

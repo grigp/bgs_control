@@ -98,6 +98,7 @@ class _ProgramParamsScreenState extends State<ProgramParamsScreen> {
                           title: 'Execution',
                           driver: widget.driver,
                           program: widget.program,
+                          isSetProgram: true,
                         ),
                         settings: const RouteSettings(name: '/execute'),
                       );

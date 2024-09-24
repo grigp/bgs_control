@@ -15,7 +15,9 @@ import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:get_it/get_it.dart';
 
 import '../../../repositories/logger/communication_logger.dart';
+import '../../../repositories/running_manager/device_program_executor.dart';
 import '../../../repositories/running_manager/running_manager.dart';
+import '../../execute_screen/view/execute_screen.dart';
 import '../../select_program_screen/view/select_program_screen.dart';
 
 class SelectDeviceScreen extends StatefulWidget {
@@ -246,16 +248,30 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
     }
   }
 
-  void onSelectPressed(BluetoothDevice device) {
-    var driver = GetIt.I<RunningManager>().openDevice(device);
-    MaterialPageRoute route = MaterialPageRoute(
-      builder: (context) => SelectProgramScreen(
-        title: 'Выбор методики',
-        driver: driver,
-      ),
-      settings: const RouteSettings(name: '/select_method'),
-    );
-    Navigator.of(context).push(route);
+  void onSelectPressed(BluetoothDevice device) async {
+    var driver =  GetIt.I<RunningManager>().openDevice(device);
+
+    if (!driver.isOver()){
+      final bool? isCont = await _showContinueProgramDialog();
+      if (isCont!){
+        _runExecuteScreen(driver);
+      } else {
+        driver.resetProgram();
+        _runSelectProgramScreen(driver);
+      }
+    } else {
+      _runSelectProgramScreen(driver);
+    }
+    // _runSelectProgramScreen(driver);
+
+    // MaterialPageRoute route = MaterialPageRoute(
+    //   builder: (context) => SelectProgramScreen(
+    //     title: 'Выбор методики',
+    //     driver: driver,
+    //   ),
+    //   settings: const RouteSettings(name: '/select_method'),
+    // );
+    // Navigator.of(context).push(route);
 
     /// Будем получать сообщения о дисконнекте
     _subsDisconnect = device.connectionState.listen((event) {
@@ -272,9 +288,54 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
     });
   }
 
+  void _runExecuteScreen(DeviceProgramExecutor driver){
+    MaterialPageRoute route = MaterialPageRoute(
+      builder: (context) => ExecuteScreen(
+        title: 'Execution',
+        driver: driver,
+        program: driver.program,   ///TODO: надо обойтись без этого параметра
+        isSetProgram: false,
+      ),
+      settings: const RouteSettings(name: '/execute'),
+    );
+    Navigator.of(context).push(route);
+  }
+
+  void _runSelectProgramScreen(DeviceProgramExecutor driver){
+    MaterialPageRoute route = MaterialPageRoute(
+      builder: (context) => SelectProgramScreen(
+        title: 'Выбор методики',
+        driver: driver,
+      ),
+      settings: const RouteSettings(name: '/select_method'),
+    );
+    Navigator.of(context).push(route);
+  }
+
   void subsDisconnectStop(){
     _subsDisconnect.cancel();
 
+  }
+
+  Future<bool?> _showContinueProgramDialog() async {
+    return await showDialog<bool>(
+      context: context,
+      builder: (BuildContext context) => AlertDialog(
+        title: const Text('Продолжить выполнение прерванной программы?'),
+        actions: <Widget>[
+          TexelButton.accent(
+            onPressed: () => Navigator.pop(context, false),
+            text: 'Нет',
+            width: 120,
+          ),
+          TexelButton.accent(
+            onPressed: () => Navigator.pop(context, true),
+            text: 'Да',
+            width: 120,
+          ),
+        ],
+      ),
+    );
   }
 
   void onDeletePressed(BluetoothDevice device) {
