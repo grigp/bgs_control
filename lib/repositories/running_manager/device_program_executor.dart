@@ -102,6 +102,9 @@ class DeviceProgramExecutor  {
 
   /// Задает программу, по которой нужно двигаться
   void setProgram(MethodicProgram prg) {
+    if(prg.uid != program.uid){
+      resetProgram();
+    }
     program = prg;
   }
 

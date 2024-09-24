@@ -21,18 +21,17 @@ class ExecuteScreen extends StatefulWidget {
     super.key,
     required this.title,
     required this.driver,
-    required this.program,
     required this.isSetProgram,
-  }
-  ) {
-    if (isSetProgram) {
-      driver.setProgram(program);
+    this.program,
+  }) {
+    if (program != null) {
+      driver.setProgram(program!);
     }
-  }
+   }
 
   final String title;
   final DeviceProgramExecutor driver;
-  final MethodicProgram program;
+  final MethodicProgram? program;
   final bool isSetProgram;
 
   @override
@@ -52,6 +51,7 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
     return PopScope(
       canPop: false,
       onPopInvoked: (didPop) async {
+        if (didPop) return;
         final bool? dr = await showCancelDialog();
         if (dr!) {
           if (!context.mounted) return;
@@ -189,7 +189,7 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
                     height: 20,
                     child: CustomPaint(
                       painter: ProgramProgressBar(
-                        program: widget.program,
+                        program: widget.driver.program,
                         position: widget.driver.playingTime(),
                       ),
                     ),

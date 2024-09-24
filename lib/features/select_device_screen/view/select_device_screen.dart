@@ -294,8 +294,6 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
       builder: (context) => ExecuteScreen(
         title: 'Execution',
         driver: driver,
-        program: MethodicProgram(    ///TODO: надо обойтись без этого параметра
-            uid: '', statsTitle: '', title: '', description: '', image: ''),
         isSetProgram: false,
       ),
       settings: const RouteSettings(name: '/execute'),
