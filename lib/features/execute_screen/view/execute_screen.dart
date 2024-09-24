@@ -47,25 +47,8 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
     return PopScope(
       canPop: false,
       onPopInvoked: (didPop) async {
-        final bool? dr = await showDialog<bool>(
-          context: context,
-          builder: (BuildContext context) => AlertDialog(
-            title: const Text('Отменить выполнение программы?'),
-            actions: <Widget>[
-              TexelButton.accent(
-                onPressed: () => Navigator.pop(context, false),
-                text: 'Нет',
-                width: 120,
-              ),
-              TexelButton.secondary(
-                onPressed: () => Navigator.pop(context, true),
-                text: 'Да',
-                width: 120,
-              ),
-            ],
-          ),
-        );
-        if (dr!){
+        final bool? dr = await showCancelDialog();
+        if (dr!) {
           Navigator.of(context).popUntil(ModalRoute.withName('/select_method'));
         }
       },
@@ -79,7 +62,14 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const BackScreenButton(),
+                  BackScreenButton(onBack: () async {
+                    final bool? dr = await showCancelDialog();
+                    if (dr!) {
+                      Navigator.of(context)
+                          .popUntil(ModalRoute.withName('/select_method'));
+                    }
+                    // Navigator.pop(context);
+                  }),
                   Image.asset(
                       'lib/assets/icons/programs/${widget.driver.program.image}'),
                   const SizedBox(width: 20),
@@ -235,6 +225,27 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
               ),
           ],
         ),
+      ),
+    );
+  }
+
+  Future<bool?> showCancelDialog() async {
+    return await showDialog<bool>(
+      context: context,
+      builder: (BuildContext context) => AlertDialog(
+        title: const Text('Отменить выполнение программы?'),
+        actions: <Widget>[
+          TexelButton.accent(
+            onPressed: () => Navigator.pop(context, false),
+            text: 'Нет',
+            width: 120,
+          ),
+          TexelButton.secondary(
+            onPressed: () => Navigator.pop(context, true),
+            text: 'Да',
+            width: 120,
+          ),
+        ],
       ),
     );
   }

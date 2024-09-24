@@ -42,10 +42,10 @@ class _ProgramParamsScreenState extends State<ProgramParamsScreen> {
                 Image.asset('images/background_hand.png'),
               ],
             ),
-            const Positioned(
+            Positioned(
               top: 40,
               left: 10,
-              child: BackScreenButton(),
+              child: BackScreenButton(onBack: (){Navigator.pop(context);}),
             ),
             Column(
               mainAxisAlignment: MainAxisAlignment.start, //.center,

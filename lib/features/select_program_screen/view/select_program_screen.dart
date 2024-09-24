@@ -60,10 +60,10 @@ class _SelectProgramScreenState extends State<SelectProgramScreen> {
                 ),
               ],
             ),
-            const Positioned(
+            Positioned(
               top: 40,
               left: 20,
-              child: BackScreenButton(),
+              child: BackScreenButton(onBack: (){Navigator.pop(context);}),
             ),
             Column(
               mainAxisAlignment: MainAxisAlignment.start, //.center,
