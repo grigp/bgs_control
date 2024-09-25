@@ -170,6 +170,7 @@ class DeviceProgramExecutor  {
     print('---------------------------- isPlaying: $_isPlaying      timer:  $_playingTime');
     if (_isPlaying) {
       ++_playingTime;
+//      if (_duration > 0 && (stageTime() >= 60)){
       if (_duration > 0 && (stageTime() >= _duration / 1000)){
         /// Если это не последний этап
         if (_idxStage + 1 < program.stagesCount()) {

@@ -197,7 +197,7 @@ class BgsConnect {
     if (_curPower < _targetPower) {
       ++_curPower;
       await _write([0x91, _curPower]);
-    } else {
+    } else if (_curPower > _targetPower) {
       _curPower = _targetPower;
       await _write([0x91, _curPower]);
     }
