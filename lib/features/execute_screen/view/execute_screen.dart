@@ -26,7 +26,7 @@ class ExecuteScreen extends StatefulWidget {
     if (program != null) {
       driver.setProgram(program!);
     }
-   }
+  }
 
   final String title;
   final DeviceProgramExecutor driver;
@@ -153,6 +153,19 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
                 ),
               ],
             ),
+            if (widget.driver.stage().duration > 0)
+
+              /// Время этапа, если длительность этапа задана
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    '${getTimeBySecCount(widget.driver.stageTime())} / ${getTimeBySecCount(widget.driver.stage().duration ~/ 1000)}',
+                    style: theme.textTheme.headlineSmall,
+                    textScaler: const TextScaler.linear(1.0),
+                  ),
+                ],
+              ),
             Row(
               /// Параметры воздействия
               mainAxisAlignment: MainAxisAlignment.center,
@@ -164,19 +177,6 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
                 ),
               ],
             ),
-            if (widget.driver.stage().duration > 0)
-
-              /// Время этапа, если длительность этапа задана
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    getTimeBySecCount(widget.driver.stageTime()),
-                    style: theme.textTheme.headlineSmall,
-                    textScaler: const TextScaler.linear(1.0),
-                  ),
-                ],
-              ),
             const Spacer(),
             if (widget.driver.stage().duration > 0)
               Row(
@@ -350,12 +350,12 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
     }
     retval = '$retval   Int = ${widget.driver.stage().intensity.index + 1}';
 
-    if (widget.driver.stage().duration >= 0) {
-      retval =
-          '$retval   Время : ${getTimeBySecCount(widget.driver.stage().duration ~/ 1000)}';
-    } else {
-      retval = '$retval   Время не задано';
-    }
+    // if (widget.driver.stage().duration >= 0) {
+    //   retval =
+    //       '$retval   Время : ${getTimeBySecCount(widget.driver.stage().duration ~/ 1000)}';
+    // } else {
+    //   retval = '$retval   Время не задано';
+    // }
 
     return retval;
   }
