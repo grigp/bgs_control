@@ -119,12 +119,23 @@ class _ProgramParamsScreenState extends State<ProgramParamsScreen> {
     List<Widget> retval = [];
 
     for (int i = 0; i < widget.program.stagesCount(); ++i) {
+      /// Цвет выводимого текста
+      Color color = black;
+      /// Если программа в драйвере и назначаемая совпадают
+      if (widget.driver.program.uid == widget.program.uid && !widget.driver.isOver()) {
+        if (i < widget.driver.idxStage()) {  /// Пройденные этапы
+          color = filledSecondaryButtonColor;
+        } else if (i == widget.driver.idxStage()) {  /// Текущий этап
+          color = greenColor;
+        }
+      }
       var stage = widget.program.stage(i);
       retval.add(
         StageTitle(
           num: i+1,
           stage: stage,
           duration: stage.duration,
+          textColor: color,
         ),
       );
     }

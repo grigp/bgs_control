@@ -177,8 +177,19 @@ class _SelectProgramScreenState extends State<SelectProgramScreen> {
         .map(
           (program) => ProgramTitle(
             program: program,
-            onTap: () {
+            onTap: () async {
               if (_chargeLevel > chargeBreakBoundLevel) {
+                /// Если запустили повторно незавершенную программу
+                if (program.uid == widget.driver.program.uid && !widget.driver.isOver()){
+                  /// Спросим, надо ли ее продолжить
+                  final bool? isCont = await _showContinueProgramDialog();
+                  /// И, если не надо
+                  if (!isCont!) {
+                    /// Сбросить программу
+                    widget.driver.resetProgram();
+                  }
+                }
+                /// Ну и запустить экран выполнения
                 MaterialPageRoute route = MaterialPageRoute(
                   builder: (context) => ProgramParamsScreen(
                     title: 'Программа ${program.title}',
@@ -233,4 +244,26 @@ class _SelectProgramScreenState extends State<SelectProgramScreen> {
       alertLowEnergy();
     }
   }
+
+  Future<bool?> _showContinueProgramDialog() async {
+    return await showDialog<bool>(
+      context: context,
+      builder: (BuildContext context) => AlertDialog(
+        title: const Text('Продолжить выполнение прерванной программы?'),
+        actions: <Widget>[
+          TexelButton.accent(
+            onPressed: () => Navigator.pop(context, false),
+            text: 'Нет',
+            width: 120,
+          ),
+          TexelButton.accent(
+            onPressed: () => Navigator.pop(context, true),
+            text: 'Да',
+            width: 120,
+          ),
+        ],
+      ),
+    );
+  }
+
 }

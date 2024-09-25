@@ -10,11 +10,13 @@ class StageTitle extends StatefulWidget{
     required this.num,
     required this.stage,
     required this.duration,
+    required this.textColor,
   });
 
   final int num;
   final ProgramStage stage;
   final int duration;
+  final Color textColor;
 
   @override
   State<StageTitle> createState() => _StageTitleState();
@@ -58,13 +60,13 @@ class _StageTitleState extends State<StageTitle> {
                       children: [
                         Text(
                           'Стадия ${widget.num}',
-                          style: theme.textTheme.titleMedium,
+                          style: TextStyle(color: widget.textColor, fontSize: 16),  //theme.textTheme.titleMedium,
                           overflow: TextOverflow.ellipsis,
                         ),
                         const Spacer(),
                         Text(
                           getTimeBySecCount(widget.duration ~/ 1000),
-                          style: theme.textTheme.titleMedium,
+                          style: TextStyle(color: widget.textColor, fontSize: 16),  //theme.textTheme.titleMedium,
                           overflow: TextOverflow.ellipsis,
                         ),
                       ],
@@ -72,7 +74,7 @@ class _StageTitleState extends State<StageTitle> {
                   ),
                   Text(
                     widget.stage.comment,
-                    style: theme.textTheme.titleMedium,
+                    style: TextStyle(color: widget.textColor, fontSize: 16),  //theme.textTheme.titleMedium,
                     overflow: TextOverflow.ellipsis,
                   ),
                   // SizedBox(

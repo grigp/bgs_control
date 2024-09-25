@@ -68,9 +68,9 @@ class DeviceProgramExecutor  {
       if (_isOver) {
         _idxStage = 0;
         _playingTime = 0;
+        _stageStartTime = 0;
       }
       _isOver = false;
-      _stageStartTime = 0;
       _setParamsStageToDevice();
       _duration = program.stage(_idxStage).duration;
 
@@ -98,6 +98,7 @@ class DeviceProgramExecutor  {
   void resetProgram(){
     _idxStage = 0;
     _playingTime = 0;
+    _stageStartTime = 0;
   }
 
   /// Задает программу, по которой нужно двигаться
