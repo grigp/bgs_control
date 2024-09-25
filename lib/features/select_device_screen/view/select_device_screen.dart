@@ -255,24 +255,14 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
     if (!driver.isOver()) {
       final bool? isCont = await _showContinueProgramDialog();
       if (isCont!) {
-        _runExecuteScreen(driver);
+        _runSelectProgramScreen(driver, driver.program.uid);
       } else {
         driver.resetProgram();
-        _runSelectProgramScreen(driver);
+        _runSelectProgramScreen(driver, "");
       }
     } else {
-      _runSelectProgramScreen(driver);
+      _runSelectProgramScreen(driver, "");
     }
-    // _runSelectProgramScreen(driver);
-
-    // MaterialPageRoute route = MaterialPageRoute(
-    //   builder: (context) => SelectProgramScreen(
-    //     title: 'Выбор методики',
-    //     driver: driver,
-    //   ),
-    //   settings: const RouteSettings(name: '/select_method'),
-    // );
-    // Navigator.of(context).push(route);
 
     /// Будем получать сообщения о дисконнекте
     _subsDisconnect = device.connectionState.listen((event) {
@@ -294,18 +284,18 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
       builder: (context) => ExecuteScreen(
         title: 'Execution',
         driver: driver,
-        isSetProgram: false,
       ),
       settings: const RouteSettings(name: '/execute'),
     );
     Navigator.of(context).push(route);
   }
 
-  void _runSelectProgramScreen(DeviceProgramExecutor driver) {
+  void _runSelectProgramScreen(DeviceProgramExecutor driver, String uidProgran) {
     MaterialPageRoute route = MaterialPageRoute(
       builder: (context) => SelectProgramScreen(
-        title: 'Выбор методики',
+        title: 'Выбор программы',
         driver: driver,
+        uidProgram: uidProgran,
       ),
       settings: const RouteSettings(name: '/select_method'),
     );

@@ -114,7 +114,6 @@ class _TogoParamsScreenState extends State<TogoParamsScreen> {
                         title: 'Execution',
                         driver: widget.driver,
                         program: program,
-                        isSetProgram: true,
                       ),
                       settings: const RouteSettings(name: '/execute'),
                     );

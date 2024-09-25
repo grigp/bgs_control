@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:bgs_control/features/program_params_screen/view/program_params_screen.dart';
 import 'package:bgs_control/features/select_program_screen/widgets/direct_title.dart';
 import 'package:bgs_control/features/select_program_screen/widgets/program_title.dart';
@@ -26,10 +28,12 @@ class SelectProgramScreen extends StatefulWidget {
     super.key,
     required this.title,
     required this.driver,
+    required this.uidProgram,
   });
 
   final String title;
   final DeviceProgramExecutor driver;
+  final String uidProgram;
 
   @override
   State<SelectProgramScreen> createState() => _SelectProgramScreenState();
@@ -147,6 +151,21 @@ class _SelectProgramScreenState extends State<SelectProgramScreen> {
     // TODO как-то по другому надо получать данные о зарядке
     _uuidGetData = const Uuid().v1();
     widget.driver.addHandler(_uuidGetData, onGetData);
+
+    /// Запуск программы автоматически, если указан ее uid
+    if (widget.uidProgram != ""){
+      for (int i = 0; i < _programs.length; ++ i){
+        if (widget.uidProgram == _programs[i].uid){
+          Timer(const Duration(milliseconds: 100), (){
+            if (_chargeLevel > chargeBreakBoundLevel) {
+              _runProgram(_programs[i]);
+            } else {
+              alertLowEnergy();
+            }
+          });
+        }
+      }
+    }
   }
 
   @override
@@ -190,15 +209,7 @@ class _SelectProgramScreenState extends State<SelectProgramScreen> {
                   }
                 }
                 /// Ну и запустить экран выполнения
-                MaterialPageRoute route = MaterialPageRoute(
-                  builder: (context) => ProgramParamsScreen(
-                    title: 'Программа ${program.title}',
-                    driver: widget.driver,
-                    program: program,
-                  ),
-                  settings: const RouteSettings(name: '/program_control'),
-                );
-                Navigator.of(context).push(route);
+                _runProgram(program);
               } else {
                 alertLowEnergy();
               }
@@ -264,6 +275,18 @@ class _SelectProgramScreenState extends State<SelectProgramScreen> {
         ],
       ),
     );
+  }
+
+  void _runProgram(MethodicProgram program){
+    MaterialPageRoute route = MaterialPageRoute(
+      builder: (context) => ProgramParamsScreen(
+        title: 'Программа ${program.title}',
+        driver: widget.driver,
+        program: program,
+      ),
+      settings: const RouteSettings(name: '/program_control'),
+    );
+    Navigator.of(context).push(route);
   }
 
 }

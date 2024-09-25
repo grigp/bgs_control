@@ -21,7 +21,6 @@ class ExecuteScreen extends StatefulWidget {
     super.key,
     required this.title,
     required this.driver,
-    required this.isSetProgram,
     this.program,
   }) {
     if (program != null) {
@@ -32,7 +31,6 @@ class ExecuteScreen extends StatefulWidget {
   final String title;
   final DeviceProgramExecutor driver;
   final MethodicProgram? program;
-  final bool isSetProgram;
 
   @override
   State<ExecuteScreen> createState() => _ExecuteScreenState();
