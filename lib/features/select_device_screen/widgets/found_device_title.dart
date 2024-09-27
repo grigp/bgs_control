@@ -3,6 +3,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 
+import '../../../utils/baseutils.dart';
+
 
 class FoundDeviceTitle extends StatefulWidget {
   const FoundDeviceTitle({
@@ -103,9 +105,10 @@ class _FoundDeviceTitleState extends State<FoundDeviceTitle> {
                 ),
                 const SizedBox(width: 10),
                 Text(
-                  widget.result.device.platformName,
+                  getShortDeviceName(widget.result.device.platformName),
                   style: theme.textTheme.headlineLarge,
                   overflow: TextOverflow.ellipsis,
+                  textScaler: const TextScaler.linear(1.5),
                 ),
               ],
             ),

@@ -18,6 +18,7 @@ import 'package:get_it/get_it.dart';
 import '../../../repositories/logger/communication_logger.dart';
 import '../../../repositories/running_manager/device_program_executor.dart';
 import '../../../repositories/running_manager/running_manager.dart';
+import '../../../utils/baseutils.dart';
 import '../../execute_screen/view/execute_screen.dart';
 import '../../select_program_screen/view/select_program_screen.dart';
 
@@ -333,7 +334,7 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
       builder: (BuildContext context) => AlertDialog(
         title: const Text('Удалить стимулятор из списка?'),
         content: Text(
-          device.advName,
+          getShortDeviceName(device.advName),
           style: TextStyle(
             fontSize: 24,
             fontWeight: FontWeight.w900,

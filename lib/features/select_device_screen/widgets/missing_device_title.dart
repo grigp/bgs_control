@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../utils/baseutils.dart';
+
 class MissingDeviceTitle extends StatelessWidget{
   const MissingDeviceTitle({
     super.key,
@@ -21,7 +23,7 @@ class MissingDeviceTitle extends StatelessWidget{
             height: 20,
           ),
           const SizedBox(width: 10),
-          Text(deviceName),
+          Text(getShortDeviceName(deviceName)),
           const Spacer(),
           PopupMenuButton(
             icon: const Icon(Icons.more_horiz),

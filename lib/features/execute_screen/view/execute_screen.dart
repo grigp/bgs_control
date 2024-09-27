@@ -104,7 +104,7 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
                 children: [
                   const SizedBox(width: 50),
                   Text(
-                    widget.driver.device.advName,
+                    getShortDeviceName(widget.driver.device.advName),
                     style: theme.textTheme.titleLarge,
                     textScaler: const TextScaler.linear(1.0),
                   ),

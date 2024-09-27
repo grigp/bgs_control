@@ -2,6 +2,7 @@ import 'package:bgs_control/repositories/bgs_list/bgs_list.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 
+import '../../../../../utils/baseutils.dart';
 import '../../../../attention_screen/view/attention_screen.dart';
 
 class WgtMain extends StatelessWidget {
@@ -65,10 +66,11 @@ class WgtMain extends StatelessWidget {
                               ),
                               const SizedBox(width: 10),
                               Text(
-                                list[index],
+                                getFullDeviceName(list[index]),
                                 style: listRegistred.contains(list[index])
                                     ? theme.textTheme.labelMedium
                                     : theme.textTheme.labelMedium?.copyWith(fontWeight: FontWeight.bold),
+                                textScaler: const TextScaler.linear(1.1),
                               ),
                             ],
                           ),

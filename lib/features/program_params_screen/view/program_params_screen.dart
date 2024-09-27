@@ -5,6 +5,7 @@ import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import '../../../assets/colors/colors.dart';
 import '../../../repositories/methodic_programs/model/methodic_program.dart';
 import '../../../repositories/running_manager/device_program_executor.dart';
+import '../../../utils/baseutils.dart';
 import '../../execute_screen/view/execute_screen.dart';
 import '../../uikit/texel_button.dart';
 import '../../uikit/widgets/back_screen_button.dart';
@@ -68,8 +69,9 @@ class _ProgramParamsScreenState extends State<ProgramParamsScreen> {
                       Row(
                         children: [
                           Text(
-                            widget.driver.device.advName,
+                            getFullDeviceName(widget.driver.device.advName),
                             style: theme.textTheme.titleMedium,
+                            textScaler: const TextScaler.linear(1.0),
                           ),
                           const Spacer(),
                           // Icon(getChargeIconByLevel(_chargeLevel), size: 20),

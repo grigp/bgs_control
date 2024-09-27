@@ -17,6 +17,7 @@ import '../../../assets/colors/colors.dart';
 import '../../../repositories/bgs_connect/bgs_connect.dart';
 import '../../../repositories/running_manager/device_program_executor.dart';
 import '../../../utils/base_defines.dart';
+import '../../../utils/baseutils.dart';
 import '../../../utils/charge_values.dart';
 import '../../direct_control_screen/view/direct_control_screen.dart';
 import '../../uikit/texel_button.dart';
@@ -93,8 +94,9 @@ class _SelectProgramScreenState extends State<SelectProgramScreen> {
                       Row(
                         children: [
                           Text(
-                            widget.driver.device.advName,
+                            getFullDeviceName(widget.driver.device.advName),
                             style: theme.textTheme.titleMedium,
+                            textScaler: const TextScaler.linear(1.0),
                           ),
                           const Spacer(),
                           Icon(getChargeIconByLevel(_chargeLevel), size: 20),

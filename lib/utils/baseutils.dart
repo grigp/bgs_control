@@ -26,3 +26,21 @@ String getTimeBySecCount(int secCnt){
 
   return '$sm:$ss';
 }
+
+int getStimulatorNumber(String deviceName) {
+  var list = deviceName.split('_');
+  if (list.length == 2){
+    int num = int.parse(list[1]);
+    return num;
+  } else {
+    return 0;
+  }
+}
+
+String getShortDeviceName(String deviceName) {
+  return 'texel №${getStimulatorNumber(deviceName)}';
+}
+
+String getFullDeviceName(String deviceName) {
+  return 'Электростимулятор texel №${getStimulatorNumber(deviceName)}';
+}

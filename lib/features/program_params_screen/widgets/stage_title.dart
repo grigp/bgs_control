@@ -76,6 +76,7 @@ class _StageTitleState extends State<StageTitle> {
                     widget.stage.comment,
                     style: TextStyle(color: widget.textColor, fontSize: 16),  //theme.textTheme.titleMedium,
                     overflow: TextOverflow.ellipsis,
+                    textScaler: const TextScaler.linear(1.3),
                   ),
                   // SizedBox(
                   //   width: 300, //double.infinity,
