@@ -181,6 +181,8 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
               ],
             ),
             const Spacer(),
+
+            /// Прогресс бар для программы
             if (widget.driver.stage().duration > 0)
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -196,6 +198,18 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
                     ),
                   ),
                 ],
+              ),
+
+            /// Кнопка [Работать автономно]  в режиме без длительности
+            if (widget.driver.stage().duration < 0)
+              Container(
+                padding: const EdgeInsets.all(15),
+                child: TexelButton.accent(
+                  text: 'Работать автономно',
+                  onPressed: () {
+                    Navigator.of(context).popUntil(ModalRoute.withName('/select'));
+                  },
+                ),
               ),
             const Spacer(),
             if (widget.driver.isPlaying())
@@ -241,10 +255,9 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
     return await showDialog<bool>(
       context: context,
       builder: (BuildContext context) => AlertDialog(
-        title: (widget.driver.stage().duration > 0)?
-          const Text('Отменить выполнение программы?')
-        :
-          const Text('Прервать воздействие?'),
+        title: (widget.driver.stage().duration > 0)
+            ? const Text('Отменить выполнение программы?')
+            : const Text('Прервать воздействие?'),
         actions: <Widget>[
           TexelButton.accent(
             onPressed: () => Navigator.pop(context, false),
