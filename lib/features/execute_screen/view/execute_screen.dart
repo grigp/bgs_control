@@ -103,11 +103,14 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
               child: Row(
                 children: [
                   const SizedBox(width: 50),
-                  Text(
-                    getShortDeviceName(widget.driver.device.advName),
-                    style: theme.textTheme.titleLarge,
-                    textScaler: const TextScaler.linear(1.0),
-                  ),
+                  // Image.asset(
+                  //   'lib/assets/bgs/BGS_64.png',
+                  // ),
+                  // Text(
+                  //   getShortDeviceName(widget.driver.device.advName),
+                  //   style: theme.textTheme.titleLarge,
+                  //   textScaler: const TextScaler.linear(1.0),
+                  // ),
                   const Spacer(),
                   Icon(getChargeIconByLevel(_chargeLevel), size: 20),
                   Text(

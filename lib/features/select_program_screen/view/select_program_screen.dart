@@ -87,16 +87,15 @@ class _SelectProgramScreenState extends State<SelectProgramScreen> {
                   ),
                   child: Column(
                     children: [
-                      Text(
-                        'Доступные программы',
-                        style: theme.textTheme.titleLarge,
-                      ),
+                      // Text(
+                      //   'Доступные программы',
+                      //   style: theme.textTheme.titleLarge,
+                      // ),
                       Row(
                         children: [
                           Text(
-                            getFullDeviceName(widget.driver.device.advName),
-                            style: theme.textTheme.titleMedium,
-                            textScaler: const TextScaler.linear(1.0),
+                            'Доступные программы',
+                            style: theme.textTheme.titleLarge,
                           ),
                           const Spacer(),
                           Icon(getChargeIconByLevel(_chargeLevel), size: 20),

@@ -99,16 +99,24 @@ class _FoundDeviceTitleState extends State<FoundDeviceTitle> {
             child: Row(
               children: [
                 Image.asset(
-                  'lib/assets/icons/bluetooth.png',
-                  width: 30,
-                  height: 30,
+                  'lib/assets/bgs/BGS_128.png',
                 ),
                 const SizedBox(width: 10),
-                Text(
-                  getShortDeviceName(widget.result.device.platformName),
-                  style: theme.textTheme.headlineLarge,
-                  overflow: TextOverflow.ellipsis,
-                  textScaler: const TextScaler.linear(1.5),
+                Column(
+                  children: [
+                    Text(
+                      'texel',
+                      style: theme.textTheme.headlineLarge,
+                      overflow: TextOverflow.ellipsis,
+                      textScaler: const TextScaler.linear(1.0),
+                    ),
+                    Text(
+                      '№ ${getStimulatorNumber(widget.result.device.platformName)}',
+                      style: theme.textTheme.headlineLarge,
+                      overflow: TextOverflow.ellipsis,
+                      textScaler: const TextScaler.linear(1.0),
+                    ),
+                  ],
                 ),
               ],
             ),

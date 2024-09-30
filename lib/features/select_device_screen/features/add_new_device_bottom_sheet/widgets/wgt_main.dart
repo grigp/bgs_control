@@ -60,9 +60,7 @@ class WgtMain extends StatelessWidget {
                           child: Row(
                             children: [
                               Image.asset(
-                                'lib/assets/icons/bluetooth.png',
-                                width: 20,
-                                height: 20,
+                                'lib/assets/bgs/BGS_64.png',
                               ),
                               const SizedBox(width: 10),
                               Text(

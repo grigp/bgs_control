@@ -66,21 +66,21 @@ class _ProgramParamsScreenState extends State<ProgramParamsScreen> {
                         widget.program.title,
                         style: theme.textTheme.titleLarge,
                       ),
-                      Row(
-                        children: [
-                          Text(
-                            getFullDeviceName(widget.driver.device.advName),
-                            style: theme.textTheme.titleMedium,
-                            textScaler: const TextScaler.linear(1.0),
-                          ),
-                          const Spacer(),
-                          // Icon(getChargeIconByLevel(_chargeLevel), size: 20),
-                          // Text(
-                          //   '${_chargeLevel.toInt()}%',
-                          //   style: theme.textTheme.titleMedium,
-                          // ),
-                        ],
-                      ),
+                      // Row(
+                      //   children: [
+                      //     Text(
+                      //       getFullDeviceName(widget.driver.device.advName),
+                      //       style: theme.textTheme.titleMedium,
+                      //       textScaler: const TextScaler.linear(1.0),
+                      //     ),
+                      //     const Spacer(),
+                      //     // Icon(getChargeIconByLevel(_chargeLevel), size: 20),
+                      //     // Text(
+                      //     //   '${_chargeLevel.toInt()}%',
+                      //     //   style: theme.textTheme.titleMedium,
+                      //     // ),
+                      //   ],
+                      // ),
                       Expanded(
                         child: ListView(
                           shrinkWrap: true,

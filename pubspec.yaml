@@ -110,6 +110,11 @@ flutter:
      - lib/assets/icons/programs/tunnel_syndrome_round.png
      - lib/assets/icons/programs/tunnel_syndrome_round.psd
 
+     - lib/assets/bgs/BGS_128.png
+     - lib/assets/bgs/BGS_256.png
+     - lib/assets/bgs/BGS_32.png
+     - lib/assets/bgs/BGS_64.png
+
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
 

@@ -18,9 +18,7 @@ class MissingDeviceTitle extends StatelessWidget{
         children: [
           const SizedBox(width: 17),
           Image.asset(
-            'lib/assets/icons/bluetooth.png',
-            width: 20,
-            height: 20,
+            'lib/assets/bgs/BGS_64.png',
           ),
           const SizedBox(width: 10),
           Text(getShortDeviceName(deviceName)),
