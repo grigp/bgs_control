@@ -241,7 +241,10 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
     return await showDialog<bool>(
       context: context,
       builder: (BuildContext context) => AlertDialog(
-        title: const Text('Отменить выполнение программы?'),
+        title: (widget.driver.stage().duration > 0)?
+          const Text('Отменить выполнение программы?')
+        :
+          const Text('Прервать воздействие?'),
         actions: <Widget>[
           TexelButton.accent(
             onPressed: () => Navigator.pop(context, false),

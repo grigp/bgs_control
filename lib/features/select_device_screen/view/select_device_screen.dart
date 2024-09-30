@@ -253,12 +253,16 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
   void onSelectPressed(BluetoothDevice device) async {
     var driver = GetIt.I<RunningManager>().openDevice(device);
 
-    if (!driver.isOver()) {
-      final bool? isCont = await _showContinueProgramDialog();
-      if (isCont!) {
-        _runSelectProgramScreen(driver, driver.program.uid);
+    if (!driver.isOver()) {   /// Если программа не завершена
+      if (driver.stage().duration > -1){   /// Если это не индивидуальный режим
+        final bool? isCont = await _showContinueProgramDialog();
+        if (isCont!) {              /// Выбрали в диалоге "Продолжить программу"
+          _runSelectProgramScreen(driver, driver.program.uid);
+        } else {                    /// Выбрали в диалоге "Начать новую программу"
+          driver.resetProgram();
+          _runSelectProgramScreen(driver, "");
+        }
       } else {
-        driver.resetProgram();
         _runSelectProgramScreen(driver, "");
       }
     } else {
