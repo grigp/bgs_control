@@ -53,6 +53,9 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
   List<String> _missingDevices = [];
   bool _isShowMissingDevices = false;
   late StreamSubscription _subsDisconnect;
+  int _devicesCount = 0;
+  late BluetoothDevice _device;
+  bool _isFirstRun = true;
 
   @override
   void dispose() {
@@ -63,7 +66,7 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    return PopScope(
+    var retval = PopScope(
       canPop: false,
       onPopInvoked: (didPop) {
         showDialog<String>(
@@ -190,6 +193,15 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
         ),
       ),
     );
+
+    /// Если одно устройство в списке, то сразу подключаемся на него.
+    /// Только при первом запуске
+    if (_devicesCount == 1 && _isFirstRun) {
+      _isFirstRun = false;
+      onConnectPressed(_device);
+    }
+
+    return retval;
   }
 
   void init() {
@@ -253,12 +265,16 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
   void onSelectPressed(BluetoothDevice device) async {
     var driver = GetIt.I<RunningManager>().openDevice(device);
 
-    if (!driver.isOver()) {   /// Если программа не завершена
-      if (driver.stage().duration > -1){   /// Если это не индивидуальный режим
+    if (!driver.isOver()) {
+      /// Если программа не завершена
+      if (driver.stage().duration > -1) {
+        /// Если это не индивидуальный режим
         final bool? isCont = await _showContinueProgramDialog();
-        if (isCont!) {              /// Выбрали в диалоге "Продолжить программу"
+        if (isCont!) {
+          /// Выбрали в диалоге "Продолжить программу"
           _runSelectProgramScreen(driver, driver.program.uid);
-        } else {                    /// Выбрали в диалоге "Начать новую программу"
+        } else {
+          /// Выбрали в диалоге "Начать новую программу"
           driver.resetProgram();
           _runSelectProgramScreen(driver, "");
         }
@@ -295,7 +311,8 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
     Navigator.of(context).push(route);
   }
 
-  void _runSelectProgramScreen(DeviceProgramExecutor driver, String uidProgran) {
+  void _runSelectProgramScreen(
+      DeviceProgramExecutor driver, String uidProgran) {
     MaterialPageRoute route = MaterialPageRoute(
       builder: (context) => SelectProgramScreen(
         title: 'Выбор программы',
@@ -430,13 +447,24 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
         .value
         .where((r) => list.contains(r.device.advName))
         .map(
-          (r) => FoundDeviceTitle(
-            result: r,
-            onTap: () => onConnectPressed(r.device),
-            onSelect: () => onSelectPressed(r.device),
-            onDelete: () => onDeletePressed(r.device),
-          ),
+          (r) {
+            _device = r.device;
+            return FoundDeviceTitle(
+              result: r,
+              onTap: () => onConnectPressed(r.device),
+              onSelect: () => onSelectPressed(r.device),
+              onDelete: () => onDeletePressed(r.device),
+            );
+          }
         )
+        // .map(
+        //   (r) => FoundDeviceTitle(
+        //     result: r,
+        //     onTap: () => onConnectPressed(r.device),
+        //     onSelect: () => onSelectPressed(r.device),
+        //     onDelete: () => onDeletePressed(r.device),
+        //   ),
+        // )
         .toList();
 
     _missingDevices = [];
@@ -446,6 +474,9 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
     for (int i = 0; i < retval.length; ++i) {
       _missingDevices.remove(retval[i].result.device.advName);
     }
+
+    _devicesCount = retval.length;
+
     return retval;
   }
 
