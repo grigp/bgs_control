@@ -195,7 +195,7 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
     );
 
     /// Если одно устройство в списке, то сразу подключаемся на него.
-    /// Только при первом запуске
+    /// Только при первом запуске        НОРМАЛЬНО НЕ РАБОТАЕТ
     if (_devicesCount == 1 && _isFirstRun) {
       _isFirstRun = false;
       onConnectPressed(_device);
@@ -388,7 +388,7 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
       builder: (BuildContext context) => AlertDialog(
         title: const Text('Удалить стимулятор из списка?'),
         content: Text(
-          deviceName,
+          getShortDeviceName(deviceName),
           style: TextStyle(
             fontSize: 24,
             fontWeight: FontWeight.w900,
