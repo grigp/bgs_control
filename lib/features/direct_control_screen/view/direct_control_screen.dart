@@ -59,7 +59,8 @@ class _DirectControlScreenState extends State<DirectControlScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          '${widget.title}: ${widget.driver.device.advName}',
+          'Прямое управление',
+//          '${widget.title}: ${widget.driver.device.advName}',
           style: theme.textTheme.titleMedium,
         ),
         actions: [
