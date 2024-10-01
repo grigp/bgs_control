@@ -33,6 +33,8 @@ class DeviceProgramExecutor  {
   int _stageStartTime = 0;      /// Время начала этапа
   late Timer _timer;
 
+  bool _isWorkAuto = false;
+
   // late Isolate _isolate;
   // final receivePort = ReceivePort();
 
@@ -47,9 +49,11 @@ class DeviceProgramExecutor  {
     // }
   }
 
-  void disconnect() {
+  void disconnect(bool isReset) {
     // if (_isConnected) {
-      _connect.reset();
+      if (isReset) {
+        _connect.reset();
+      }
       _connect.done();
       _isConnected = false;
 
@@ -210,4 +214,10 @@ class DeviceProgramExecutor  {
     setMode(
         stage.isAm, stage.isFm, stage.amMode, idxFreq, stage.intensity);
   }
+
+  bool isWorkAuto() => _isWorkAuto;
+  void setIsWorkAuto(bool isWorkAuto){
+    _isWorkAuto = isWorkAuto;
+  }
+
 }

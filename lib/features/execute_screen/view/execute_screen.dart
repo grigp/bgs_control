@@ -25,6 +25,7 @@ class ExecuteScreen extends StatefulWidget {
   }) {
     if (program != null) {
       driver.setProgram(program!);
+      driver.setIsWorkAuto(false);
     }
   }
 
@@ -207,6 +208,7 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
                 child: TexelButton.accent(
                   text: 'Работать автономно',
                   onPressed: () {
+                    widget.driver.setIsWorkAuto(true);
                     Navigator.of(context).popUntil(ModalRoute.withName('/select'));
                   },
                 ),
@@ -297,8 +299,10 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
 
   @override
   void dispose() {
-    widget.driver.setPower(0);
     widget.driver.removeHandler(_uuidGetData);
+    if (!widget.driver.isWorkAuto()) {
+      widget.driver.setPower(0);
+    }
     widget.driver.stop();
 
     super.dispose();
