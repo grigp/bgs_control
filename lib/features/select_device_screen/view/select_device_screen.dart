@@ -53,6 +53,7 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
   List<String> _missingDevices = [];
   bool _isShowMissingDevices = false;
   late StreamSubscription _subsDisconnect;
+
   int _devicesCount = 0;
   late BluetoothDevice _device;
   bool _isFirstRun = true;
@@ -457,14 +458,6 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
             );
           }
         )
-        // .map(
-        //   (r) => FoundDeviceTitle(
-        //     result: r,
-        //     onTap: () => onConnectPressed(r.device),
-        //     onSelect: () => onSelectPressed(r.device),
-        //     onDelete: () => onDeletePressed(r.device),
-        //   ),
-        // )
         .toList();
 
     _missingDevices = [];
