@@ -46,7 +46,7 @@ class ProgramProgressBar extends CustomPainter {
     double y = size.height / 2;
     int dold = 0;
     for (int i = 0; i < program.stagesCount(); ++i) {
-      /// Длительност этапа
+      /// Длительность этапа
       int d = program.stage(i).duration;
       /// Ширина диаграммы
       double w = d / allD * widthDiag;

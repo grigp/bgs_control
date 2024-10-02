@@ -34,6 +34,9 @@ class DeviceProgramExecutor  {
   late Timer _timer;
 
   bool _isWorkAuto = false;
+  double _averagePower = 0;
+  double _maxPower = 0;
+  int _statCount = 0;
 
   // late Isolate _isolate;
   // final receivePort = ReceivePort();
@@ -73,6 +76,9 @@ class DeviceProgramExecutor  {
         _idxStage = 0;
         _playingTime = 0;
         _stageStartTime = 0;
+        _statCount = 0;
+        _averagePower = 0;
+        _maxPower = 0;
       }
       _isOver = false;
       _setParamsStageToDevice();
@@ -103,6 +109,9 @@ class DeviceProgramExecutor  {
     _idxStage = 0;
     _playingTime = 0;
     _stageStartTime = 0;
+    _statCount = 0;
+    _averagePower = 0;
+    _maxPower = 0;
   }
 
   /// Задает программу, по которой нужно двигаться
@@ -132,6 +141,12 @@ class DeviceProgramExecutor  {
 
   /// Номер этапа
   int idxStage() => _idxStage;
+
+  /// Средняя мощность
+  double averagePower() => _averagePower / _statCount;
+
+  /// Максимальная мощность
+  double maxPower() => _maxPower;
 
   /// Текущий этап
   ProgramStage stage() => program.stage(_idxStage);
@@ -167,7 +182,14 @@ class DeviceProgramExecutor  {
   int n = 0;
   void onGetData(BlockData data) {
     print('------------------------------------ getdata : ${++n}');
-
+    /// Набор статистики
+    if (_isPlaying) {
+      if (data.power > _maxPower) {
+        _maxPower = data.power;
+      }
+      _averagePower += data.power;
+      ++_statCount;
+    }
   }
 
   void onTimer(Timer timer) async {
@@ -188,6 +210,14 @@ class DeviceProgramExecutor  {
           _isPlaying = false;
           _isOver = true;
         }
+      }
+
+      // TODO: Убрать!!!
+      if (_playingTime == 10){
+        /// Все этапы прошли - выходим
+        setPower(0);
+        _isPlaying = false;
+        _isOver = true;
       }
     }
 

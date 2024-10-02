@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:bgs_control/features/result_screen/view/result_screen.dart';
 import 'package:bgs_control/features/uikit/widgets/back_screen_button.dart';
 import 'package:bgs_control/features/uikit/widgets/program_progress_bar.dart';
 import 'package:bgs_control/utils/baseutils.dart';
@@ -327,8 +328,19 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
     }
 
     if (widget.driver.isOver()) {
+      /// Программа завершена - к окну результатов
+      widget.driver.removeHandler(_uuidGetData);
+      MaterialPageRoute route = MaterialPageRoute(
+        builder: (context) => ResultScreen(
+          title: 'Execution',
+          driver: widget.driver,
+        ),
+        settings: const RouteSettings(name: '/result'),
+      );
+      Navigator.of(context).push(route);
+
       /// Программа завершена - выходим
-      Navigator.of(context).popUntil(ModalRoute.withName('/select_method'));
+      // Navigator.of(context).popUntil(ModalRoute.withName('/select_method'));
     }
   }
 
