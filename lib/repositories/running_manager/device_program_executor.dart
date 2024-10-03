@@ -112,6 +112,7 @@ class DeviceProgramExecutor  {
     _statCount = 0;
     _averagePower = 0;
     _maxPower = 0;
+    _isOver = true;
   }
 
   /// Задает программу, по которой нужно двигаться
