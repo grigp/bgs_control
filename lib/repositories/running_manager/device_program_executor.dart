@@ -212,7 +212,7 @@ class DeviceProgramExecutor  {
           _isOver = true;
         }
       }
-      //
+      // // Быстрое завеершение программы
       // // TODO: Убрать!!!
       // if (_playingTime == 10){
       //   /// Все этапы прошли - выходим
