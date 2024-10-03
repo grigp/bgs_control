@@ -211,14 +211,14 @@ class DeviceProgramExecutor  {
           _isOver = true;
         }
       }
-
-      // TODO: Убрать!!!
-      if (_playingTime == 10){
-        /// Все этапы прошли - выходим
-        setPower(0);
-        _isPlaying = false;
-        _isOver = true;
-      }
+      //
+      // // TODO: Убрать!!!
+      // if (_playingTime == 10){
+      //   /// Все этапы прошли - выходим
+      //   setPower(0);
+      //   _isPlaying = false;
+      //   _isOver = true;
+      // }
     }
 
     if (_idxStage == -1){
