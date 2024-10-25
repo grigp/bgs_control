@@ -44,6 +44,7 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
   double _powerReal = 0;
   int _dataCount = 0;
   String _uuidGetData = '';
+  bool _isOver = false;
 
   @override
   Widget build(BuildContext context) {
@@ -327,12 +328,13 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
       widget.driver.setConnectionFailureMode(ConnectionFailureMode.cfmWorking);
     }
 
-    if (widget.driver.isOver()) {
+    if (widget.driver.isOver() && !_isOver) {
+      _isOver = true;
       /// Программа завершена - к окну результатов
       widget.driver.removeHandler(_uuidGetData);
       MaterialPageRoute route = MaterialPageRoute(
         builder: (context) => ResultScreen(
-          title: 'Execution',
+          title: 'Result',
           driver: widget.driver,
         ),
         settings: const RouteSettings(name: '/result'),
