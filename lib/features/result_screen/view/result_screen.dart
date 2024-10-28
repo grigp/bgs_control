@@ -26,7 +26,9 @@ class _ResultScreenState extends State<ResultScreen> {
     return PopScope(
       canPop: false,
       onPopInvoked: (didPop) async {
-        Navigator.of(context).popUntil(ModalRoute.withName('/select_method'));
+        Future.delayed(Duration.zero, () {
+          Navigator.of(context).popUntil(ModalRoute.withName('/select_method'));
+        });
       },
       child: Scaffold(
         body: Padding(
@@ -49,9 +51,8 @@ class _ResultScreenState extends State<ResultScreen> {
                         width: 120,
                         child: CustomPaint(
                           painter: CircularValueDiag.text(
-                            getTimeBySecCount(widget.driver.playingTime()),
-                            'мин:сек'
-                          ),
+                              getTimeBySecCount(widget.driver.playingTime()),
+                              'мин:сек'),
                         ),
                       ),
                       SizedBox(
