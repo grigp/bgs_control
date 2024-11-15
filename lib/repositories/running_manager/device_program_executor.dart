@@ -6,6 +6,7 @@ import 'package:bgs_control/utils/extra.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:uuid/uuid.dart';
+import 'package:workmanager/workmanager.dart';
 
 import '../bgs_connect/bgs_connect.dart';
 
@@ -90,6 +91,7 @@ class DeviceProgramExecutor  {
 
   void stop() {
     _timer.cancel();
+    Workmanager().cancelAll();
     _isPlaying = false;
     // _idxStage = -1;
     // _playingTime = 0;
@@ -196,6 +198,10 @@ class DeviceProgramExecutor  {
   void onTimer(Timer timer) async {
     print('---------------------------- isPlaying: $_isPlaying      timer:  $_playingTime');
     if (_isPlaying) {
+      if (_playingTime % 100 == 0) {
+        Workmanager().cancelAll();
+        Workmanager().registerOneOffTask("counter_texel", "counter_texel");
+      }
       ++_playingTime;
 //      if (_duration > 0 && (stageTime() >= 60)){
       if (_duration > 0 && (stageTime() >= _duration / 1000)){
@@ -208,6 +214,7 @@ class DeviceProgramExecutor  {
         } else {
           /// Все этапы прошли - выходим
           setPower(0);
+          Workmanager().cancelAll();
           _isPlaying = false;
           _isOver = true;
         }
@@ -223,6 +230,7 @@ class DeviceProgramExecutor  {
     }
 
     if (_idxStage == -1){
+      Workmanager().cancelAll();
       timer.cancel();
     }
   }

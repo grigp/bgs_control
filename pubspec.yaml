@@ -37,6 +37,7 @@ dependencies:
   uuid: ^4.4.2
   flutter_text_viewer: ^0.0.6
   share_plus: ^10.0.2
+  workmanager: ^0.5.2
 
 dev_dependencies:
   flutter_test:
