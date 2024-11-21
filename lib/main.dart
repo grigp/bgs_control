@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:bgs_control/repositories/bgs_connect/ble_service.dart';
 import 'package:bgs_control/repositories/bgs_list/bgs_list.dart';
 import 'package:bgs_control/repositories/logger/communication_logger.dart';
@@ -12,20 +14,29 @@ import 'bgs_app.dart';
 
 @pragma('vm:entry-point')
 void callbackDispatcher() {
-  Workmanager().executeTask((task, inputData) {
+  Workmanager().executeTask((task, inputData) async {
+    int length = inputData?["time"];
+
     print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
-    print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> Native called background task: $task >>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+    print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> Native called background task: $task - ${length / 1000} sec >>>>>>>>>>>>>>>>>>>>>>>>>>>>");
     print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
-    int cnt = 0;
-    int s = -1;
-    while (cnt <= 100) {
-      final now = DateTime.now();
-      int sn = now.second;
-      if (sn != s){
-        print('>>>>>>>>>>>>>> count workmanager : ${cnt++}');
-        s = sn;
-      }
-    }
+
+    await Future.delayed(Duration(milliseconds: length));
+
+    print("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
+    print("<<<<<<<<<<<<<<<<<<<<<<<<    ДОЖДАЛИСЬ    <<<<<<<<<<<<<<<<<<<<<<<");
+    print("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
+
+    // int s = -1;
+    // int cnt = 0;
+    // while (cnt <= length / 1000) {
+    //   final now = DateTime.now();
+    //   int sn = now.second;
+    //   if (sn != s){
+    //     print('>>>>>>>>>>>>>> count workmanager : ${cnt++} : ${length / 1000}');
+    //     s = sn;
+    //   }
+    // }
     return Future.value(true);
   });
 }

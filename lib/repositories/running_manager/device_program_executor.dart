@@ -83,6 +83,7 @@ class DeviceProgramExecutor  {
       }
       _isOver = false;
       _setParamsStageToDevice();
+      _setWorkManagerTask();
       _duration = program.stage(_idxStage).duration;
 
       // _isolate = await Isolate.spawn(onTimerIsolate, receivePort.sendPort);
@@ -198,17 +199,13 @@ class DeviceProgramExecutor  {
   void onTimer(Timer timer) async {
     print('---------------------------- isPlaying: $_isPlaying      timer:  $_playingTime');
     if (_isPlaying) {
-      if (_playingTime % 100 == 0) {
-        Workmanager().cancelAll();
-        Workmanager().registerOneOffTask("counter_texel", "counter_texel");
-      }
       ++_playingTime;
-//      if (_duration > 0 && (stageTime() >= 60)){
       if (_duration > 0 && (stageTime() >= _duration / 1000)){
         /// Если это не последний этап
         if (_idxStage + 1 < program.stagesCount()) {
           ++_idxStage;
           _setParamsStageToDevice();
+          _setWorkManagerTask();
           _stageStartTime = _playingTime;
           _duration = program.stage(_idxStage).duration;
         } else {
@@ -252,6 +249,11 @@ class DeviceProgramExecutor  {
     }
     setMode(
         stage.isAm, stage.isFm, stage.amMode, idxFreq, stage.intensity);
+  }
+
+  void _setWorkManagerTask(){
+    Workmanager().cancelAll();
+    Workmanager().registerOneOffTask("counter_texel", "counter_texel", inputData: {'time' : program.stage(_idxStage).duration - 2000});  /// на 2 сек меньше
   }
 
   bool isWorkAuto() => _isWorkAuto;
