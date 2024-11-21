@@ -83,7 +83,8 @@ class DeviceProgramExecutor  {
       }
       _isOver = false;
       _setParamsStageToDevice();
-      _setWorkManagerTask();
+      _setWorkManagerTask(_programDuration() - 2000); /// на 2 сек меньше
+//      _setWorkManagerTask(program.stage(_idxStage).duration - 2000); /// на 2 сек меньше
       _duration = program.stage(_idxStage).duration;
 
       // _isolate = await Isolate.spawn(onTimerIsolate, receivePort.sendPort);
@@ -205,7 +206,7 @@ class DeviceProgramExecutor  {
         if (_idxStage + 1 < program.stagesCount()) {
           ++_idxStage;
           _setParamsStageToDevice();
-          _setWorkManagerTask();
+          //_setWorkManagerTask(program.stage(_idxStage).duration - 2000);
           _stageStartTime = _playingTime;
           _duration = program.stage(_idxStage).duration;
         } else {
@@ -251,14 +252,22 @@ class DeviceProgramExecutor  {
         stage.isAm, stage.isFm, stage.amMode, idxFreq, stage.intensity);
   }
 
-  void _setWorkManagerTask(){
+  void _setWorkManagerTask(int duration){
     Workmanager().cancelAll();
-    Workmanager().registerOneOffTask("counter_texel", "counter_texel", inputData: {'time' : program.stage(_idxStage).duration - 2000});  /// на 2 сек меньше
+    Workmanager().registerOneOffTask("counter_texel", "counter_texel", inputData: {'time' : duration});
   }
 
   bool isWorkAuto() => _isWorkAuto;
   void setIsWorkAuto(bool isWorkAuto){
     _isWorkAuto = isWorkAuto;
+  }
+
+  int _programDuration() {
+    int pd = 0;
+    for(int i = 0; i < program.stagesCount(); ++i){
+      pd += program.stage(i).duration;
+    }
+    return pd;
   }
 
 }
