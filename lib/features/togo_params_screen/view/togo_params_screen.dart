@@ -49,7 +49,7 @@ class _TogoParamsScreenState extends State<TogoParamsScreen> {
                 children: [
                   const SizedBox(height: 40),
                   SizedBox(
-                    child: Image.asset('images/background_hand.png'),
+                    child: Image.asset('images/background_hand.png', fit: BoxFit.fill,),
                   ),
                 ],
               ),

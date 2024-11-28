@@ -49,13 +49,11 @@ class _ProgramTitleState extends State<ProgramTitle> {
                   style: theme.textTheme.titleMedium,
                   overflow: TextOverflow.ellipsis,
                 ),
-                Expanded(
-                  child: Text(
-                    widget.program.description,
-                    style: theme.textTheme.labelSmall,
-                    overflow: TextOverflow.ellipsis,
-                    maxLines: 4,
-                  ),
+                Text(
+                  widget.program.description,
+                  style: theme.textTheme.labelSmall,
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 4,
                 ),
               ],
             ),
