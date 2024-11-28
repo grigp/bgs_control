@@ -52,7 +52,7 @@ class _SelectProgramScreenState extends State<SelectProgramScreen> {
     final theme = Theme.of(context);
     return Scaffold(
       body: Padding(
-        padding: const EdgeInsets.all(20),
+        padding: const EdgeInsets.only(top: 20),
         child: Stack(
           children: [
             Column(
@@ -93,6 +93,7 @@ class _SelectProgramScreenState extends State<SelectProgramScreen> {
                       // ),
                       Row(
                         children: [
+                          const SizedBox(width: 10),
                           Text(
                             'Доступные программы',
                             style: theme.textTheme.titleLarge,
@@ -103,6 +104,7 @@ class _SelectProgramScreenState extends State<SelectProgramScreen> {
                             '${_chargeLevel.toInt()}%',
                             style: theme.textTheme.titleMedium,
                           ),
+                          const SizedBox(width: 10),
                         ],
                       ),
                       Expanded(

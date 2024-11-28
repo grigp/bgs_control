@@ -29,9 +29,9 @@ class _ProgramTitleState extends State<ProgramTitle> {
 
   Widget _buildTitle(BuildContext context, ThemeData theme) {
     return Container(
-      height: 80,
+      height: 90,
       margin: const EdgeInsets.only(
-        left: 0,
+        left: 5,
         top: 10,
         right: 10,
         bottom: 10,
@@ -39,6 +39,7 @@ class _ProgramTitleState extends State<ProgramTitle> {
       child: Row(
         children: [
           Image.asset('lib/assets/icons/programs/${widget.program.image}'),
+          const SizedBox(width: 10),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,

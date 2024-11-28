@@ -32,7 +32,7 @@ class _ProgramParamsScreenState extends State<ProgramParamsScreen> {
     final theme = Theme.of(context);
     return Scaffold(
       body: Padding(
-        padding: const EdgeInsets.all(20),
+        padding: const EdgeInsets.only(top: 20, bottom: 20), //.all(20),
         child: Stack(
           children: [
             Column(
@@ -46,7 +46,9 @@ class _ProgramParamsScreenState extends State<ProgramParamsScreen> {
             Positioned(
               top: 40,
               left: 10,
-              child: BackScreenButton(onBack: (){Navigator.pop(context);}),
+              child: BackScreenButton(onBack: () {
+                Navigator.pop(context);
+              }),
             ),
             Column(
               mainAxisAlignment: MainAxisAlignment.start, //.center,
@@ -93,19 +95,22 @@ class _ProgramParamsScreenState extends State<ProgramParamsScreen> {
                   ),
                 ),
                 Center(
-                  child: TexelButton.accent(
-                    onPressed: () {
-                      MaterialPageRoute route = MaterialPageRoute(
-                        builder: (context) => ExecuteScreen(
-                          title: 'Execution',
-                          driver: widget.driver,
-                          program: widget.program,
-                        ),
-                        settings: const RouteSettings(name: '/execute'),
-                      );
-                      Navigator.of(context).push(route);
-                    },
-                    text: 'Начать',
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 10, right: 10),
+                    child: TexelButton.accent(
+                      onPressed: () {
+                        MaterialPageRoute route = MaterialPageRoute(
+                          builder: (context) => ExecuteScreen(
+                            title: 'Execution',
+                            driver: widget.driver,
+                            program: widget.program,
+                          ),
+                          settings: const RouteSettings(name: '/execute'),
+                        );
+                        Navigator.of(context).push(route);
+                      },
+                      text: 'Начать',
+                    ),
                   ),
                 ),
               ],
@@ -122,18 +127,22 @@ class _ProgramParamsScreenState extends State<ProgramParamsScreen> {
     for (int i = 0; i < widget.program.stagesCount(); ++i) {
       /// Цвет выводимого текста
       Color color = black;
+
       /// Если программа в драйвере и назначаемая совпадают
-      if (widget.driver.program.uid == widget.program.uid && !widget.driver.isOver()) {
-        if (i < widget.driver.idxStage()) {  /// Пройденные этапы
+      if (widget.driver.program.uid == widget.program.uid &&
+          !widget.driver.isOver()) {
+        if (i < widget.driver.idxStage()) {
+          /// Пройденные этапы
           color = filledSecondaryButtonColor;
-        } else if (i == widget.driver.idxStage()) {  /// Текущий этап
+        } else if (i == widget.driver.idxStage()) {
+          /// Текущий этап
           color = greenColor;
         }
       }
       var stage = widget.program.stage(i);
       retval.add(
         StageTitle(
-          num: i+1,
+          num: i + 1,
           stage: stage,
           duration: stage.duration,
           textColor: color,

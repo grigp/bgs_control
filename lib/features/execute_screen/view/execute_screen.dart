@@ -80,7 +80,7 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
                   }),
                   Image.asset(
                       'lib/assets/icons/programs/${widget.driver.program.image}'),
-                  const SizedBox(width: 20),
+                  const SizedBox(width: 10),
                   Expanded(
                     child: Text(
                       widget.driver.program.title,
@@ -91,21 +91,21 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
                 ],
               ),
             ),
-            SizedBox(
-              width: 400,
-              height: 40,
-              child: Text(
-                widget.driver.program.description,
-                style: theme.textTheme.labelMedium,
-                textScaler: const TextScaler.linear(1.0),
-              ),
-            ),
+            // SizedBox( TODO: Восстановить по нажатию кнопки
+            //   width: 400,
+            //   height: 60,
+            //   child: Text(
+            //     widget.driver.program.description,
+            //     style: theme.textTheme.labelSmall,
+            //     textScaler: const TextScaler.linear(1.0),
+            //   ),
+            // ),
             SizedBox(
               width: double.infinity,
-              height: 40,
+              height: 25,
               child: Row(
                 children: [
-                  const SizedBox(width: 50),
+                  const SizedBox(width: 20),
                   // Image.asset(
                   //   'lib/assets/bgs/BGS_64.png',
                   // ),
@@ -121,7 +121,7 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
                     style: theme.textTheme.titleLarge,
                     textScaler: const TextScaler.linear(1.0),
                   ),
-                  const SizedBox(width: 50),
+                  const SizedBox(width: 20),
                 ],
               ),
             ),

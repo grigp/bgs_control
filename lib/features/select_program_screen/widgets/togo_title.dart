@@ -58,7 +58,7 @@ class _TogoTitleState extends State<TogoTitle> {
                     overflow: TextOverflow.ellipsis,
                   ),
                   SizedBox(
-                    width: 300, //double.infinity,
+                    width: 300, //double.infinity, TODO: Почему не работает ???????????????
                     height: 50,
                     child: Text(
                       'Режим работы стимулятора с индивидуальными настройками',

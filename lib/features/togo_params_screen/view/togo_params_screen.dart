@@ -42,15 +42,13 @@ class _TogoParamsScreenState extends State<TogoParamsScreen> {
     return Scaffold(
       body: Center(
         child: Padding(
-          padding: const EdgeInsets.all(5),
+          padding: const EdgeInsets.only(top: 0),
           child: Stack(
             children: [
               Column(
                 children: [
-                  const SizedBox(height: 30),
+                  const SizedBox(height: 40),
                   SizedBox(
-                    width: double.infinity,
-//                    height: 290,
                     child: Image.asset('images/background_hand.png'),
                   ),
                 ],
