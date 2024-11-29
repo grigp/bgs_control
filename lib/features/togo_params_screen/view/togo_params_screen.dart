@@ -54,8 +54,8 @@ class _TogoParamsScreenState extends State<TogoParamsScreen> {
                 ],
               ),
               Positioned(
-                top: 40,
-                left: 10,
+                top: 55,
+                left: 20,
                 child: BackScreenButton(onBack: (){Navigator.pop(context);}),
               ),
               Column(

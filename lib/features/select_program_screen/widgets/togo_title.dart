@@ -43,6 +43,7 @@ class _TogoTitleState extends State<TogoTitle> {
       child: Row(
         children: [
           Image.asset('lib/assets/icons/programs/togo.png'),
+          const SizedBox(width: 10),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -63,51 +64,6 @@ class _TogoTitleState extends State<TogoTitle> {
           ),
         ],
       ),
-    );
-      
-      
-      
-      Row(
-      children: [
-        Container(
-          height: 90,
-          margin: const EdgeInsets.only(
-            left: 0,
-            top: 10,
-            right: 10,
-            bottom: 10,
-          ),
-          decoration: BoxDecoration(
-            color: filledSecondaryItemColor,
-            borderRadius: BorderRadius.circular(10),
-          ),
-          child: Row(
-            children: [
-              Image.asset('lib/assets/icons/programs/togo.png'),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Индивидуальный режим',
-                    style: theme.textTheme.titleMedium,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                  SizedBox(
-                    width: 300, //double.infinity, TODO: Почему не работает ???????????????
-                    height: 50,
-                    child: Text(
-                      'Режим работы стимулятора с индивидуальными настройками',
-                      style: theme.textTheme.labelSmall,
-                      overflow: TextOverflow.ellipsis,
-                      maxLines: 4,
-                    ),
-                  ),
-                ],
-              ),
-            ],
-          ),
-        ),
-      ],
     );
   }
 }
