@@ -38,7 +38,8 @@ class _ParamsWidgetState extends State<ParamsWidget> {
     final theme = Theme.of(context);
     return Column(
       children: [
-        Row(  /// Флажок "AM"
+        Row(
+          /// Флажок "AM"
           children: [
             Text(
               'Ампл. модуляция (AM)',
@@ -57,22 +58,33 @@ class _ParamsWidgetState extends State<ParamsWidget> {
             ),
           ],
         ),
-        if (widget.isAm)  /// Переключатель амплитудной модуляции
+        if (widget.isAm)
+
+          /// Переключатель амплитудной модуляции
           SizedBox(
             width: double.infinity,
             child: SegmentedButton<AmMode>(
               segments: <ButtonSegment<AmMode>>[
                 ButtonSegment<AmMode>(
                   value: AmMode.am_11,
-                  label: Text(amModeNames[AmMode.am_11]!),
+                  label: Text(
+                    amModeNames[AmMode.am_11]!,
+                    textScaler: const TextScaler.linear(1.0),
+                  ),
                 ),
                 ButtonSegment<AmMode>(
                   value: AmMode.am_31,
-                  label: Text(amModeNames[AmMode.am_31]!),
+                  label: Text(
+                    amModeNames[AmMode.am_31]!,
+                    textScaler: const TextScaler.linear(1.0),
+                  ),
                 ),
                 ButtonSegment<AmMode>(
                   value: AmMode.am_51,
-                  label: Text(amModeNames[AmMode.am_51]!),
+                  label: Text(
+                    amModeNames[AmMode.am_51]!,
+                    textScaler: const TextScaler.linear(1.0),
+                  ),
                 ),
               ],
               selected: <AmMode>{widget.amMode},
@@ -85,7 +97,8 @@ class _ParamsWidgetState extends State<ParamsWidget> {
             ),
           ),
         const Divider(),
-        Row(  /// Флажок "FM"
+        Row(
+          /// Флажок "FM"
           children: [
             Text(
               'Част. модуляция (FM)',
@@ -106,7 +119,9 @@ class _ParamsWidgetState extends State<ParamsWidget> {
         ),
         const Divider(),
         const SizedBox(height: 10),
-        if (!widget.isFm) /// Регулятор частоты
+        if (!widget.isFm)
+
+          /// Регулятор частоты
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -135,7 +150,8 @@ class _ParamsWidgetState extends State<ParamsWidget> {
             ],
           ),
         const SizedBox(height: 10),
-        Column( /// Переключатель интенсивности
+        Column(
+          /// Переключатель интенсивности
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
@@ -150,19 +166,31 @@ class _ParamsWidgetState extends State<ParamsWidget> {
                 segments: const <ButtonSegment<Intensivity>>[
                   ButtonSegment<Intensivity>(
                     value: Intensivity.one,
-                    label: Text('1'),
+                    label: Text(
+                      '1',
+                      textScaler: const TextScaler.linear(1.0),
+                    ),
                   ),
                   ButtonSegment<Intensivity>(
                     value: Intensivity.two,
-                    label: Text('2'),
+                    label: Text(
+                      '2',
+                      textScaler: const TextScaler.linear(1.0),
+                    ),
                   ),
                   ButtonSegment<Intensivity>(
                     value: Intensivity.three,
-                    label: Text('3'),
+                    label: Text(
+                      '3',
+                      textScaler: const TextScaler.linear(1.0),
+                    ),
                   ),
                   ButtonSegment<Intensivity>(
                     value: Intensivity.four,
-                    label: Text('4'),
+                    label: Text(
+                      '4',
+                      textScaler: const TextScaler.linear(1.0),
+                    ),
                   ),
                 ],
                 selected: <Intensivity>{widget.intensity},

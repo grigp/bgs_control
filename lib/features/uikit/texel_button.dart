@@ -96,6 +96,7 @@ class TexelButton extends StatelessWidget {
             Text(
               text,
               style: TextStyle(color: _colorText, fontSize: 16),
+              textScaler: const TextScaler.linear(1.0),
             ),
           ],
         ),

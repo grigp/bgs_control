@@ -211,7 +211,8 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
                   text: 'Работать автономно',
                   onPressed: () {
                     widget.driver.setIsWorkAuto(true);
-                    Navigator.of(context).popUntil(ModalRoute.withName('/select'));
+                    Navigator.of(context)
+                        .popUntil(ModalRoute.withName('/select'));
                   },
                 ),
               ),
@@ -260,8 +261,14 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
       context: context,
       builder: (BuildContext context) => AlertDialog(
         title: (widget.driver.stage().duration > 0)
-            ? const Text('Отменить выполнение программы?')
-            : const Text('Прервать воздействие?'),
+            ? const Text(
+                'Отменить выполнение программы?',
+                textScaler: const TextScaler.linear(1.0),
+              )
+            : const Text(
+                'Прервать воздействие?',
+                textScaler: const TextScaler.linear(1.0),
+              ),
         actions: <Widget>[
           TexelButton.accent(
             onPressed: () => Navigator.pop(context, false),
@@ -330,6 +337,7 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
 
     if (widget.driver.isOver() && !_isOver) {
       _isOver = true;
+
       /// Программа завершена - к окну результатов
       widget.driver.removeHandler(_uuidGetData);
       MaterialPageRoute route = MaterialPageRoute(

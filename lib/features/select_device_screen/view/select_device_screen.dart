@@ -73,7 +73,10 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
         showDialog<String>(
           context: context,
           builder: (BuildContext context) => AlertDialog(
-            title: const Text('Выйти из программы?'),
+            title: const Text(
+              'Выйти из программы?',
+              textScaler: const TextScaler.linear(1.0),
+            ),
             actions: <Widget>[
               TexelButton.accent(
                 onPressed: () => Navigator.pop(context, 'Cancel'),
@@ -96,6 +99,7 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
           title: Text(
             widget.title,
             style: theme.textTheme.titleMedium,
+            textScaler: const TextScaler.linear(1.0),
           ),
           actions: <Widget>[
             TextButton(
@@ -133,6 +137,7 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
                               title: Text(
                                 'Подключенные ранее',
                                 style: theme.textTheme.titleLarge,
+                                textScaler: const TextScaler.linear(1.0),
                               ),
                               children: <Widget>[
                                 SizedBox(
@@ -172,6 +177,7 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
                           Text(
                             'Поиск стимуляторов',
                             style: theme.textTheme.headlineMedium,
+                            textScaler: const TextScaler.linear(1.0),
                           ),
                           const Spacer(),
                         ],
@@ -333,7 +339,10 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
     return await showDialog<bool>(
       context: context,
       builder: (BuildContext context) => AlertDialog(
-        title: const Text('Продолжить выполнение прерванной программы?'),
+        title: const Text(
+          'Продолжить выполнение прерванной программы?',
+          textScaler: const TextScaler.linear(1.0),
+        ),
         actions: <Widget>[
           TexelButton.accent(
             onPressed: () => Navigator.pop(context, false),
@@ -354,7 +363,10 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
     showDialog<String>(
       context: context,
       builder: (BuildContext context) => AlertDialog(
-        title: const Text('Удалить стимулятор из списка?'),
+        title: const Text(
+          'Удалить стимулятор из списка?',
+          textScaler: const TextScaler.linear(1.0),
+        ),
         content: Text(
           getShortDeviceName(device.advName),
           style: TextStyle(
@@ -362,6 +374,7 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
             fontWeight: FontWeight.w900,
             color: Colors.teal.shade900,
           ),
+          textScaler: const TextScaler.linear(1.0),
         ),
         actions: <Widget>[
           TexelButton.accent(
@@ -387,7 +400,10 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
     showDialog<String>(
       context: context,
       builder: (BuildContext context) => AlertDialog(
-        title: const Text('Удалить стимулятор из списка?'),
+        title: const Text(
+          'Удалить стимулятор из списка?',
+          textScaler: const TextScaler.linear(1.0),
+        ),
         content: Text(
           getShortDeviceName(deviceName),
           style: TextStyle(
@@ -395,6 +411,7 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
             fontWeight: FontWeight.w900,
             color: Colors.teal.shade900,
           ),
+          textScaler: const TextScaler.linear(1.0),
         ),
         actions: <Widget>[
           TexelButton.accent(
@@ -447,18 +464,15 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
         .scanResultList
         .value
         .where((r) => list.contains(r.device.advName))
-        .map(
-          (r) {
-            _device = r.device;
-            return FoundDeviceTitle(
-              result: r,
-              onTap: () => onConnectPressed(r.device),
-              onSelect: () => onSelectPressed(r.device),
-              onDelete: () => onDeletePressed(r.device),
-            );
-          }
-        )
-        .toList();
+        .map((r) {
+      _device = r.device;
+      return FoundDeviceTitle(
+        result: r,
+        onTap: () => onConnectPressed(r.device),
+        onSelect: () => onSelectPressed(r.device),
+        onDelete: () => onDeletePressed(r.device),
+      );
+    }).toList();
 
     _missingDevices = [];
     for (int i = 0; i < list.length; ++i) {

@@ -97,12 +97,14 @@ class _SelectProgramScreenState extends State<SelectProgramScreen> {
                           Text(
                             'Доступные программы',
                             style: theme.textTheme.titleLarge,
+                            textScaler: const TextScaler.linear(1.0),
                           ),
                           const Spacer(),
                           Icon(getChargeIconByLevel(_chargeLevel), size: 20),
                           Text(
                             '${_chargeLevel.toInt()}%',
                             style: theme.textTheme.titleMedium,
+                            textScaler: const TextScaler.linear(1.0),
                           ),
                           const SizedBox(width: 10),
                         ],

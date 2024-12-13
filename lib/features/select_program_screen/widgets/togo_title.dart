@@ -52,11 +52,13 @@ class _TogoTitleState extends State<TogoTitle> {
                   'Индивидуальный режим',
                   style: theme.textTheme.titleMedium,
                   overflow: TextOverflow.ellipsis,
+                  textScaler: const TextScaler.linear(1.0),
                 ),
                 Text(
                   'Режим работы стимулятора с индивидуальными настройками',
                   style: theme.textTheme.labelSmall,
                   overflow: TextOverflow.ellipsis,
+                  textScaler: const TextScaler.linear(1.0),
                   maxLines: 4,
                 ),
               ],

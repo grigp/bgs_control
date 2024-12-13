@@ -62,12 +62,14 @@ class _StageTitleState extends State<StageTitle> {
                           'Стадия ${widget.num}',
                           style: TextStyle(color: widget.textColor, fontSize: 16),  //theme.textTheme.titleMedium,
                           overflow: TextOverflow.ellipsis,
+                          textScaler: const TextScaler.linear(1.0),
                         ),
                         const Spacer(),
                         Text(
                           getTimeBySecCount(widget.duration ~/ 1000),
                           style: TextStyle(color: widget.textColor, fontSize: 16),  //theme.textTheme.titleMedium,
                           overflow: TextOverflow.ellipsis,
+                          textScaler: const TextScaler.linear(1.0),
                         ),
                       ],
                     ),
@@ -76,7 +78,7 @@ class _StageTitleState extends State<StageTitle> {
                     widget.stage.comment,
                     style: TextStyle(color: widget.textColor, fontSize: 16),  //theme.textTheme.titleMedium,
                     overflow: TextOverflow.ellipsis,
-                    textScaler: const TextScaler.linear(1.3),
+                    textScaler: const TextScaler.linear(1.0),
                   ),
                   // SizedBox(
                   //   width: 300, //double.infinity,

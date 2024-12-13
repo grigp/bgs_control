@@ -52,11 +52,13 @@ class _DirectTitleState extends State<DirectTitle> {
                   'Прямое управление',
                   style: theme.textTheme.titleMedium,
                   overflow: TextOverflow.ellipsis,
+                  textScaler: const TextScaler.linear(1.0),
                 ),
                 Text(
                   'Прямое управление работой стимулятора в реальном времени',
                   style: theme.textTheme.labelSmall,
                   overflow: TextOverflow.ellipsis,
+                  textScaler: const TextScaler.linear(1.0),
                   maxLines: 4,
                 ),
               ],

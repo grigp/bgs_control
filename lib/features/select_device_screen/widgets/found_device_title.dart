@@ -5,7 +5,6 @@ import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 
 import '../../../utils/baseutils.dart';
 
-
 class FoundDeviceTitle extends StatefulWidget {
   const FoundDeviceTitle({
     super.key,
@@ -68,12 +67,16 @@ class _FoundDeviceTitleState extends State<FoundDeviceTitle> {
           onSelected: (DeviceActions item) {
             widget.onDelete?.call();
           },
-          itemBuilder: (BuildContext context) => <PopupMenuEntry<DeviceActions>>[
+          itemBuilder: (BuildContext context) =>
+              <PopupMenuEntry<DeviceActions>>[
             const PopupMenuItem<DeviceActions>(
               value: DeviceActions.delete,
               child: ListTile(
                 leading: Icon(Icons.delete),
-                title: Text('Удалить'),
+                title: Text(
+                  'Удалить',
+                  textScaler: const TextScaler.linear(1.0),
+                ),
               ),
             ),
           ],
@@ -120,7 +123,6 @@ class _FoundDeviceTitleState extends State<FoundDeviceTitle> {
                 ),
               ],
             ),
-
           ),
           // _buildConnectButton(context),
         ],
@@ -129,7 +131,6 @@ class _FoundDeviceTitleState extends State<FoundDeviceTitle> {
       return Text(widget.result.device.remoteId.str);
     }
   }
-
 }
 
 enum DeviceActions { delete }

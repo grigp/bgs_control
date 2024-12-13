@@ -67,6 +67,7 @@ class _ProgramParamsScreenState extends State<ProgramParamsScreen> {
                       Text(
                         widget.program.title,
                         style: theme.textTheme.titleLarge,
+                        textScaler: const TextScaler.linear(1.0),
                       ),
                       // Row(
                       //   children: [

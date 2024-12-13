@@ -34,6 +34,7 @@ class _PowerWidgetState extends State<PowerWidget> {
             Text(
               'Мощность ${widget.powerSet.toInt()}',
               style: theme.textTheme.headlineMedium,
+              textScaler: const TextScaler.linear(1.0),
             ),
             Slider.adaptive(
               value: widget.powerSet,
@@ -70,6 +71,7 @@ class _PowerWidgetState extends State<PowerWidget> {
                   Text(
                     widget.powerReal.round().toString(),
                     style: theme.textTheme.displayMedium,
+                    textScaler: const TextScaler.linear(1.0),
                   ),
                   const SizedBox(width: 15),
                   _getChangePowerButton(TypeChangePowerButton.plus),

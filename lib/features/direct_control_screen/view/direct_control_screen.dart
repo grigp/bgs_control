@@ -62,12 +62,14 @@ class _DirectControlScreenState extends State<DirectControlScreen> {
           'Прямое управление',
 //          '${widget.title}: ${widget.driver.device.advName}',
           style: theme.textTheme.titleMedium,
+          textScaler: const TextScaler.linear(1.0),
         ),
         actions: [
           Icon(getChargeIconByLevel(_chargeLevel), size: 20),
           Text(
             '${_chargeLevel.toInt()}%',
             style: theme.textTheme.titleMedium,
+            textScaler: const TextScaler.linear(1.0),
           ),
           const SizedBox(width: 10),
         ],
@@ -87,6 +89,7 @@ class _DirectControlScreenState extends State<DirectControlScreen> {
               Text(
                 '($_dataCount)  ${_valueToString()}',
                 style: theme.textTheme.bodySmall,
+                textScaler: const TextScaler.linear(1.0),
               ),
               const SizedBox(height: 10),
               SizedBox(
