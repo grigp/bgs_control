@@ -95,27 +95,6 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
         );
       },
       child: Scaffold(
-        appBar: AppBar(
-          title: Text(
-            widget.title,
-            style: theme.textTheme.titleMedium,
-            textScaler: const TextScaler.linear(1.0),
-          ),
-          actions: <Widget>[
-            TextButton(
-              onPressed: () {
-                MaterialPageRoute route = MaterialPageRoute(
-                  builder: (context) => const LogScreen(
-                    title: 'Лог обмена данными',
-                  ),
-                  settings: const RouteSettings(name: '/log_comm'),
-                );
-                Navigator.of(context).push(route);
-              },
-              child: const Icon(Icons.book),
-            ),
-          ],
-        ),
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: RefreshIndicator(
@@ -125,6 +104,30 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
                 _scanResultCount() > 0
                     ? Column(
                         children: [
+                          const SizedBox(height: 60),
+                          Row(
+                            children: [
+                              const SizedBox(width: 50),
+                              Text(
+                                widget.title,
+                                style: theme.textTheme.titleMedium,
+                                textScaler: const TextScaler.linear(1.0),
+                              ),
+                              const Spacer(),
+                              GestureDetector(
+                                onTap: () {
+                                  MaterialPageRoute route = MaterialPageRoute(
+                                    builder: (context) => const LogScreen(
+                                      title: 'Лог обмена данными',
+                                    ),
+                                    settings: const RouteSettings(name: '/log_comm'),
+                                  );
+                                  Navigator.of(context).push(route);
+                                },
+                                child: const Icon(Icons.book),
+                              ),
+                            ],
+                          ),
                           ListView(
                             shrinkWrap: true,
                             children: <Widget>[
