@@ -45,8 +45,23 @@ class _InvitationToConnectScreenState extends State<InvitationToConnectScreen> {
               Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  const Text(''),
+                  const SizedBox(height: 40),
+                  Row(
+                    children: [
+                      const SizedBox(width: 20),
+                      Image.asset('images/texel_200.png'),
+                      const Spacer(),
+                    ],
+                  ),
                   const Spacer(),
+                  Row(
+                    children: [
+                      const Spacer(),
+                      Image.asset('images/sk_member.png'),
+                      const SizedBox(width: 20),
+                    ],
+                  ),
+                  const SizedBox(height: 20),
                   Container(
                     color: Colors.white,
                     child: Padding(

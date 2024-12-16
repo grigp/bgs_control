@@ -70,6 +70,8 @@ flutter:
      - images/background_hand.png
      - images/play.png
      - images/pause.png
+     - images/sk_member.png
+     - images/texel_200.png
      - lib/assets/icons/device_menu.png
      - lib/assets/icons/methods_menu.png
      - lib/assets/icons/bluetooth.png
