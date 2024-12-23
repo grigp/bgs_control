@@ -28,6 +28,7 @@ class WgtWait extends StatelessWidget {
             Text(
               'Поиск стимуляторов',
               style: theme.textTheme.headlineMedium,
+              textScaler: const TextScaler.linear(1.0),
             ),
             const Spacer(),
           ],
