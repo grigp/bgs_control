@@ -128,15 +128,23 @@ class _ResultScreenState extends State<ResultScreen> {
                   Navigator.of(context)
                       .popUntil(ModalRoute.withName('/select_method'));
                 },
-                text: 'Сохранить и выйти',
+                text: 'Выйти',
               ),
-              const SizedBox(height: 10),
-              TexelButton.secondary(
-                  onPressed: () {
-                    Navigator.of(context)
-                        .popUntil(ModalRoute.withName('/select_method'));
-                  },
-                  text: 'Выйти без сохранения'),
+              // TexelButton.accent(
+              //   onPressed: () {
+              //     Navigator.of(context)
+              //         .popUntil(ModalRoute.withName('/select_method'));
+              //   },
+              //   text: 'Сохранить и выйти',
+              // ),
+              // const SizedBox(height: 10),
+              // TexelButton.secondary(
+              //   onPressed: () {
+              //     Navigator.of(context)
+              //         .popUntil(ModalRoute.withName('/select_method'));
+              //   },
+              //   text: 'Выйти без сохранения',
+              // ),
             ],
           ),
         ),

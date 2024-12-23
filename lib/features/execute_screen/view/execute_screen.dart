@@ -129,15 +129,6 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
               const ChargeMessageWidget(),
             const SizedBox(height: 30),
             Row(
-              /// Кнопка play / pause
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                _getPlayPauseButton(widget.driver.isPlaying()
-                    ? TypePlayPauseButton.pause
-                    : TypePlayPauseButton.play),
-              ],
-            ),
-            Row(
               /// Время воздействия
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -181,6 +172,15 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
                   style: theme.textTheme.titleSmall,
                   textScaler: const TextScaler.linear(1.0),
                 ),
+              ],
+            ),
+            Row(
+              /// Кнопка play / pause
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                _getPlayPauseButton(widget.driver.isPlaying()
+                    ? TypePlayPauseButton.pause
+                    : TypePlayPauseButton.play),
               ],
             ),
             const Spacer(),
@@ -241,7 +241,7 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
                 padding: const EdgeInsets.all(15),
                 decoration: BoxDecoration(
                   color: Theme.of(context).colorScheme.inversePrimary,
-                  borderRadius: BorderRadius.circular(10),
+//                  borderRadius: BorderRadius.circular(10),
                 ),
                 child: PowerWidget(
                   powerSet: _powerSet,

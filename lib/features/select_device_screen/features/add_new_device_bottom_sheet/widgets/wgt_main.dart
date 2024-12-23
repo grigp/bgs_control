@@ -26,7 +26,7 @@ class WgtMain extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Text(
-              'Добавить устройство',
+              'Добавить стимулятор',
               style: theme.textTheme.titleMedium, /// TODO(Yasliks): добавить отдельный стиль для боттомШитов
             ),
             const SizedBox(height: 15),
