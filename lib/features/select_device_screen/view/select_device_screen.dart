@@ -5,12 +5,11 @@ import 'package:bgs_control/features/log_screen/view/log_screen.dart';
 import 'package:bgs_control/features/select_device_screen/features/add_new_device_bottom_sheet/add_new_device_bottom_sheet.dart';
 import 'package:bgs_control/features/select_device_screen/widgets/found_device_title.dart';
 import 'package:bgs_control/features/select_device_screen/widgets/missing_device_title.dart';
-import 'package:bgs_control/features/uikit/styles.dart';
 import 'package:bgs_control/features/uikit/texel_button.dart';
 import 'package:bgs_control/repositories/bgs_connect/ble_service.dart';
 import 'package:bgs_control/repositories/bgs_list/bgs_list.dart';
-import 'package:bgs_control/repositories/methodic_programs/model/methodic_program.dart';
 import 'package:bgs_control/utils/extra.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:get_it/get_it.dart';
@@ -75,7 +74,7 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
           builder: (BuildContext context) => AlertDialog(
             title: const Text(
               'Выйти из программы?',
-              textScaler: const TextScaler.linear(1.0),
+              textScaler: TextScaler.linear(1.0),
             ),
             actions: <Widget>[
               TexelButton.accent(
@@ -83,12 +82,14 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
                 text: 'Нет',
                 width: 120,
               ),
-              TexelButton.secondary(
-                onPressed: () {
-                  exit(0);
-                },
-                text: 'Да',
-                width: 120,
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 22),
+                child: TextButton(
+                  onPressed: () {
+                    exit(0);
+                  },
+                  child: const Text('Да'),
+                ),
               ),
             ],
           ),
@@ -107,32 +108,34 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
                           const SizedBox(height: 60),
                           Row(
                             children: [
-                              const SizedBox(width: 50),
+                              const SizedBox(width: 10),
                               Text(
                                 widget.title,
                                 style: theme.textTheme.titleMedium,
                                 textScaler: const TextScaler.linear(1.0),
                               ),
                               const Spacer(),
-                              GestureDetector(
-                                onTap: () {
-                                  MaterialPageRoute route = MaterialPageRoute(
-                                    builder: (context) => const LogScreen(
-                                      title: 'Лог обмена данными',
-                                    ),
-                                    settings: const RouteSettings(name: '/log_comm'),
-                                  );
-                                  Navigator.of(context).push(route);
-                                },
-                                child: const Icon(Icons.book),
-                              ),
+                              if (kDebugMode)
+                                GestureDetector(
+                                  onTap: () {
+                                    MaterialPageRoute route = MaterialPageRoute(
+                                      builder: (context) => const LogScreen(
+                                        title: 'Лог обмена данными',
+                                      ),
+                                      settings: const RouteSettings(
+                                          name: '/log_comm'),
+                                    );
+                                    Navigator.of(context).push(route);
+                                  },
+                                  child: const Icon(Icons.book),
+                                ),
                             ],
                           ),
                           ListView(
+                            padding: const EdgeInsets.only(),
                             shrinkWrap: true,
                             children: <Widget>[
                               ..._buildScanResultTiles(context),
-                              const SizedBox(height: 50),
                             ],
                           ),
                           if (_missingDevices.isNotEmpty)
@@ -145,12 +148,11 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
                               children: <Widget>[
                                 SizedBox(
                                   width: double.infinity,
-                                  height: 200,
                                   child: ListView(
+                                    padding: const EdgeInsets.only(),
                                     shrinkWrap: true,
                                     children: <Widget>[
                                       ..._buildMissingDevicesTiles(context),
-                                      const SizedBox(height: 50),
                                     ],
                                   ),
                                 )
@@ -352,10 +354,12 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
             text: 'Нет',
             width: 120,
           ),
-          TexelButton.accent(
-            onPressed: () => Navigator.pop(context, true),
-            text: 'Да',
-            width: 120,
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 22),
+            child: TextButton(
+              onPressed: () => Navigator.pop(context, true),
+              child: const Text('Да'),
+            ),
           ),
         ],
       ),
@@ -372,11 +376,7 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
         ),
         content: Text(
           getShortDeviceName(device.advName),
-          style: TextStyle(
-            fontSize: 24,
-            fontWeight: FontWeight.w900,
-            color: Colors.teal.shade900,
-          ),
+          style: const TextStyle(fontSize: 24),
           textScaler: const TextScaler.linear(1.0),
         ),
         actions: <Widget>[
@@ -385,14 +385,16 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
             text: 'Отмена',
             width: 120,
           ),
-          TexelButton.secondary(
-            onPressed: () {
-              GetIt.I<BgsList>().delete(device.advName);
-              onRefresh();
-              Navigator.pop(context, 'OK');
-            },
-            text: 'OK',
-            width: 120,
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 22),
+            child: TextButton(
+              onPressed: () {
+                GetIt.I<BgsList>().delete(device.advName);
+                onRefresh();
+                Navigator.pop(context, 'OK');
+              },
+              child: const Text('Да'),
+            ),
           ),
         ],
       ),
@@ -405,15 +407,11 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
       builder: (BuildContext context) => AlertDialog(
         title: const Text(
           'Удалить стимулятор из списка?',
-          textScaler: const TextScaler.linear(1.0),
+          textScaler: TextScaler.linear(1.0),
         ),
         content: Text(
           getShortDeviceName(deviceName),
-          style: TextStyle(
-            fontSize: 24,
-            fontWeight: FontWeight.w900,
-            color: Colors.teal.shade900,
-          ),
+          style: const TextStyle(fontSize: 24),
           textScaler: const TextScaler.linear(1.0),
         ),
         actions: <Widget>[
@@ -422,14 +420,16 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
             text: 'Отмена',
             width: 120,
           ),
-          TexelButton.secondary(
-            onPressed: () {
-              GetIt.I<BgsList>().delete(deviceName);
-              onRefresh();
-              Navigator.pop(context, 'OK');
-            },
-            text: 'OK',
-            width: 120,
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 22),
+            child: TextButton(
+              onPressed: () {
+                GetIt.I<BgsList>().delete(deviceName);
+                onRefresh();
+                Navigator.pop(context, 'OK');
+              },
+              child: const Text('Да'),
+            ),
           ),
         ],
       ),

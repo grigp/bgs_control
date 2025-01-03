@@ -13,9 +13,9 @@ import '../../../repositories/methodic_programs/model/methodic_program.dart';
 import '../../../repositories/running_manager/device_program_executor.dart';
 import '../../../utils/base_defines.dart';
 import '../../../utils/charge_values.dart';
-import '../../direct_control_screen/widgets/power_widget.dart';
 import '../../uikit/texel_button.dart';
 import '../../uikit/widgets/charge_message_widget.dart';
+import 'widgets/power_vertical_widget.dart';
 
 class ExecuteScreen extends StatefulWidget {
   ExecuteScreen({
@@ -60,6 +60,7 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
         }
       },
       child: Scaffold(
+        backgroundColor: backgroundTestColor,
         body: Column(
           children: [
             const SizedBox(height: 60),
@@ -69,76 +70,45 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  BackScreenButton(onBack: () async {
-                    final bool? dr = await showCancelDialog();
-                    if (dr!) {
-                      if (!context.mounted) return;
-                      Navigator.of(context)
-                          .popUntil(ModalRoute.withName('/select_method'));
-                    }
-                    // Navigator.pop(context);
-                  }),
+                  BackScreenButton(
+                    onBack: () async {
+                      final bool? dr = await showCancelDialog();
+                      if (dr!) {
+                        if (!context.mounted) return;
+                        Navigator.of(context)
+                            .popUntil(ModalRoute.withName('/select_method'));
+                      }
+                      // Navigator.pop(context);
+                    },
+                    hasBackground: false,
+                  ),
                   Image.asset(
-                      'lib/assets/icons/programs/${widget.driver.program.image}'),
+                    'lib/assets/icons/programs/${widget.driver.program.image}',
+                    width: 32,
+                    height: 32,
+                  ),
                   const SizedBox(width: 10),
                   Expanded(
                     child: Text(
                       widget.driver.program.title,
-                      style: theme.textTheme.titleLarge,
+                      style: theme.textTheme.bodyLarge,
                       textScaler: const TextScaler.linear(1.0),
                     ),
                   ),
-                ],
-              ),
-            ),
-            // SizedBox( TODO: Восстановить по нажатию кнопки
-            //   width: 400,
-            //   height: 60,
-            //   child: Text(
-            //     widget.driver.program.description,
-            //     style: theme.textTheme.labelSmall,
-            //     textScaler: const TextScaler.linear(1.0),
-            //   ),
-            // ),
-            SizedBox(
-              width: double.infinity,
-              height: 25,
-              child: Row(
-                children: [
-                  const SizedBox(width: 20),
-                  // Image.asset(
-                  //   'lib/assets/bgs/BGS_64.png',
-                  // ),
-                  // Text(
-                  //   getShortDeviceName(widget.driver.device.advName),
-                  //   style: theme.textTheme.titleLarge,
-                  //   textScaler: const TextScaler.linear(1.0),
-                  // ),
-                  const Spacer(),
+                  const SizedBox(width: 10),
                   Icon(getChargeIconByLevel(_chargeLevel), size: 20),
                   Text(
                     '${_chargeLevel.toInt()}%',
-                    style: theme.textTheme.titleLarge,
+                    style: theme.textTheme.titleSmall,
                     textScaler: const TextScaler.linear(1.0),
                   ),
-                  const SizedBox(width: 20),
+                  const SizedBox(width: 10),
                 ],
               ),
             ),
-            if (_chargeLevel <= chargeAlarmBoundLevel)
-              const ChargeMessageWidget(),
-            const SizedBox(height: 30),
-            Row(
-              /// Время воздействия
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  getTimeBySecCount(widget.driver.playingTime()),
-                  style: theme.textTheme.headlineLarge,
-                  textScaler: const TextScaler.linear(1.0),
-                ),
-              ],
-            ),
+
+            const SizedBox(height: 16),
+
             Row(
               /// Нвзвание этапа
               mainAxisAlignment: MainAxisAlignment.center,
@@ -150,30 +120,144 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
                 ),
               ],
             ),
-            if (widget.driver.stage().duration > 0)
 
-              /// Время этапа, если длительность этапа задана
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    '${getTimeBySecCount(widget.driver.stageTime())} / ${getTimeBySecCount(widget.driver.stage().duration ~/ 1000)}',
-                    style: theme.textTheme.headlineSmall,
-                    textScaler: const TextScaler.linear(1.0),
-                  ),
-                ],
-              ),
+            /// Установленная мощность
             Row(
-              /// Параметры воздействия
-              mainAxisAlignment: MainAxisAlignment.center,
               children: [
+                const SizedBox(width: 16),
                 Text(
-                  _stimulationParamsToString(),
-                  style: theme.textTheme.titleSmall,
+                  '${_powerReal.round()}',
+                  style: theme.textTheme.bodyLarge,
                   textScaler: const TextScaler.linear(1.0),
                 ),
+
+                /// Регулятор мощности
+                Expanded(
+                  child: SizedBox(
+                    width: double.infinity,
+                    child: SliderTheme(
+                      data: const SliderThemeData(
+                        showValueIndicator: ShowValueIndicator.always,
+                      ),
+                      child: Slider(
+                        value: _powerSet,
+                        label: _powerSet.round().toString(),
+                        min: 0,
+                        max: 125,
+                        activeColor: black,
+                        thumbColor: black,
+                        inactiveColor: backgroundCarpetButtonTestColor,
+                        divisions: 125,
+                        onChanged: (double value) {
+                          setState(() {
+                            _powerSet = value;
+                          });
+                        },
+                        onChangeEnd: (double value) {
+                          /// В этот момент мы будем устанавливать мощность
+                          onPowerSet(_powerSet);
+                        },
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 16),
               ],
             ),
+
+            // if (widget.driver.stage().duration > 0)
+            //
+            //   /// Время этапа, если длительность этапа задана
+            //   Row(
+            //     mainAxisAlignment: MainAxisAlignment.center,
+            //     children: [
+            //       Text(
+            //         '${getTimeBySecCount(widget.driver.stageTime())} / ${getTimeBySecCount(widget.driver.stage().duration ~/ 1000)}',
+            //         style: theme.textTheme.headlineSmall,
+            //         textScaler: const TextScaler.linear(1.0),
+            //       ),
+            //     ],
+            //   ),
+            // Row(
+            //   /// Параметры воздействия
+            //   mainAxisAlignment: MainAxisAlignment.center,
+            //   children: [
+            //     Text(
+            //       _stimulationParamsToString(),
+            //       style: theme.textTheme.titleSmall,
+            //       textScaler: const TextScaler.linear(1.0),
+            //     ),
+            //   ],
+            // ),
+            const Spacer(),
+
+            PowerVerticalWidget(
+              powerSet: _powerSet,
+              powerReal: _powerReal,
+              onPowerSet: onPowerSet,
+              onPowerReset: onPowerReset,
+            ),
+
+            const Spacer(),
+
+            /// Прогресс бар для программы
+            if (widget.driver.stage().duration > 0)
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Column(
+                  children: [
+                    Row(
+                      /// Время осталось
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          'До завершения осталось ${getTimeBySecCount(widget.driver.programDuration() - widget.driver.playingTime())}',
+                          style: theme.textTheme.titleSmall,
+                          textScaler: const TextScaler.linear(1.0),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Expanded(
+                          child: SizedBox(
+                            width: double.infinity,
+                            height: 20,
+                            child: CustomPaint(
+                              painter: ProgramProgressBar(
+                                program: widget.driver.program,
+                                position: widget.driver.playingTime(),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      /// Время воздействия
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          getTimeBySecCount(widget.driver.playingTime()),
+                          style: theme.textTheme.titleSmall,
+                          textScaler: const TextScaler.linear(1.0),
+                        ),
+                        const Spacer(),
+                        Text(
+                          getTimeBySecCount(widget.driver.programDuration()),
+                          style: theme.textTheme.titleSmall,
+                          textScaler: const TextScaler.linear(1.0),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+
+            if (_chargeLevel <= chargeAlarmBoundLevel)
+              const ChargeMessageWidget(),
+
             Row(
               /// Кнопка play / pause
               mainAxisAlignment: MainAxisAlignment.center,
@@ -183,25 +267,7 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
                     : TypePlayPauseButton.play),
               ],
             ),
-            const Spacer(),
-
-            /// Прогресс бар для программы
-            if (widget.driver.stage().duration > 0)
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  SizedBox(
-                    width: 300, //double.infinity,
-                    height: 20,
-                    child: CustomPaint(
-                      painter: ProgramProgressBar(
-                        program: widget.driver.program,
-                        position: widget.driver.playingTime(),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
+            const SizedBox(height: 26),
 
             /// Кнопка [Работать автономно]  в режиме без длительности
             if (widget.driver.stage().duration < 0)
@@ -216,40 +282,40 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
                   },
                 ),
               ),
-            const Spacer(),
-            if (widget.driver.isPlaying())
-              Row(
-                children: [
-                  const SizedBox(width: 5),
-                  SizedBox(
-                    width: 50,
-                    height: 50,
-                    child: Image.asset('images/attention.png'),
-                  ),
-                  const SizedBox(width: 5),
-                  Expanded(
-                    child: Text(
-                      'Увеличивайте мощность воздействия, не допуская появления болевых ощущений',
-                      style: theme.textTheme.bodyLarge,
-                      textScaler: const TextScaler.linear(1.0),
-                    ),
-                  ),
-                ],
-              ),
-            if (widget.driver.isPlaying())
-              Container(
-                padding: const EdgeInsets.all(15),
-                decoration: BoxDecoration(
-                  color: Theme.of(context).colorScheme.inversePrimary,
-//                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: PowerWidget(
-                  powerSet: _powerSet,
-                  powerReal: _powerReal,
-                  onPowerSet: onPowerSet,
-                  onPowerReset: onPowerReset,
-                ),
-              ),
+
+            // if (widget.driver.isPlaying() && _powerReal >= 20)
+            //   Row(
+            //     children: [
+            //       const SizedBox(width: 5),
+            //       SizedBox(
+            //         width: 50,
+            //         height: 50,
+            //         child: Image.asset('images/attention.png'),
+            //       ),
+            //       const SizedBox(width: 5),
+            //       Expanded(
+            //         child: Text(
+            //           'Увеличивайте мощность воздействия, не допуская появления болевых ощущений',
+            //           style: theme.textTheme.bodyLarge,
+            //           textScaler: const TextScaler.linear(1.0),
+            //         ),
+            //       ),
+            //     ],
+            //   ),
+//             if (widget.driver.isPlaying())
+//               Container(
+//                 padding: const EdgeInsets.all(15),
+//                 decoration: BoxDecoration(
+//                   color: Theme.of(context).colorScheme.inversePrimary,
+// //                  borderRadius: BorderRadius.circular(10),
+//                 ),
+//                 child: PowerWidget(
+//                   powerSet: _powerSet,
+//                   powerReal: _powerReal,
+//                   onPowerSet: onPowerSet,
+//                   onPowerReset: onPowerReset,
+//                 ),
+//               ),
           ],
         ),
       ),
@@ -275,10 +341,13 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
             text: 'Нет',
             width: 120,
           ),
-          TexelButton.secondary(
-            onPressed: () => Navigator.pop(context, true),
-            text: 'Да',
-            width: 120,
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 22),
+            child: TextButton(
+              onPressed: () => Navigator.pop(context, true),
+              child: const Text('Да'),
+              // width: 120,
+            ),
           ),
         ],
       ),
@@ -364,14 +433,11 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
           }
         });
       },
-      child: Container(
-        width: 80,
-        height: 80,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(50),
-          color: white,
-        ),
-        child: Center(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 12),
+        child: SizedBox(
+          width: 36,
+          height: 36,
           child: Image.asset(
             icon == TypePlayPauseButton.play
                 ? 'images/play.png'

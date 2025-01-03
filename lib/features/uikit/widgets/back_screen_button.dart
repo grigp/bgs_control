@@ -5,10 +5,12 @@ import '../../../assets/colors/colors.dart';
 class BackScreenButton extends StatelessWidget{
   const BackScreenButton({
     super.key,
-    required this.onBack
+    required this.onBack,
+    required this.hasBackground,
   });
 
   final Function onBack;
+  final bool hasBackground;
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +23,7 @@ class BackScreenButton extends StatelessWidget{
         height: 50,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(30),
-          color: white,
+          color: hasBackground ? white : null,
         ),
         child: const Center(
           child: Icon(

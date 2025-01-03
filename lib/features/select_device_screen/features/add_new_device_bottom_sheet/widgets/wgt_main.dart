@@ -37,40 +37,38 @@ class WgtMain extends StatelessWidget {
                 separatorBuilder: (BuildContext context, int index) =>
                     const Divider(),
                 itemBuilder: (BuildContext context, int index) {
-                  return SizedBox(
-                    height: 40,
+                  return GestureDetector(
+                    onTap: () {
+                      if (!listRegistred.contains(list[index])) {
+                        GetIt.I<BgsList>().add(list[index]);
+                        Navigator.pop(context);
+                        /// Покажем окно предупреждения
+                        MaterialPageRoute route = MaterialPageRoute(
+                          builder: (context) => const AttentionScreen(
+                            title: 'Предупреждение',
+                          ),
+                          settings: const RouteSettings(name: '/select'),
+                        );
+                        Navigator.of(context).push(route);
+                      }
+                    },
                     child: Row(
                       children: [
-                        GestureDetector(
-                          onTap: () {
-                            if (!listRegistred.contains(list[index])) {
-                              GetIt.I<BgsList>().add(list[index]);
-                              Navigator.pop(context);
-
-                              /// Покажем окно предупреждения
-                              MaterialPageRoute route = MaterialPageRoute(
-                                builder: (context) => const AttentionScreen(
-                                  title: 'Предупреждение',
-                                ),
-                                settings: const RouteSettings(name: '/select'),
-                              );
-                              Navigator.of(context).push(route);
-                            }
-                          },
-                          child: Row(
-                            children: [
-                              Image.asset(
-                                'lib/assets/bgs/BGS_64.png',
-                              ),
-                              const SizedBox(width: 10),
-                              Text(
-                                getFullDeviceName(list[index]),
-                                style: listRegistred.contains(list[index])
-                                    ? theme.textTheme.labelMedium
-                                    : theme.textTheme.labelMedium?.copyWith(fontWeight: FontWeight.bold),
-                                textScaler: const TextScaler.linear(1.1),
-                              ),
-                            ],
+                        Image.asset(
+                          'lib/assets/bgs/BGS_64.png',
+                          width: 40,
+                          height: 40,
+                        ),
+                        const SizedBox(width: 10),
+                        Expanded(
+                          child: Text(
+                            getFullDeviceName(list[index]),
+                            overflow: TextOverflow.ellipsis,
+                            textScaler: const TextScaler.linear(1.0),
+                            style: listRegistred.contains(list[index])
+                                ? theme.textTheme.labelMedium
+                                : theme.textTheme.labelMedium?.copyWith(fontWeight: FontWeight.bold),
+                            maxLines: 2,
                           ),
                         ),
                       ],

@@ -28,6 +28,7 @@ class DeviceProgramExecutor  {
   /// Управление процессом выполнения программы
   int _idxStage = 0;  /// Номер этапа
   int _duration = 0;   /// Длительность этапа
+  int _progDuration = 0;   /// Длительность программы
   bool _isPlaying = false;      /// Идет ли процесс или поставлен на паузу
   bool _isOver = true;          /// завершена ли программа
   int _playingTime = 0;         /// Время процесса
@@ -83,7 +84,8 @@ class DeviceProgramExecutor  {
       }
       _isOver = false;
       _setParamsStageToDevice();
-      _setWorkManagerTask(_programDuration() - 2000); /// на 2 сек меньше
+      _progDuration = _programDuration();
+      _setWorkManagerTask(_progDuration - 2000); /// на 2 сек меньше
 //      _setWorkManagerTask(program.stage(_idxStage).duration - 2000); /// на 2 сек меньше
       _duration = program.stage(_idxStage).duration;
 
@@ -140,6 +142,9 @@ class DeviceProgramExecutor  {
 
   /// Возвращает время течения процесса
   int playingTime() => _playingTime;
+
+  /// Общая длительность программы
+  int programDuration() => _progDuration ~/ 1000;
 
   /// Время этапа
   int stageTime() => _playingTime - _stageStartTime;

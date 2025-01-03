@@ -61,15 +61,17 @@ class _LogScreenState extends State<LogScreen> {
                       text: 'Нет',
                       width: 120,
                     ),
-                    TexelButton.secondary(
-                      onPressed: () {
-                        setState(() {
-                          GetIt.I<CommunicationLogger>().clear();
-                        });
-                        Navigator.pop(context, 'Cancel');
-                      },
-                      text: 'Да',
-                      width: 120,
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 22),
+                      child: TextButton(
+                        onPressed: () {
+                          setState(() {
+                            GetIt.I<CommunicationLogger>().clear();
+                          });
+                          Navigator.pop(context, 'Cancel');
+                        },
+                        child: const Text('Да'),
+                      ),
                     ),
                   ],
                 ),

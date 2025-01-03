@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 
-import '../../../assets/colors/colors.dart';
 import '../../../repositories/methodic_programs/model/methodic_program.dart';
 import '../../../utils/baseutils.dart';
 
-class StageTitle extends StatefulWidget{
+class StageTitle extends StatefulWidget {
   const StageTitle({
     super.key,
     required this.num,
@@ -35,67 +34,55 @@ class _StageTitleState extends State<StageTitle> {
   }
 
   Widget _buildTitle(BuildContext context, ThemeData theme) {
-    return Row(
-      children: [
-        Container(
-          height: 80,
-          margin: const EdgeInsets.only(
-            left: 0,
-            top: 10,
-            right: 10,
-            bottom: 10,
-          ),
-          decoration: BoxDecoration(
-            color: backgroundColor,
-            borderRadius: BorderRadius.circular(10),
-          ),
-          child: Row(
-            children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(
-                    width: 300,
-                    child: Row(
-                      children: [
-                        Text(
-                          'Стадия ${widget.num}',
-                          style: TextStyle(color: widget.textColor, fontSize: 16),  //theme.textTheme.titleMedium,
-                          overflow: TextOverflow.ellipsis,
-                          textScaler: const TextScaler.linear(1.0),
-                        ),
-                        const Spacer(),
-                        Text(
-                          getTimeBySecCount(widget.duration ~/ 1000),
-                          style: TextStyle(color: widget.textColor, fontSize: 16),  //theme.textTheme.titleMedium,
-                          overflow: TextOverflow.ellipsis,
-                          textScaler: const TextScaler.linear(1.0),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Text(
-                    widget.stage.comment,
-                    style: TextStyle(color: widget.textColor, fontSize: 16),  //theme.textTheme.titleMedium,
-                    overflow: TextOverflow.ellipsis,
-                    textScaler: const TextScaler.linear(1.0),
-                  ),
-                  // SizedBox(
-                  //   width: 300, //double.infinity,
-                  //   height: 50,
-                  //   child: Text(
-                  //     'Прямое управление работой стимулятора в реальном времени',
-                  //     style: theme.textTheme.labelSmall,
-                  //     overflow: TextOverflow.ellipsis,
-                  //     maxLines: 4,
-                  //   ),
-                  // ),
-                ],
-              ),
-            ],
-          ),
+    return Expanded(
+      child: Container(
+        margin: const EdgeInsets.only(
+          left: 6,
+          right: 6,
+          top: 12,
         ),
-      ],
+        child: Column(
+          children: [
+            Row(
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Стадия ${widget.num}',
+                      style: TextStyle(color: widget.textColor, fontSize: 16),
+                      //theme.textTheme.titleMedium,
+                      overflow: TextOverflow.ellipsis,
+                      textScaler: const TextScaler.linear(1.0),
+                    ),
+                    Text(
+                      widget.stage.comment,
+                      style: TextStyle(color: widget.textColor, fontSize: 16),
+                      //theme.textTheme.titleMedium,
+                      overflow: TextOverflow.ellipsis,
+                      textScaler: const TextScaler.linear(1.0),
+                    ),
+                  ],
+                ),
+                const Spacer(),
+                Text(
+                  getTimeBySecCount(widget.duration ~/ 1000),
+                  style: TextStyle(color: widget.textColor, fontSize: 16),
+                  //theme.textTheme.titleMedium,
+                  overflow: TextOverflow.ellipsis,
+                  textScaler: const TextScaler.linear(1.0),
+                ),
+              ],
+            ),
+            const SizedBox(height: 12),
+            const Divider(
+              height: 0,
+              indent: 0,
+              thickness: 1,
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

@@ -7,9 +7,7 @@ import 'package:bgs_control/features/select_program_screen/widgets/togo_title.da
 import 'package:bgs_control/features/togo_params_screen/view/togo_params_screen.dart';
 import 'package:bgs_control/repositories/methodic_programs/model/methodic_program.dart';
 import 'package:bgs_control/repositories/methodic_programs/storage/program_storage.dart';
-import 'package:bgs_control/utils/extra.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:get_it/get_it.dart';
 import 'package:uuid/uuid.dart';
 
@@ -17,7 +15,6 @@ import '../../../assets/colors/colors.dart';
 import '../../../repositories/bgs_connect/bgs_connect.dart';
 import '../../../repositories/running_manager/device_program_executor.dart';
 import '../../../utils/base_defines.dart';
-import '../../../utils/baseutils.dart';
 import '../../../utils/charge_values.dart';
 import '../../direct_control_screen/view/direct_control_screen.dart';
 import '../../uikit/texel_button.dart';
@@ -67,9 +64,12 @@ class _SelectProgramScreenState extends State<SelectProgramScreen> {
             Positioned(
               top: 40,
               left: 20,
-              child: BackScreenButton(onBack: () {
-                Navigator.pop(context);
-              }),
+              child: BackScreenButton(
+                onBack: () {
+                  Navigator.pop(context);
+                },
+                hasBackground: true,
+              ),
             ),
             Column(
               mainAxisAlignment: MainAxisAlignment.start, //.center,
@@ -87,30 +87,36 @@ class _SelectProgramScreenState extends State<SelectProgramScreen> {
                   ),
                   child: Column(
                     children: [
-                      // Text(
-                      //   'Доступные программы',
-                      //   style: theme.textTheme.titleLarge,
-                      // ),
-                      Row(
-                        children: [
-                          const SizedBox(width: 10),
-                          Text(
-                            'Доступные программы',
-                            style: theme.textTheme.titleLarge,
-                            textScaler: const TextScaler.linear(1.0),
-                          ),
-                          const Spacer(),
-                          Icon(getChargeIconByLevel(_chargeLevel), size: 20),
-                          Text(
-                            '${_chargeLevel.toInt()}%',
-                            style: theme.textTheme.titleMedium,
-                            textScaler: const TextScaler.linear(1.0),
-                          ),
-                          const SizedBox(width: 10),
-                        ],
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 10,
+                          vertical: 8,
+                        ),
+                        child: Row(
+                          children: [
+                            Text(
+                              'Доступные программы',
+                              style: theme.textTheme.titleMedium,
+                              textScaler: const TextScaler.linear(1.0),
+                            ),
+                            const Spacer(),
+                            Icon(getChargeIconByLevel(_chargeLevel), size: 16),
+                            Text(
+                              '${_chargeLevel.toInt()}%',
+                              style: theme.textTheme.titleSmall,
+                              textScaler: const TextScaler.linear(1.0),
+                            ),
+                          ],
+                        ),
+                      ),
+                      const Divider(
+                        height: 0,
+                        indent: 0,
+                        thickness: 1,
                       ),
                       Expanded(
                         child: ListView(
+                          padding: const EdgeInsets.only(bottom: 10),
                           shrinkWrap: true,
                           children: <Widget>[
                             ..._buildProgramTiles(context),
@@ -158,10 +164,10 @@ class _SelectProgramScreenState extends State<SelectProgramScreen> {
     widget.driver.addHandler(_uuidGetData, onGetData);
 
     /// Запуск программы автоматически, если указан ее uid
-    if (widget.uidProgram != ""){
-      for (int i = 0; i < _programs.length; ++ i){
-        if (widget.uidProgram == _programs[i].uid){
-          Timer(const Duration(milliseconds: 100), (){
+    if (widget.uidProgram != "") {
+      for (int i = 0; i < _programs.length; ++i) {
+        if (widget.uidProgram == _programs[i].uid) {
+          Timer(const Duration(milliseconds: 100), () {
             if (_chargeLevel > chargeBreakBoundLevel) {
               _runProgram(_programs[i]);
             } else {
@@ -198,21 +204,25 @@ class _SelectProgramScreenState extends State<SelectProgramScreen> {
 
   List<Widget> _buildProgramTiles(BuildContext context) {
     return _programs
-        .map(
-          (program) => ProgramTitle(
+        .mapIndexed(
+          (program, index) => ProgramTitle(
             program: program,
+            isLast: index == _programs.length - 1,
             onTap: () async {
               if (_chargeLevel > chargeBreakBoundLevel) {
                 /// Если запустили повторно незавершенную программу
-                if (program.uid == widget.driver.program.uid && !widget.driver.isOver()){
+                if (program.uid == widget.driver.program.uid &&
+                    !widget.driver.isOver()) {
                   /// Спросим, надо ли ее продолжить
                   final bool? isCont = await _showContinueProgramDialog();
+
                   /// И, если не надо
                   if (!isCont!) {
                     /// Сбросить программу
                     widget.driver.resetProgram();
                   }
                 }
+
                 /// Ну и запустить экран выполнения
                 _runProgram(program);
               } else {
@@ -272,17 +282,19 @@ class _SelectProgramScreenState extends State<SelectProgramScreen> {
             text: 'Нет',
             width: 120,
           ),
-          TexelButton.accent(
-            onPressed: () => Navigator.pop(context, true),
-            text: 'Да',
-            width: 120,
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 22),
+            child: TextButton(
+              onPressed: () => Navigator.pop(context, true),
+              child: const Text('Да'),
+            ),
           ),
         ],
       ),
     );
   }
 
-  void _runProgram(MethodicProgram program){
+  void _runProgram(MethodicProgram program) {
     MaterialPageRoute route = MaterialPageRoute(
       builder: (context) => ProgramParamsScreen(
         title: 'Программа ${program.title}',
@@ -293,5 +305,11 @@ class _SelectProgramScreenState extends State<SelectProgramScreen> {
     );
     Navigator.of(context).push(route);
   }
+}
 
+extension ExtendedIterable<E> on Iterable<E> {
+  Iterable<T> mapIndexed<T>(T Function(E e, int i) f) {
+    var i = 0;
+    return map((e) => f(e, i++));
+  }
 }

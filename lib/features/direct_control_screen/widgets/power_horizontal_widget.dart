@@ -3,8 +3,8 @@ import 'package:bgs_control/features/uikit/texel_button.dart';
 import 'package:flutter/material.dart';
 
 //ignore: must_be_immutable
-class PowerWidget extends StatefulWidget {
-  PowerWidget({
+class PowerHorizontalWidget extends StatefulWidget {
+  PowerHorizontalWidget({
     super.key,
     required this.powerSet,
     required this.powerReal,
@@ -18,10 +18,10 @@ class PowerWidget extends StatefulWidget {
   final Function onPowerReset;
 
   @override
-  State<PowerWidget> createState() => _PowerWidgetState();
+  State<PowerHorizontalWidget> createState() => _PowerHorizontalWidgetState();
 }
 
-class _PowerWidgetState extends State<PowerWidget> {
+class _PowerHorizontalWidgetState extends State<PowerHorizontalWidget> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);

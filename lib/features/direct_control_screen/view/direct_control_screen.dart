@@ -1,10 +1,11 @@
 import 'dart:async';
 
 import 'package:bgs_control/features/direct_control_screen/widgets/params_widget.dart';
-import 'package:bgs_control/features/direct_control_screen/widgets/power_widget.dart';
+import 'package:bgs_control/features/direct_control_screen/widgets/power_horizontal_widget.dart';
 import 'package:bgs_control/features/uikit/widgets/charge_message_widget.dart';
 import 'package:bgs_control/repositories/bgs_connect/bgs_connect.dart';
 import 'package:bgs_control/utils/charge_values.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:uuid/uuid.dart';
 
@@ -74,47 +75,39 @@ class _DirectControlScreenState extends State<DirectControlScreen> {
           const SizedBox(width: 10),
         ],
       ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(20),
-          child: Column(
-            children: [
-              if (_chargeLevel <= chargeAlarmBoundLevel)
-                const ChargeMessageWidget(),
-              // SizedBox(
-              //   width: double.infinity,
-              //   height: 30,
-              //   child:,
-              // )
-              Text(
-                '($_dataCount)  ${_valueToString()}',
-                style: theme.textTheme.bodySmall,
-                textScaler: const TextScaler.linear(1.0),
-              ),
-              const SizedBox(height: 10),
-              SizedBox(
-                width: double.infinity,
-                child: ParamsWidget(
-                  isAm: _isAm,
-                  onAmChanged: onAmChanged,
-                  amMode: _amMode,
-                  onAmModeChanged: onAmModeChanged,
-                  isFm: _isFm,
-                  onFmChanged: onFmChanged,
-                  idxFreq: _idxFreq,
-                  onFreqChanged: onFreqChanged,
-                  intensity: _intensivity,
-                  onIntensityChanged: onIntensityChanged,
-                ),
-              ),
-            ],
+      body: ListView(
+        padding: const EdgeInsets.all(20),
+        children: [
+          if (_chargeLevel <= chargeAlarmBoundLevel)
+            const ChargeMessageWidget(),
+          if (kDebugMode)
+            Text(
+              '($_dataCount)  ${_valueToString()}',
+              style: theme.textTheme.bodySmall,
+              textScaler: const TextScaler.linear(1.0),
+            ),
+          const SizedBox(height: 10),
+          SizedBox(
+            width: double.infinity,
+            child: ParamsWidget(
+              isAm: _isAm,
+              onAmChanged: onAmChanged,
+              amMode: _amMode,
+              onAmModeChanged: onAmModeChanged,
+              isFm: _isFm,
+              onFmChanged: onFmChanged,
+              idxFreq: _idxFreq,
+              onFreqChanged: onFreqChanged,
+              intensity: _intensivity,
+              onIntensityChanged: onIntensityChanged,
+            ),
           ),
-        ),
+        ],
       ),
       bottomNavigationBar: BottomAppBar(
         color: Theme.of(context).colorScheme.inversePrimary,
         height: 300,
-        child: PowerWidget(
+        child: PowerHorizontalWidget(
           powerSet: _powerSet,
           powerReal: _powerReal,
           onPowerSet: onPowerSet,
@@ -132,7 +125,7 @@ class _DirectControlScreenState extends State<DirectControlScreen> {
   }
 
   void onAmChanged(bool isAm) {
-    Timer(const Duration(seconds: 2), (){
+    Timer(const Duration(seconds: 2), () {
       _isAmChange = true;
     });
     _isAmChange = false;
@@ -143,7 +136,7 @@ class _DirectControlScreenState extends State<DirectControlScreen> {
   }
 
   void onAmModeChanged(AmMode amMode) {
-    Timer(const Duration(seconds: 2), (){
+    Timer(const Duration(seconds: 2), () {
       _isAmModeChange = true;
     });
     _isAmModeChange = false;
@@ -154,7 +147,7 @@ class _DirectControlScreenState extends State<DirectControlScreen> {
   }
 
   void onFmChanged(bool isFm) {
-    Timer(const Duration(seconds: 2), (){
+    Timer(const Duration(seconds: 2), () {
       _isFmChange = true;
     });
     _isFmChange = false;
@@ -165,7 +158,7 @@ class _DirectControlScreenState extends State<DirectControlScreen> {
   }
 
   void onFreqChanged(double idxFreq) {
-    Timer(const Duration(seconds: 2), (){
+    Timer(const Duration(seconds: 2), () {
       _idxFreqChange = true;
     });
     _idxFreqChange = false;
@@ -176,7 +169,7 @@ class _DirectControlScreenState extends State<DirectControlScreen> {
   }
 
   void onIntensityChanged(Intensivity intensivity) {
-    Timer(const Duration(seconds: 2), (){
+    Timer(const Duration(seconds: 2), () {
       _intensivityChange = true;
     });
     _intensivityChange = false;
@@ -232,7 +225,8 @@ class _DirectControlScreenState extends State<DirectControlScreen> {
     }
   }
 
-  void _setDeviceMode(bool isAM, bool isFM, AmMode amMode, double idxFreq, Intensivity intensity) {
+  void _setDeviceMode(bool isAM, bool isFM, AmMode amMode, double idxFreq,
+      Intensivity intensity) {
     widget.driver.setMode(isAM, isFM, amMode, idxFreq, intensity);
   }
 

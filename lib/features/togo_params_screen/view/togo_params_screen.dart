@@ -56,7 +56,10 @@ class _TogoParamsScreenState extends State<TogoParamsScreen> {
               Positioned(
                 top: 55,
                 left: 20,
-                child: BackScreenButton(onBack: (){Navigator.pop(context);}),
+                child: BackScreenButton(
+                    onBack: (){Navigator.pop(context);},
+                  hasBackground: true,
+                ),
               ),
               Column(
                 children: [
@@ -65,34 +68,54 @@ class _TogoParamsScreenState extends State<TogoParamsScreen> {
                     height: 330,
                   ),
                   Container(
-                    padding: const EdgeInsets.all(15),
                     decoration: BoxDecoration(
                       color: backgroundColor,
-                      borderRadius: BorderRadius.circular(30),
+                      borderRadius: BorderRadius.circular(10),
                     ),
                     child: Column(
                       children: [
-                        Text(
-                          'Индивидуальный режим',
-                          style: theme.textTheme.headlineSmall,
-                          textScaler: const TextScaler.linear(1.0),
-                        ),
-                        SizedBox(
-                          width: double.infinity,
-                          child: ParamsWidget(
-                            isAm: _isAM,
-                            onAmChanged: onAmChanged,
-                            amMode: _amMode,
-                            onAmModeChanged: onAmModeChanged,
-                            isFm: _isFM,
-                            onFmChanged: onFmChanged,
-                            idxFreq: _idxFreq,
-                            onFreqChanged: onFreqChanged,
-                            intensity: _intensity,
-                            onIntensityChanged: onIntensityChanged,
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 10,
+                            vertical: 8,
+                          ),
+                          child: Row(
+                            children: [
+                              Text(
+                                'Индивидуальный режим',
+                                style: theme.textTheme.titleMedium,
+                                textScaler: const TextScaler.linear(1.0),
+                              ),
+                              const Spacer(),
+                            ],
                           ),
                         ),
-                        const SizedBox(height: 110),
+                        const Divider(
+                          height: 0,
+                          indent: 0,
+                          thickness: 1,
+                        ),
+                        ListView(
+                          padding: const EdgeInsets.only(bottom: 10, left: 16, right: 16),
+                          shrinkWrap: true,
+                          children: [
+                            SizedBox(
+                              width: double.infinity,
+                              child: ParamsWidget(
+                                isAm: _isAM,
+                                onAmChanged: onAmChanged,
+                                amMode: _amMode,
+                                onAmModeChanged: onAmModeChanged,
+                                isFm: _isFM,
+                                onFmChanged: onFmChanged,
+                                idxFreq: _idxFreq,
+                                onFreqChanged: onFreqChanged,
+                                intensity: _intensity,
+                                onIntensityChanged: onIntensityChanged,
+                              ),
+                            ),
+                          ],
+                        )
                       ],
                     ),
                   ),

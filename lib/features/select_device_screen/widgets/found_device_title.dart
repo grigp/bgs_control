@@ -50,38 +50,50 @@ class _FoundDeviceTitleState extends State<FoundDeviceTitle> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    return Row(
+    return Column(
       children: [
-        const SizedBox(width: 10),
-        GestureDetector(
-          onTap: () {
-            if (widget.result.advertisementData.connectable) {
-              widget.onTap?.call();
-            }
-          },
-          child: _buildTitle(context, theme),
-        ),
-        const Spacer(),
-        PopupMenuButton(
-          icon: const Icon(Icons.more_horiz),
-          onSelected: (DeviceActions item) {
-            widget.onDelete?.call();
-          },
-          itemBuilder: (BuildContext context) =>
-              <PopupMenuEntry<DeviceActions>>[
-            const PopupMenuItem<DeviceActions>(
-              value: DeviceActions.delete,
-              child: ListTile(
-                leading: Icon(Icons.delete),
-                title: Text(
-                  'Удалить',
-                  textScaler: const TextScaler.linear(1.0),
-                ),
-              ),
+        Row(
+          children: [
+            const SizedBox(width: 10),
+            GestureDetector(
+              onTap: () {
+                if (widget.result.advertisementData.connectable) {
+                  widget.onTap?.call();
+                }
+              },
+              child: _buildTitle(context, theme),
             ),
+            const Spacer(),
+            PopupMenuButton(
+              icon: const Icon(Icons.more_horiz),
+              onSelected: (DeviceActions item) {
+                widget.onDelete?.call();
+              },
+              itemBuilder: (BuildContext context) =>
+                  <PopupMenuEntry<DeviceActions>>[
+                const PopupMenuItem<DeviceActions>(
+                  value: DeviceActions.delete,
+                  child: ListTile(
+                    leading: Icon(Icons.delete),
+                    title: Text(
+                      'Удалить',
+                      textScaler: const TextScaler.linear(1.0),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(width: 10),
           ],
         ),
-        const SizedBox(width: 10),
+        const Padding(
+          padding: EdgeInsets.only(left: 76),
+          child: Divider(
+            height: 0,
+            indent: 0,
+            thickness: 1,
+          ),
+        ),
       ],
     );
   }
@@ -103,23 +115,15 @@ class _FoundDeviceTitleState extends State<FoundDeviceTitle> {
               children: [
                 Image.asset(
                   'lib/assets/bgs/BGS_128.png',
+                  width: 56,
+                  height: 56,
                 ),
                 const SizedBox(width: 10),
-                Column(
-                  children: [
-                    Text(
-                      'texel',
-                      style: theme.textTheme.headlineLarge,
-                      overflow: TextOverflow.ellipsis,
-                      textScaler: const TextScaler.linear(1.0),
-                    ),
-                    Text(
-                      '№ ${getStimulatorNumber(widget.result.device.platformName)}',
-                      style: theme.textTheme.headlineLarge,
-                      overflow: TextOverflow.ellipsis,
-                      textScaler: const TextScaler.linear(1.0),
-                    ),
-                  ],
+                Text(
+                  'texel № ${getStimulatorNumber(widget.result.device.platformName)}',
+                  style: theme.textTheme.titleLarge,
+                  overflow: TextOverflow.ellipsis,
+                  textScaler: const TextScaler.linear(1.0),
                 ),
               ],
             ),

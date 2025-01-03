@@ -48,7 +48,9 @@ class _ProgramParamsScreenState extends State<ProgramParamsScreen> {
               left: 10,
               child: BackScreenButton(onBack: () {
                 Navigator.pop(context);
-              }),
+              },
+              hasBackground: true,
+              ),
             ),
             Column(
               mainAxisAlignment: MainAxisAlignment.start, //.center,
@@ -64,10 +66,21 @@ class _ProgramParamsScreenState extends State<ProgramParamsScreen> {
                   ),
                   child: Column(
                     children: [
-                      Text(
-                        widget.program.title,
-                        style: theme.textTheme.titleLarge,
-                        textScaler: const TextScaler.linear(1.0),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 10,
+                          vertical: 8,
+                        ),
+                        child: Row(
+                          children: [
+                            Text(
+                              widget.program.title,
+                              style: theme.textTheme.titleMedium,
+                              textScaler: const TextScaler.linear(1.0),
+                            ),
+                            const Spacer(),
+                          ],
+                        ),
                       ),
                       // Row(
                       //   children: [
@@ -84,8 +97,14 @@ class _ProgramParamsScreenState extends State<ProgramParamsScreen> {
                       //     // ),
                       //   ],
                       // ),
+                      const Divider(
+                        height: 0,
+                        indent: 0,
+                        thickness: 1,
+                      ),
                       Expanded(
                         child: ListView(
+                          padding: const EdgeInsets.only(bottom: 10),
                           shrinkWrap: true,
                           children: <Widget>[
                             ..._buildStageTiles(context),
