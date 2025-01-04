@@ -38,21 +38,30 @@ class _PowerHorizontalWidgetState extends State<PowerHorizontalWidget> {
               style: theme.textTheme.headlineMedium,
               textScaler: const TextScaler.linear(1.0),
             ),
-            Slider.adaptive(
-              value: widget.powerSet,
-              label: widget.powerSet.round().toString(),
-              min: 0,
-              max: 125,
-              divisions: 125,
-              onChanged: (double value) {
-                setState(() {
-                  widget.powerSet = value;
-                });
-              },
-              onChangeEnd: (double value) {
-                /// В этот момент мы будем устанавливать мощность
-                widget.onPowerSet(widget.powerSet);
-              },
+
+            SliderTheme(
+              data: const SliderThemeData(
+                showValueIndicator: ShowValueIndicator.always,
+              ),
+              child: Slider(
+                value: widget.powerSet,
+                label: widget.powerSet.round().toString(),
+                min: 0,
+                max: 125,
+                activeColor: black,
+                thumbColor: black,
+                inactiveColor: backgroundCarpetButtonTestColor,
+                divisions: 125,
+                onChanged: (double value) {
+                  setState(() {
+                    widget.powerSet = value;
+                  });
+                },
+                onChangeEnd: (double value) {
+                  /// В этот момент мы будем устанавливать мощность
+                  widget.onPowerSet(widget.powerSet);
+                },
+              ),
             ),
           ],
         ),
@@ -85,14 +94,6 @@ class _PowerHorizontalWidgetState extends State<PowerHorizontalWidget> {
         ),
         const SizedBox(height: 20),
         Center(
-          // child: PlayPauseButton(
-          //     type: TypePlayPauseButton.pause,
-          //     onClick: () {
-          //       setState(() {
-          //         widget.powerSet = 0;
-          //         widget.onPowerReset();
-          //       });
-          //     }),
           child: TexelButton.black(
             text: 'Сброс',
             onPressed: () {
@@ -125,7 +126,8 @@ class _PowerHorizontalWidgetState extends State<PowerHorizontalWidget> {
         child: Center(
           child: Icon(
             icon == TypeChangePowerButton.plus ? Icons.add : Icons.remove,
-            color: secondaryTextColor,
+            color: black,
+            size: 30,
           ),
         ),
       ),

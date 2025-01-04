@@ -64,82 +64,90 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
         backgroundColor: backgroundTestColor,
         body: Column(
           children: [
-            const SizedBox(height: 60),
+            const SizedBox(height: 40),
             SizedBox(
               width: double.infinity,
-              height: 60,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  BackScreenButton(
-                    onBack: () async {
-                      final bool? dr = await showCancelDialog();
-                      if (dr!) {
-                        if (!context.mounted) return;
-                        Navigator.of(context)
-                            .popUntil(ModalRoute.withName('/select_method'));
-                      }
-                      // Navigator.pop(context);
-                    },
-                    hasBackground: false,
-                  ),
-                  Image.asset(
-                    'lib/assets/icons/programs/${widget.driver.program.image}',
-                    width: 32,
-                    height: 32,
-                  ),
-                  const SizedBox(width: 10),
-                  Expanded(
-                    child: Text(
-                      widget.driver.program.title,
-                      style: theme.textTheme.bodyLarge,
+              child: Padding(
+                padding: const EdgeInsets.all(8),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    BackScreenButton(
+                      onBack: () async {
+                        final bool? dr = await showCancelDialog();
+                        if (dr!) {
+                          if (!context.mounted) return;
+                          Navigator.of(context)
+                              .popUntil(ModalRoute.withName('/select_method'));
+                        }
+                        // Navigator.pop(context);
+                      },
+                      hasBackground: false,
+                    ),
+                    Image.asset(
+                      'lib/assets/icons/programs/${widget.driver.program.image}',
+                      width: 32,
+                      height: 32,
+                    ),
+                    const SizedBox(width: 10),
+                    Expanded(
+                      child: Text(
+                        widget.driver.program.title,
+                        style: theme.textTheme.bodyLarge,
+                        textScaler: const TextScaler.linear(1.0),
+                      ),
+                    ),
+                    const SizedBox(width: 10),
+                    Icon(getChargeIconByLevel(_chargeLevel), size: 20),
+                    Text(
+                      '${_chargeLevel.toInt()}%',
+                      style: theme.textTheme.titleSmall,
                       textScaler: const TextScaler.linear(1.0),
                     ),
-                  ),
-                  const SizedBox(width: 10),
-                  Icon(getChargeIconByLevel(_chargeLevel), size: 20),
-                  Text(
-                    '${_chargeLevel.toInt()}%',
-                    style: theme.textTheme.titleSmall,
-                    textScaler: const TextScaler.linear(1.0),
-                  ),
-                  const SizedBox(width: 10),
-                ],
+                    const SizedBox(width: 10),
+                  ],
+                ),
               ),
             ),
 
-            const SizedBox(height: 16),
-
-            Row(
-              /// Нвзвание этапа
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const SizedBox(width: 30),
-                Text(
-                  'Этап ${widget.driver.idxStage() + 1} : "${widget.driver.stage().comment}"',
-                  style: theme.textTheme.bodyMedium,
-                  textScaler: const TextScaler.linear(1.0),
+            Padding(
+              padding: const EdgeInsets.only(bottom: 8),
+              child: GestureDetector(
+                onTap: () {},
+                child: Center(
+                  child: Container(
+                    padding:
+                        const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+                    decoration: BoxDecoration(
+                      color: backgroundCarpetButtonTestColor,
+                      borderRadius: BorderRadius.circular(40),
+                    ),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        /// Нвзвание этапа
+                        Text(
+                          'Этап ${widget.driver.idxStage() + 1} : "${widget.driver.stage().comment}"',
+                          style: theme.textTheme.bodyMedium,
+                          textScaler: const TextScaler.linear(1.0),
+                        ),
+                        const SizedBox(width: 4),
+                        const Icon(
+                          Icons.info_outline,
+                          size: 18,
+                        ),
+                      ],
+                    ),
+                  ),
                 ),
-                const Spacer(),
-                GestureDetector(
-                  onTap: () {
-                  },
-                  child: const Icon(Icons.info_outline),
-                ),
-                const SizedBox(width: 20),
-              ],
+              ),
             ),
 
-            Row(
-              /// Мощность на стимуляторе
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  '${_powerReal.round()}',
-                  style: theme.textTheme.headlineLarge,
-                  textScaler: const TextScaler.linear(1.0),
-                ),
-              ],
+            Text(
+              '${_powerReal.round()}',
+              style: theme.textTheme.headlineLarge,
+              textScaler: const TextScaler.linear(1.0),
             ),
 
             /// Установленная мощность
@@ -482,5 +490,3 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
     return retval;
   }
 }
-
-// enum TypePlayPauseButton { play, pause }
