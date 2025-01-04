@@ -35,11 +35,11 @@ class _PowerVerticalWidgetState extends State<PowerVerticalWidget> {
         children: [
           _getChangePowerButton(TypeChangePowerButton.plus),
           const SizedBox(height: 8),
-          Text(
-            widget.powerSet.round().toString(),
-            style: theme.textTheme.displaySmall,
-            textScaler: const TextScaler.linear(1.0),
-          ),
+          // Text(
+          //   widget.powerReal.round().toString(),
+          //   style: theme.textTheme.displaySmall,
+          //   textScaler: const TextScaler.linear(1.0),
+          // ),
           const SizedBox(height: 8),
           _getChangePowerButton(TypeChangePowerButton.minus),
         ],

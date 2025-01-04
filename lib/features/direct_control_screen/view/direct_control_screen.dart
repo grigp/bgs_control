@@ -9,6 +9,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:uuid/uuid.dart';
 
+import '../../../assets/colors/colors.dart';
 import '../../../repositories/running_manager/device_program_executor.dart';
 import '../../../utils/base_defines.dart';
 
@@ -105,8 +106,8 @@ class _DirectControlScreenState extends State<DirectControlScreen> {
         ],
       ),
       bottomNavigationBar: BottomAppBar(
-        color: Theme.of(context).colorScheme.inversePrimary,
-        height: 300,
+        color: backgroundTestColor,
+        height: 290,
         child: PowerHorizontalWidget(
           powerSet: _powerSet,
           powerReal: _powerReal,

@@ -1,6 +1,8 @@
 import 'package:bgs_control/assets/colors/colors.dart';
-import 'package:bgs_control/features/uikit/texel_button.dart';
 import 'package:flutter/material.dart';
+
+import '../../uikit/texel_button.dart';
+import '../../uikit/widgets/play_pause_button.dart';
 
 //ignore: must_be_immutable
 class PowerHorizontalWidget extends StatefulWidget {
@@ -60,7 +62,7 @@ class _PowerHorizontalWidgetState extends State<PowerHorizontalWidget> {
             Container(
               padding: const EdgeInsets.all(15),
               decoration: BoxDecoration(
-                color: backgroundCarpetButtonToGoColor,
+                color: backgroundCarpetButtonTestColor,
                 borderRadius: BorderRadius.circular(70),
               ),
               child: Row(
@@ -81,9 +83,17 @@ class _PowerHorizontalWidgetState extends State<PowerHorizontalWidget> {
             const Spacer(),
           ],
         ),
-        const SizedBox(height: 10),
+        const SizedBox(height: 20),
         Center(
-          child: TexelButton.accent(
+          // child: PlayPauseButton(
+          //     type: TypePlayPauseButton.pause,
+          //     onClick: () {
+          //       setState(() {
+          //         widget.powerSet = 0;
+          //         widget.onPowerReset();
+          //       });
+          //     }),
+          child: TexelButton.black(
             text: 'Сброс',
             onPressed: () {
               widget.powerSet = 0;

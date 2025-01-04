@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bgs_control/features/result_screen/view/result_screen.dart';
 import 'package:bgs_control/features/uikit/widgets/back_screen_button.dart';
+import 'package:bgs_control/features/uikit/widgets/play_pause_button.dart';
 import 'package:bgs_control/features/uikit/widgets/program_progress_bar.dart';
 import 'package:bgs_control/utils/baseutils.dart';
 import 'package:flutter/material.dart';
@@ -113,9 +114,29 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
               /// Нвзвание этапа
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
+                const SizedBox(width: 30),
                 Text(
                   'Этап ${widget.driver.idxStage() + 1} : "${widget.driver.stage().comment}"',
-                  style: theme.textTheme.titleMedium,
+                  style: theme.textTheme.bodyMedium,
+                  textScaler: const TextScaler.linear(1.0),
+                ),
+                const Spacer(),
+                GestureDetector(
+                  onTap: () {
+                  },
+                  child: const Icon(Icons.info_outline),
+                ),
+                const SizedBox(width: 20),
+              ],
+            ),
+
+            Row(
+              /// Мощность на стимуляторе
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  '${_powerReal.round()}',
+                  style: theme.textTheme.headlineLarge,
                   textScaler: const TextScaler.linear(1.0),
                 ),
               ],
@@ -126,7 +147,7 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
               children: [
                 const SizedBox(width: 16),
                 Text(
-                  '${_powerReal.round()}',
+                  '${_powerSet.round()}',
                   style: theme.textTheme.bodyLarge,
                   textScaler: const TextScaler.linear(1.0),
                 ),
@@ -262,9 +283,19 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
               /// Кнопка play / pause
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                _getPlayPauseButton(widget.driver.isPlaying()
-                    ? TypePlayPauseButton.pause
-                    : TypePlayPauseButton.play),
+                PlayPauseButton(
+                  type: widget.driver.isPlaying()
+                      ? TypePlayPauseButton.pause
+                      : TypePlayPauseButton.play,
+                  onClick: () {
+                    setState(() {
+                      widget.driver.pause();
+                      if (!widget.driver.isPlaying()) {
+                        _powerSet = 0;
+                      }
+                    });
+                  },
+                )
               ],
             ),
             const SizedBox(height: 26),
@@ -272,8 +303,13 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
             /// Кнопка [Работать автономно]  в режиме без длительности
             if (widget.driver.stage().duration < 0)
               Container(
-                padding: const EdgeInsets.all(15),
-                child: TexelButton.accent(
+                padding: const EdgeInsets.only(
+                  left: 16,
+                  right: 16,
+                  top: 16,
+                  bottom: 20,
+                ),
+                child: TexelButton.black(
                   text: 'Работать автономно',
                   onPressed: () {
                     widget.driver.setIsWorkAuto(true);
@@ -423,31 +459,6 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
     }
   }
 
-  Widget _getPlayPauseButton(TypePlayPauseButton icon) {
-    return GestureDetector(
-      onTap: () {
-        setState(() {
-          widget.driver.pause();
-          if (!widget.driver.isPlaying()) {
-            _powerSet = 0;
-          }
-        });
-      },
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 12),
-        child: SizedBox(
-          width: 36,
-          height: 36,
-          child: Image.asset(
-            icon == TypePlayPauseButton.play
-                ? 'images/play.png'
-                : 'images/pause.png',
-          ),
-        ),
-      ),
-    );
-  }
-
   String _stimulationParamsToString() {
     String retval = '';
 
@@ -472,4 +483,4 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
   }
 }
 
-enum TypePlayPauseButton { play, pause }
+// enum TypePlayPauseButton { play, pause }
