@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:bgs_control/assets/themes/light_theme.dart';
 import 'package:bgs_control/features/invitation_to_connect_screen/view/invitation_to_connect_screen.dart';
 import 'package:bgs_control/repositories/methodic_programs/storage/program_storage.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:get_it/get_it.dart';
@@ -54,6 +55,7 @@ class _BgsAppState extends State<BgsApp>{
       title: 'bgs',
       theme: lightTheme,
       home: screen,
+      debugShowCheckedModeBanner: kDebugMode ? true : false,
     );
   }
 

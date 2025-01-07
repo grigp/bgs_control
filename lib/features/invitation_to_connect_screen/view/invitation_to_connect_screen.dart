@@ -28,14 +28,12 @@ class _InvitationToConnectScreenState extends State<InvitationToConnectScreen> {
       //   backgroundColor: Theme.of(context).colorScheme.inversePrimary,
       //   title: Text(widget.title),
       // ),
-      body: Center(
-        child: Padding(
-          padding: const EdgeInsets.only(top: 20, bottom: 20),
+      body: SafeArea(
+        child: Center(
           child: Stack(
             children: [
               Column(
                 children: [
-                  const SizedBox(height: 30),
                   Container(
                     color: backgroundTestColor,
                     child: Image.asset('images/background_woman.png'),

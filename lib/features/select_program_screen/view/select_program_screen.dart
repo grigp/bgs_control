@@ -48,21 +48,16 @@ class _SelectProgramScreenState extends State<SelectProgramScreen> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.only(top: 20),
+      body: SafeArea(
+        bottom: false,
         child: Stack(
           children: [
-            Column(
-              children: [
-                const SizedBox(height: 30),
-                Container(
-                  color: backgroundTestColor,
-                  child: Image.asset('images/background_woman.png'),
-                ),
-              ],
+            Container(
+              color: backgroundTestColor,
+              child: Image.asset('images/background_woman.png'),
             ),
             Positioned(
-              top: 40,
+              top: 20,
               left: 20,
               child: BackScreenButton(
                 onBack: () {
@@ -80,7 +75,6 @@ class _SelectProgramScreenState extends State<SelectProgramScreen> {
                 Container(
                   width: double.infinity,
                   height: 500,
-                  padding: const EdgeInsets.all(0),
                   decoration: BoxDecoration(
                     color: backgroundColor,
                     borderRadius: BorderRadius.circular(10),
@@ -116,7 +110,7 @@ class _SelectProgramScreenState extends State<SelectProgramScreen> {
                       ),
                       Expanded(
                         child: ListView(
-                          padding: const EdgeInsets.only(bottom: 10),
+                          padding: const EdgeInsets.only(bottom: 20),
                           shrinkWrap: true,
                           children: <Widget>[
                             ..._buildProgramTiles(context),

@@ -36,175 +36,183 @@ class _ParamsWidgetState extends State<ParamsWidget> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    return Column(
-      children: [
-        Row(
-          /// Флажок "AM"
-          children: [
-            Text(
-              'Ампл. модуляция (AM)',
-              style: theme.textTheme.labelMedium,
-              textScaler: const TextScaler.linear(1.0),
-            ),
-            const Spacer(),
-            Switch(
-              value: widget.isAm,
-              onChanged: (bool? value) {
-                setState(() {
-                  widget.isAm = value!;
-                });
-                widget.onAmChanged(widget.isAm);
-              },
-            ),
-          ],
-        ),
-        if (widget.isAm)
-
-          /// Переключатель амплитудной модуляции
-          SizedBox(
-            width: double.infinity,
-            child: SegmentedButton<AmMode>(
-              segments: <ButtonSegment<AmMode>>[
-                ButtonSegment<AmMode>(
-                  value: AmMode.am_11,
-                  label: Text(
-                    amModeNames[AmMode.am_11]!,
-                    textScaler: const TextScaler.linear(1.0),
-                  ),
-                ),
-                ButtonSegment<AmMode>(
-                  value: AmMode.am_31,
-                  label: Text(
-                    amModeNames[AmMode.am_31]!,
-                    textScaler: const TextScaler.linear(1.0),
-                  ),
-                ),
-                ButtonSegment<AmMode>(
-                  value: AmMode.am_51,
-                  label: Text(
-                    amModeNames[AmMode.am_51]!,
-                    textScaler: const TextScaler.linear(1.0),
-                  ),
-                ),
-              ],
-              selected: <AmMode>{widget.amMode},
-              onSelectionChanged: (Set<AmMode> newSelection) {
-                setState(() {
-                  widget.amMode = newSelection.first;
-                  widget.onAmModeChanged(widget.amMode);
-                });
-              },
-            ),
-          ),
-        const Divider(),
-        Row(
-          /// Флажок "FM"
-          children: [
-            Text(
-              'Част. модуляция (FM)',
-              style: theme.textTheme.labelMedium,
-              textScaler: const TextScaler.linear(1.0),
-            ),
-            const Spacer(),
-            Switch(
-              value: widget.isFm,
-              onChanged: (bool? value) {
-                setState(() {
-                  widget.isFm = value!;
-                });
-                widget.onFmChanged(widget.isFm);
-              },
-            ),
-          ],
-        ),
-        const Divider(),
-        const SizedBox(height: 10),
-        if (!widget.isFm)
-
-          /// Регулятор частоты
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8),
+      child: Column(
+        children: [
+          Row(
+            /// Флажок "AM"
             children: [
               Text(
-                'Частота: ${freqValue[widget.idxFreq]!.toInt()}',
+                'Ампл. модуляция (AM)',
                 style: theme.textTheme.labelMedium,
                 textScaler: const TextScaler.linear(1.0),
               ),
-              Slider.adaptive(
-                value: widget.idxFreq,
-                label: freqValue[widget.idxFreq]!.round().toString(),
-                min: 0,
-                max: 6,
-                divisions: 6,
-                onChanged: (double value) {
+              const Spacer(),
+              Switch(
+                value: widget.isAm,
+                onChanged: (bool? value) {
                   setState(() {
-                    widget.idxFreq = value;
+                    widget.isAm = value!;
                   });
-                },
-                onChangeEnd: (double value) {
-                  /// В этот момент мы будем устанавливать частоту
-                  widget.onFreqChanged(widget.idxFreq);
+                  widget.onAmChanged(widget.isAm);
                 },
               ),
-              const Divider(),
             ],
           ),
-        const SizedBox(height: 10),
-        Column(
-          /// Переключатель интенсивности
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'Интенсивность',
-              style: theme.textTheme.labelMedium,
-              textScaler: const TextScaler.linear(1.0),
-            ),
-            const SizedBox(height: 10),
+
+          if (widget.isAm)
+            /// Переключатель амплитудной модуляции
             SizedBox(
               width: double.infinity,
-              child: SegmentedButton<Intensivity>(
-                segments: const <ButtonSegment<Intensivity>>[
-                  ButtonSegment<Intensivity>(
-                    value: Intensivity.one,
+              child: SegmentedButton<AmMode>(
+                segments: <ButtonSegment<AmMode>>[
+                  ButtonSegment<AmMode>(
+                    value: AmMode.am_11,
                     label: Text(
-                      '1',
+                      amModeNames[AmMode.am_11]!,
                       textScaler: const TextScaler.linear(1.0),
                     ),
                   ),
-                  ButtonSegment<Intensivity>(
-                    value: Intensivity.two,
+                  ButtonSegment<AmMode>(
+                    value: AmMode.am_31,
                     label: Text(
-                      '2',
+                      amModeNames[AmMode.am_31]!,
                       textScaler: const TextScaler.linear(1.0),
                     ),
                   ),
-                  ButtonSegment<Intensivity>(
-                    value: Intensivity.three,
+                  ButtonSegment<AmMode>(
+                    value: AmMode.am_51,
                     label: Text(
-                      '3',
-                      textScaler: const TextScaler.linear(1.0),
-                    ),
-                  ),
-                  ButtonSegment<Intensivity>(
-                    value: Intensivity.four,
-                    label: Text(
-                      '4',
+                      amModeNames[AmMode.am_51]!,
                       textScaler: const TextScaler.linear(1.0),
                     ),
                   ),
                 ],
-                selected: <Intensivity>{widget.intensity},
-                onSelectionChanged: (Set<Intensivity> newSelection) {
+                selected: <AmMode>{widget.amMode},
+                onSelectionChanged: (Set<AmMode> newSelection) {
                   setState(() {
-                    widget.intensity = newSelection.first;
+                    widget.amMode = newSelection.first;
+                    widget.onAmModeChanged(widget.amMode);
                   });
-                  widget.onIntensityChanged(widget.intensity);
                 },
               ),
             ),
-          ],
-        ),
-      ],
+
+          const Divider(),
+
+          Row(
+            /// Флажок "FM"
+            children: [
+              Text(
+                'Част. модуляция (FM)',
+                style: theme.textTheme.labelMedium,
+                textScaler: const TextScaler.linear(1.0),
+              ),
+              const Spacer(),
+              Switch(
+                value: widget.isFm,
+                onChanged: (bool? value) {
+                  setState(() {
+                    widget.isFm = value!;
+                  });
+                  widget.onFmChanged(widget.isFm);
+                },
+              ),
+            ],
+          ),
+
+          const Divider(),
+          const SizedBox(height: 10),
+
+          if (!widget.isFm)
+            /// Регулятор частоты
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Частота: ${freqValue[widget.idxFreq]!.toInt()}',
+                  style: theme.textTheme.labelMedium,
+                  textScaler: const TextScaler.linear(1.0),
+                ),
+                Slider.adaptive(
+                  value: widget.idxFreq,
+                  label: freqValue[widget.idxFreq]!.round().toString(),
+                  min: 0,
+                  max: 6,
+                  divisions: 6,
+                  onChanged: (double value) {
+                    setState(() {
+                      widget.idxFreq = value;
+                    });
+                  },
+                  onChangeEnd: (double value) {
+                    /// В этот момент мы будем устанавливать частоту
+                    widget.onFreqChanged(widget.idxFreq);
+                  },
+                ),
+                const Divider(),
+              ],
+            ),
+
+          const SizedBox(height: 10),
+
+          Column(
+            /// Переключатель интенсивности
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'Интенсивность',
+                style: theme.textTheme.labelMedium,
+                textScaler: const TextScaler.linear(1.0),
+              ),
+              const SizedBox(height: 10),
+              SizedBox(
+                width: double.infinity,
+                child: SegmentedButton<Intensivity>(
+                  segments: const <ButtonSegment<Intensivity>>[
+                    ButtonSegment<Intensivity>(
+                      value: Intensivity.one,
+                      label: Text(
+                        '1',
+                        textScaler: const TextScaler.linear(1.0),
+                      ),
+                    ),
+                    ButtonSegment<Intensivity>(
+                      value: Intensivity.two,
+                      label: Text(
+                        '2',
+                        textScaler: const TextScaler.linear(1.0),
+                      ),
+                    ),
+                    ButtonSegment<Intensivity>(
+                      value: Intensivity.three,
+                      label: Text(
+                        '3',
+                        textScaler: const TextScaler.linear(1.0),
+                      ),
+                    ),
+                    ButtonSegment<Intensivity>(
+                      value: Intensivity.four,
+                      label: Text(
+                        '4',
+                        textScaler: const TextScaler.linear(1.0),
+                      ),
+                    ),
+                  ],
+                  selected: <Intensivity>{widget.intensity},
+                  onSelectionChanged: (Set<Intensivity> newSelection) {
+                    setState(() {
+                      widget.intensity = newSelection.first;
+                    });
+                    widget.onIntensityChanged(widget.intensity);
+                  },
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
     );
   }
 }

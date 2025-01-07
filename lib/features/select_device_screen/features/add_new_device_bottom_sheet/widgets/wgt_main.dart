@@ -1,3 +1,4 @@
+import 'package:bgs_control/assets/colors/colors.dart';
 import 'package:bgs_control/repositories/bgs_list/bgs_list.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
@@ -20,28 +21,62 @@ class WgtMain extends StatelessWidget {
     return SizedBox(
       height: 500,
       width: double.infinity,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Text(
-              'Добавить стимулятор',
-              style: theme.textTheme.titleMedium, /// TODO(Yasliks): добавить отдельный стиль для боттомШитов
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(
+              horizontal: 16,
+              vertical: 12,
             ),
-            const SizedBox(height: 15),
-            Expanded(
+            child: Row(
+              children: [
+                Text(
+                  'Добавить стимулятор',
+                  style: theme.textTheme.titleMedium,
+                  textScaler: const TextScaler.linear(1.0),
+                ),
+                const Spacer(),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: Container(
+                    padding: const EdgeInsets.all(4),
+                    decoration: BoxDecoration(
+                      color: filledSecondaryItemColor,
+                      borderRadius: BorderRadius.circular(300),
+                    ),
+                    child: const Icon(
+                      Icons.close,
+                      size: 20,
+                      color: black,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          const Divider(
+            height: 0,
+            indent: 0,
+            thickness: 1,
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: Expanded(
               child: ListView.separated(
                 shrinkWrap: true,
                 itemCount: list.length,
                 separatorBuilder: (BuildContext context, int index) =>
-                    const Divider(),
+                    const SizedBox.shrink(),
                 itemBuilder: (BuildContext context, int index) {
                   return GestureDetector(
                     onTap: () {
                       if (!listRegistred.contains(list[index])) {
                         GetIt.I<BgsList>().add(list[index]);
                         Navigator.pop(context);
+
                         /// Покажем окно предупреждения
                         MaterialPageRoute route = MaterialPageRoute(
                           builder: (context) => const AttentionScreen(
@@ -52,24 +87,37 @@ class WgtMain extends StatelessWidget {
                         Navigator.of(context).push(route);
                       }
                     },
-                    child: Row(
+                    child: Column(
                       children: [
-                        Image.asset(
-                          'lib/assets/bgs/BGS_64.png',
-                          width: 40,
-                          height: 40,
-                        ),
-                        const SizedBox(width: 10),
-                        Expanded(
-                          child: Text(
-                            getFullDeviceName(list[index]),
-                            overflow: TextOverflow.ellipsis,
-                            textScaler: const TextScaler.linear(1.0),
-                            style: listRegistred.contains(list[index])
-                                ? theme.textTheme.labelMedium
-                                : theme.textTheme.labelMedium?.copyWith(fontWeight: FontWeight.bold),
-                            maxLines: 2,
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 14),
+                          child: Row(
+                            children: [
+                              Image.asset(
+                                'lib/assets/bgs/BGS_64.png',
+                                width: 40,
+                                height: 40,
+                              ),
+                              const SizedBox(width: 10),
+                              Expanded(
+                                child: Text(
+                                  getFullDeviceName(list[index]),
+                                  overflow: TextOverflow.ellipsis,
+                                  textScaler: const TextScaler.linear(1.0),
+                                  style: listRegistred.contains(list[index])
+                                      ? theme.textTheme.labelMedium
+                                      : theme.textTheme.labelMedium?.copyWith(
+                                          fontWeight: FontWeight.bold),
+                                  maxLines: 2,
+                                ),
+                              ),
+                            ],
                           ),
+                        ),
+                        const Divider(
+                          height: 0,
+                          indent: 0,
+                          thickness: 1,
                         ),
                       ],
                     ),
@@ -77,8 +125,8 @@ class WgtMain extends StatelessWidget {
                 },
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

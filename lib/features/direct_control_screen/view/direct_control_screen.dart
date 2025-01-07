@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bgs_control/features/direct_control_screen/widgets/params_widget.dart';
 import 'package:bgs_control/features/direct_control_screen/widgets/power_horizontal_widget.dart';
+import 'package:bgs_control/features/uikit/widgets/back_screen_button.dart';
 import 'package:bgs_control/features/uikit/widgets/charge_message_widget.dart';
 import 'package:bgs_control/repositories/bgs_connect/bgs_connect.dart';
 import 'package:bgs_control/utils/charge_values.dart';
@@ -60,6 +61,12 @@ class _DirectControlScreenState extends State<DirectControlScreen> {
     final theme = Theme.of(context);
     return Scaffold(
       appBar: AppBar(
+        leading: BackScreenButton(
+          onBack: () {
+            Navigator.pop(context);
+          },
+          hasBackground: false,
+        ),
         title: Text(
           'Прямое управление',
 //          '${widget.title}: ${widget.driver.device.advName}',
@@ -76,34 +83,36 @@ class _DirectControlScreenState extends State<DirectControlScreen> {
           const SizedBox(width: 10),
         ],
       ),
-      body: ListView(
-        padding: const EdgeInsets.all(20),
-        children: [
-          if (_chargeLevel <= chargeAlarmBoundLevel)
-            const ChargeMessageWidget(),
-          if (kDebugMode)
-            Text(
-              '($_dataCount)  ${_valueToString()}',
-              style: theme.textTheme.bodySmall,
-              textScaler: const TextScaler.linear(1.0),
+      body: SafeArea(
+        child: ListView(
+          padding: const EdgeInsets.all(20),
+          children: [
+            if (_chargeLevel <= chargeAlarmBoundLevel)
+              const ChargeMessageWidget(),
+            if (kDebugMode)
+              Text(
+                '($_dataCount)  ${_valueToString()}',
+                style: theme.textTheme.bodySmall,
+                textScaler: const TextScaler.linear(1.0),
+              ),
+            const SizedBox(height: 10),
+            SizedBox(
+              width: double.infinity,
+              child: ParamsWidget(
+                isAm: _isAm,
+                onAmChanged: onAmChanged,
+                amMode: _amMode,
+                onAmModeChanged: onAmModeChanged,
+                isFm: _isFm,
+                onFmChanged: onFmChanged,
+                idxFreq: _idxFreq,
+                onFreqChanged: onFreqChanged,
+                intensity: _intensivity,
+                onIntensityChanged: onIntensityChanged,
+              ),
             ),
-          const SizedBox(height: 10),
-          SizedBox(
-            width: double.infinity,
-            child: ParamsWidget(
-              isAm: _isAm,
-              onAmChanged: onAmChanged,
-              amMode: _amMode,
-              onAmModeChanged: onAmModeChanged,
-              isFm: _isFm,
-              onFmChanged: onFmChanged,
-              idxFreq: _idxFreq,
-              onFreqChanged: onFreqChanged,
-              intensity: _intensivity,
-              onIntensityChanged: onIntensityChanged,
-            ),
-          ),
-        ],
+          ],
+        ),
       ),
       bottomNavigationBar: BottomAppBar(
         color: backgroundTestColor,

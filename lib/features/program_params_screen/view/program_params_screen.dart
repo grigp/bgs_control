@@ -1,11 +1,9 @@
 import 'package:bgs_control/features/program_params_screen/widgets/stage_title.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 
 import '../../../assets/colors/colors.dart';
 import '../../../repositories/methodic_programs/model/methodic_program.dart';
 import '../../../repositories/running_manager/device_program_executor.dart';
-import '../../../utils/baseutils.dart';
 import '../../execute_screen/view/execute_screen.dart';
 import '../../uikit/texel_button.dart';
 import '../../uikit/widgets/back_screen_button.dart';
@@ -31,25 +29,24 @@ class _ProgramParamsScreenState extends State<ProgramParamsScreen> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.only(top: 20, bottom: 20), //.all(20),
+      body: SafeArea(
         child: Stack(
           children: [
             Column(
               children: [
-                const SizedBox(height: 30),
                 // if (_chargeLevel <= chargeAlarmBoundLevel)
                 //   const ChargeMessageWidget(),
                 Image.asset('images/background_hand.png'),
               ],
             ),
             Positioned(
-              top: 40,
+              top: 20,
               left: 10,
-              child: BackScreenButton(onBack: () {
-                Navigator.pop(context);
-              },
-              hasBackground: true,
+              child: BackScreenButton(
+                onBack: () {
+                  Navigator.pop(context);
+                },
+                hasBackground: true,
               ),
             ),
             Column(
@@ -104,7 +101,7 @@ class _ProgramParamsScreenState extends State<ProgramParamsScreen> {
                       ),
                       Expanded(
                         child: ListView(
-                          padding: const EdgeInsets.only(bottom: 10),
+                          padding: const EdgeInsets.only(),
                           shrinkWrap: true,
                           children: <Widget>[
                             ..._buildStageTiles(context),
@@ -116,7 +113,7 @@ class _ProgramParamsScreenState extends State<ProgramParamsScreen> {
                 ),
                 Center(
                   child: Padding(
-                    padding: const EdgeInsets.only(left: 10, right: 10),
+                    padding: const EdgeInsets.all(10),
                     child: TexelButton.accent(
                       onPressed: () {
                         MaterialPageRoute route = MaterialPageRoute(

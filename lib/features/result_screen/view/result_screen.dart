@@ -31,8 +31,7 @@ class _ResultScreenState extends State<ResultScreen> {
         });
       },
       child: Scaffold(
-        body: Padding(
-          padding: const EdgeInsets.all(20),
+        body: SafeArea(
           child: Column(
             children: [
               const SizedBox(height: 60),
@@ -51,8 +50,9 @@ class _ResultScreenState extends State<ResultScreen> {
                         width: 120,
                         child: CustomPaint(
                           painter: CircularValueDiag.text(
-                              getTimeBySecCount(widget.driver.playingTime()),
-                              'мин:сек'),
+                            getTimeBySecCount(widget.driver.playingTime()),
+                            'мин:сек',
+                          ),
                         ),
                       ),
                       SizedBox(
@@ -123,12 +123,20 @@ class _ResultScreenState extends State<ResultScreen> {
                 ],
               ),
               const Spacer(),
-              TexelButton.accent(
-                onPressed: () {
-                  Navigator.of(context)
-                      .popUntil(ModalRoute.withName('/select_method'));
-                },
-                text: 'Выйти',
+              Padding(
+                padding: const EdgeInsets.only(
+                  right: 14,
+                  left: 14,
+                  bottom: 14,
+                ),
+                child: TexelButton.accent(
+                  onPressed: () {
+                    Navigator.of(context).popUntil(
+                      ModalRoute.withName('/select_method'),
+                    );
+                  },
+                  text: 'Выйти',
+                ),
               ),
               // TexelButton.accent(
               //   onPressed: () {

@@ -33,18 +33,20 @@ class _LogScreenState extends State<LogScreen> {
           style: theme.textTheme.titleMedium,
         ),
       ),
-      body: Column(
-        children: [
-          Expanded(
-            child: TextViewerPage(
-              textViewer: TextViewer.textValue(
-                formatLog(),
-                highLightColor: Colors.yellow,
-                focusColor: Colors.orange,
+      body: SafeArea(
+        child: Column(
+          children: [
+            Expanded(
+              child: TextViewerPage(
+                textViewer: TextViewer.textValue(
+                  formatLog(),
+                  highLightColor: Colors.yellow,
+                  focusColor: Colors.orange,
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
       floatingActionButton: Row(
         mainAxisAlignment: MainAxisAlignment.end,

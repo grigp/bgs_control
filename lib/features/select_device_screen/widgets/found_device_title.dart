@@ -50,51 +50,56 @@ class _FoundDeviceTitleState extends State<FoundDeviceTitle> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    return Column(
-      children: [
-        Row(
+    return GestureDetector(
+      onTap: () {
+        if (widget.result.advertisementData.connectable) {
+          widget.onTap?.call();
+        }
+      },
+      child: Container(
+        decoration: const BoxDecoration(
+          color: Colors.transparent,
+        ),
+        child: Column(
           children: [
-            const SizedBox(width: 10),
-            GestureDetector(
-              onTap: () {
-                if (widget.result.advertisementData.connectable) {
-                  widget.onTap?.call();
-                }
-              },
-              child: _buildTitle(context, theme),
-            ),
-            const Spacer(),
-            PopupMenuButton(
-              icon: const Icon(Icons.more_horiz),
-              onSelected: (DeviceActions item) {
-                widget.onDelete?.call();
-              },
-              itemBuilder: (BuildContext context) =>
-                  <PopupMenuEntry<DeviceActions>>[
-                const PopupMenuItem<DeviceActions>(
-                  value: DeviceActions.delete,
-                  child: ListTile(
-                    leading: Icon(Icons.delete),
-                    title: Text(
-                      'Удалить',
-                      textScaler: const TextScaler.linear(1.0),
+            Row(
+              children: [
+                const SizedBox(width: 10),
+                _buildTitle(context, theme),
+                const Spacer(),
+                PopupMenuButton(
+                  icon: const Icon(Icons.more_horiz),
+                  onSelected: (DeviceActions item) {
+                    widget.onDelete?.call();
+                  },
+                  itemBuilder: (BuildContext context) =>
+                      <PopupMenuEntry<DeviceActions>>[
+                    const PopupMenuItem<DeviceActions>(
+                      value: DeviceActions.delete,
+                      child: ListTile(
+                        leading: Icon(Icons.delete),
+                        title: Text(
+                          'Удалить',
+                          textScaler: TextScaler.linear(1.0),
+                        ),
+                      ),
                     ),
-                  ),
+                  ],
                 ),
+                const SizedBox(width: 10),
               ],
             ),
-            const SizedBox(width: 10),
+            const Padding(
+              padding: EdgeInsets.only(left: 76),
+              child: Divider(
+                height: 0,
+                indent: 0,
+                thickness: 1,
+              ),
+            ),
           ],
         ),
-        const Padding(
-          padding: EdgeInsets.only(left: 76),
-          child: Divider(
-            height: 0,
-            indent: 0,
-            thickness: 1,
-          ),
-        ),
-      ],
+      ),
     );
   }
 

@@ -96,69 +96,74 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
         );
       },
       child: Scaffold(
-        body: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
+        body: SafeArea(
           child: RefreshIndicator(
             onRefresh: onRefresh,
             child: Stack(
               children: [
                 _scanResultCount() > 0
-                    ? Column(
-                        children: [
-                          const SizedBox(height: 60),
-                          Row(
-                            children: [
-                              const SizedBox(width: 10),
-                              Text(
-                                widget.title,
-                                style: theme.textTheme.titleMedium,
-                                textScaler: const TextScaler.linear(1.0),
-                              ),
-                              const Spacer(),
-                              if (kDebugMode)
-                                GestureDetector(
-                                  onTap: () {
-                                    MaterialPageRoute route = MaterialPageRoute(
-                                      builder: (context) => const LogScreen(
-                                        title: 'Лог обмена данными',
-                                      ),
-                                      settings: const RouteSettings(
-                                          name: '/log_comm'),
-                                    );
-                                    Navigator.of(context).push(route);
-                                  },
-                                  child: const Icon(Icons.book),
-                                ),
-                            ],
-                          ),
-                          ListView(
-                            padding: const EdgeInsets.only(),
-                            shrinkWrap: true,
-                            children: <Widget>[
-                              ..._buildScanResultTiles(context),
-                            ],
-                          ),
-                          if (_missingDevices.isNotEmpty)
-                            ExpansionTile(
-                              title: Text(
-                                'Подключенные ранее',
-                                style: theme.textTheme.titleLarge,
-                                textScaler: const TextScaler.linear(1.0),
-                              ),
-                              children: <Widget>[
-                                SizedBox(
-                                  width: double.infinity,
-                                  child: ListView(
-                                    padding: const EdgeInsets.only(),
-                                    shrinkWrap: true,
-                                    children: <Widget>[
-                                      ..._buildMissingDevicesTiles(context),
-                                    ],
+                    ? Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 12),
+                        child: Column(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 18),
+                              child: Row(
+                                children: [
+                                  const SizedBox(width: 10),
+                                  Text(
+                                    widget.title,
+                                    style: theme.textTheme.titleMedium,
+                                    textScaler: const TextScaler.linear(1.0),
                                   ),
-                                )
+                                  const Spacer(),
+                                  if (kDebugMode)
+                                    GestureDetector(
+                                      onTap: () {
+                                        MaterialPageRoute route =
+                                            MaterialPageRoute(
+                                          builder: (context) => const LogScreen(
+                                            title: 'Лог обмена данными',
+                                          ),
+                                          settings: const RouteSettings(
+                                              name: '/log_comm'),
+                                        );
+                                        Navigator.of(context).push(route);
+                                      },
+                                      child: const Icon(Icons.book),
+                                    ),
+                                ],
+                              ),
+                            ),
+                            ListView(
+                              padding: const EdgeInsets.only(),
+                              shrinkWrap: true,
+                              children: <Widget>[
+                                ..._buildScanResultTiles(context),
                               ],
                             ),
-                        ],
+                            if (_missingDevices.isNotEmpty)
+                              ExpansionTile(
+                                title: Text(
+                                  'Подключенные ранее',
+                                  style: theme.textTheme.titleSmall,
+                                  textScaler: const TextScaler.linear(1.0),
+                                ),
+                                children: <Widget>[
+                                  SizedBox(
+                                    width: double.infinity,
+                                    child: ListView(
+                                      padding: const EdgeInsets.only(),
+                                      shrinkWrap: true,
+                                      children: <Widget>[
+                                        ..._buildMissingDevicesTiles(context),
+                                      ],
+                                    ),
+                                  )
+                                ],
+                              ),
+                          ],
+                        ),
                       )
                     : Column(
                         mainAxisAlignment: MainAxisAlignment.start,
@@ -188,11 +193,10 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
                         ],
                       ),
                 Positioned(
-                  bottom: 20,
+                  bottom: 10,
                   right: 20,
                   left: 20,
                   child: TexelButton.secondary(
-                    //.accent(
                     text: 'Добавить стимулятор',
                     onPressed: () {
                       _addDeviceDialog(context);
@@ -442,7 +446,7 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
       builder: (BuildContext context) {
         return const AddNewDeviceBottomSheet();
       },
-      showDragHandle: true,
+      // showDragHandle: true,
     );
   }
 

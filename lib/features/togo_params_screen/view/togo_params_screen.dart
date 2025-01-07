@@ -1,8 +1,6 @@
 import 'package:bgs_control/features/execute_screen/view/execute_screen.dart';
 import 'package:bgs_control/repositories/methodic_programs/model/methodic_program.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_blue_plus/flutter_blue_plus.dart';
-import 'package:get_it/get_it.dart';
 import 'package:uuid/uuid.dart';
 
 import '../../../assets/colors/colors.dart';
@@ -40,63 +38,62 @@ class _TogoParamsScreenState extends State<TogoParamsScreen> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return Scaffold(
-      body: Center(
-        child: Padding(
-          padding: const EdgeInsets.only(top: 0),
-          child: Stack(
-            children: [
-              Column(
-                children: [
-                  const SizedBox(height: 40),
-                  SizedBox(
-                    child: Image.asset('images/background_hand.png', fit: BoxFit.fill,),
-                  ),
-                ],
+      body: SafeArea(
+        child: Stack(
+          children: [
+            Container(
+              width: double.infinity,
+              color: backgroundTestColor,
+              child: Image.asset(
+                'images/background_hand.png',
+                fit: BoxFit.fill,
               ),
-              Positioned(
-                top: 55,
-                left: 20,
-                child: BackScreenButton(
-                    onBack: (){Navigator.pop(context);},
-                  hasBackground: true,
-                ),
+            ),
+            Positioned(
+              top: 20,
+              left: 20,
+              child: BackScreenButton(
+                onBack: () {
+                  Navigator.pop(context);
+                },
+                hasBackground: true,
               ),
-              Column(
-                children: [
-                  const SizedBox(
-                    width: double.infinity,
-                    height: 330,
+            ),
+            Column(
+              children: [
+                const Spacer(),
+                Container(
+                  width: double.infinity,
+                  height: 500,
+                  decoration: BoxDecoration(
+                    color: backgroundColor,
+                    borderRadius: BorderRadius.circular(10),
                   ),
-                  Container(
-                    decoration: BoxDecoration(
-                      color: backgroundColor,
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Column(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 10,
-                            vertical: 8,
-                          ),
-                          child: Row(
-                            children: [
-                              Text(
-                                'Индивидуальный режим',
-                                style: theme.textTheme.titleMedium,
-                                textScaler: const TextScaler.linear(1.0),
-                              ),
-                              const Spacer(),
-                            ],
-                          ),
+                  child: Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 10,
+                          vertical: 8,
                         ),
-                        const Divider(
-                          height: 0,
-                          indent: 0,
-                          thickness: 1,
+                        child: Row(
+                          children: [
+                            Text(
+                              'Индивидуальный режим',
+                              style: theme.textTheme.titleMedium,
+                              textScaler: const TextScaler.linear(1.0),
+                            ),
+                          ],
                         ),
-                        ListView(
-                          padding: const EdgeInsets.only(bottom: 10, left: 16, right: 16),
+                      ),
+                      const Divider(
+                        height: 0,
+                        indent: 0,
+                        thickness: 1,
+                      ),
+                      Expanded(
+                        child: ListView(
+                          padding: const EdgeInsets.only(right: 14, left: 14),
                           shrinkWrap: true,
                           children: [
                             SizedBox(
@@ -114,22 +111,36 @@ class _TogoParamsScreenState extends State<TogoParamsScreen> {
                                 onIntensityChanged: onIntensityChanged,
                               ),
                             ),
+                            const SizedBox(height: 60),
                           ],
-                        )
-                      ],
-                    ),
+                        ),
+                      ),
+                    ],
                   ),
-                ],
-              ),
-              Positioned(
-                bottom: 20,
-                right: 20,
-                left: 20,
+                ),
+              ],
+            ),
+            Positioned(
+              bottom: 0,
+              right: 0,
+              left: 0,
+              child: Container(
+                width: double.infinity,
+                decoration: const BoxDecoration(color: white),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 20,
+                  vertical: 10,
+                ),
                 child: TexelButton.accent(
                   text: 'Запустить',
                   onPressed: () {
-                    var program = MethodicProgram.togo(_isAM, _isFM, _amMode,
-                        _intensity, freqValue[_idxFreq]!);
+                    var program = MethodicProgram.togo(
+                      _isAM,
+                      _isFM,
+                      _amMode,
+                      _intensity,
+                      freqValue[_idxFreq]!,
+                    );
                     MaterialPageRoute route = MaterialPageRoute(
                       builder: (context) => ExecuteScreen(
                         title: 'Execution',
@@ -142,8 +153,8 @@ class _TogoParamsScreenState extends State<TogoParamsScreen> {
                   },
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

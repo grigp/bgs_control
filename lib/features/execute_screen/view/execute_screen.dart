@@ -62,13 +62,11 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
       },
       child: Scaffold(
         backgroundColor: backgroundTestColor,
-        body: Column(
-          children: [
-            const SizedBox(height: 40),
-            SizedBox(
-              width: double.infinity,
-              child: Padding(
-                padding: const EdgeInsets.all(8),
+        body: SafeArea(
+          child: Column(
+            children: [
+              SizedBox(
+                width: double.infinity,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -77,12 +75,14 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
                         final bool? dr = await showCancelDialog();
                         if (dr!) {
                           if (!context.mounted) return;
-                          Navigator.of(context)
-                              .popUntil(ModalRoute.withName('/select_method'));
+                          Navigator.of(context).popUntil(
+                              ModalRoute.withName('/select_method')
+                          );
                         }
                         // Navigator.pop(context);
                       },
                       hasBackground: false,
+                      isClose: true,
                     ),
                     Image.asset(
                       'lib/assets/icons/programs/${widget.driver.program.image}',
@@ -108,259 +108,260 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
                   ],
                 ),
               ),
-            ),
 
-            Padding(
-              padding: const EdgeInsets.only(bottom: 8),
-              child: GestureDetector(
-                onTap: () {},
-                child: Center(
-                  child: Container(
-                    padding:
-                        const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
-                    decoration: BoxDecoration(
-                      color: backgroundCarpetButtonTestColor,
-                      borderRadius: BorderRadius.circular(40),
-                    ),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        /// Нвзвание этапа
-                        Text(
-                          'Этап ${widget.driver.idxStage() + 1} : "${widget.driver.stage().comment}"',
-                          style: theme.textTheme.bodyMedium,
-                          textScaler: const TextScaler.linear(1.0),
-                        ),
-                        const SizedBox(width: 4),
-                        const Icon(
-                          Icons.info_outline,
-                          size: 18,
-                        ),
-                      ],
+              Padding(
+                padding: const EdgeInsets.only(top: 8, bottom: 8),
+                child: GestureDetector(
+                  onTap: () {},
+                  child: Center(
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(
+                        vertical: 4,
+                        horizontal: 8,
+                      ),
+                      decoration: BoxDecoration(
+                        color: backgroundCarpetButtonTestColor,
+                        borderRadius: BorderRadius.circular(40),
+                      ),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          /// Нвзвание этапа
+                          Text(
+                            'Этап ${widget.driver.idxStage() + 1} : "${widget.driver.stage().comment}"',
+                            style: theme.textTheme.bodyMedium,
+                            textScaler: const TextScaler.linear(1.0),
+                          ),
+                          const SizedBox(width: 4),
+                          const Icon(
+                            Icons.info_outline,
+                            size: 18,
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
               ),
-            ),
 
-            Text(
-              '${_powerReal.round()}',
-              style: theme.textTheme.headlineLarge,
-              textScaler: const TextScaler.linear(1.0),
-            ),
+              Text(
+                '${_powerReal.round()}',
+                style: theme.textTheme.headlineLarge,
+                textScaler: const TextScaler.linear(1.0),
+              ),
 
-            /// Установленная мощность
-            Row(
-              children: [
-                const SizedBox(width: 16),
-                Text(
-                  '${_powerSet.round()}',
-                  style: theme.textTheme.bodyLarge,
-                  textScaler: const TextScaler.linear(1.0),
-                ),
+              /// Установленная мощность
+              Row(
+                children: [
+                  const SizedBox(width: 16),
+                  Text(
+                    '${_powerSet.round()}',
+                    style: theme.textTheme.bodyLarge,
+                    textScaler: const TextScaler.linear(1.0),
+                  ),
 
-                /// Регулятор мощности
-                Expanded(
-                  child: SizedBox(
-                    width: double.infinity,
-                    child: SliderTheme(
-                      data: const SliderThemeData(
-                        showValueIndicator: ShowValueIndicator.always,
-                      ),
-                      child: Slider(
-                        value: _powerSet,
-                        label: _powerSet.round().toString(),
-                        min: 0,
-                        max: 125,
-                        activeColor: black,
-                        thumbColor: black,
-                        inactiveColor: backgroundCarpetButtonTestColor,
-                        divisions: 125,
-                        onChanged: (double value) {
-                          setState(() {
-                            _powerSet = value;
-                          });
-                        },
-                        onChangeEnd: (double value) {
-                          /// В этот момент мы будем устанавливать мощность
-                          onPowerSet(_powerSet);
-                        },
+                  /// Регулятор мощности
+                  Expanded(
+                    child: SizedBox(
+                      width: double.infinity,
+                      child: SliderTheme(
+                        data: const SliderThemeData(
+                          showValueIndicator: ShowValueIndicator.always,
+                        ),
+                        child: Slider(
+                          value: _powerSet,
+                          label: _powerSet.round().toString(),
+                          min: 0,
+                          max: 125,
+                          activeColor: black,
+                          thumbColor: black,
+                          inactiveColor: backgroundCarpetButtonTestColor,
+                          divisions: 125,
+                          onChanged: (double value) {
+                            setState(() {
+                              _powerSet = value;
+                            });
+                          },
+                          onChangeEnd: (double value) {
+                            /// В этот момент мы будем устанавливать мощность
+                            onPowerSet(_powerSet);
+                          },
+                        ),
                       ),
                     ),
                   ),
-                ),
-                const SizedBox(width: 16),
-              ],
-            ),
+                  const SizedBox(width: 16),
+                ],
+              ),
 
-            // if (widget.driver.stage().duration > 0)
-            //
-            //   /// Время этапа, если длительность этапа задана
-            //   Row(
-            //     mainAxisAlignment: MainAxisAlignment.center,
-            //     children: [
-            //       Text(
-            //         '${getTimeBySecCount(widget.driver.stageTime())} / ${getTimeBySecCount(widget.driver.stage().duration ~/ 1000)}',
-            //         style: theme.textTheme.headlineSmall,
-            //         textScaler: const TextScaler.linear(1.0),
-            //       ),
-            //     ],
-            //   ),
-            // Row(
-            //   /// Параметры воздействия
-            //   mainAxisAlignment: MainAxisAlignment.center,
-            //   children: [
-            //     Text(
-            //       _stimulationParamsToString(),
-            //       style: theme.textTheme.titleSmall,
-            //       textScaler: const TextScaler.linear(1.0),
-            //     ),
-            //   ],
-            // ),
-            const Spacer(),
+              // if (widget.driver.stage().duration > 0)
+              //
+              //   /// Время этапа, если длительность этапа задана
+              //   Row(
+              //     mainAxisAlignment: MainAxisAlignment.center,
+              //     children: [
+              //       Text(
+              //         '${getTimeBySecCount(widget.driver.stageTime())} / ${getTimeBySecCount(widget.driver.stage().duration ~/ 1000)}',
+              //         style: theme.textTheme.headlineSmall,
+              //         textScaler: const TextScaler.linear(1.0),
+              //       ),
+              //     ],
+              //   ),
+              // Row(
+              //   /// Параметры воздействия
+              //   mainAxisAlignment: MainAxisAlignment.center,
+              //   children: [
+              //     Text(
+              //       _stimulationParamsToString(),
+              //       style: theme.textTheme.titleSmall,
+              //       textScaler: const TextScaler.linear(1.0),
+              //     ),
+              //   ],
+              // ),
+              const Spacer(),
 
-            PowerVerticalWidget(
-              powerSet: _powerSet,
-              powerReal: _powerReal,
-              onPowerSet: onPowerSet,
-              onPowerReset: onPowerReset,
-            ),
+              PowerVerticalWidget(
+                powerSet: _powerSet,
+                powerReal: _powerReal,
+                onPowerSet: onPowerSet,
+                onPowerReset: onPowerReset,
+              ),
 
-            const Spacer(),
+              const Spacer(),
 
-            /// Прогресс бар для программы
-            if (widget.driver.stage().duration > 0)
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: Column(
-                  children: [
-                    Row(
-                      /// Время осталось
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          'До завершения осталось ${getTimeBySecCount(widget.driver.programDuration() - widget.driver.playingTime())}',
-                          style: theme.textTheme.titleSmall,
-                          textScaler: const TextScaler.linear(1.0),
-                        ),
-                      ],
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Expanded(
-                          child: SizedBox(
-                            width: double.infinity,
-                            height: 20,
-                            child: CustomPaint(
-                              painter: ProgramProgressBar(
-                                program: widget.driver.program,
-                                position: widget.driver.playingTime(),
+              /// Прогресс бар для программы
+              if (widget.driver.stage().duration > 0)
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: Column(
+                    children: [
+                      Row(
+                        /// Время осталось
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            'До завершения осталось ${getTimeBySecCount(widget.driver.programDuration() - widget.driver.playingTime())}',
+                            style: theme.textTheme.titleSmall,
+                            textScaler: const TextScaler.linear(1.0),
+                          ),
+                        ],
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Expanded(
+                            child: SizedBox(
+                              width: double.infinity,
+                              height: 20,
+                              child: CustomPaint(
+                                painter: ProgramProgressBar(
+                                  program: widget.driver.program,
+                                  position: widget.driver.playingTime(),
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                      ],
-                    ),
-                    Row(
-                      /// Время воздействия
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          getTimeBySecCount(widget.driver.playingTime()),
-                          style: theme.textTheme.titleSmall,
-                          textScaler: const TextScaler.linear(1.0),
-                        ),
-                        const Spacer(),
-                        Text(
-                          getTimeBySecCount(widget.driver.programDuration()),
-                          style: theme.textTheme.titleSmall,
-                          textScaler: const TextScaler.linear(1.0),
-                        ),
-                      ],
-                    ),
-                  ],
+                        ],
+                      ),
+                      Row(
+                        /// Время воздействия
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            getTimeBySecCount(widget.driver.playingTime()),
+                            style: theme.textTheme.titleSmall,
+                            textScaler: const TextScaler.linear(1.0),
+                          ),
+                          const Spacer(),
+                          Text(
+                            getTimeBySecCount(widget.driver.programDuration()),
+                            style: theme.textTheme.titleSmall,
+                            textScaler: const TextScaler.linear(1.0),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
+
+              if (_chargeLevel <= chargeAlarmBoundLevel)
+                const ChargeMessageWidget(),
+
+              Row(
+                /// Кнопка play / pause
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  PlayPauseButton(
+                    type: widget.driver.isPlaying()
+                        ? TypePlayPauseButton.pause
+                        : TypePlayPauseButton.play,
+                    onClick: () {
+                      setState(() {
+                        widget.driver.pause();
+                        if (!widget.driver.isPlaying()) {
+                          _powerSet = 0;
+                        }
+                      });
+                    },
+                  )
+                ],
               ),
 
-            if (_chargeLevel <= chargeAlarmBoundLevel)
-              const ChargeMessageWidget(),
-
-            Row(
-              /// Кнопка play / pause
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                PlayPauseButton(
-                  type: widget.driver.isPlaying()
-                      ? TypePlayPauseButton.pause
-                      : TypePlayPauseButton.play,
-                  onClick: () {
-                    setState(() {
-                      widget.driver.pause();
-                      if (!widget.driver.isPlaying()) {
-                        _powerSet = 0;
-                      }
-                    });
-                  },
-                )
-              ],
-            ),
-            const SizedBox(height: 26),
-
-            /// Кнопка [Работать автономно]  в режиме без длительности
-            if (widget.driver.stage().duration < 0)
-              Container(
-                padding: const EdgeInsets.only(
-                  left: 16,
-                  right: 16,
-                  top: 16,
-                  bottom: 20,
+              /// Кнопка [Работать автономно]  в режиме без длительности
+              if (widget.driver.stage().duration < 0)
+                Container(
+                  padding: const EdgeInsets.only(
+                    left: 16,
+                    right: 16,
+                    top: 16,
+                    bottom: 20,
+                  ),
+                  child: TexelButton.black(
+                    text: 'Работать автономно',
+                    onPressed: () {
+                      widget.driver.setIsWorkAuto(true);
+                      Navigator.of(context)
+                          .popUntil(ModalRoute.withName('/select'));
+                    },
+                  ),
                 ),
-                child: TexelButton.black(
-                  text: 'Работать автономно',
-                  onPressed: () {
-                    widget.driver.setIsWorkAuto(true);
-                    Navigator.of(context)
-                        .popUntil(ModalRoute.withName('/select'));
-                  },
-                ),
-              ),
 
-            // if (widget.driver.isPlaying() && _powerReal >= 20)
-            //   Row(
-            //     children: [
-            //       const SizedBox(width: 5),
-            //       SizedBox(
-            //         width: 50,
-            //         height: 50,
-            //         child: Image.asset('images/attention.png'),
-            //       ),
-            //       const SizedBox(width: 5),
-            //       Expanded(
-            //         child: Text(
-            //           'Увеличивайте мощность воздействия, не допуская появления болевых ощущений',
-            //           style: theme.textTheme.bodyLarge,
-            //           textScaler: const TextScaler.linear(1.0),
-            //         ),
-            //       ),
-            //     ],
-            //   ),
-//             if (widget.driver.isPlaying())
-//               Container(
-//                 padding: const EdgeInsets.all(15),
-//                 decoration: BoxDecoration(
-//                   color: Theme.of(context).colorScheme.inversePrimary,
-// //                  borderRadius: BorderRadius.circular(10),
-//                 ),
-//                 child: PowerWidget(
-//                   powerSet: _powerSet,
-//                   powerReal: _powerReal,
-//                   onPowerSet: onPowerSet,
-//                   onPowerReset: onPowerReset,
-//                 ),
-//               ),
-          ],
+              // if (widget.driver.isPlaying() && _powerReal >= 20)
+              //   Row(
+              //     children: [
+              //       const SizedBox(width: 5),
+              //       SizedBox(
+              //         width: 50,
+              //         height: 50,
+              //         child: Image.asset('images/attention.png'),
+              //       ),
+              //       const SizedBox(width: 5),
+              //       Expanded(
+              //         child: Text(
+              //           'Увеличивайте мощность воздействия, не допуская появления болевых ощущений',
+              //           style: theme.textTheme.bodyLarge,
+              //           textScaler: const TextScaler.linear(1.0),
+              //         ),
+              //       ),
+              //     ],
+              //   ),
+              //             if (widget.driver.isPlaying())
+              //               Container(
+              //                 padding: const EdgeInsets.all(15),
+              //                 decoration: BoxDecoration(
+              //                   color: Theme.of(context).colorScheme.inversePrimary,
+              // //                  borderRadius: BorderRadius.circular(10),
+              //                 ),
+              //                 child: PowerWidget(
+              //                   powerSet: _powerSet,
+              //                   powerReal: _powerReal,
+              //                   onPowerSet: onPowerSet,
+              //                   onPowerReset: onPowerReset,
+              //                 ),
+              //               ),
+            ],
+          ),
         ),
       ),
     );
