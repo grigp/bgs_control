@@ -19,9 +19,15 @@ void callbackDispatcher() {
     int length = inputData?["time"];
 
     if (kDebugMode) {
-      print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
-      print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> Native called background task: $task - ${length / 1000} sec >>>>>>>>>>>>>>>>>>>>>>>>>>>>");
-      print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+      print(
+        ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>",
+      );
+      print(
+        ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> Native called background task: $task - ${length / 1000} sec >>>>>>>>>>>>>>>>>>>>>>>>>>>>",
+      );
+      print(
+        ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>",
+      );
     }
 
     await Future.delayed(Duration(milliseconds: length));
@@ -49,19 +55,25 @@ void callbackDispatcher() {
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   Workmanager().initialize(
-      callbackDispatcher,   // The top level function, aka callbackDispatcher
-      isInDebugMode: kDebugMode,  // If enabled it will post a notification whenever the task is running. Handy for debugging tasks
+    callbackDispatcher, // The top level function, aka callbackDispatcher
+    isInDebugMode: kDebugMode, // If enabled it will post a notification
+    // whenever the task is running. Handy for debugging tasks
   );
 
   GetIt.I.registerLazySingleton<BleService>(() => BleService());
   GetIt.I.registerLazySingleton<BgsList>(() => BgsList());
   GetIt.I.registerLazySingleton<ProgramStorage>(() => ProgramStorage());
   GetIt.I.registerLazySingleton<RunningManager>(() => RunningManager());
-  GetIt.I.registerLazySingleton<CommunicationLogger>(() => CommunicationLogger());
+  GetIt.I.registerLazySingleton<CommunicationLogger>(
+    () => CommunicationLogger(),
+  );
 
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations(
-    [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown],
+    [
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ],
   ).then((_) {
     runApp(const BgsApp());
   });

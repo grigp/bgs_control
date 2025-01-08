@@ -60,8 +60,8 @@ class _ParamsWidgetState extends State<ParamsWidget> {
               ),
             ],
           ),
-
           if (widget.isAm)
+
             /// Переключатель амплитудной модуляции
             SizedBox(
               width: double.infinity,
@@ -98,9 +98,7 @@ class _ParamsWidgetState extends State<ParamsWidget> {
                 },
               ),
             ),
-
           const Divider(),
-
           Row(
             /// Флажок "FM"
             children: [
@@ -121,11 +119,10 @@ class _ParamsWidgetState extends State<ParamsWidget> {
               ),
             ],
           ),
-
           const Divider(),
           const SizedBox(height: 10),
-
           if (!widget.isFm)
+
             /// Регулятор частоты
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -154,9 +151,7 @@ class _ParamsWidgetState extends State<ParamsWidget> {
                 const Divider(),
               ],
             ),
-
           const SizedBox(height: 10),
-
           Column(
             /// Переключатель интенсивности
             crossAxisAlignment: CrossAxisAlignment.start,

@@ -15,8 +15,9 @@ class MenuIconButton extends StatelessWidget {
     return ClipRRect(
       borderRadius: BorderRadius.circular(50),
       child: Image.asset(
-        type == MenuIconType.device ?
-        'lib/assets/icons/device_menu.png' : 'lib/assets/icons/methods_menu.png',
+        type == MenuIconType.device
+            ? 'lib/assets/icons/device_menu.png'
+            : 'lib/assets/icons/methods_menu.png',
         width: 50,
         height: 50,
       ),

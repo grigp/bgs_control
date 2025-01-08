@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-
 IconData getChargeIconByLevel(double val) {
   if (val >= 0 && val < 5) {
     return Icons.battery_0_bar;
@@ -54,4 +53,3 @@ double getChargeLevelByADC(int val) {
 
   return 0;
 }
-

@@ -1,10 +1,10 @@
 import 'dart:async';
+
 //import 'dart:isolate';
 
 import 'package:bgs_control/repositories/methodic_programs/model/methodic_program.dart';
 import 'package:bgs_control/utils/extra.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:uuid/uuid.dart';
 import 'package:workmanager/workmanager.dart';
@@ -12,7 +12,7 @@ import 'package:workmanager/workmanager.dart';
 import '../bgs_connect/bgs_connect.dart';
 
 /// Класс управления устройством при проведении методики
-class DeviceProgramExecutor  {
+class DeviceProgramExecutor {
   /// При создании задается только устройство, программа назначается позже
   /// И при одном сеансе могут быть назначены разные программы
   DeviceProgramExecutor({
@@ -22,18 +22,37 @@ class DeviceProgramExecutor  {
   final BgsConnect _connect = BgsConnect();
   final BluetoothDevice device;
   late MethodicProgram program = MethodicProgram(
-      uid: '', statsTitle: '', title: '', description: '', image: '');
+    uid: '',
+    statsTitle: '',
+    title: '',
+    description: '',
+    image: '',
+  );
   bool _isConnected = false;
   String _uuidGetData = '';
 
   /// Управление процессом выполнения программы
-  int _idxStage = 0;  /// Номер этапа
-  int _duration = 0;   /// Длительность этапа
-  int _progDuration = 0;   /// Длительность программы
-  bool _isPlaying = false;      /// Идет ли процесс или поставлен на паузу
-  bool _isOver = true;          /// завершена ли программа
-  int _playingTime = 0;         /// Время процесса
-  int _stageStartTime = 0;      /// Время начала этапа
+  int _idxStage = 0;
+
+  /// Номер этапа
+  int _duration = 0;
+
+  /// Длительность этапа
+  int _progDuration = 0;
+
+  /// Длительность программы
+  bool _isPlaying = false;
+
+  /// Идет ли процесс или поставлен на паузу
+  bool _isOver = true;
+
+  /// завершена ли программа
+  int _playingTime = 0;
+
+  /// Время процесса
+  int _stageStartTime = 0;
+
+  /// Время начала этапа
   late Timer _timer;
 
   bool _isWorkAuto = false;
@@ -44,26 +63,25 @@ class DeviceProgramExecutor  {
   // late Isolate _isolate;
   // final receivePort = ReceivePort();
 
-
   /// Запуск программы
   void connect() {
     // if (!_isConnected) {  События в stream(.listen) срабатывает до connect при последующих запусках
-      _connect.init(device);
-      device.connectionState.listen((event) {
-        _isConnected = event == BluetoothConnectionState.connected;
-      });
+    _connect.init(device);
+    device.connectionState.listen((event) {
+      _isConnected = event == BluetoothConnectionState.connected;
+    });
     // }
   }
 
   void disconnect(bool isReset) {
     // if (_isConnected) {
-      if (isReset) {
-        _connect.reset();
-      }
-      _connect.done();
-      _isConnected = false;
+    if (isReset) {
+      _connect.reset();
+    }
+    _connect.done();
+    _isConnected = false;
 
-      device.disconnectAndUpdateStream().catchError((e) {});
+    device.disconnectAndUpdateStream().catchError((e) {});
     // }
   }
 
@@ -86,7 +104,9 @@ class DeviceProgramExecutor  {
       _isOver = false;
       _setParamsStageToDevice();
       _progDuration = _programDuration();
-      _setWorkManagerTask(_progDuration - 2000); /// на 2 сек меньше
+      _setWorkManagerTask(_progDuration - 2000);
+
+      /// на 2 сек меньше
 //      _setWorkManagerTask(program.stage(_idxStage).duration - 2000); /// на 2 сек меньше
       _duration = program.stage(_idxStage).duration;
 
@@ -112,7 +132,7 @@ class DeviceProgramExecutor  {
     }
   }
 
-  void resetProgram(){
+  void resetProgram() {
     _idxStage = 0;
     _playingTime = 0;
     _stageStartTime = 0;
@@ -124,7 +144,7 @@ class DeviceProgramExecutor  {
 
   /// Задает программу, по которой нужно двигаться
   void setProgram(MethodicProgram prg) {
-    if(prg.uid != program.uid){
+    if (prg.uid != program.uid) {
       resetProgram();
     }
     program = prg;
@@ -186,15 +206,18 @@ class DeviceProgramExecutor  {
     _connect.setModeDepecated(idxAM, idxFM, idxIntencity);
   }
 
-  void setMode(bool isAM, bool isFM, AmMode amMode, double idxFreq, Intensivity intensity) async {
+  void setMode(bool isAM, bool isFM, AmMode amMode, double idxFreq,
+      Intensivity intensity) async {
     _connect.setMode(isAM, isFM, amMode, idxFreq, intensity);
   }
 
   int n = 0;
+
   void onGetData(BlockData data) {
     if (kDebugMode) {
       print('------------------------------------ getdata : ${++n}');
     }
+
     /// Набор статистики
     if (_isPlaying) {
       if (data.power > _maxPower) {
@@ -207,11 +230,12 @@ class DeviceProgramExecutor  {
 
   void onTimer(Timer timer) async {
     if (kDebugMode) {
-      print('---------------------------- isPlaying: $_isPlaying      timer:  $_playingTime');
+      print(
+          '---------------------------- isPlaying: $_isPlaying      timer:  $_playingTime');
     }
     if (_isPlaying) {
       ++_playingTime;
-      if (_duration > 0 && (stageTime() >= _duration / 1000)){
+      if (_duration > 0 && (stageTime() >= _duration / 1000)) {
         /// Если это не последний этап
         if (_idxStage + 1 < program.stagesCount()) {
           ++_idxStage;
@@ -237,7 +261,7 @@ class DeviceProgramExecutor  {
       // }
     }
 
-    if (_idxStage == -1){
+    if (_idxStage == -1) {
       Workmanager().cancelAll();
       timer.cancel();
     }
@@ -259,25 +283,34 @@ class DeviceProgramExecutor  {
       }
     }
     setMode(
-        stage.isAm, stage.isFm, stage.amMode, idxFreq, stage.intensity);
+      stage.isAm,
+      stage.isFm,
+      stage.amMode,
+      idxFreq,
+      stage.intensity,
+    );
   }
 
-  void _setWorkManagerTask(int duration){
+  void _setWorkManagerTask(int duration) {
     Workmanager().cancelAll();
-    Workmanager().registerOneOffTask("counter_texel", "counter_texel", inputData: {'time' : duration});
+    Workmanager().registerOneOffTask(
+      "counter_texel",
+      "counter_texel",
+      inputData: {'time': duration},
+    );
   }
 
   bool isWorkAuto() => _isWorkAuto;
-  void setIsWorkAuto(bool isWorkAuto){
+
+  void setIsWorkAuto(bool isWorkAuto) {
     _isWorkAuto = isWorkAuto;
   }
 
   int _programDuration() {
     int pd = 0;
-    for(int i = 0; i < program.stagesCount(); ++i){
+    for (int i = 0; i < program.stagesCount(); ++i) {
       pd += program.stage(i).duration;
     }
     return pd;
   }
-
 }

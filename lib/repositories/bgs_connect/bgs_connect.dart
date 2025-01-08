@@ -2,13 +2,11 @@ import 'dart:async';
 
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:get_it/get_it.dart';
+import 'package:uuid/uuid.dart';
 
 import '../../utils/charge_values.dart';
-import 'package:uuid/data.dart';
-import 'package:uuid/uuid.dart';
-import 'package:uuid/rng.dart';
-
 import '../logger/communication_logger.dart';
+
 enum AmMode { am_11, am_31, am_51 }
 
 enum Intensivity { one, two, three, four }
@@ -35,7 +33,7 @@ Map<int, Intensivity> intensivityFromJson = <int, Intensivity>{
   1: Intensivity.one,
   2: Intensivity.two,
   3: Intensivity.three,
-  4: Intensivity.four
+  4: Intensivity.four,
 };
 
 Map<double, double> freqValue = <double, double>{
@@ -45,7 +43,7 @@ Map<double, double> freqValue = <double, double>{
   3: 90,
   4: 120,
   5: 180,
-  6: 350
+  6: 350,
 };
 
 /// Класс функций, вызываемых при получении данных
@@ -95,6 +93,7 @@ class BgsConnect {
 
   late BluetoothDevice device;
   List<int> _value = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+
 //  late Function sendData;
   final List<Handler> _dataHandlers = [];
   late BluetoothCharacteristic _characteristic;
@@ -108,7 +107,7 @@ class BgsConnect {
   int _targetPower = 0;
   bool _isSending = false;
 
-  var uid = const Uuid().v1();  //TODO: Убрать!!!
+  var uid = const Uuid().v1(); //TODO: Убрать!!!
 
   Future<void> init(BluetoothDevice device) async {
     this.device = device;
@@ -133,7 +132,7 @@ class BgsConnect {
             if (_isSending && value.length == 14) {
               GetIt.I<CommunicationLogger>().log('>> $value');
               _value = value;
-              for (int i = 0; i < _dataHandlers.length; ++i){
+              for (int i = 0; i < _dataHandlers.length; ++i) {
                 _dataHandlers[i].handler(_createBlockData(_value));
               }
             }
@@ -151,7 +150,9 @@ class BgsConnect {
           /// Запускаем события от таймера, по которым будем растить мощность
           if (!_isPowerTimer) {
             _setPowerTimer = Timer.periodic(
-                const Duration(milliseconds: 1000), setPowerAction);
+              const Duration(milliseconds: 1000),
+              setPowerAction,
+            );
             _isPowerTimer = true;
           }
 
@@ -217,7 +218,8 @@ class BgsConnect {
     await _write([0xA3, idxIntencity]);
   }
 
-  void setMode(bool isAM, bool isFM, AmMode amMode, double idxFreq, Intensivity intensity) async {
+  void setMode(bool isAM, bool isFM, AmMode amMode, double idxFreq,
+      Intensivity intensity) async {
     int? idxAM = 0;
     if (isAM) {
       idxAM = amModeCode[amMode];

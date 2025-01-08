@@ -41,7 +41,7 @@ ButtonStyle messageButtonStyleSecondary() {
   );
 }
 
-ButtonStyle deleteDeviceButtonStyle(){
+ButtonStyle deleteDeviceButtonStyle() {
   return ElevatedButton.styleFrom(
     backgroundColor: Colors.teal.shade50,
     foregroundColor: Colors.teal.shade900,

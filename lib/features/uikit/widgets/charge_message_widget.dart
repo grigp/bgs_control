@@ -31,5 +31,4 @@ class _ChargeMessageWidgetState extends State<ChargeMessageWidget> {
       ),
     );
   }
-
 }

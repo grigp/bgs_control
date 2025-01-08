@@ -6,7 +6,7 @@ String intToSrt(int v) {
   return s;
 }
 
-String getTimeBySecCount(int secCnt){
+String getTimeBySecCount(int secCnt) {
   int min = secCnt ~/ 60;
   int sec = secCnt % 60;
   int hour = min ~/ 60;
@@ -14,8 +14,7 @@ String getTimeBySecCount(int secCnt){
   String sm = intToSrt(min);
   String ss = intToSrt(sec);
 
-  if (hour > 0)
-  {
+  if (hour > 0) {
     min = min % 60;
 
     String sh = intToSrt(hour);
@@ -29,7 +28,7 @@ String getTimeBySecCount(int secCnt){
 
 int getStimulatorNumber(String deviceName) {
   var list = deviceName.split('_');
-  if (list.length == 2){
+  if (list.length == 2) {
     int num = int.parse(list[1]);
     return num;
   } else {

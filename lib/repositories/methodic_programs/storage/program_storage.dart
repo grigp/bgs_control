@@ -9,7 +9,7 @@ import '../model/methodic_program.dart';
 /// Класс, предоставляющий доступ к списку доступных программ
 class ProgramStorage {
   List<dynamic>? _listPPWork = [];
-  List<MethodicProgram> _listPrograms = [];
+  final List<MethodicProgram> _listPrograms = [];
 
   void init() async {
     await _fillWorkList();
@@ -23,15 +23,17 @@ class ProgramStorage {
   /// Заполняет рабочий список программ в файле
   Future _fillWorkList() async {
     /// Список программ по умолчанию
-    String dataDef =
-        await rootBundle.loadString('lib/assets/programs/prg_main.json');
+    String dataDef = await rootBundle.loadString(
+      'lib/assets/programs/prg_main.json',
+    );
     var dd = json.decode(dataDef);
     final listPPDef = dd['programs'] as List<dynamic>?;
 
     /// Список программ из рабочего файла
     final dir = Platform.isAndroid
-         ? await getExternalStorageDirectory()
-         : await getApplicationSupportDirectory();
+        ? await getExternalStorageDirectory()
+        : await getApplicationSupportDirectory();
+
     ///-------------------------------------------------------------------
     ///Закомментировать этот участок, если надо полностью обновить рабочий файл
     /// из дефолтного списка доступных программ
@@ -42,6 +44,7 @@ class ProgramStorage {
         _listPPWork = dd['programs'] as List<dynamic>?;
       });
     }
+
     ///-------------------------------------------------------------------
 
     /// Добавление в спсисок программ рабочего файла отсутствующих в нем программ,

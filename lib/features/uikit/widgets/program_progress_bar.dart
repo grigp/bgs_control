@@ -48,8 +48,10 @@ class ProgramProgressBar extends CustomPainter {
     for (int i = 0; i < program.stagesCount(); ++i) {
       /// Длительность этапа
       int d = program.stage(i).duration;
+
       /// Ширина диаграммы
       double w = d / allD * widthDiag;
+
       /// Прямоугольник этапа
       var rect = Rect.fromLTWH(x1, y - DiagWidth / 2, w, DiagWidth);
 

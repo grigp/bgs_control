@@ -41,7 +41,7 @@ class _ProgramTitleState extends State<ProgramTitle> {
           Row(
             children: [
               Image.asset(
-                  'lib/assets/icons/programs/${widget.program.image}',
+                'lib/assets/icons/programs/${widget.program.image}',
                 width: 36,
                 height: 36,
               ),

@@ -40,7 +40,7 @@ class _AddNewDeviceBottomSheet extends State<AddNewDeviceBottomSheet> {
         )
         .toList();
 
-    return (list.isNotEmpty)
+    return (list.isNotEmpty)// TODO: вернуть list который сверху
         ? WgtMain(
             list: GetIt.I<BleService>()
                 .scanResultList

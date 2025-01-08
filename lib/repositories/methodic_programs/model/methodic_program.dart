@@ -1,12 +1,12 @@
-import 'dart:convert';
-
 import 'package:bgs_control/repositories/bgs_connect/bgs_connect.dart';
 
 /// Класс, содержащий данные об этапе
 class ProgramStage {
   ProgramStage({
     required this.comment,
-    required this.duration,  /// Длительность. -1 - неограничена по времени
+    required this.duration,
+
+    /// Длительность. -1 - неограничена по времени
     required this.isAm,
     required this.isFm,
     required this.amMode,
@@ -38,7 +38,7 @@ class MethodicProgram {
   factory MethodicProgram.fromJson(dynamic data) {
     ///Разбор методики в json
     /// Сначала сам объект с заголовочными полями
-    var retval =  MethodicProgram(
+    var retval = MethodicProgram(
       uid: data['id'].toString(),
       statsTitle: 'program ${data['id']}',
       title: data['title'],
@@ -49,23 +49,23 @@ class MethodicProgram {
     /// Затем атрибуты из массива
     var attr = data['attributes'] as List<dynamic>;
     retval.attributes.clear();
-    for (int i = 0; i < attr.length; ++i){
+    for (int i = 0; i < attr.length; ++i) {
       retval.attributes.add(attr[i]['id']);
     }
 
     /// Ну и в конце - этапы
     var stages = data['stage'] as List<dynamic>;
     retval._stages.clear();
-    for (int i = 0; i < stages.length; ++i){
+    for (int i = 0; i < stages.length; ++i) {
       int f = stages[i]['frequency'];
       var stage = ProgramStage(
-          comment: stages[i]['comment'],
-          duration: stages[i]['duration'],
-          isAm: stages[i]['am'],
-          isFm: stages[i]['fm'],
-          amMode: amModeFromJson[stages[i]['am_mode']]!,
-          intensity: intensivityFromJson[stages[i]['intensivity']]!,
-          frequency: f.toDouble(),
+        comment: stages[i]['comment'],
+        duration: stages[i]['duration'],
+        isAm: stages[i]['am'],
+        isFm: stages[i]['fm'],
+        amMode: amModeFromJson[stages[i]['am_mode']]!,
+        intensity: intensivityFromJson[stages[i]['intensivity']]!,
+        frequency: f.toDouble(),
       );
       retval._stages.add(stage);
     }
@@ -83,7 +83,15 @@ class MethodicProgram {
       title: 'Индивидуальный режим',
       description: 'Работа с индивидуальными настройками',
       image: 'togo.png',
-    ).._addStage('индивидуальные настройки', -1, isAm, isFm, amMode, intensity, frequency);
+    ).._addStage(
+        'индивидуальные настройки',
+        -1,
+        isAm,
+        isFm,
+        amMode,
+        intensity,
+        frequency,
+      );
   }
 
   String uid;

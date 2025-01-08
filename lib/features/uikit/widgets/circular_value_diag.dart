@@ -69,15 +69,31 @@ class CircularValueDiag extends CustomPainter {
       ..color = color
       ..style = PaintingStyle.fill;
 
-    if (_mode == CircularValueDiagMode.cvdmValue){
+    if (_mode == CircularValueDiagMode.cvdmValue) {
       canvas.drawCircle(
-          Offset(size.width / 2, size.height / 2), r, _paintNoValue);
-      canvas.drawArc(Rect.fromLTWH(0, 0, size.width, size.height), 3 * pi / 4, av,
-          true, paintV);
+        Offset(size.width / 2, size.height / 2),
+        r,
+        _paintNoValue,
+      );
+      canvas.drawArc(
+        Rect.fromLTWH(0, 0, size.width, size.height),
+        3 * pi / 4,
+        av,
+        true,
+        paintV,
+      );
       canvas.drawCircle(
-          Offset(size.width / 2, size.height / 2), r * 0.85, _paintB);
-      canvas.drawArc(Rect.fromLTWH(0, 0, size.width, size.height), pi / 4, pi / 2,
-          true, _paintB);
+        Offset(size.width / 2, size.height / 2),
+        r * 0.85,
+        _paintB,
+      );
+      canvas.drawArc(
+        Rect.fromLTWH(0, 0, size.width, size.height),
+        pi / 4,
+        pi / 2,
+        true,
+        _paintB,
+      );
 
       const textStyle = TextStyle(
         color: Colors.black,
@@ -105,9 +121,15 @@ class CircularValueDiag extends CustomPainter {
         ..style = PaintingStyle.fill;
 
       canvas.drawCircle(
-          Offset(size.width / 2, size.height / 2), r, paintV);
+        Offset(size.width / 2, size.height / 2),
+        r,
+        paintV,
+      );
       canvas.drawCircle(
-          Offset(size.width / 2, size.height / 2), r * 0.85, _paintB);
+        Offset(size.width / 2, size.height / 2),
+        r * 0.85,
+        _paintB,
+      );
 
       const textStyle = TextStyle(
         color: Colors.black,

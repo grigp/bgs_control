@@ -3,7 +3,7 @@ import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'device_program_executor.dart';
 
 class RunningManager {
-  List<DeviceProgramExecutor> _control = [];
+  final List<DeviceProgramExecutor> _control = [];
 
   /// Открывает устройство и создает драйвет в списке
   DeviceProgramExecutor openDevice(BluetoothDevice device) {
@@ -22,11 +22,10 @@ class RunningManager {
 
   void closeDevice(BluetoothDevice device) {
     for (int i = 0; i < _control.length; ++i) {
-      if (_control[i].deviceName() == device.advName){
+      if (_control[i].deviceName() == device.advName) {
         _control.removeAt(i);
         break;
       }
     }
   }
-
 }

@@ -76,7 +76,7 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
                         if (dr!) {
                           if (!context.mounted) return;
                           Navigator.of(context).popUntil(
-                              ModalRoute.withName('/select_method')
+                            ModalRoute.withName('/select_method'),
                           );
                         }
                         // Navigator.pop(context);
@@ -321,8 +321,9 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
                     text: 'Работать автономно',
                     onPressed: () {
                       widget.driver.setIsWorkAuto(true);
-                      Navigator.of(context)
-                          .popUntil(ModalRoute.withName('/select'));
+                      Navigator.of(context).popUntil(
+                        ModalRoute.withName('/select'),
+                      );
                     },
                   ),
                 ),

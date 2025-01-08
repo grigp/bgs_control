@@ -2,7 +2,6 @@ import 'package:bgs_control/assets/colors/colors.dart';
 import 'package:flutter/material.dart';
 
 import '../../uikit/texel_button.dart';
-import '../../uikit/widgets/play_pause_button.dart';
 
 //ignore: must_be_immutable
 class PowerHorizontalWidget extends StatefulWidget {
@@ -38,7 +37,6 @@ class _PowerHorizontalWidgetState extends State<PowerHorizontalWidget> {
               style: theme.textTheme.headlineMedium,
               textScaler: const TextScaler.linear(1.0),
             ),
-
             SliderTheme(
               data: const SliderThemeData(
                 showValueIndicator: ShowValueIndicator.always,

@@ -1,14 +1,13 @@
-class CommunicationLogger{
+class CommunicationLogger {
   final List<String> _log = [];
 
-  void log(String message){
+  void log(String message) {
     _log.add(message);
   }
 
-  List<String> get() =>_log;
+  List<String> get() => _log;
 
-  void clear(){
+  void clear() {
     _log.clear();
   }
-
 }

@@ -93,7 +93,7 @@ class _TogoParamsScreenState extends State<TogoParamsScreen> {
                       ),
                       Expanded(
                         child: ListView(
-                          padding: const EdgeInsets.only(right: 14, left: 14),
+                          padding: const EdgeInsets.symmetric(horizontal: 14),
                           shrinkWrap: true,
                           children: [
                             SizedBox(

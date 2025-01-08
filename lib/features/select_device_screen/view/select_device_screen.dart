@@ -126,7 +126,8 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
                                             title: 'Лог обмена данными',
                                           ),
                                           settings: const RouteSettings(
-                                              name: '/log_comm'),
+                                            name: '/log_comm',
+                                          ),
                                         );
                                         Navigator.of(context).push(route);
                                       },
