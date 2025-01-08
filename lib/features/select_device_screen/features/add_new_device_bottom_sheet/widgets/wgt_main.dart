@@ -75,7 +75,6 @@ class WgtMain extends StatelessWidget {
                     if (!listRegistred.contains(list[index])) {
                       GetIt.I<BgsList>().add(list[index]);
                       Navigator.pop(context);
-
                       /// Покажем окно предупреждения
                       MaterialPageRoute route = MaterialPageRoute(
                         builder: (context) => const AttentionScreen(
