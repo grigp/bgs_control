@@ -5,6 +5,7 @@ import 'package:bgs_control/repositories/bgs_list/bgs_list.dart';
 import 'package:bgs_control/repositories/logger/communication_logger.dart';
 import 'package:bgs_control/repositories/methodic_programs/storage/program_storage.dart';
 import 'package:bgs_control/repositories/running_manager/running_manager.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get_it/get_it.dart';
@@ -17,15 +18,19 @@ void callbackDispatcher() {
   Workmanager().executeTask((task, inputData) async {
     int length = inputData?["time"];
 
-    print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
-    print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> Native called background task: $task - ${length / 1000} sec >>>>>>>>>>>>>>>>>>>>>>>>>>>>");
-    print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+    if (kDebugMode) {
+      print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+      print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> Native called background task: $task - ${length / 1000} sec >>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+      print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+    }
 
     await Future.delayed(Duration(milliseconds: length));
 
-    print("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
-    print("<<<<<<<<<<<<<<<<<<<<<<<<    ДОЖДАЛИСЬ    <<<<<<<<<<<<<<<<<<<<<<<");
-    print("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
+    if (kDebugMode) {
+      print("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
+      print("<<<<<<<<<<<<<<<<<<<<<<<<    ДОЖДАЛИСЬ    <<<<<<<<<<<<<<<<<<<<<<<");
+      print("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
+    }
 
     // int s = -1;
     // int cnt = 0;
@@ -44,8 +49,8 @@ void callbackDispatcher() {
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   Workmanager().initialize(
-      callbackDispatcher, // The top level function, aka callbackDispatcher
-      isInDebugMode: true // If enabled it will post a notification whenever the task is running. Handy for debugging tasks
+      callbackDispatcher,   // The top level function, aka callbackDispatcher
+      isInDebugMode: kDebugMode,  // If enabled it will post a notification whenever the task is running. Handy for debugging tasks
   );
 
   GetIt.I.registerLazySingleton<BleService>(() => BleService());

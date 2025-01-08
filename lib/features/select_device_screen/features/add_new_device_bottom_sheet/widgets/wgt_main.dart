@@ -64,66 +64,65 @@ class WgtMain extends StatelessWidget {
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: Expanded(
-              child: ListView.separated(
-                shrinkWrap: true,
-                itemCount: list.length,
-                separatorBuilder: (BuildContext context, int index) =>
-                    const SizedBox.shrink(),
-                itemBuilder: (BuildContext context, int index) {
-                  return GestureDetector(
-                    onTap: () {
-                      if (!listRegistred.contains(list[index])) {
-                        GetIt.I<BgsList>().add(list[index]);
-                        Navigator.pop(context);
+            child: ListView.separated(
+              shrinkWrap: true,
+              itemCount: list.length,
+              separatorBuilder: (BuildContext context, int index) =>
+                  const SizedBox.shrink(),
+              itemBuilder: (BuildContext context, int index) {
+                return GestureDetector(
+                  onTap: () {
+                    if (!listRegistred.contains(list[index])) {
+                      GetIt.I<BgsList>().add(list[index]);
+                      Navigator.pop(context);
 
-                        /// Покажем окно предупреждения
-                        MaterialPageRoute route = MaterialPageRoute(
-                          builder: (context) => const AttentionScreen(
-                            title: 'Предупреждение',
-                          ),
-                          settings: const RouteSettings(name: '/select'),
-                        );
-                        Navigator.of(context).push(route);
-                      }
-                    },
-                    child: Column(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 14),
-                          child: Row(
-                            children: [
-                              Image.asset(
-                                'lib/assets/bgs/BGS_64.png',
-                                width: 40,
-                                height: 40,
-                              ),
-                              const SizedBox(width: 10),
-                              Expanded(
-                                child: Text(
-                                  getFullDeviceName(list[index]),
-                                  overflow: TextOverflow.ellipsis,
-                                  textScaler: const TextScaler.linear(1.0),
-                                  style: listRegistred.contains(list[index])
-                                      ? theme.textTheme.labelMedium
-                                      : theme.textTheme.labelMedium?.copyWith(
-                                          fontWeight: FontWeight.bold),
-                                  maxLines: 2,
-                                ),
-                              ),
-                            ],
-                          ),
+                      /// Покажем окно предупреждения
+                      MaterialPageRoute route = MaterialPageRoute(
+                        builder: (context) => const AttentionScreen(
+                          title: 'Предупреждение',
                         ),
-                        const Divider(
-                          height: 0,
-                          indent: 0,
-                          thickness: 1,
+                        settings: const RouteSettings(name: '/select'),
+                      );
+                      Navigator.of(context).push(route);
+                    }
+                  },
+                  child: Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 14),
+                        child: Row(
+                          children: [
+                            Image.asset(
+                              'lib/assets/bgs/BGS_64.png',
+                              width: 40,
+                              height: 40,
+                            ),
+                            const SizedBox(width: 10),
+                            Expanded(
+                              child: Text(
+                                getFullDeviceName(list[index]),
+                                overflow: TextOverflow.ellipsis,
+                                textScaler: const TextScaler.linear(1.0),
+                                style: listRegistred.contains(list[index])
+                                    ? theme.textTheme.labelMedium
+                                    : theme.textTheme.labelMedium?.copyWith(
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                maxLines: 2,
+                              ),
+                            ),
+                          ],
                         ),
-                      ],
-                    ),
-                  );
-                },
-              ),
+                      ),
+                      const Divider(
+                        height: 0,
+                        indent: 0,
+                        thickness: 1,
+                      ),
+                    ],
+                  ),
+                );
+              },
             ),
           ),
         ],

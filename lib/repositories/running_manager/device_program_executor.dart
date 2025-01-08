@@ -3,6 +3,7 @@ import 'dart:async';
 
 import 'package:bgs_control/repositories/methodic_programs/model/methodic_program.dart';
 import 'package:bgs_control/utils/extra.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:uuid/uuid.dart';
@@ -191,7 +192,9 @@ class DeviceProgramExecutor  {
 
   int n = 0;
   void onGetData(BlockData data) {
-    print('------------------------------------ getdata : ${++n}');
+    if (kDebugMode) {
+      print('------------------------------------ getdata : ${++n}');
+    }
     /// Набор статистики
     if (_isPlaying) {
       if (data.power > _maxPower) {
@@ -203,7 +206,9 @@ class DeviceProgramExecutor  {
   }
 
   void onTimer(Timer timer) async {
-    print('---------------------------- isPlaying: $_isPlaying      timer:  $_playingTime');
+    if (kDebugMode) {
+      print('---------------------------- isPlaying: $_isPlaying      timer:  $_playingTime');
+    }
     if (_isPlaying) {
       ++_playingTime;
       if (_duration > 0 && (stageTime() >= _duration / 1000)){

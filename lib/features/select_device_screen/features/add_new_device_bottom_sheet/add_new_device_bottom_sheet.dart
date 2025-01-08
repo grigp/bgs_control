@@ -40,11 +40,20 @@ class _AddNewDeviceBottomSheet extends State<AddNewDeviceBottomSheet> {
         )
         .toList();
 
-    return (list.isNotEmpty) ? WgtMain(list: list) : const WgtWait();
+    return (list.isNotEmpty)
+        ? WgtMain(
+            list: GetIt.I<BleService>()
+                .scanResultList
+                .value
+                .map(
+                  (r) => r.device.advName,
+                )
+                .toList())
+        : const WgtWait();
   }
 
   void update() async {
-    if (mounted){
+    if (mounted) {
       setState(() {});
     }
   }

@@ -31,7 +31,10 @@ dependencies:
   uuid: ^4.4.2
   flutter_text_viewer: ^0.0.6
   share_plus: ^10.0.2
-  workmanager: ^0.5.2
+  workmanager:
+    git:
+      url: https://github.com/absar/flutter_workmanager.git
+      ref: ios-bg-tasks-enh-final
 
 dev_dependencies:
   flutter_test:
@@ -98,3 +101,7 @@ flutter:
      - lib/assets/bgs/BGS_32.png
      - lib/assets/bgs/BGS_64.png
 
+#workmanager:
+#  git:
+#    url: https://github.com/absar/flutter_workmanager.git
+#    ref: ios-bg-tasks-enh-final
