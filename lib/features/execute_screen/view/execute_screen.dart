@@ -222,16 +222,28 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
               //     ),
               //   ],
               // ),
-              const Spacer(),
 
-              PowerVerticalWidget(
-                powerSet: _powerSet,
-                powerReal: _powerReal,
-                onPowerSet: onPowerSet,
-                onPowerReset: onPowerReset,
+              // const Spacer(),
+              //
+              // PowerVerticalWidget(
+              //   powerSet: _powerSet,
+              //   powerReal: _powerReal,
+              //   onPowerSet: onPowerSet,
+              //   onPowerReset: onPowerReset,
+              // ),
+              //
+              // const Spacer(),
+
+              const SizedBox(height: 60),
+              Expanded(
+                  child: PowerVerticalWidget(
+                    powerSet: _powerSet,
+                    powerReal: _powerReal,
+                    onPowerSet: onPowerSet,
+                    onPowerReset: onPowerReset,
+                  ),
               ),
-
-              const Spacer(),
+              const SizedBox(height: 60),
 
               /// Прогресс бар для программы
               if (widget.driver.stage().duration > 0)

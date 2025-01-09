@@ -24,30 +24,35 @@ class _PowerVerticalWidgetState extends State<PowerVerticalWidget> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+
     return Container(
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
         color: backgroundCarpetButtonTestColor,
         borderRadius: BorderRadius.circular(300),
       ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          _getChangePowerButton(TypeChangePowerButton.plus),
-          const SizedBox(height: 8),
-          // Text(
-          //   widget.powerReal.round().toString(),
-          //   style: theme.textTheme.displaySmall,
-          //   textScaler: const TextScaler.linear(1.0),
-          // ),
-          const SizedBox(height: 8),
-          _getChangePowerButton(TypeChangePowerButton.minus),
-        ],
+      child: LayoutBuilder(
+        builder: (BuildContext context, BoxConstraints constraints){
+          return Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              _getChangePowerButton(constraints, TypeChangePowerButton.plus),
+              const SizedBox(height: 8),
+              // Text(
+              //   widget.powerReal.round().toString(),
+              //   style: theme.textTheme.displaySmall,
+              //   textScaler: const TextScaler.linear(1.0),
+              // ),
+              const SizedBox(height: 8),
+              _getChangePowerButton(constraints, TypeChangePowerButton.minus),
+            ],
+          );
+        }
       ),
     );
   }
 
-  Widget _getChangePowerButton(TypeChangePowerButton icon) {
+  Widget _getChangePowerButton(BoxConstraints constraints, TypeChangePowerButton icon) {
     return GestureDetector(
       onTap: () {
         setState(() {
@@ -58,8 +63,8 @@ class _PowerVerticalWidgetState extends State<PowerVerticalWidget> {
         });
       },
       child: Container(
-        width: 130,
-        height: 130, //double.infinity,
+        width: constraints.maxHeight / 2 - 10, //130,
+        height: constraints.maxHeight / 2 - 10, //130, //double.infinity,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(300),
           color: white,
