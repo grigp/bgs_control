@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 
 import '../../../../repositories/bgs_connect/bgs_connect.dart';
@@ -56,12 +57,21 @@ class _StageInfoDialog extends State<StageInfoDialog> {
             ),
             const Divider(),
             /// Время этапа
-            Text(
-              'Время ${getTimeBySecCount(
-                  widget.stageTime)} из ${getTimeBySecCount(
-                  widget.duration ~/ 1000)}',
-              style: theme.textTheme.titleLarge,
-              textScaler: const TextScaler.linear(1.0),
+            Row(
+              children: [
+                Text(
+                  'Время',
+                  style: theme.textTheme.bodyLarge,
+                  textScaler: const TextScaler.linear(1.0),
+                ),
+                const Spacer(),
+                Text(
+                  _stageTime(),
+                  style: theme.textTheme.bodyLarge,
+                  textScaler: const TextScaler.linear(1.0),
+                ),
+
+              ],
             ),
             const Divider(),
             /// Амплитудная модуляция
@@ -134,14 +144,26 @@ class _StageInfoDialog extends State<StageInfoDialog> {
     );
   }
 
+  String _stageTime() {
+    if (widget.duration > 0) {
+      return '${getTimeBySecCount(widget.stageTime)} из ${getTimeBySecCount(
+          widget.duration ~/ 1000)}';
+    } else {
+      return 'Не задано';
+    }
+  }
 
   String _amValue() {
-    if (widget.amMode == AmMode.am_11) {
-      return '1:1';
-    } else if (widget.amMode == AmMode.am_31) {
-      return '3:1';
-    } else if (widget.amMode == AmMode.am_51) {
-      return '5:1';
+    if (widget.isAm) {
+      if (widget.amMode == AmMode.am_11) {
+        return '1:1';
+      } else if (widget.amMode == AmMode.am_31) {
+        return '3:1';
+      } else if (widget.amMode == AmMode.am_51) {
+        return '5:1';
+      } else {
+        return 'Нет';
+      }
     } else {
       return 'Нет';
     }
