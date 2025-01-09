@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:bgs_control/features/execute_screen/features/stage_info_dialog/stage_info_dialog.dart';
 import 'package:bgs_control/features/result_screen/view/result_screen.dart';
 import 'package:bgs_control/features/uikit/widgets/back_screen_button.dart';
 import 'package:bgs_control/features/uikit/widgets/play_pause_button.dart';
@@ -112,7 +113,9 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
               Padding(
                 padding: const EdgeInsets.only(top: 8, bottom: 8),
                 child: GestureDetector(
-                  onTap: () {},
+                  onTap: () {
+                    _stageInfoDialog(context);
+                  },
                   child: Center(
                     child: Container(
                       padding: const EdgeInsets.symmetric(
@@ -467,6 +470,27 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
       /// Программа завершена - выходим
       // Navigator.of(context).popUntil(ModalRoute.withName('/select_method'));
     }
+  }
+
+  void _stageInfoDialog(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      builder: (BuildContext context) {
+
+        return  StageInfoDialog(
+          idxStage: widget.driver.idxStage(),
+          nameStage: widget.driver.stage().comment,
+          duration: widget.driver.stage().duration,
+          stageTime: widget.driver.stageTime(),
+          isAm: widget.driver.stage().isAm,
+          amMode: widget.driver.stage().amMode,
+          isFm: widget.driver.stage().isFm,
+          frequency: widget.driver.stage().frequency,
+          intensivity: widget.driver.stage().intensity,
+        );
+      },
+      // showDragHandle: true,
+    );
   }
 
   String _stimulationParamsToString() {

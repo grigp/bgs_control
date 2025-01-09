@@ -104,7 +104,8 @@ class _FoundDeviceTitleState extends State<FoundDeviceTitle> {
   }
 
   Widget _buildTitle(BuildContext context, ThemeData theme) {
-    if (widget.result.device.platformName.isNotEmpty) {
+    print('>>>>>>>>> ${widget.result.device.advName}');
+    if (widget.result.device.advName.isNotEmpty) {//platformName.isNotEmpty) {
       return Row(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -125,7 +126,7 @@ class _FoundDeviceTitleState extends State<FoundDeviceTitle> {
                 ),
                 const SizedBox(width: 10),
                 Text(
-                  'texel № ${getStimulatorNumber(widget.result.device.platformName)}',
+                  'texel № ${getStimulatorNumber(widget.result.device.advName)}', //.platformName)}',
                   style: theme.textTheme.titleLarge,
                   overflow: TextOverflow.ellipsis,
                   textScaler: const TextScaler.linear(1.0),
