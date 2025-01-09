@@ -1,4 +1,5 @@
 import 'package:bgs_control/features/program_params_screen/widgets/stage_title.dart';
+import 'package:bgs_control/features/program_params_screen/widgets/time_total_title.dart';
 import 'package:flutter/material.dart';
 
 import '../../../assets/colors/colors.dart';
@@ -105,6 +106,7 @@ class _ProgramParamsScreenState extends State<ProgramParamsScreen> {
                           shrinkWrap: true,
                           children: <Widget>[
                             ..._buildStageTiles(context),
+                            ..._buildTotalTimeTitle(),
                           ],
                         ),
                       ),
@@ -166,6 +168,16 @@ class _ProgramParamsScreenState extends State<ProgramParamsScreen> {
         ),
       );
     }
+    return retval;
+  }
+
+  List<Widget> _buildTotalTimeTitle() {
+    List<Widget> retval = [];
+    int d = 0;
+    for (int i = 0; i < widget.program.stagesCount(); ++i) {
+      d += widget.program.stage(i).duration;
+    }
+    retval.add(TimeTotalTitle(duration: d));
     return retval;
   }
 }
