@@ -405,12 +405,16 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
 
   void onPowerSet(double power) {
     widget.driver.setPower(power);
-    _powerSet = power;
+    setState(() {
+      _powerSet = power;
+    });
   }
 
   void onPowerReset() {
     widget.driver.reset();
-    _powerSet = 0;
+    setState(() {
+      _powerSet = 0;
+    });
   }
 
   @override
