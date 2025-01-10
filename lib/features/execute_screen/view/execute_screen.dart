@@ -5,6 +5,7 @@ import 'package:bgs_control/features/result_screen/view/result_screen.dart';
 import 'package:bgs_control/features/uikit/widgets/back_screen_button.dart';
 import 'package:bgs_control/features/uikit/widgets/play_pause_button.dart';
 import 'package:bgs_control/features/uikit/widgets/program_progress_bar.dart';
+import 'package:bgs_control/repositories/methodic_programs/model/stage_info.dart';
 import 'package:bgs_control/utils/baseutils.dart';
 import 'package:flutter/material.dart';
 import 'package:uuid/uuid.dart';
@@ -47,6 +48,7 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
   int _dataCount = 0;
   String _uuidGetData = '';
   bool _isOver = false;
+  StageInfoDialog? _siDialog;
 
   @override
   Widget build(BuildContext context) {
@@ -464,6 +466,19 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
       ++_dataCount;
     });
 
+    _siDialog?.updateData(
+        StageInfo(
+            idxStage: widget.driver.idxStage(),
+            nameStage: widget.driver.stage().comment,
+            duration: widget.driver.stage().duration,
+            stageTime: widget.driver.stageTime(),
+            isAm: widget.driver.stage().isAm,
+            isFm: widget.driver.stage().isFm,
+            amMode: widget.driver.stage().amMode,
+            intensivity: widget.driver.stage().intensity,
+            frequency: widget.driver.stage().frequency)
+    );
+
     /// Посылаем команду работать даже при прерывании связи
     if (_dataCount == 1) {
       widget.driver.setConnectionFailureMode(ConnectionFailureMode.cfmWorking);
@@ -492,18 +507,20 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
     showModalBottomSheet(
       context: context,
       builder: (BuildContext context) {
-
-        return  StageInfoDialog(
-          idxStage: widget.driver.idxStage(),
-          nameStage: widget.driver.stage().comment,
-          duration: widget.driver.stage().duration,
-          stageTime: widget.driver.stageTime(),
-          isAm: widget.driver.stage().isAm,
-          amMode: widget.driver.stage().amMode,
-          isFm: widget.driver.stage().isFm,
-          frequency: widget.driver.stage().frequency,
-          intensivity: widget.driver.stage().intensity,
+        _siDialog = StageInfoDialog(
+            stageInfo: StageInfo(
+              idxStage: widget.driver.idxStage(),
+              nameStage: widget.driver.stage().comment,
+              duration: widget.driver.stage().duration,
+              stageTime: widget.driver.stageTime(),
+              isAm: widget.driver.stage().isAm,
+              isFm: widget.driver.stage().isFm,
+              amMode: widget.driver.stage().amMode,
+              intensivity: widget.driver.stage().intensity,
+              frequency: widget.driver.stage().frequency,
+            )
         );
+        return _siDialog!;
       },
       // showDragHandle: true,
     );

@@ -1,4 +1,5 @@
 
+import 'package:bgs_control/repositories/methodic_programs/model/stage_info.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../assets/colors/colors.dart';
@@ -6,34 +7,34 @@ import '../../../../repositories/bgs_connect/bgs_connect.dart';
 import '../../../../utils/baseutils.dart';
 
 class StageInfoDialog extends StatefulWidget{
-  const StageInfoDialog({
+  StageInfoDialog({
     super.key,
-    required this.idxStage,
-    required this.nameStage,
-    required this.duration,
-    required this.stageTime,
-    required this.isAm,
-    required this.amMode,
-    required this.isFm,
-    required this.frequency,
-    required this.intensivity,
+    required this.stageInfo,
   });
 
-  final int idxStage;
-  final String nameStage;
-  final int duration;
-  final int stageTime;
-  final bool isAm;
-  final AmMode amMode;
-  final bool isFm;
-  final double frequency;
-  final Intensivity intensivity;
+  late StageInfo stageInfo;
+  late _StageInfoDialog? _states;
+
+  void updateData(StageInfo stageInfo) {
+    this.stageInfo = stageInfo;
+    _states?.updateData(stageInfo);
+  }
 
   @override
-  State<StageInfoDialog> createState() => _StageInfoDialog();
+  State<StageInfoDialog> createState(){
+    _states = _StageInfoDialog(stageInfo: stageInfo);
+    return _states!;
+  }
+  //State<StageInfoDialog> createState() => _StageInfoDialog();
 }
 
 class _StageInfoDialog extends State<StageInfoDialog> {
+  _StageInfoDialog({
+    required this.stageInfo,
+  });
+
+  late StageInfo stageInfo;
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -51,7 +52,7 @@ class _StageInfoDialog extends State<StageInfoDialog> {
             child: Row(
               children: [
                 Text(
-                  'Этап ${widget.idxStage + 1} : ${widget.nameStage}',
+                  'Этап ${stageInfo.idxStage + 1} : ${stageInfo.nameStage}',
                   style: theme.textTheme.titleMedium,
                   textScaler: const TextScaler.linear(1.0),
                 ),
@@ -123,28 +124,28 @@ class _StageInfoDialog extends State<StageInfoDialog> {
                 /// Частотная модуляция
                 Row(
                   children: [
-                    if (widget.isFm)
+                    if (stageInfo.isFm)
                       Text(
                         'Частотная модуляция',
                         style: theme.textTheme.bodyLarge,
                         textScaler: const TextScaler.linear(1.0),
                       ),
-                    if (!widget.isFm)
+                    if (!stageInfo.isFm)
                       Text(
                         'Частота',
                         style: theme.textTheme.bodyLarge,
                         textScaler: const TextScaler.linear(1.0),
                       ),
                     const Spacer(),
-                    if (widget.isFm)
+                    if (stageInfo.isFm)
                       Text(
                         'Да',
                         style: theme.textTheme.bodyLarge,
                         textScaler: const TextScaler.linear(1.0),
                       ),
-                    if (!widget.isFm)
+                    if (!stageInfo.isFm)
                       Text(
-                        '${widget.frequency.toInt()} Гц',
+                        '${stageInfo.frequency.toInt()} Гц',
                         style: theme.textTheme.bodyLarge,
                         textScaler: const TextScaler.linear(1.0),
                       ),
@@ -161,7 +162,7 @@ class _StageInfoDialog extends State<StageInfoDialog> {
                     ),
                     const Spacer(),
                     Text(
-                      '${widget.intensivity.index + 1}',
+                      '${stageInfo.intensivity.index + 1}',
                       style: theme.textTheme.bodyLarge,
                       textScaler: const TextScaler.linear(1.0),
                     ),
@@ -176,21 +177,21 @@ class _StageInfoDialog extends State<StageInfoDialog> {
   }
 
   String _stageTime() {
-    if (widget.duration > 0) {
-      return '${getTimeBySecCount(widget.stageTime)} из ${getTimeBySecCount(
-          widget.duration ~/ 1000)}';
+    if (stageInfo.duration > 0) {
+      return '${getTimeBySecCount(stageInfo.stageTime)} из ${getTimeBySecCount(
+          stageInfo.duration ~/ 1000)}';
     } else {
       return 'Не задано';
     }
   }
 
   String _amValue() {
-    if (widget.isAm) {
-      if (widget.amMode == AmMode.am_11) {
+    if (stageInfo.isAm) {
+      if (stageInfo.amMode == AmMode.am_11) {
         return '1:1';
-      } else if (widget.amMode == AmMode.am_31) {
+      } else if (stageInfo.amMode == AmMode.am_31) {
         return '3:1';
-      } else if (widget.amMode == AmMode.am_51) {
+      } else if (stageInfo.amMode == AmMode.am_51) {
         return '5:1';
       } else {
         return 'Нет';
@@ -200,4 +201,11 @@ class _StageInfoDialog extends State<StageInfoDialog> {
     }
   }
 
+  void updateData(StageInfo stageInfo) {
+    if (mounted) {
+      setState(() {
+        this.stageInfo = stageInfo;
+      });
+    }
+  }
 }
