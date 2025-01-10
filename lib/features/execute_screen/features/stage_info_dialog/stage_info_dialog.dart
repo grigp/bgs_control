@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 
+import '../../../../assets/colors/colors.dart';
 import '../../../../repositories/bgs_connect/bgs_connect.dart';
 import '../../../../utils/baseutils.dart';
 
@@ -36,110 +37,140 @@ class _StageInfoDialog extends State<StageInfoDialog> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    return Padding(
-      padding: const EdgeInsets.all(20),
-      child: SizedBox(
-        height: 300,
-        width: double.infinity,
-        child: Column(
-          children: [
-            /// Этап
-            Text(
-              'Этап ${widget.idxStage + 1}',
-              style: theme.textTheme.titleLarge,
-              textScaler: const TextScaler.linear(1.0),
+    return SizedBox(
+      height: 300,
+      width: double.infinity,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(
+              horizontal: 16,
+              vertical: 12,
             ),
-            /// Название этапа
-            Text(
-              widget.nameStage,
-              style: theme.textTheme.titleLarge,
-              textScaler: const TextScaler.linear(1.0),
-            ),
-            const Divider(),
-            /// Время этапа
-            Row(
+            child: Row(
               children: [
                 Text(
-                  'Время',
-                  style: theme.textTheme.bodyLarge,
+                  'Этап ${widget.idxStage + 1} : ${widget.nameStage}',
+                  style: theme.textTheme.titleMedium,
                   textScaler: const TextScaler.linear(1.0),
                 ),
                 const Spacer(),
-                Text(
-                  _stageTime(),
-                  style: theme.textTheme.bodyLarge,
-                  textScaler: const TextScaler.linear(1.0),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: Container(
+                    padding: const EdgeInsets.all(4),
+                    decoration: BoxDecoration(
+                      color: filledSecondaryItemColor,
+                      borderRadius: BorderRadius.circular(300),
+                    ),
+                    child: const Icon(
+                      Icons.close,
+                      size: 20,
+                      color: black,
+                    ),
+                  ),
                 ),
+              ],
+            ),
+          ),
+          const Divider(
+            height: 0,
+            indent: 0,
+            thickness: 1,
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: Column(
+              children: [
+                /// Время этапа
+                Row(
+                  children: [
+                    Text(
+                      'Время',
+                      style: theme.textTheme.bodyLarge,
+                      textScaler: const TextScaler.linear(1.0),
+                    ),
+                    const Spacer(),
+                    Text(
+                      _stageTime(),
+                      style: theme.textTheme.bodyLarge,
+                      textScaler: const TextScaler.linear(1.0),
+                    ),
 
+                  ],
+                ),
+                const Divider(),
+                /// Амплитудная модуляция
+                Row(
+                  children: [
+                    Text(
+                      'Амплитудная модуляция',
+                      style: theme.textTheme.bodyLarge,
+                      textScaler: const TextScaler.linear(1.0),
+                    ),
+                    const Spacer(),
+                    Text(
+                      _amValue(),
+                      style: theme.textTheme.bodyLarge,
+                      textScaler: const TextScaler.linear(1.0),
+                    ),
+                  ],
+                ),
+                const Divider(),
+                /// Частотная модуляция
+                Row(
+                  children: [
+                    if (widget.isFm)
+                      Text(
+                        'Частотная модуляция',
+                        style: theme.textTheme.bodyLarge,
+                        textScaler: const TextScaler.linear(1.0),
+                      ),
+                    if (!widget.isFm)
+                      Text(
+                        'Частота',
+                        style: theme.textTheme.bodyLarge,
+                        textScaler: const TextScaler.linear(1.0),
+                      ),
+                    const Spacer(),
+                    if (widget.isFm)
+                      Text(
+                        'Да',
+                        style: theme.textTheme.bodyLarge,
+                        textScaler: const TextScaler.linear(1.0),
+                      ),
+                    if (!widget.isFm)
+                      Text(
+                        '${widget.frequency.toInt()} Гц',
+                        style: theme.textTheme.bodyLarge,
+                        textScaler: const TextScaler.linear(1.0),
+                      ),
+                  ],
+                ),
+                const Divider(),
+                /// Интенсивность
+                Row(
+                  children: [
+                    Text(
+                      'Интенсивность',
+                      style: theme.textTheme.bodyLarge,
+                      textScaler: const TextScaler.linear(1.0),
+                    ),
+                    const Spacer(),
+                    Text(
+                      '${widget.intensivity.index + 1}',
+                      style: theme.textTheme.bodyLarge,
+                      textScaler: const TextScaler.linear(1.0),
+                    ),
+                  ],
+                ),
               ],
             ),
-            const Divider(),
-            /// Амплитудная модуляция
-            Row(
-              children: [
-                Text(
-                  'Амплитудная модуляция',
-                  style: theme.textTheme.bodyLarge,
-                  textScaler: const TextScaler.linear(1.0),
-                ),
-                const Spacer(),
-                Text(
-                  _amValue(),
-                  style: theme.textTheme.bodyLarge,
-                  textScaler: const TextScaler.linear(1.0),
-                ),
-              ],
-            ),
-            const Divider(),
-            /// Частотная модуляция
-            Row(
-              children: [
-                if (widget.isFm)
-                Text(
-                  'Частотная модуляция',
-                  style: theme.textTheme.bodyLarge,
-                  textScaler: const TextScaler.linear(1.0),
-                ),
-                if (!widget.isFm)
-                  Text(
-                    'Частота',
-                    style: theme.textTheme.bodyLarge,
-                    textScaler: const TextScaler.linear(1.0),
-                  ),
-                const Spacer(),
-                if (widget.isFm)
-                Text(
-                  'Да',
-                  style: theme.textTheme.bodyLarge,
-                  textScaler: const TextScaler.linear(1.0),
-                ),
-                if (!widget.isFm)
-                  Text(
-                    '${widget.frequency.toInt()} Гц',
-                    style: theme.textTheme.bodyLarge,
-                    textScaler: const TextScaler.linear(1.0),
-                  ),
-              ],
-            ),
-            const Divider(),
-            /// Интенсивность
-            Row(
-              children: [
-                Text(
-                  'Интенсивность',
-                  style: theme.textTheme.bodyLarge,
-                  textScaler: const TextScaler.linear(1.0),
-                ),
-                const Spacer(),
-                Text(
-                  '${widget.intensivity.index + 1}',
-                  style: theme.textTheme.bodyLarge,
-                  textScaler: const TextScaler.linear(1.0),
-                ),
-              ],
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
