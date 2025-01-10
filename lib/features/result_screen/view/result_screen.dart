@@ -41,6 +41,10 @@ class _ResultScreenState extends State<ResultScreen> {
                 'Сеанс завершен',
                 style: theme.textTheme.titleLarge,
               ),
+              Text(
+                widget.driver.program.title,
+                style: theme.textTheme.titleMedium,
+              ),
               const SizedBox(height: 60),
               Row(
                 children: [
