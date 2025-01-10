@@ -234,7 +234,7 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
               //
               // const Spacer(),
 
-              const SizedBox(height: 60),
+              const SizedBox(height: 30),
               Expanded(
                   child: PowerVerticalWidget(
                     powerSet: _powerSet,
@@ -243,7 +243,7 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
                     onPowerReset: onPowerReset,
                   ),
               ),
-              const SizedBox(height: 60),
+              const SizedBox(height: 30),
 
               /// Прогресс бар для программы
               if (widget.driver.stage().duration > 0)

@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import '../../../assets/colors/colors.dart';
 import '../../../repositories/methodic_programs/model/methodic_program.dart';
 import '../../../repositories/running_manager/device_program_executor.dart';
+import '../../../utils/baseutils.dart';
 import '../../execute_screen/view/execute_screen.dart';
 import '../../uikit/texel_button.dart';
 import '../../uikit/widgets/back_screen_button.dart';
@@ -77,6 +78,11 @@ class _ProgramParamsScreenState extends State<ProgramParamsScreen> {
                               textScaler: const TextScaler.linear(1.0),
                             ),
                             const Spacer(),
+                            Text(
+                              getTimeBySecCount(_programDuration() ~/ 1000),
+                              style: theme.textTheme.titleMedium,
+                              textScaler: const TextScaler.linear(1.0),
+                            ),
                           ],
                         ),
                       ),
@@ -106,7 +112,7 @@ class _ProgramParamsScreenState extends State<ProgramParamsScreen> {
                           shrinkWrap: true,
                           children: <Widget>[
                             ..._buildStageTiles(context),
-                            ..._buildTotalTimeTitle(),
+//                            ..._buildTotalTimeTitle(),
                           ],
                         ),
                       ),
@@ -171,12 +177,17 @@ class _ProgramParamsScreenState extends State<ProgramParamsScreen> {
     return retval;
   }
 
-  List<Widget> _buildTotalTimeTitle() {
-    List<Widget> retval = [];
+  int _programDuration() {
     int d = 0;
     for (int i = 0; i < widget.program.stagesCount(); ++i) {
       d += widget.program.stage(i).duration;
     }
+    return d;
+  }
+
+  List<Widget> _buildTotalTimeTitle() {
+    List<Widget> retval = [];
+    int d = _programDuration();
     retval.add(TimeTotalTitle(duration: d));
     return retval;
   }
