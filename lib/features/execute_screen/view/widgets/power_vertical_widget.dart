@@ -1,6 +1,8 @@
+import 'package:bgs_control/features/execute_screen/view/widgets/animated_round_button.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../assets/colors/colors.dart';
+import '../../../direct_control_screen/widgets/power_horizontal_widget.dart';
 
 class PowerVerticalWidget extends StatefulWidget {
   PowerVerticalWidget({
@@ -36,7 +38,11 @@ class _PowerVerticalWidgetState extends State<PowerVerticalWidget> {
           return Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              _getChangePowerButton(constraints, TypeChangePowerButton.plus),
+              AnimatedRoundButton(
+                  constraints: constraints,
+                  icon: TypeChangePowerButton.plus,
+                  onPressed: _onPowerSet,
+              ),
               const SizedBox(height: 8),
               // Text(
               //   widget.powerReal.round().toString(),
@@ -44,7 +50,11 @@ class _PowerVerticalWidgetState extends State<PowerVerticalWidget> {
               //   textScaler: const TextScaler.linear(1.0),
               // ),
               const SizedBox(height: 8),
-              _getChangePowerButton(constraints, TypeChangePowerButton.minus),
+              AnimatedRoundButton(
+                constraints: constraints,
+                icon: TypeChangePowerButton.minus,
+                onPressed: _onPowerSet,
+              ),
             ],
           );
         }
@@ -52,33 +62,19 @@ class _PowerVerticalWidgetState extends State<PowerVerticalWidget> {
     );
   }
 
-  Widget _getChangePowerButton(BoxConstraints constraints, TypeChangePowerButton icon) {
-    return GestureDetector(
-      onTap: () {
-        setState(() {
-          icon == TypeChangePowerButton.plus
-              ? ++widget.powerSet
-              : --widget.powerSet;
-          widget.onPowerSet(widget.powerSet);
-        });
-      },
-      child: Container(
-        width: constraints.maxHeight / 2 - 10, //130,
-        height: constraints.maxHeight / 2 - 10, //130, //double.infinity,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(300),
-          color: white,
-        ),
-        child: Center(
-          child: Icon(
-            size: 40,
-            icon == TypeChangePowerButton.plus ? Icons.add : Icons.remove,
-            color: black,
-          ),
-        ),
-      ),
-    );
+  void _onPowerSet(TypeChangePowerButton icon) {
+    setState(() {
+      if (icon == TypeChangePowerButton.plus) {
+        if (widget.powerSet < 125){
+          ++widget.powerSet;
+        }
+      } else {
+        if (widget.powerSet > 0){
+          --widget.powerSet;
+        }
+      }
+      widget.onPowerSet(widget.powerSet);
+    });
   }
 }
 
-enum TypeChangePowerButton { plus, minus }

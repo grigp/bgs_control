@@ -1,0 +1,1 @@
+enum TypeChangePowerButton { plus, minus }
