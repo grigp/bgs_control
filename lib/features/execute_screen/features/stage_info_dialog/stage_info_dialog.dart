@@ -87,21 +87,23 @@ class _StageInfoDialog extends State<StageInfoDialog> {
             child: Column(
               children: [
                 /// Время этапа
-                Row(
-                  children: [
-                    Text(
-                      'Время',
-                      style: theme.textTheme.bodyLarge,
-                      textScaler: const TextScaler.linear(1.0),
-                    ),
-                    const Spacer(),
-                    Text(
-                      _stageTime(),
-                      style: theme.textTheme.bodyLarge,
-                      textScaler: const TextScaler.linear(1.0),
-                    ),
-
-                  ],
+                Padding(
+                  padding: const EdgeInsets.only(top: 8),
+                  child: Row(
+                    children: [
+                      Text(
+                        'Время',
+                        style: theme.textTheme.bodyLarge,
+                        textScaler: const TextScaler.linear(1.0),
+                      ),
+                      const Spacer(),
+                      Text(
+                        _stageTime(),
+                        style: theme.textTheme.bodyLarge,
+                        textScaler: const TextScaler.linear(1.0),
+                      ),
+                    ],
+                  ),
                 ),
                 const Divider(),
                 /// Амплитудная модуляция
@@ -168,6 +170,7 @@ class _StageInfoDialog extends State<StageInfoDialog> {
                     ),
                   ],
                 ),
+                const Divider(),
               ],
             ),
           ),
