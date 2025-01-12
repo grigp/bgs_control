@@ -43,13 +43,7 @@ class _PowerVerticalWidgetState extends State<PowerVerticalWidget> {
                   icon: TypeChangePowerButton.plus,
                   onPressed: _onPowerSet,
               ),
-              const SizedBox(height: 8),
-              // Text(
-              //   widget.powerReal.round().toString(),
-              //   style: theme.textTheme.displaySmall,
-              //   textScaler: const TextScaler.linear(1.0),
-              // ),
-              const SizedBox(height: 8),
+              const SizedBox(height: 16),
               AnimatedRoundButton(
                 constraints: constraints,
                 icon: TypeChangePowerButton.minus,

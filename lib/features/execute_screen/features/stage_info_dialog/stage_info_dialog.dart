@@ -1,4 +1,3 @@
-
 import 'package:bgs_control/repositories/methodic_programs/model/stage_info.dart';
 import 'package:flutter/material.dart';
 
@@ -6,34 +5,24 @@ import '../../../../assets/colors/colors.dart';
 import '../../../../repositories/bgs_connect/bgs_connect.dart';
 import '../../../../utils/baseutils.dart';
 
-class StageInfoDialog extends StatefulWidget{
-  StageInfoDialog({
+class StageInfoDialog extends StatefulWidget {
+  const StageInfoDialog({
     super.key,
     required this.stageInfo,
   });
 
-  late StageInfo stageInfo;
-  late _StageInfoDialog? _states;
-
-  void updateData(StageInfo stageInfo) {
-    this.stageInfo = stageInfo;
-    _states?.updateData(stageInfo);
-  }
+  final ValueNotifier<StageInfo> stageInfo;
 
   @override
-  State<StageInfoDialog> createState(){
-    _states = _StageInfoDialog(stageInfo: stageInfo);
-    return _states!;
-  }
-  //State<StageInfoDialog> createState() => _StageInfoDialog();
+  State<StageInfoDialog> createState() => _StageInfoDialog();
 }
 
 class _StageInfoDialog extends State<StageInfoDialog> {
-  _StageInfoDialog({
-    required this.stageInfo,
-  });
-
-  late StageInfo stageInfo;
+  @override
+  void initState() {
+    super.initState();
+    widget.stageInfo.addListener(_update);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +41,7 @@ class _StageInfoDialog extends State<StageInfoDialog> {
             child: Row(
               children: [
                 Text(
-                  'Этап ${stageInfo.idxStage + 1} : ${stageInfo.nameStage}',
+                  'Этап ${widget.stageInfo.value.idxStage + 1} : ${widget.stageInfo.value.nameStage}',
                   style: theme.textTheme.titleMedium,
                   textScaler: const TextScaler.linear(1.0),
                 ),
@@ -106,6 +95,7 @@ class _StageInfoDialog extends State<StageInfoDialog> {
                   ),
                 ),
                 const Divider(),
+
                 /// Амплитудная модуляция
                 Row(
                   children: [
@@ -123,37 +113,39 @@ class _StageInfoDialog extends State<StageInfoDialog> {
                   ],
                 ),
                 const Divider(),
+
                 /// Частотная модуляция
                 Row(
                   children: [
-                    if (stageInfo.isFm)
+                    if (widget.stageInfo.value.isFm)
                       Text(
                         'Частотная модуляция',
                         style: theme.textTheme.bodyLarge,
                         textScaler: const TextScaler.linear(1.0),
                       ),
-                    if (!stageInfo.isFm)
+                    if (!widget.stageInfo.value.isFm)
                       Text(
                         'Частота',
                         style: theme.textTheme.bodyLarge,
                         textScaler: const TextScaler.linear(1.0),
                       ),
                     const Spacer(),
-                    if (stageInfo.isFm)
+                    if (widget.stageInfo.value.isFm)
                       Text(
                         'Да',
                         style: theme.textTheme.bodyLarge,
                         textScaler: const TextScaler.linear(1.0),
                       ),
-                    if (!stageInfo.isFm)
+                    if (!widget.stageInfo.value.isFm)
                       Text(
-                        '${stageInfo.frequency.toInt()} Гц',
+                        '${widget.stageInfo.value.frequency.toInt()} Гц',
                         style: theme.textTheme.bodyLarge,
                         textScaler: const TextScaler.linear(1.0),
                       ),
                   ],
                 ),
                 const Divider(),
+
                 /// Интенсивность
                 Row(
                   children: [
@@ -164,7 +156,7 @@ class _StageInfoDialog extends State<StageInfoDialog> {
                     ),
                     const Spacer(),
                     Text(
-                      '${stageInfo.intensivity.index + 1}',
+                      '${widget.stageInfo.value.intensivity.index + 1}',
                       style: theme.textTheme.bodyLarge,
                       textScaler: const TextScaler.linear(1.0),
                     ),
@@ -179,36 +171,37 @@ class _StageInfoDialog extends State<StageInfoDialog> {
     );
   }
 
+  @override
+  void dispose() {
+    widget.stageInfo.removeListener(_update);
+    super.dispose();
+  }
+
+  void _update() {
+    setState(() {});
+  }
+
   String _stageTime() {
-    if (stageInfo.duration > 0) {
-      return '${getTimeBySecCount(stageInfo.stageTime)} из ${getTimeBySecCount(
-          stageInfo.duration ~/ 1000)}';
+    if (widget.stageInfo.value.duration > 0) {
+      return '${getTimeBySecCount(widget.stageInfo.value.stageTime)} из ${getTimeBySecCount(widget.stageInfo.value.duration ~/ 1000)}';
     } else {
       return 'Не задано';
     }
   }
 
   String _amValue() {
-    if (stageInfo.isAm) {
-      if (stageInfo.amMode == AmMode.am_11) {
+    if (widget.stageInfo.value.isAm) {
+      if (widget.stageInfo.value.amMode == AmMode.am_11) {
         return '1:1';
-      } else if (stageInfo.amMode == AmMode.am_31) {
+      } else if (widget.stageInfo.value.amMode == AmMode.am_31) {
         return '3:1';
-      } else if (stageInfo.amMode == AmMode.am_51) {
+      } else if (widget.stageInfo.value.amMode == AmMode.am_51) {
         return '5:1';
       } else {
         return 'Нет';
       }
     } else {
       return 'Нет';
-    }
-  }
-
-  void updateData(StageInfo stageInfo) {
-    if (mounted) {
-      setState(() {
-        this.stageInfo = stageInfo;
-      });
     }
   }
 }

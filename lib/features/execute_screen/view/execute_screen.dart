@@ -48,7 +48,17 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
   int _dataCount = 0;
   String _uuidGetData = '';
   bool _isOver = false;
-  StageInfoDialog? _siDialog;
+  final stageInfo = ValueNotifier<StageInfo>(StageInfo(
+    idxStage: 0,
+    isFm: false,
+    isAm: false,
+    nameStage: '',
+    duration: 0,
+    stageTime: 0,
+    amMode: AmMode.am_11,
+    intensivity: Intensivity.one,
+    frequency: 0.0,
+  ));
 
   @override
   Widget build(BuildContext context) {
@@ -238,12 +248,12 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
 
               const SizedBox(height: 30),
               Expanded(
-                  child: PowerVerticalWidget(
-                    powerSet: _powerSet,
-                    powerReal: _powerReal,
-                    onPowerSet: onPowerSet,
-                    onPowerReset: onPowerReset,
-                  ),
+                child: PowerVerticalWidget(
+                  powerSet: _powerSet,
+                  powerReal: _powerReal,
+                  onPowerSet: onPowerSet,
+                  onPowerReset: onPowerReset,
+                ),
               ),
               const SizedBox(height: 30),
 
@@ -466,17 +476,16 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
       ++_dataCount;
     });
 
-    _siDialog?.updateData(
-        StageInfo(
-            idxStage: widget.driver.idxStage(),
-            nameStage: widget.driver.stage().comment,
-            duration: widget.driver.stage().duration,
-            stageTime: widget.driver.stageTime(),
-            isAm: widget.driver.stage().isAm,
-            isFm: widget.driver.stage().isFm,
-            amMode: widget.driver.stage().amMode,
-            intensivity: widget.driver.stage().intensity,
-            frequency: widget.driver.stage().frequency)
+    stageInfo.value = StageInfo(
+      idxStage: widget.driver.idxStage(),
+      nameStage: widget.driver.stage().comment,
+      duration: widget.driver.stage().duration,
+      stageTime: widget.driver.stageTime(),
+      isAm: widget.driver.stage().isAm,
+      isFm: widget.driver.stage().isFm,
+      amMode: widget.driver.stage().amMode,
+      intensivity: widget.driver.stage().intensity,
+      frequency: widget.driver.stage().frequency,
     );
 
     /// Посылаем команду работать даже при прерывании связи
@@ -507,22 +516,8 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
     showModalBottomSheet(
       context: context,
       builder: (BuildContext context) {
-        _siDialog = StageInfoDialog(
-            stageInfo: StageInfo(
-              idxStage: widget.driver.idxStage(),
-              nameStage: widget.driver.stage().comment,
-              duration: widget.driver.stage().duration,
-              stageTime: widget.driver.stageTime(),
-              isAm: widget.driver.stage().isAm,
-              isFm: widget.driver.stage().isFm,
-              amMode: widget.driver.stage().amMode,
-              intensivity: widget.driver.stage().intensity,
-              frequency: widget.driver.stage().frequency,
-            )
-        );
-        return _siDialog!;
+        return StageInfoDialog(stageInfo: stageInfo);
       },
-      // showDragHandle: true,
     );
   }
 
