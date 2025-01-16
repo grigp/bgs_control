@@ -20,7 +20,7 @@ class ProgramStorage {
     return _listPrograms;
   }
 
-  /// Заполняет рабочий список программ в файле
+  /// Заполняет рабочий список программ, беря его из предустановленного файла json
   Future _fillWorkList() async {
     /// Список программ по умолчанию
     String dataDef = await rootBundle.loadString(
@@ -29,44 +29,61 @@ class ProgramStorage {
     var dd = json.decode(dataDef);
     final listPPDef = dd['programs'] as List<dynamic>?;
 
-    /// Список программ из рабочего файла
-    final dir = Platform.isAndroid
-        ? await getExternalStorageDirectory()
-        : await getApplicationSupportDirectory();
-
-    ///-------------------------------------------------------------------
-    ///Закомментировать этот участок, если надо полностью обновить рабочий файл
-    /// из дефолтного списка доступных программ
-    var f = File('${dir?.path}/programs.json');
-    if (await f.exists()) {
-      await f.readAsString().then((String dataWork) {
-        var dd = json.decode(dataWork);
-        _listPPWork = dd['programs'] as List<dynamic>?;
-      });
-    }
-
-    ///-------------------------------------------------------------------
-
-    /// Добавление в спсисок программ рабочего файла отсутствующих в нем программ,
-    /// но имеющихся в дефолтном
-    int n = 0;
-    for (int i = 0; i < listPPDef!.length; ++i) {
-      if (!_isProgramExists(_listPPWork!, listPPDef[i]['id'])) {
-        _listPPWork?.add(listPPDef[i]);
-        ++n;
-      }
-    }
-
-    /// Записать в файл
-    String sp = '{"programs": ${json.encode(_listPPWork)}}';
-    await File('${dir?.path}/programs.json').writeAsString(sp);
-
     _listPrograms.clear();
-    for (int i = 0; i < _listPPWork!.length; ++i) {
-      var program = MethodicProgram.fromJson(_listPPWork![i]);
+    for (int i = 0; i < listPPDef!.length; ++i) {
+      var program = MethodicProgram.fromJson(listPPDef[i]);
       _listPrograms.add(program);
     }
   }
+
+
+  /// Заполняет рабочий список программ в файле
+  // Future _fillWorkList() async {
+  //   /// Список программ по умолчанию
+  //   String dataDef = await rootBundle.loadString(
+  //     'lib/assets/programs/prg_main.json',
+  //   );
+  //   var dd = json.decode(dataDef);
+  //   final listPPDef = dd['programs'] as List<dynamic>?;
+  //
+  //   /// Список программ из рабочего файла
+  //   final dir = Platform.isAndroid
+  //       ? await getExternalStorageDirectory()
+  //       : await getApplicationSupportDirectory();
+  //
+  //   ///-------------------------------------------------------------------
+  //   ///Закомментировать этот участок, если надо полностью обновить рабочий файл
+  //   /// из дефолтного списка доступных программ
+  //   var f = File('${dir?.path}/programs.json');
+  //   if (await f.exists()) {
+  //     await f.readAsString().then((String dataWork) {
+  //       var dd = json.decode(dataWork);
+  //       _listPPWork = dd['programs'] as List<dynamic>?;
+  //     });
+  //   }
+  //
+  //   ///-------------------------------------------------------------------
+  //
+  //   /// Добавление в спсисок программ рабочего файла отсутствующих в нем программ,
+  //   /// но имеющихся в дефолтном
+  //   int n = 0;
+  //   for (int i = 0; i < listPPDef!.length; ++i) {
+  //     if (!_isProgramExists(_listPPWork!, listPPDef[i]['id'])) {
+  //       _listPPWork?.add(listPPDef[i]);
+  //       ++n;
+  //     }
+  //   }
+  //
+  //   /// Записать в файл
+  //   String sp = '{"programs": ${json.encode(_listPPWork)}}';
+  //   await File('${dir?.path}/programs.json').writeAsString(sp);
+  //
+  //   _listPrograms.clear();
+  //   for (int i = 0; i < _listPPWork!.length; ++i) {
+  //     var program = MethodicProgram.fromJson(_listPPWork![i]);
+  //     _listPrograms.add(program);
+  //   }
+  // }
 
   /// Возвращает true, если в списке list имеется программа с заданным id
   bool _isProgramExists(List<dynamic> list, int id) {

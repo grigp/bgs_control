@@ -73,6 +73,7 @@ class BlockData {
     required this.isPowerReset,
     required this.intensity,
     required this.chargeLevel,
+    required this.chargeValue,
     required this.source,
   });
 
@@ -84,6 +85,7 @@ class BlockData {
   final bool isPowerReset;
   final Intensivity intensity;
   final double chargeLevel;
+  final double chargeValue;
   final List<int> source;
 }
 
@@ -277,6 +279,7 @@ class BgsConnect {
       isPowerReset: isPowerReset,
       intensity: intensity,
       chargeLevel: chargeLevel,
+      chargeValue: value[3].toDouble(),
       source: value,
     );
   }

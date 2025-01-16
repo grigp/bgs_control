@@ -43,6 +43,7 @@ class ExecuteScreen extends StatefulWidget {
 
 class _ExecuteScreenState extends State<ExecuteScreen> {
   double _chargeLevel = 100;
+  double _chargeValue = 0;
   double _powerSet = 0;
   double _powerReal = 0;
   int _dataCount = 0;
@@ -472,6 +473,7 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
       }
 
       _chargeLevel = data.chargeLevel;
+      _chargeValue = data.chargeValue;
 
       ++_dataCount;
     });

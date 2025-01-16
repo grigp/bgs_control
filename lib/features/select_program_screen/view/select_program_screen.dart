@@ -43,6 +43,7 @@ class _SelectProgramScreenState extends State<SelectProgramScreen> {
 //  bool _isConnected = false;
   String _uuidGetData = '';
   double _chargeLevel = 100;
+  double _chargeValue = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -193,6 +194,7 @@ class _SelectProgramScreenState extends State<SelectProgramScreen> {
   void onGetData(BlockData data) {
     setState(() {
       _chargeLevel = data.chargeLevel;
+      _chargeValue = data.chargeValue;
     });
   }
 
