@@ -39,15 +39,15 @@ class _PowerVerticalWidgetState extends State<PowerVerticalWidget> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               AnimatedRoundButton(
-                  constraints: constraints,
                   icon: TypeChangePowerButton.plus,
                   onPressed: _onPowerSet,
+                  size: constraints.maxHeight / 2 - 10,
               ),
               const SizedBox(height: 16),
               AnimatedRoundButton(
-                constraints: constraints,
                 icon: TypeChangePowerButton.minus,
                 onPressed: _onPowerSet,
+                size: constraints.maxHeight / 2 - 10,
               ),
             ],
           );

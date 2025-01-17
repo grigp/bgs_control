@@ -1,6 +1,7 @@
 import 'package:bgs_control/assets/colors/colors.dart';
 import 'package:flutter/material.dart';
 
+import '../../execute_screen/view/widgets/animated_round_button.dart';
 import '../../uikit/texel_button.dart';
 
 //ignore: must_be_immutable
@@ -28,39 +29,44 @@ class _PowerHorizontalWidgetState extends State<PowerHorizontalWidget> {
     final theme = Theme.of(context);
     return Column(
       children: [
-        Column(
+        Row(
           /// Регулятор мощности
-          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Мощность ${widget.powerSet.toInt()}',
-              style: theme.textTheme.headlineMedium,
+              '${widget.powerSet.toInt()}',
+              style: theme.textTheme.bodyLarge,
               textScaler: const TextScaler.linear(1.0),
             ),
-            SliderTheme(
-              data: const SliderThemeData(
-                showValueIndicator: ShowValueIndicator.always,
-              ),
-              child: Slider(
-                value: widget.powerSet,
-                label: widget.powerSet.round().toString(),
-                min: 0,
-                max: 125,
-                activeColor: black,
-                thumbColor: black,
-                inactiveColor: backgroundCarpetButtonTestColor,
-                divisions: 125,
-                onChanged: (double value) {
-                  setState(() {
-                    widget.powerSet = value;
-                  });
-                },
-                onChangeEnd: (double value) {
-                  /// В этот момент мы будем устанавливать мощность
-                  widget.onPowerSet(widget.powerSet);
-                },
-              ),
+            Expanded(
+                child: SizedBox(
+                  width: double.infinity,
+                  child: SliderTheme(
+                    data: const SliderThemeData(
+                      showValueIndicator: ShowValueIndicator.always,
+                    ),
+                    child: Slider(
+                      value: widget.powerSet,
+                      label: widget.powerSet.round().toString(),
+                      min: 0,
+                      max: 125,
+                      activeColor: black,
+                      thumbColor: black,
+                      inactiveColor: backgroundCarpetButtonTestColor,
+                      divisions: 125,
+                      onChanged: (double value) {
+                        setState(() {
+                          widget.powerSet = value;
+                        });
+                      },
+                      onChangeEnd: (double value) {
+                        /// В этот момент мы будем устанавливать мощность
+                        widget.onPowerSet(widget.powerSet);
+                      },
+                    ),
+                  ),
+                ),
             ),
+
           ],
         ),
         Row(
@@ -72,20 +78,31 @@ class _PowerHorizontalWidgetState extends State<PowerHorizontalWidget> {
                 color: backgroundCarpetButtonTestColor,
                 borderRadius: BorderRadius.circular(70),
               ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  _getChangePowerButton(TypeChangePowerButton.minus),
-                  const SizedBox(width: 15),
-                  Text(
-                    widget.powerReal.round().toString(),
-                    style: theme.textTheme.displayMedium,
-                    textScaler: const TextScaler.linear(1.0),
-                  ),
-                  const SizedBox(width: 15),
-                  _getChangePowerButton(TypeChangePowerButton.plus),
-                ],
-              ),
+              child: LayoutBuilder(
+                  builder: (BuildContext context, BoxConstraints constraints) {
+                return Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    AnimatedRoundButton(
+                      icon: TypeChangePowerButton.minus,
+                      onPressed: _onPowerSet,
+                      size: 80,
+                    ),
+                    const SizedBox(width: 15),
+                    Text(
+                      widget.powerReal.round().toString(),
+                      style: theme.textTheme.displayMedium,
+                      textScaler: const TextScaler.linear(1.0),
+                    ),
+                    const SizedBox(width: 15),
+                    AnimatedRoundButton(
+                      icon: TypeChangePowerButton.plus,
+                      onPressed: _onPowerSet,
+                      size: 80,
+                    ),
+                  ],
+                );
+              }),
             ),
             const Spacer(),
           ],
@@ -104,32 +121,19 @@ class _PowerHorizontalWidgetState extends State<PowerHorizontalWidget> {
     );
   }
 
-  Widget _getChangePowerButton(TypeChangePowerButton icon) {
-    return GestureDetector(
-      onTap: () {
-        setState(() {
-          icon == TypeChangePowerButton.plus
-              ? ++widget.powerSet
-              : --widget.powerSet;
-          widget.onPowerSet(widget.powerSet);
-        });
-      },
-      child: Container(
-        width: 80,
-        height: 80,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(50),
-          color: white,
-        ),
-        child: Center(
-          child: Icon(
-            icon == TypeChangePowerButton.plus ? Icons.add : Icons.remove,
-            color: black,
-            size: 30,
-          ),
-        ),
-      ),
-    );
+  void _onPowerSet(TypeChangePowerButton icon) {
+    setState(() {
+      if (icon == TypeChangePowerButton.plus) {
+        if (widget.powerSet < 125) {
+          ++widget.powerSet;
+        }
+      } else {
+        if (widget.powerSet > 0) {
+          --widget.powerSet;
+        }
+      }
+      widget.onPowerSet(widget.powerSet);
+    });
   }
 }
 

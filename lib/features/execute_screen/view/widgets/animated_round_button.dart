@@ -6,14 +6,16 @@ import '../../../direct_control_screen/widgets/power_horizontal_widget.dart';
 class AnimatedRoundButton extends StatefulWidget{
   const AnimatedRoundButton({
     super.key,
-    required this.constraints,
+//    required this.constraints,
     required this.icon,
     required this.onPressed,
+    required this.size,
   });
 
-  final BoxConstraints constraints;
+//  final BoxConstraints constraints;
   final TypeChangePowerButton icon;
   final Function onPressed;
+  final double size;
 
   @override
   State<AnimatedRoundButton> createState() => _AnimatedRoundButton();
@@ -43,8 +45,8 @@ class _AnimatedRoundButton extends State<AnimatedRoundButton>
           widget.onPressed(widget.icon);
         },
         child: Container(
-          width: widget.constraints.maxHeight / 2 - 10, //130,
-          height: widget.constraints.maxHeight / 2 - 10, //130, //double.infinity,
+          width: widget.size, // widget.constraints.maxHeight / 2 - 10, //130,
+          height: widget.size, //widget.constraints.maxHeight / 2 - 10, //130, //double.infinity,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(300),
             color: white,
