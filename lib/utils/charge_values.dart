@@ -23,7 +23,14 @@ IconData getChargeIconByLevel(double val) {
 }
 
 double getChargeLevelByADC(int val) {
-  return (val - 0x72) / (0x83 - 0x72) * 100;
+  double v = (val - 0x72) / (0x83 - 0x72) * 100;
+  if (v > 100) {
+    v = 100;
+  }
+  if (v < 1) {
+    v = 1;
+  }
+  return v;
 
   // if (val < 0x60) {
   //   return 2.0;

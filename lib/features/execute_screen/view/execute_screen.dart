@@ -8,10 +8,12 @@ import 'package:bgs_control/features/uikit/widgets/program_progress_bar.dart';
 import 'package:bgs_control/repositories/methodic_programs/model/stage_info.dart';
 import 'package:bgs_control/utils/baseutils.dart';
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 import 'package:uuid/uuid.dart';
 
 import '../../../assets/colors/colors.dart';
 import '../../../repositories/bgs_connect/bgs_connect.dart';
+import '../../../repositories/logger/communication_logger.dart';
 import '../../../repositories/methodic_programs/model/methodic_program.dart';
 import '../../../repositories/running_manager/device_program_executor.dart';
 import '../../../utils/base_defines.dart';
@@ -114,7 +116,7 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
                     const SizedBox(width: 10),
                     Icon(getChargeIconByLevel(_chargeLevel), size: 20),
                     Text(
-                      '${_chargeLevel.toInt()}%',
+                      '${_chargeValue.toInt()}  ${_chargeLevel.toInt()}%',
                       style: theme.textTheme.titleSmall,
                       textScaler: const TextScaler.linear(1.0),
                     ),
@@ -472,6 +474,8 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
         _powerSet = 0;
       }
 
+      GetIt.I<CommunicationLogger>()
+          .log('$_dataCount  Power: ${_chargeValue.toInt()}  ${_chargeLevel.toInt()}%');
       _chargeLevel = data.chargeLevel;
       _chargeValue = data.chargeValue;
 

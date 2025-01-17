@@ -8,11 +8,14 @@ import 'package:bgs_control/repositories/bgs_connect/bgs_connect.dart';
 import 'package:bgs_control/utils/charge_values.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 import 'package:uuid/uuid.dart';
 
 import '../../../assets/colors/colors.dart';
+import '../../../repositories/logger/communication_logger.dart';
 import '../../../repositories/running_manager/device_program_executor.dart';
 import '../../../utils/base_defines.dart';
+import '../../../utils/baseutils.dart';
 
 class DirectControlScreen extends StatefulWidget {
   const DirectControlScreen({
@@ -45,6 +48,7 @@ class _DirectControlScreenState extends State<DirectControlScreen> {
   double _idxFreq = 0;
   bool _idxFreqChange = true;
   double _chargeLevel = 100;
+  double _chargeValue = 0;
   String _uuidSendData = '';
 
   @override
@@ -76,7 +80,7 @@ class _DirectControlScreenState extends State<DirectControlScreen> {
         actions: [
           Icon(getChargeIconByLevel(_chargeLevel), size: 20),
           Text(
-            '${_chargeLevel.toInt()}%',
+            '${_chargeValue.toInt()}  ${_chargeLevel.toInt()}%',
             style: theme.textTheme.titleMedium,
             textScaler: const TextScaler.linear(1.0),
           ),
@@ -226,7 +230,11 @@ class _DirectControlScreenState extends State<DirectControlScreen> {
         _intensivity = data.intensity;
       }
       _chargeLevel = data.chargeLevel;
-
+      _chargeValue = data.chargeValue;
+      if (_dataCount % 60 == 0) {
+        GetIt.I<CommunicationLogger>().log(
+            '${getTimeBySecCount(_dataCount ~/ 60)}  : ${_chargeValue.toInt()}  ${_chargeLevel.toInt()}%');
+      }
       ++_dataCount;
     });
 
