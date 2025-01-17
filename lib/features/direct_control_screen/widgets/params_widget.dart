@@ -1,6 +1,8 @@
 import 'package:bgs_control/repositories/bgs_connect/bgs_connect.dart';
 import 'package:flutter/material.dart';
 
+import '../../../assets/colors/colors.dart';
+
 //ignore: must_be_immutable
 class ParamsWidget extends StatefulWidget {
   ParamsWidget({
@@ -51,6 +53,9 @@ class _ParamsWidgetState extends State<ParamsWidget> {
               const Spacer(),
               Switch(
                 value: widget.isAm,
+                activeColor: backgroundDarkTestColor,
+                activeTrackColor: backgroundCarpetButtonTestColor,
+                inactiveTrackColor: Colors.white54,
                 onChanged: (bool? value) {
                   setState(() {
                     widget.isAm = value!;
@@ -110,6 +115,9 @@ class _ParamsWidgetState extends State<ParamsWidget> {
               const Spacer(),
               Switch(
                 value: widget.isFm,
+                activeColor: backgroundDarkTestColor,
+                activeTrackColor: backgroundCarpetButtonTestColor,
+                inactiveTrackColor: Colors.white54,
                 onChanged: (bool? value) {
                   setState(() {
                     widget.isFm = value!;
@@ -138,6 +146,9 @@ class _ParamsWidgetState extends State<ParamsWidget> {
                   min: 0,
                   max: 6,
                   divisions: 6,
+                  activeColor: black,
+                  thumbColor: black,
+                  inactiveColor: backgroundCarpetButtonTestColor,
                   onChanged: (double value) {
                     setState(() {
                       widget.idxFreq = value;

@@ -38,35 +38,34 @@ class _PowerHorizontalWidgetState extends State<PowerHorizontalWidget> {
               textScaler: const TextScaler.linear(1.0),
             ),
             Expanded(
-                child: SizedBox(
-                  width: double.infinity,
-                  child: SliderTheme(
-                    data: const SliderThemeData(
-                      showValueIndicator: ShowValueIndicator.always,
-                    ),
-                    child: Slider(
-                      value: widget.powerSet,
-                      label: widget.powerSet.round().toString(),
-                      min: 0,
-                      max: 125,
-                      activeColor: black,
-                      thumbColor: black,
-                      inactiveColor: backgroundCarpetButtonTestColor,
-                      divisions: 125,
-                      onChanged: (double value) {
-                        setState(() {
-                          widget.powerSet = value;
-                        });
-                      },
-                      onChangeEnd: (double value) {
-                        /// В этот момент мы будем устанавливать мощность
-                        widget.onPowerSet(widget.powerSet);
-                      },
-                    ),
+              child: SizedBox(
+                width: double.infinity,
+                child: SliderTheme(
+                  data: const SliderThemeData(
+                    showValueIndicator: ShowValueIndicator.always,
+                  ),
+                  child: Slider(
+                    value: widget.powerSet,
+                    label: widget.powerSet.round().toString(),
+                    min: 0,
+                    max: 125,
+                    activeColor: black,
+                    thumbColor: black,
+                    inactiveColor: backgroundCarpetButtonTestColor,
+                    divisions: 125,
+                    onChanged: (double value) {
+                      setState(() {
+                        widget.powerSet = value;
+                      });
+                    },
+                    onChangeEnd: (double value) {
+                      /// В этот момент мы будем устанавливать мощность
+                      widget.onPowerSet(widget.powerSet);
+                    },
                   ),
                 ),
+              ),
             ),
-
           ],
         ),
         Row(
@@ -89,11 +88,20 @@ class _PowerHorizontalWidgetState extends State<PowerHorizontalWidget> {
                       size: 80,
                     ),
                     const SizedBox(width: 15),
-                    Text(
-                      widget.powerReal.round().toString(),
-                      style: theme.textTheme.displayMedium,
-                      textScaler: const TextScaler.linear(1.0),
+                    SizedBox(
+                      width: 60,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            widget.powerReal.round().toString(),
+                            style: theme.textTheme.displayMedium,
+                            textScaler: const TextScaler.linear(1.0),
+                          ),
+                        ],
+                      ),
                     ),
+
                     const SizedBox(width: 15),
                     AnimatedRoundButton(
                       icon: TypeChangePowerButton.plus,
@@ -109,13 +117,33 @@ class _PowerHorizontalWidgetState extends State<PowerHorizontalWidget> {
         ),
         const SizedBox(height: 20),
         Center(
-          child: TexelButton.black(
-            text: 'Сброс',
-            onPressed: () {
-              widget.powerSet = 0;
-              widget.onPowerReset();
-            },
+          child: SizedBox(
+            width: double.infinity,
+            height: 50,
+            child: OutlinedButton(
+              child: Image.asset('images/pause.png'),
+              // child:  const Icon(
+              //     Icons.stop,
+              //     color: filledBlackButtonColor,
+              // ),
+              // child: const Text(
+              //   'Сброс',
+              //   style: TextStyle(color: filledBlackButtonColor, fontSize: 16),
+              // ),
+              onPressed: () {
+                widget.powerSet = 0;
+                widget.onPowerReset();
+              },
+            ),
           ),
+
+          // child: TexelButton.black(
+          //   text: 'Сброс',
+          //   onPressed: () {
+          //     widget.powerSet = 0;
+          //     widget.onPowerReset();
+          //   },
+          // ),
         ),
       ],
     );
