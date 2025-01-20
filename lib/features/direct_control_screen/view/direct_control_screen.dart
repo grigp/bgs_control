@@ -80,7 +80,7 @@ class _DirectControlScreenState extends State<DirectControlScreen> {
         actions: [
           Icon(getChargeIconByLevel(_chargeLevel), size: 20),
           Text(
-            '${_chargeValue.toInt()}  ${_chargeLevel.toInt()}%',
+            '${_chargeLevel.toInt()}%',
             style: theme.textTheme.titleMedium,
             textScaler: const TextScaler.linear(1.0),
           ),
@@ -231,10 +231,11 @@ class _DirectControlScreenState extends State<DirectControlScreen> {
       }
       _chargeLevel = data.chargeLevel;
       _chargeValue = data.chargeValue;
-      if (_dataCount % 60 == 0) {
-        GetIt.I<CommunicationLogger>().log(
-            '${getTimeBySecCount(_dataCount ~/ 60)}  : ${_chargeValue.toInt()}  ${_chargeLevel.toInt()}%');
-      }
+      // Логирование уровня заряда батареи
+      // if (_dataCount % 60 == 0) {
+      //   GetIt.I<CommunicationLogger>().log(
+      //       '${getTimeBySecCount(_dataCount ~/ 60)}  : ${_chargeValue.toInt()}  ${_chargeLevel.toInt()}%');
+      // }
       ++_dataCount;
     });
 

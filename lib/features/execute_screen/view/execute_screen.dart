@@ -116,7 +116,7 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
                     const SizedBox(width: 10),
                     Icon(getChargeIconByLevel(_chargeLevel), size: 20),
                     Text(
-                      '${_chargeValue.toInt()}  ${_chargeLevel.toInt()}%',
+                      '${_chargeLevel.toInt()}%',
                       style: theme.textTheme.titleSmall,
                       textScaler: const TextScaler.linear(1.0),
                     ),
@@ -474,8 +474,8 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
         _powerSet = 0;
       }
 
-      // GetIt.I<CommunicationLogger>()
-      //     .log('$_dataCount  Power: ${_chargeValue.toInt()}  ${_chargeLevel.toInt()}%');
+      GetIt.I<CommunicationLogger>()
+          .log('$_dataCount  Power: ${_chargeValue.toInt()}  ${_chargeLevel.toInt()}%');
       _chargeLevel = data.chargeLevel;
       _chargeValue = data.chargeValue;
 

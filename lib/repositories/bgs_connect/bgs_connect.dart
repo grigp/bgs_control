@@ -132,7 +132,7 @@ class BgsConnect {
           _isSending = true;
           final subscription = c.lastValueStream.listen((value) async {
             if (_isSending && value.length == 14) {
-//              GetIt.I<CommunicationLogger>().log('>> $value'); TODO:открыть после испытаний на процент заряда
+              GetIt.I<CommunicationLogger>().log('>> $value');
               _value = value;
               for (int i = 0; i < _dataHandlers.length; ++i) {
                 _dataHandlers[i].handler(_createBlockData(_value));
@@ -240,7 +240,7 @@ class BgsConnect {
   Future<void> _write(List<int> command) async {
     if (!_isSending) return;
     await _characteristic.write(command, withoutResponse: true);
-//    GetIt.I<CommunicationLogger>().log('<< $command'); TODO:открыть после испытаний на процент заряда
+    GetIt.I<CommunicationLogger>().log('<< $command');
   }
 
   BlockData _createBlockData(List<int> value) {
