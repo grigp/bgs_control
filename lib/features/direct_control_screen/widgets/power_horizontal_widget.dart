@@ -121,29 +121,16 @@ class _PowerHorizontalWidgetState extends State<PowerHorizontalWidget> {
             width: double.infinity,
             height: 50,
             child: OutlinedButton(
-              child: Image.asset('images/pause.png'),
-              // child:  const Icon(
-              //     Icons.stop,
-              //     color: filledBlackButtonColor,
-              // ),
-              // child: const Text(
-              //   'Сброс',
-              //   style: TextStyle(color: filledBlackButtonColor, fontSize: 16),
-              // ),
+              child: const Text(
+                'Сброс',
+                style: TextStyle(color: filledBlackButtonColor, fontSize: 24),
+              ),
               onPressed: () {
                 widget.powerSet = 0;
                 widget.onPowerReset();
               },
             ),
           ),
-
-          // child: TexelButton.black(
-          //   text: 'Сброс',
-          //   onPressed: () {
-          //     widget.powerSet = 0;
-          //     widget.onPowerReset();
-          //   },
-          // ),
         ),
       ],
     );

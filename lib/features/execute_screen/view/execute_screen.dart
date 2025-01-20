@@ -318,24 +318,19 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
               if (_chargeLevel <= chargeAlarmBoundLevel)
                 const ChargeMessageWidget(),
 
-              Row(
-                /// Кнопка play / pause
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  PlayPauseButton(
-                    type: widget.driver.isPlaying()
-                        ? TypePlayPauseButton.pause
-                        : TypePlayPauseButton.play,
-                    onClick: () {
-                      setState(() {
-                        widget.driver.pause();
-                        if (!widget.driver.isPlaying()) {
-                          _powerSet = 0;
-                        }
-                      });
-                    },
-                  )
-                ],
+              /// Кнопка play / pause
+              PlayPauseButton(
+                type: widget.driver.isPlaying()
+                    ? TypePlayPauseButton.pause
+                    : TypePlayPauseButton.play,
+                onClick: () {
+                  setState(() {
+                    widget.driver.pause();
+                    if (!widget.driver.isPlaying()) {
+                      _powerSet = 0;
+                    }
+                  });
+                },
               ),
 
               /// Кнопка [Работать автономно]  в режиме без длительности
@@ -474,8 +469,8 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
         _powerSet = 0;
       }
 
-      GetIt.I<CommunicationLogger>()
-          .log('$_dataCount  Power: ${_chargeValue.toInt()}  ${_chargeLevel.toInt()}%');
+      GetIt.I<CommunicationLogger>().log(
+          '$_dataCount  Power: ${_chargeValue.toInt()}  ${_chargeLevel.toInt()}%');
       _chargeLevel = data.chargeLevel;
       _chargeValue = data.chargeValue;
 
