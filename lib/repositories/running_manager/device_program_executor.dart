@@ -313,4 +313,12 @@ class DeviceProgramExecutor {
     }
     return pd;
   }
+
+  int deviceNumber() {
+    return _connect.deviceNumber();
+  }
+
+  int firmwareNumber() {
+    return _connect.firmwareNumber();
+  }
 }

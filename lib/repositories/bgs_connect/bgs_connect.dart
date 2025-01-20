@@ -75,6 +75,8 @@ class BlockData {
     required this.chargeLevel,
     required this.chargeValue,
     required this.source,
+    required this.deviceNumber,
+    required this.firmwareNumber
   });
 
   final double power;
@@ -87,6 +89,8 @@ class BlockData {
   final double chargeLevel;
   final double chargeValue;
   final List<int> source;
+  final int deviceNumber;
+  final int firmwareNumber;
 }
 
 /// Класс для управления устройством БГС
@@ -95,6 +99,9 @@ class BgsConnect {
 
   late BluetoothDevice device;
   List<int> _value = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+
+  int _deviceNumber = -1;
+  int _firmwareNumber = -1;
 
 //  late Function sendData;
   final List<Handler> _dataHandlers = [];
@@ -237,6 +244,14 @@ class BgsConnect {
     await _write([0xA3, intensity.index]);
   }
 
+  int deviceNumber() {
+    return _deviceNumber;
+  }
+
+  int firmwareNumber() {
+    return _firmwareNumber;
+  }
+
   Future<void> _write(List<int> command) async {
     if (!_isSending) return;
     await _characteristic.write(command, withoutResponse: true);
@@ -270,6 +285,9 @@ class BgsConnect {
     var intensity = Intensivity.values[value[11]];
     var chargeLevel = getChargeLevelByADC(value[3]);
 
+    _deviceNumber = value[2] * 256 + value[1];
+    _firmwareNumber = value[4] & 0x7F;
+
     return BlockData(
       power: power,
       isAM: isAM,
@@ -281,6 +299,8 @@ class BgsConnect {
       chargeLevel: chargeLevel,
       chargeValue: value[3].toDouble(),
       source: value,
+      deviceNumber: _deviceNumber,
+      firmwareNumber: _firmwareNumber,
     );
   }
 }

@@ -329,12 +329,12 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
   }
 
   void _runSelectProgramScreen(
-      DeviceProgramExecutor driver, String uidProgran) {
+      DeviceProgramExecutor driver, String uidProgram) {
     MaterialPageRoute route = MaterialPageRoute(
       builder: (context) => SelectProgramScreen(
         title: 'Выбор программы',
         driver: driver,
-        uidProgram: uidProgran,
+        uidProgram: uidProgram,
       ),
       settings: const RouteSettings(name: '/select_method'),
     );
@@ -400,6 +400,34 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
               },
               child: const Text('Да'),
             ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  void onPropertyPressed(BluetoothDevice device) async {
+    var driver = GetIt.I<RunningManager>().openDevice(device);
+    String sDN = '${driver.deviceNumber()}';
+    String sFN = '${driver.firmwareNumber()}';
+    showDialog<String>(
+      context: context,
+      builder: (BuildContext context) => AlertDialog(
+        title: Text(
+          'Стимулятор ${getShortDeviceName(device.advName)}',
+          style: const TextStyle(fontSize: 24),
+          textScaler: const TextScaler.linear(1.0),
+        ),
+        content: Text(
+          'Номер стимулятора: $sDN   Номер прошивки: $sFN',
+          style: const TextStyle(fontSize: 24),
+          textScaler: const TextScaler.linear(1.0),
+        ),
+        actions: <Widget>[
+          TexelButton.accent(
+            onPressed: () => Navigator.pop(context, 'Cancel'),
+            text: 'Закрыть',
+            width: 120,
           ),
         ],
       ),
@@ -479,6 +507,7 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
         onTap: () => onConnectPressed(r.device),
         onSelect: () => onSelectPressed(r.device),
         onDelete: () => onDeletePressed(r.device),
+        onProperty: () => onPropertyPressed(r.device),
       );
     }).toList();
 

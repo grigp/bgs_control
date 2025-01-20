@@ -12,12 +12,14 @@ class FoundDeviceTitle extends StatefulWidget {
     this.onTap,
     this.onSelect,
     this.onDelete,
+    this.onProperty,
   });
 
   final ScanResult result;
   final VoidCallback? onTap;
   final VoidCallback? onSelect;
   final VoidCallback? onDelete;
+  final VoidCallback? onProperty;
 
   @override
   State<FoundDeviceTitle> createState() => _FoundDeviceTitleState();
@@ -70,7 +72,11 @@ class _FoundDeviceTitleState extends State<FoundDeviceTitle> {
                 PopupMenuButton(
                   icon: const Icon(Icons.more_horiz),
                   onSelected: (DeviceActions item) {
-                    widget.onDelete?.call();
+                    if (item == DeviceActions.delete) {
+                      widget.onDelete?.call();
+                    } else if (item == DeviceActions.property){
+                      widget.onProperty?.call();
+                    }
                   },
                   itemBuilder: (BuildContext context) =>
                       <PopupMenuEntry<DeviceActions>>[
@@ -80,6 +86,16 @@ class _FoundDeviceTitleState extends State<FoundDeviceTitle> {
                         leading: Icon(Icons.delete),
                         title: Text(
                           'Удалить',
+                          textScaler: TextScaler.linear(1.0),
+                        ),
+                      ),
+                    ),
+                    const PopupMenuItem<DeviceActions>(
+                      value: DeviceActions.property,
+                      child: ListTile(
+                        leading: Icon(Icons.settings),
+                        title: Text(
+                          'Свойства',
                           textScaler: TextScaler.linear(1.0),
                         ),
                       ),
@@ -105,7 +121,8 @@ class _FoundDeviceTitleState extends State<FoundDeviceTitle> {
 
   Widget _buildTitle(BuildContext context, ThemeData theme) {
     print('>>>>>>>>> ${widget.result.device.advName}');
-    if (widget.result.device.advName.isNotEmpty) {//platformName.isNotEmpty) {
+    if (widget.result.device.advName.isNotEmpty) {
+      //platformName.isNotEmpty) {
       return Row(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -141,6 +158,7 @@ class _FoundDeviceTitleState extends State<FoundDeviceTitle> {
       return Text(widget.result.device.remoteId.str);
     }
   }
+
 }
 
-enum DeviceActions { delete }
+enum DeviceActions { delete, property }
