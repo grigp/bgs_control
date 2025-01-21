@@ -102,6 +102,7 @@ class BgsConnect {
 
   int _deviceNumber = -1;
   int _firmwareNumber = -1;
+  int _timeUseDevice = -1;
 
 //  late Function sendData;
   final List<Handler> _dataHandlers = [];
@@ -141,8 +142,9 @@ class BgsConnect {
             if (_isSending && value.length == 14) {
               GetIt.I<CommunicationLogger>().log('>> $value');
               _value = value;
+              var bd = _createBlockData(_value);
               for (int i = 0; i < _dataHandlers.length; ++i) {
-                _dataHandlers[i].handler(_createBlockData(_value));
+                _dataHandlers[i].handler(bd);
               }
             }
             // setState(() {
@@ -252,6 +254,14 @@ class BgsConnect {
     return _firmwareNumber;
   }
 
+  int timeUseDevice() {
+    return _timeUseDevice;
+  }
+
+  void setTimeUseDevice(int startVal) {
+    _timeUseDevice = startVal;
+  }
+
   Future<void> _write(List<int> command) async {
     if (!_isSending) return;
     await _characteristic.write(command, withoutResponse: true);
@@ -287,6 +297,7 @@ class BgsConnect {
 
     _deviceNumber = value[2] * 256 + value[1];
     _firmwareNumber = value[4] & 0x7F;
+    ++_timeUseDevice;
 
     return BlockData(
       power: power,

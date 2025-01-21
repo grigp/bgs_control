@@ -2,10 +2,12 @@ import 'dart:async';
 
 //import 'dart:isolate';
 
+import 'package:bgs_control/repositories/bgs_property_storage/bgs_property_storage.dart';
 import 'package:bgs_control/repositories/methodic_programs/model/methodic_program.dart';
 import 'package:bgs_control/utils/extra.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
+import 'package:get_it/get_it.dart';
 import 'package:uuid/uuid.dart';
 import 'package:workmanager/workmanager.dart';
 
@@ -183,11 +185,24 @@ class DeviceProgramExecutor {
   ProgramStage stage() => program.stage(_idxStage);
 
   Future addHandler(String uid, Function handler) async {
+    var dp = await GetIt.I<BgsPropertyStorage>().getProperty(_connect.device.advName);
+    print('<<<<<<<<<<<<<<<<<<   add handler ${_connect.device.advName}   ${dp.timeUseDevice}   >>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
+
+    _connect.setTimeUseDevice(dp.timeUseDevice);
     await _connect.addHandler(uid, handler);
   }
 
   Future removeHandler(String uid) async {
     await _connect.removeHandler(uid);
+    GetIt.I<BgsPropertyStorage>().saveProperty(
+      BgsProperty(
+          bgsName: _connect.device.advName,
+          deviceNumber: _connect.deviceNumber(),
+          firmwareNumber: _connect.firmwareNumber(),
+          timeUseDevice: _connect.timeUseDevice(),
+      )
+    );
+    print('<<<<<<<<<<<<<<<<<<   remove handler ${_connect.device.advName}  ${_connect.timeUseDevice()}   >>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
   }
 
   void setPower(double power) {

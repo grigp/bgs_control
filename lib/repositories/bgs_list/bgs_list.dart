@@ -1,5 +1,8 @@
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
+/// Класс списка стимуляторов, подключавшихся когда - либо к программе
+/// Содержит списиок в параметрах FlutterSecureStorage в виде:
+/// BG_0025 BG_0032 BG_0042 BG_0050
 class BgsList {
   BgsList() {
     _init();

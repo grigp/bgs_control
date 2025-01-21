@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bgs_control/repositories/bgs_connect/ble_service.dart';
 import 'package:bgs_control/repositories/bgs_list/bgs_list.dart';
+import 'package:bgs_control/repositories/bgs_property_storage/bgs_property_storage.dart';
 import 'package:bgs_control/repositories/logger/communication_logger.dart';
 import 'package:bgs_control/repositories/methodic_programs/storage/program_storage.dart';
 import 'package:bgs_control/repositories/running_manager/running_manager.dart';
@@ -62,6 +63,7 @@ void main() {
 
   GetIt.I.registerLazySingleton<BleService>(() => BleService());
   GetIt.I.registerLazySingleton<BgsList>(() => BgsList());
+  GetIt.I.registerLazySingleton<BgsPropertyStorage>(() => BgsPropertyStorage());
   GetIt.I.registerLazySingleton<ProgramStorage>(() => ProgramStorage());
   GetIt.I.registerLazySingleton<RunningManager>(() => RunningManager());
   GetIt.I.registerLazySingleton<CommunicationLogger>(
