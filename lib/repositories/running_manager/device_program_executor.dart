@@ -185,24 +185,29 @@ class DeviceProgramExecutor {
   ProgramStage stage() => program.stage(_idxStage);
 
   Future addHandler(String uid, Function handler) async {
-    var dp = await GetIt.I<BgsPropertyStorage>().getProperty(_connect.device.advName);
-    print('<<<<<<<<<<<<<<<<<<   add handler ${_connect.device.advName}   ${dp.timeUseDevice}   >>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
-
-    _connect.setTimeUseDevice(dp.timeUseDevice);
     await _connect.addHandler(uid, handler);
   }
 
   Future removeHandler(String uid) async {
     await _connect.removeHandler(uid);
+  }
+
+  Future initSettings() async {
+    /// Получиим параметры стимулятора. Главное - время работы
+    var dp = await GetIt.I<BgsPropertyStorage>().getProperty(_connect.device.advName);
+    _connect.setTimeUseDevice(dp.timeUseDevice);
+  }
+
+  Future saveSettings() async {
+    /// Сохраним параметры стимулятора. Главное - время работы
     GetIt.I<BgsPropertyStorage>().saveProperty(
-      BgsProperty(
+        BgsProperty(
           bgsName: _connect.device.advName,
           deviceNumber: _connect.deviceNumber(),
           firmwareNumber: _connect.firmwareNumber(),
           timeUseDevice: _connect.timeUseDevice(),
-      )
+        )
     );
-    print('<<<<<<<<<<<<<<<<<<   remove handler ${_connect.device.advName}  ${_connect.timeUseDevice()}   >>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
   }
 
   void setPower(double power) {

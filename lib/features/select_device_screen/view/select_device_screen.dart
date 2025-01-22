@@ -14,6 +14,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:get_it/get_it.dart';
 
+import '../../../repositories/bgs_property_storage/bgs_property_storage.dart';
 import '../../../repositories/logger/communication_logger.dart';
 import '../../../repositories/running_manager/device_program_executor.dart';
 import '../../../repositories/running_manager/running_manager.dart';
@@ -407,9 +408,15 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
   }
 
   void onPropertyPressed(BluetoothDevice device) async {
-    var driver = GetIt.I<RunningManager>().openDevice(device);
-    String sDN = '${driver.deviceNumber()}';
-    String sFN = '${driver.firmwareNumber()}';
+    /// Получим параметры стимулятора. Главное - время работы
+    var dp = await GetIt.I<BgsPropertyStorage>().getProperty(device.advName);
+    String sDN = '${dp.deviceNumber}';
+    String sFN = '${dp.firmwareNumber}';
+    String sTC = 'мм:сс';
+    if (dp.timeUseDevice > 3600){
+      sTC = 'чч:мм:сс';
+    }
+    String sTUD = getTimeBySecCount(dp.timeUseDevice);
     showDialog<String>(
       context: context,
       builder: (BuildContext context) => AlertDialog(
@@ -419,7 +426,7 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
           textScaler: const TextScaler.linear(1.0),
         ),
         content: Text(
-          'Номер стимулятора: $sDN   Номер прошивки: $sFN',
+          'Номер стимулятора: $sDN   Номер прошивки: $sFN  Время работы:\n$sTUD $sTC',
           style: const TextStyle(fontSize: 24),
           textScaler: const TextScaler.linear(1.0),
         ),

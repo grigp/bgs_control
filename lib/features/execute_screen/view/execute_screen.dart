@@ -448,10 +448,12 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
 
     _uuidGetData = const Uuid().v1();
     widget.driver.addHandler(_uuidGetData, onGetData);
+    widget.driver.initSettings();
   }
 
   @override
   void dispose() {
+    widget.driver.saveSettings();
     widget.driver.removeHandler(_uuidGetData);
     if (!widget.driver.isWorkAuto()) {
       widget.driver.setPower(0);
@@ -498,6 +500,7 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
       _isOver = true;
 
       /// Программа завершена - к окну результатов
+      widget.driver.saveSettings();
       widget.driver.removeHandler(_uuidGetData);
       MaterialPageRoute route = MaterialPageRoute(
         builder: (context) => ResultScreen(

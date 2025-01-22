@@ -52,6 +52,7 @@ class BgsPropertyStorage {
 
     bool fnd = false;
     for (int i = 0; i < _listBgs.length; ++i) {
+      print('${_listBgs[i].bgsName}  ${data.bgsName}   ->    ${_listBgs[i].bgsName == data.bgsName}');
       if (_listBgs[i].bgsName == data.bgsName) {
         _listBgs[i].deviceNumber = data.deviceNumber;
         _listBgs[i].firmwareNumber = data.firmwareNumber;
@@ -65,14 +66,12 @@ class BgsPropertyStorage {
       _listBgs.add(data);
     }
 
-
     List<Map<String, dynamic>> list = [];
     for (int i = 0; i < _listBgs.length; ++i) {
       var objBgs = BgsProperty.toJson(_listBgs[i]);
       list.add(objBgs);
     }
     Map<String, dynamic> root = {'bgs': list};
-    print('>>>>>>>>>>>>>>>>>> ${json.encode(root)}');
 
     final dir = Platform.isAndroid
         ? await getExternalStorageDirectory()
@@ -105,6 +104,8 @@ class BgsPropertyStorage {
   }
 
   Future _fillListBgs() async {
+    _listBgs.clear();
+
     final dir = Platform.isAndroid
         ? await getExternalStorageDirectory()
         : await getApplicationSupportDirectory();
