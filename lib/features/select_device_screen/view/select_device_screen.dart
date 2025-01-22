@@ -212,12 +212,14 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
       ),
     );
 
-    /// Если одно устройство в списке, то сразу подключаемся на него.
-    /// Только при первом запуске        НОРМАЛЬНО НЕ РАБОТАЕТ
-    if (_devicesCount == 1 && _isFirstRun) {
-      _isFirstRun = false;
-      onConnectPressed(_device);
-    }
+    /// Запускаем через 500 мс, чтобы, если включено несколько БГС, они все появились в списке
+    Timer(const Duration(milliseconds: 500), () {
+      /// Если одно устройство в списке, то сразу подключаемся на него.
+      if (_devicesCount == 1 && _isFirstRun) {
+        _isFirstRun = false;
+        onConnectPressed(_device);
+      }
+    });
 
     return retval;
   }
@@ -257,6 +259,7 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
   }
 
   Future<void> onRefresh() async {
+    _isFirstRun = true;  /// Убрать, если захочется, чтобы автоматически переходило только в первый раз
     await GetIt.I<BleService>().bleStartScan();
     setState(() {});
   }

@@ -42,6 +42,8 @@ class BgsProperty {
 }
 
 /// Класс хранилища данных о свойствах стмуляторов
+/// НЕЛЬЗЯ ОБЪЕДИНЯТЬ С bgs_list, ибо там можно легко редактировать
+/// и длительность использования будет забываться
 class BgsPropertyStorage {
   final List<BgsProperty> _listBgs = [];
 
