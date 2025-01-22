@@ -1,4 +1,5 @@
 
+import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
@@ -46,13 +47,12 @@ class BgsProperty {
 class BgsPropertyStorage {
   final List<BgsProperty> _listBgs = [];
 
-
+  /// Сохраняет свойства стимулятора и добавляет его в список при отсутствии
   void saveProperty(BgsProperty data) async {
     await _fillListBgs();
 
     bool fnd = false;
     for (int i = 0; i < _listBgs.length; ++i) {
-      print('${_listBgs[i].bgsName}  ${data.bgsName}   ->    ${_listBgs[i].bgsName == data.bgsName}');
       if (_listBgs[i].bgsName == data.bgsName) {
         _listBgs[i].deviceNumber = data.deviceNumber;
         _listBgs[i].firmwareNumber = data.firmwareNumber;
@@ -66,21 +66,10 @@ class BgsPropertyStorage {
       _listBgs.add(data);
     }
 
-    List<Map<String, dynamic>> list = [];
-    for (int i = 0; i < _listBgs.length; ++i) {
-      var objBgs = BgsProperty.toJson(_listBgs[i]);
-      list.add(objBgs);
-    }
-    Map<String, dynamic> root = {'bgs': list};
-
-    final dir = Platform.isAndroid
-        ? await getExternalStorageDirectory()
-        : await getApplicationSupportDirectory();
-
-    var f = File('${dir?.path}/bgs_properties.json');
-    await f.writeAsString(json.encode(root));
+    await _saveListBgs();
   }
 
+  /// Запрашивает параметры стимулятора
   Future<BgsProperty> getProperty(String bgsName) async {
     await _fillListBgs();
 
@@ -103,6 +92,44 @@ class BgsPropertyStorage {
     );
   }
 
+  /// Возвращает true, если стимулятор есть в списке
+  Future<bool> isContains(String bgsName) async {
+    await _fillListBgs();
+
+    for (int i = 0; i < _listBgs.length; ++i) {
+      if (_listBgs[i].bgsName == bgsName) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  /// Удаляет стимулятор из списка
+  Future delete(String bgsName) async {
+    await _fillListBgs();
+
+    for (int i = 0; i < _listBgs.length; ++i) {
+      if (_listBgs[i].bgsName == bgsName) {
+        _listBgs.removeAt(i);
+        break;
+      }
+    }
+
+    await _saveListBgs();
+  }
+
+  /// Возвращает список подключенных стимуляторов в формате списка строк
+  Future<List<String>> getList() async {
+    await _fillListBgs();
+
+    List<String> retval = [];
+    for (int i = 0; i < _listBgs.length; ++i) {
+      retval.add(_listBgs[i].bgsName);
+    }
+
+    return retval;
+  }
+
   Future _fillListBgs() async {
     _listBgs.clear();
 
@@ -122,9 +149,22 @@ class BgsPropertyStorage {
         }
       });
     }
-
   }
 
+  Future _saveListBgs() async {
+    List<Map<String, dynamic>> list = [];
+    for (int i = 0; i < _listBgs.length; ++i) {
+      var objBgs = BgsProperty.toJson(_listBgs[i]);
+      list.add(objBgs);
+    }
+    Map<String, dynamic> root = {'bgs': list};
 
+    final dir = Platform.isAndroid
+        ? await getExternalStorageDirectory()
+        : await getApplicationSupportDirectory();
+
+    var f = File('${dir?.path}/bgs_properties.json');
+    await f.writeAsString(json.encode(root));
+  }
 
 }
