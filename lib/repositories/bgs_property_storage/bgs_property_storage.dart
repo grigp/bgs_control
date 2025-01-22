@@ -1,4 +1,3 @@
-
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
@@ -23,19 +22,18 @@ class BgsProperty {
       bgsName: data['bgs'].toString(),
       deviceNumber: data['dvc_number'],
       firmwareNumber: data['fwr_number'],
-      timeUseDevice:  data['time_use_dvc'],
+      timeUseDevice: data['time_use_dvc'],
     );
 
     return retval;
   }
 
-  static Map<String, dynamic> toJson(BgsProperty value) =>
-      {'bgs': value.bgsName,
+  static Map<String, dynamic> toJson(BgsProperty value) => {
+        'bgs': value.bgsName,
         'dvc_number': value.deviceNumber,
         'fwr_number': value.firmwareNumber,
         'time_use_dvc': value.timeUseDevice,
       };
-
 
   String bgsName;
   int deviceNumber;
@@ -76,20 +74,39 @@ class BgsPropertyStorage {
     for (int i = 0; i < _listBgs.length; ++i) {
       if (_listBgs[i].bgsName == bgsName) {
         return BgsProperty(
-            bgsName: bgsName,
-            deviceNumber: _listBgs[i].deviceNumber,
-            firmwareNumber: _listBgs[i].firmwareNumber,
-            timeUseDevice: _listBgs[i].timeUseDevice,
+          bgsName: bgsName,
+          deviceNumber: _listBgs[i].deviceNumber,
+          firmwareNumber: _listBgs[i].firmwareNumber,
+          timeUseDevice: _listBgs[i].timeUseDevice,
         );
       }
     }
 
     return BgsProperty(
-        bgsName: '',
+        bgsName: '', deviceNumber: 0, firmwareNumber: 0, timeUseDevice: 0);
+  }
+
+  Future add(String bgsName) async {
+    await _fillListBgs();
+
+    bool fnd = false;
+    for (int i = 0; i < _listBgs.length; ++i) {
+      if (_listBgs[i].bgsName == bgsName) {
+        fnd = true;
+        break;
+      }
+    }
+
+    if (!fnd) {
+      _listBgs.add(BgsProperty(
+        bgsName: bgsName,
         deviceNumber: 0,
         firmwareNumber: 0,
-        timeUseDevice: 0
-    );
+        timeUseDevice: 0,
+      ));
+    }
+
+    await _saveListBgs();
   }
 
   /// Возвращает true, если стимулятор есть в списке
@@ -166,5 +183,4 @@ class BgsPropertyStorage {
     var f = File('${dir?.path}/bgs_properties.json');
     await f.writeAsString(json.encode(root));
   }
-
 }
