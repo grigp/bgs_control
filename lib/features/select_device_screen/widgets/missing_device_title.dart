@@ -7,10 +7,12 @@ class MissingDeviceTitle extends StatelessWidget {
     super.key,
     required this.deviceName,
     required this.onDelete,
+    required this.onProperty,
   });
 
   final String deviceName;
   final VoidCallback? onDelete;
+  final VoidCallback? onProperty;
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +36,11 @@ class MissingDeviceTitle extends StatelessWidget {
             PopupMenuButton(
               icon: const Icon(Icons.more_horiz),
               onSelected: (DeviceActions item) {
-                onDelete?.call();
+                if (item == DeviceActions.delete) {
+                  onDelete?.call();
+                } else if (item == DeviceActions.property){
+                  onProperty?.call();
+                }
               },
               itemBuilder: (BuildContext context) =>
                   <PopupMenuEntry<DeviceActions>>[
@@ -44,6 +50,16 @@ class MissingDeviceTitle extends StatelessWidget {
                     leading: Icon(Icons.delete),
                     title: Text(
                       'Удалить',
+                      textScaler: TextScaler.linear(1.0),
+                    ),
+                  ),
+                ),
+                const PopupMenuItem<DeviceActions>(
+                  value: DeviceActions.property,
+                  child: ListTile(
+                    leading: Icon(Icons.settings),
+                    title: Text(
+                      'Свойства',
                       textScaler: TextScaler.linear(1.0),
                     ),
                   ),
@@ -67,4 +83,4 @@ class MissingDeviceTitle extends StatelessWidget {
   }
 }
 
-enum DeviceActions { delete }
+enum DeviceActions { delete, property }

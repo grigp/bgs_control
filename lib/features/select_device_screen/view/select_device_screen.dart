@@ -259,7 +259,9 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
   }
 
   Future<void> onRefresh() async {
-    _isFirstRun = true;  /// Убрать, если захочется, чтобы автоматически переходило только в первый раз
+    _isFirstRun = true;
+
+    /// Убрать, если захочется, чтобы автоматически переходило только в первый раз
     await GetIt.I<BleService>().bleStartScan();
     setState(() {});
   }
@@ -410,13 +412,13 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
     );
   }
 
-  void onPropertyPressed(BluetoothDevice device) async {
+  void onPropertyPressed(String dvcName) async {
     /// Получим параметры стимулятора. Главное - время работы
-    var dp = await GetIt.I<BgsPropertyStorage>().getProperty(device.advName);
+    var dp = await GetIt.I<BgsPropertyStorage>().getProperty(dvcName);
     String sDN = '${dp.deviceNumber}';
     String sFN = '${dp.firmwareNumber}';
     String sTC = 'мм:сс';
-    if (dp.timeUseDevice > 3600){
+    if (dp.timeUseDevice > 3600) {
       sTC = 'чч:мм:сс';
     }
     String sTUD = getTimeBySecCount(dp.timeUseDevice);
@@ -424,7 +426,7 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
       context: context,
       builder: (BuildContext context) => AlertDialog(
         title: Text(
-          'Стимулятор ${getShortDeviceName(device.advName)}',
+          'Стимулятор ${getShortDeviceName(dvcName)}',
           style: const TextStyle(fontSize: 24),
           textScaler: const TextScaler.linear(1.0),
         ),
@@ -517,7 +519,7 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
         onTap: () => onConnectPressed(r.device),
         onSelect: () => onSelectPressed(r.device),
         onDelete: () => onDeletePressed(r.device),
-        onProperty: () => onPropertyPressed(r.device),
+        onProperty: () => onPropertyPressed(r.device.advName),
       );
     }).toList();
 
@@ -539,6 +541,7 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
         .map((deviceName) => MissingDeviceTitle(
               deviceName: deviceName,
               onDelete: () => onDeleteMissingPressed(deviceName),
+              onProperty: () => onPropertyPressed(deviceName),
             ))
         .toList();
   }

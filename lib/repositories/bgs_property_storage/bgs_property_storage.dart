@@ -72,7 +72,6 @@ class BgsPropertyStorage {
   /// Запрашивает параметры стимулятора
   Future<BgsProperty> getProperty(String bgsName) async {
     await _fillListBgs();
-
     for (int i = 0; i < _listBgs.length; ++i) {
       if (_listBgs[i].bgsName == bgsName) {
         return BgsProperty(
