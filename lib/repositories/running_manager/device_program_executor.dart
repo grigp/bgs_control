@@ -66,13 +66,14 @@ class DeviceProgramExecutor {
   // final receivePort = ReceivePort();
 
   /// Запуск программы
-  void connect() {
-    // if (!_isConnected) {  События в stream(.listen) срабатывает до connect при последующих запусках
-    _connect.init(device);
-    device.connectionState.listen((event) {
-      _isConnected = event == BluetoothConnectionState.connected;
-    });
-    // }
+  Future<bool> connect() async {
+    if (await _connect.init(device)){
+      device.connectionState.listen((event) {
+        _isConnected = event == BluetoothConnectionState.connected;
+      });
+      return true;
+    }
+    return false;
   }
 
   void disconnect(bool isReset) {

@@ -152,26 +152,7 @@ class _SelectProgramScreenState extends State<SelectProgramScreen> {
     super.initState();
 
     readPrograms();
-
-    widget.driver.connect();
-    // TODO как-то по другому надо получать данные о зарядке
-    _uuidGetData = const Uuid().v1();
-    widget.driver.addHandler(_uuidGetData, onGetData);
-
-    /// Запуск программы автоматически, если указан ее uid
-    if (widget.uidProgram != "") {
-      for (int i = 0; i < _programs.length; ++i) {
-        if (widget.uidProgram == _programs[i].uid) {
-          Timer(const Duration(milliseconds: 100), () {
-            if (_chargeLevel > chargeBreakBoundLevel) {
-              _runProgram(_programs[i]);
-            } else {
-              alertLowEnergy();
-            }
-          });
-        }
-      }
-    }
+    _initConnect();
   }
 
   @override
@@ -189,6 +170,52 @@ class _SelectProgramScreenState extends State<SelectProgramScreen> {
     // for (int i = 0; i < _programs.length; ++i){
     //   print('--------- $i: ${_programs[i].title}');
     // }
+  }
+
+  void _initConnect() async {
+    if (await widget.driver.connect()) {
+      // TODO как-то по другому надо получать данные о зарядке
+      _uuidGetData = const Uuid().v1();
+      widget.driver.addHandler(_uuidGetData, onGetData);
+
+      /// Запуск программы автоматически, если указан ее uid
+      if (widget.uidProgram != "") {
+        for (int i = 0; i < _programs.length; ++i) {
+          if (widget.uidProgram == _programs[i].uid) {
+            Timer(const Duration(milliseconds: 100), () {
+              if (_chargeLevel > chargeBreakBoundLevel) {
+                _runProgram(_programs[i]);
+              } else {
+                alertLowEnergy();
+              }
+            });
+          }
+        }
+      }
+    }
+  }
+
+  void _showLostConnectError() {
+    showDialog<String>(
+      context: context,
+      builder: (BuildContext context) => AlertDialog(
+        title: const Text(
+          'Не удалось подключиться к стимулятору',
+          textScaler: TextScaler.linear(1.0),
+        ),
+        content: const Text(
+          'Попробуйте повторить попытку',
+          textScaler: TextScaler.linear(1.0),
+        ),
+        actions: <Widget>[
+          TexelButton.accent(
+            onPressed: () => Navigator.pop(context, 'Cancel'),
+            text: 'Ок',
+            width: 120,
+          ),
+        ],
+      ),
+    );
   }
 
   void onGetData(BlockData data) {

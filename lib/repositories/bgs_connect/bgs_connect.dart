@@ -64,20 +64,19 @@ enum ConnectionFailureMode { cfmResetPower, cfmWorking }
 
 /// Класс пакета данных от устройства
 class BlockData {
-  const BlockData({
-    required this.power,
-    required this.isAM,
-    required this.isFM,
-    required this.amMode,
-    required this.idxFreq,
-    required this.isPowerReset,
-    required this.intensity,
-    required this.chargeLevel,
-    required this.chargeValue,
-    required this.source,
-    required this.deviceNumber,
-    required this.firmwareNumber
-  });
+  const BlockData(
+      {required this.power,
+      required this.isAM,
+      required this.isFM,
+      required this.amMode,
+      required this.idxFreq,
+      required this.isPowerReset,
+      required this.intensity,
+      required this.chargeLevel,
+      required this.chargeValue,
+      required this.source,
+      required this.deviceNumber,
+      required this.firmwareNumber});
 
   final double power;
   final bool isAM;
@@ -119,7 +118,7 @@ class BgsConnect {
 
   var uid = const Uuid().v1(); //TODO: Убрать!!!
 
-  Future<void> init(BluetoothDevice device) async {
+  Future<bool> init(BluetoothDevice device) async {
     this.device = device;
 
     // _streamConnect = device.connectionState.listen((event) {
@@ -131,47 +130,56 @@ class BgsConnect {
     //   }
     // });
 
-    List<BluetoothService> services = await device.discoverServices();
-    for (var service in services) {
-      if (service.uuid.toString() == 'ffe0') {
-        var characteristics = service.characteristics;
-        for (BluetoothCharacteristic c in characteristics) {
-          _characteristic = c;
-          _isSending = true;
-          final subscription = c.lastValueStream.listen((value) async {
-            if (_isSending && value.length == 14) {
-              GetIt.I<CommunicationLogger>().log('>> $value');
-              _value = value;
-              var bd = _createBlockData(_value);
-              for (int i = 0; i < _dataHandlers.length; ++i) {
-                _dataHandlers[i].handler(bd);
+    try {
+      List<BluetoothService> services = await device.discoverServices();
+      for (var service in services) {
+        if (service.uuid.toString() == 'ffe0') {
+          var characteristics = service.characteristics;
+          for (BluetoothCharacteristic c in characteristics) {
+            _characteristic = c;
+            _isSending = true;
+            final subscription = c.lastValueStream.listen((value) async {
+              if (_isSending && value.length == 14) {
+                GetIt.I<CommunicationLogger>().log('>> $value');
+                _value = value;
+                var bd = _createBlockData(_value);
+                for (int i = 0; i < _dataHandlers.length; ++i) {
+                  _dataHandlers[i].handler(bd);
+                }
               }
+              // setState(() {
+              //   _value = value;
+              //   ++_dataCount;
+              // });
+              // var uuid = c.uuid;
+              // print('--- uuid : $uuid    value : ${value}');
+            });
+            _subscription = subscription;
+            device.cancelWhenDisconnected(subscription);
+            await c.setNotifyValue(true);
+
+            /// Запускаем события от таймера, по которым будем растить мощность
+            if (!_isPowerTimer) {
+              _setPowerTimer = Timer.periodic(
+                const Duration(milliseconds: 1000),
+                setPowerAction,
+              );
+              _isPowerTimer = true;
             }
-            // setState(() {
-            //   _value = value;
-            //   ++_dataCount;
-            // });
-            // var uuid = c.uuid;
-            // print('--- uuid : $uuid    value : ${value}');
-          });
-          _subscription = subscription;
-          device.cancelWhenDisconnected(subscription);
-          await c.setNotifyValue(true);
 
-          /// Запускаем события от таймера, по которым будем растить мощность
-          if (!_isPowerTimer) {
-            _setPowerTimer = Timer.periodic(
-              const Duration(milliseconds: 1000),
-              setPowerAction,
-            );
-            _isPowerTimer = true;
+            reset();
           }
-
-          reset();
         }
       }
+    } catch (e) {
+      print('================================================================');
+      print('Подключиться к стимуляору не удалось: ${e}');
+      print('================================================================');
+      return false;
     }
+
     // services.forEach((service) async {});
+    return true;
   }
 
   // void disconnect() {
