@@ -173,7 +173,7 @@ class BgsConnect {
       }
     } catch (e) {
       print('================================================================');
-      print('Подключиться к стимуляору не удалось: ${e}');
+      print('Подключиться к стимулятору не удалось: ${e}');
       print('================================================================');
       return false;
     }
@@ -272,6 +272,7 @@ class BgsConnect {
 
   Future<void> _write(List<int> command) async {
     if (!_isSending) return;
+    if (!device.isConnected) return;
     await _characteristic.write(command, withoutResponse: true);
     GetIt.I<CommunicationLogger>().log('<< $command');
   }
