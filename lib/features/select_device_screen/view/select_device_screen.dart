@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:bgs_control/features/device_info_screen/view/device_info_screen.dart';
 import 'package:bgs_control/features/log_screen/view/log_screen.dart';
 import 'package:bgs_control/features/select_device_screen/features/add_new_device_bottom_sheet/add_new_device_bottom_sheet.dart';
 import 'package:bgs_control/features/select_device_screen/widgets/found_device_title.dart';
@@ -413,37 +414,17 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
   }
 
   void onPropertyPressed(String dvcName) async {
-    /// Получим параметры стимулятора. Главное - время работы
-    var dp = await GetIt.I<BgsPropertyStorage>().getProperty(dvcName);
-    String sDN = '${dp.deviceNumber}';
-    String sFN = '${dp.firmwareNumber}';
-    String sTC = 'мм:сс';
-    if (dp.timeUseDevice > 3600) {
-      sTC = 'чч:мм:сс';
-    }
-    String sTUD = getTimeBySecCount(dp.timeUseDevice);
-    showDialog<String>(
-      context: context,
-      builder: (BuildContext context) => AlertDialog(
-        title: Text(
-          'Стимулятор ${getShortDeviceName(dvcName)}',
-          style: const TextStyle(fontSize: 24),
-          textScaler: const TextScaler.linear(1.0),
-        ),
-        content: Text(
-          'Номер стимулятора: $sDN   Номер прошивки: $sFN  Время работы:\n$sTUD $sTC',
-          style: const TextStyle(fontSize: 24),
-          textScaler: const TextScaler.linear(1.0),
-        ),
-        actions: <Widget>[
-          TexelButton.accent(
-            onPressed: () => Navigator.pop(context, 'Cancel'),
-            text: 'Закрыть',
-            width: 120,
-          ),
-        ],
+    MaterialPageRoute route =
+    MaterialPageRoute(
+      builder: (context) => DeviceInfoScreen(
+        title: 'Параметры стимулятора',
+        dvcName: dvcName,
+      ),
+      settings: const RouteSettings(
+        name: '/dvc_settings',
       ),
     );
+    Navigator.of(context).push(route);
   }
 
   void onDeleteMissingPressed(String deviceName) {
