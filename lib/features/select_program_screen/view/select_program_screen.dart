@@ -13,6 +13,7 @@ import 'package:uuid/uuid.dart';
 
 import '../../../assets/colors/colors.dart';
 import '../../../repositories/bgs_connect/bgs_connect.dart';
+import '../../../repositories/logger/communication_logger.dart';
 import '../../../repositories/running_manager/device_program_executor.dart';
 import '../../../utils/base_defines.dart';
 import '../../../utils/charge_values.dart';
@@ -40,7 +41,7 @@ class SelectProgramScreen extends StatefulWidget {
 class _SelectProgramScreenState extends State<SelectProgramScreen> {
   List<MethodicProgram> _programs = [];
 
-//  bool _isConnected = false;
+  bool _isConnected = false;
   String _uuidGetData = '';
   double _chargeLevel = 100;
   double _chargeValue = 0;
@@ -157,6 +158,7 @@ class _SelectProgramScreenState extends State<SelectProgramScreen> {
 
   @override
   void dispose() {
+    _isConnected = false;
     // TODO как-то по другому надо получать данные о зарядке
     widget.driver.removeHandler(_uuidGetData);
     widget.driver.disconnect(!widget.driver.isWorkAuto());
@@ -177,6 +179,7 @@ class _SelectProgramScreenState extends State<SelectProgramScreen> {
       // TODO как-то по другому надо получать данные о зарядке
       _uuidGetData = const Uuid().v1();
       widget.driver.addHandler(_uuidGetData, onGetData);
+      _isConnected = true;
 
       /// Запуск программы автоматически, если указан ее uid
       if (widget.uidProgram != "") {
@@ -219,10 +222,14 @@ class _SelectProgramScreenState extends State<SelectProgramScreen> {
   }
 
   void onGetData(BlockData data) {
-    setState(() {
-      _chargeLevel = data.chargeLevel;
-      _chargeValue = data.chargeValue;
-    });
+    if (_isConnected) {
+      setState(() {
+        _chargeLevel = data.chargeLevel;
+        _chargeValue = data.chargeValue;
+      });
+    } else {
+      GetIt.I<CommunicationLogger>().log('SelectProgramScreen.onGetData - set state after dispose');
+    }
   }
 
   List<Widget> _buildProgramTiles(BuildContext context) {
