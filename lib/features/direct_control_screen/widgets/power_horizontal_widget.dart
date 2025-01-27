@@ -101,7 +101,6 @@ class _PowerHorizontalWidgetState extends State<PowerHorizontalWidget> {
                         ],
                       ),
                     ),
-
                     const SizedBox(width: 15),
                     AnimatedRoundButton(
                       icon: TypeChangePowerButton.plus,
@@ -120,16 +119,23 @@ class _PowerHorizontalWidgetState extends State<PowerHorizontalWidget> {
           child: SizedBox(
             width: double.infinity,
             height: 50,
-            child: OutlinedButton(
-              child: const Text(
-                'Сброс',
-                style: TextStyle(color: filledBlackButtonColor, fontSize: 24),
-              ),
+            child: TexelButton.transparent(
+              text: 'Сброс',
               onPressed: () {
                 widget.powerSet = 0;
                 widget.onPowerReset();
               },
             ),
+            // child: OutlinedButton(
+            //   child: const Text(
+            //     'Сброс',
+            //     style: TextStyle(color: filledBlackButtonColor, fontSize: 24),
+            //   ),
+            //   onPressed: () {
+            //     widget.powerSet = 0;
+            //     widget.onPowerReset();
+            //   },
+            // ),
           ),
         ),
       ],

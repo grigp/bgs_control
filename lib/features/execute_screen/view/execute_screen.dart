@@ -342,7 +342,7 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
                     top: 16,
                     bottom: 20,
                   ),
-                  child: TexelButton.black(
+                  child: TexelButton.transparent(
                     text: 'Работать автономно',
                     onPressed: () {
                       widget.driver.setIsWorkAuto(true);
