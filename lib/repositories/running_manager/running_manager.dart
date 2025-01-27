@@ -28,4 +28,10 @@ class RunningManager {
       }
     }
   }
+
+  void stopAll() {
+    for (int i = 0; i < _control.length; ++i) {
+      _control[i].setPower(0);
+    }
+  }
 }

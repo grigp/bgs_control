@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:bgs_control/assets/themes/light_theme.dart';
 import 'package:bgs_control/features/invitation_to_connect_screen/view/invitation_to_connect_screen.dart';
 import 'package:bgs_control/repositories/methodic_programs/storage/program_storage.dart';
+import 'package:bgs_control/repositories/running_manager/running_manager.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
@@ -21,13 +22,15 @@ class _BgsAppState extends State<BgsApp>{
   BluetoothAdapterState _adapterState = BluetoothAdapterState.unknown;
 
   late StreamSubscription<BluetoothAdapterState> _adapterStateStateSubscription;
+  late final AppLifecycleListener _listener;
 
   @override
   void initState() {
     super.initState();
-
     /// Инициализируем хранилище программ
     GetIt.I<ProgramStorage>().init();
+
+    _listener =AppLifecycleListener(onStateChange: _onStateChanged);
 
     _adapterStateStateSubscription = FlutterBluePlus.adapterState.listen((
       state,
@@ -59,6 +62,12 @@ class _BgsAppState extends State<BgsApp>{
     );
   }
 
+  void _onStateChanged(AppLifecycleState state) {
+    if (state == AppLifecycleState.detached) {
+      GetIt.I<RunningManager>().stopAll();
+    }
+    print('================================ AppLifecycleState : $state =====================');
+  }
 
 }
 
