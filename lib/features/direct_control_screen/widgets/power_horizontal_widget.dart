@@ -119,7 +119,7 @@ class _PowerHorizontalWidgetState extends State<PowerHorizontalWidget> {
           child: SizedBox(
             width: double.infinity,
             height: 50,
-            child: TexelButton.transparent(
+            child: TexelButton.yellowDark(
               text: 'Сброс',
               onPressed: () {
                 widget.powerSet = 0;

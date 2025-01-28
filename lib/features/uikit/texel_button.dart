@@ -36,6 +36,26 @@ class TexelButton extends StatelessWidget {
   })  : _colorBackground = filledSecondaryButtonColor,
         _colorText = filledAccentButtonColor;
 
+  const TexelButton.white({
+    super.key,
+    required this.onPressed,
+    required this.text,
+    this.width,
+    this.height,
+    this.icon,
+  })  : _colorBackground = white,
+        _colorText = filledAccentButtonColor;
+
+  const TexelButton.yellowDark({
+    super.key,
+    required this.onPressed,
+    required this.text,
+    this.width,
+    this.height,
+    this.icon,
+  })  : _colorBackground = backgroundCarpetButtonTestColor,
+        _colorText = filledAccentButtonColor;
+
   /// Конструктор accent.
   const TexelButton.accent({
     super.key,

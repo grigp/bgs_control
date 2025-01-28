@@ -342,13 +342,10 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
                     top: 16,
                     bottom: 20,
                   ),
-                  child: TexelButton.transparent(
+                  child: TexelButton.yellowDark(
                     text: 'Работать автономно',
                     onPressed: () {
-                      widget.driver.setIsWorkAuto(true);
-                      Navigator.of(context).popUntil(
-                        ModalRoute.withName('/select'),
-                      );
+                      _doWorkToGo();
                     },
                   ),
                 ),
@@ -546,5 +543,41 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
     // }
 
     return retval;
+  }
+
+  void _doWorkToGo() async {
+    await showDialog<bool>(
+      context: context,
+      builder: (BuildContext context) => AlertDialog(
+        title: const Text(
+          'Перейти в режим автономной работы?',
+          textScaler: TextScaler.linear(1.0),
+        ),
+        content: const Text(
+          'При этом воздействие будет продолжено',
+          textScaler: TextScaler.linear(1.0),
+        ),
+        actions: <Widget>[
+          TexelButton.accent(
+            onPressed: () => Navigator.pop(context, false),
+            text: 'Нет',
+            width: 120,
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 22),
+            child: TextButton(
+              onPressed: () {
+                widget.driver.setIsWorkAuto(true);
+                Navigator.of(context).popUntil(
+                  ModalRoute.withName('/select'),
+                );
+              },
+              child: const Text('Да'),
+              // width: 120,
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }
