@@ -49,8 +49,8 @@ class _PowerHorizontalWidgetState extends State<PowerHorizontalWidget> {
                     label: widget.powerSet.round().toString(),
                     min: 0,
                     max: 125,
-                    activeColor: black,
-                    thumbColor: black,
+                    activeColor: backgroundDarknessTestColor,
+                    thumbColor: backgroundDarknessTestColor,
                     inactiveColor: backgroundCarpetButtonTestColor,
                     divisions: 125,
                     onChanged: (double value) {

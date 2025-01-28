@@ -17,6 +17,7 @@ class ParamsWidget extends StatefulWidget {
     required this.onFreqChanged,
     required this.intensity,
     required this.onIntensityChanged,
+    required this.colorsStyle,
   });
 
   bool isAm;
@@ -29,6 +30,8 @@ class ParamsWidget extends StatefulWidget {
   final Function onFreqChanged;
   Intensivity intensity;
   final Function onIntensityChanged;
+
+  final ParamsColorsStyle colorsStyle;
 
   @override
   State<ParamsWidget> createState() => _ParamsWidgetState();
@@ -53,8 +56,11 @@ class _ParamsWidgetState extends State<ParamsWidget> {
               const Spacer(),
               Switch(
                 value: widget.isAm,
-                activeColor: backgroundDarkTestColor,
-                activeTrackColor: backgroundCarpetButtonTestColor,
+                activeColor: white,
+                activeTrackColor:
+                    widget.colorsStyle == ParamsColorsStyle.pcsYellow
+                        ? backgroundDarkTestColor
+                        : accentColor,
                 inactiveTrackColor: Colors.white54,
                 onChanged: (bool? value) {
                   setState(() {
@@ -115,8 +121,11 @@ class _ParamsWidgetState extends State<ParamsWidget> {
               const Spacer(),
               Switch(
                 value: widget.isFm,
-                activeColor: backgroundDarkTestColor,
-                activeTrackColor: backgroundCarpetButtonTestColor,
+                activeColor: white,
+                activeTrackColor:
+                    widget.colorsStyle == ParamsColorsStyle.pcsYellow
+                        ? backgroundDarkTestColor
+                        : accentColor,
                 inactiveTrackColor: Colors.white54,
                 onChanged: (bool? value) {
                   setState(() {
@@ -136,7 +145,7 @@ class _ParamsWidgetState extends State<ParamsWidget> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Частота: ${freqValue[widget.idxFreq]!.toInt()}',
+                  'Частота: ${freqValue[widget.idxFreq]!.toInt()} Гц',
                   style: theme.textTheme.labelMedium,
                   textScaler: const TextScaler.linear(1.0),
                 ),
@@ -146,9 +155,16 @@ class _ParamsWidgetState extends State<ParamsWidget> {
                   min: 0,
                   max: 6,
                   divisions: 6,
-                  activeColor: black,
-                  thumbColor: black,
-                  inactiveColor: backgroundCarpetButtonTestColor,
+                  activeColor: widget.colorsStyle == ParamsColorsStyle.pcsYellow
+                      ? backgroundDarknessTestColor
+                      : filledAccentButtonColor,
+                  thumbColor: widget.colorsStyle == ParamsColorsStyle.pcsYellow
+                      ? backgroundDarknessTestColor
+                      : filledAccentButtonColor,
+                  inactiveColor:
+                      widget.colorsStyle == ParamsColorsStyle.pcsYellow
+                          ? backgroundCarpetButtonTestColor
+                          : filledSecondaryButtonColor,
                   onChanged: (double value) {
                     setState(() {
                       widget.idxFreq = value;
@@ -222,3 +238,5 @@ class _ParamsWidgetState extends State<ParamsWidget> {
     );
   }
 }
+
+enum ParamsColorsStyle { pcsYellow, pcsOrdinal }

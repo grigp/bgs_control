@@ -114,6 +114,7 @@ class _DirectControlScreenState extends State<DirectControlScreen> {
                 onFreqChanged: onFreqChanged,
                 intensity: _intensivity,
                 onIntensityChanged: onIntensityChanged,
+                colorsStyle: ParamsColorsStyle.pcsYellow,
               ),
             ),
           ],

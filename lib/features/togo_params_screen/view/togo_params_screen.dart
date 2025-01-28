@@ -109,6 +109,7 @@ class _TogoParamsScreenState extends State<TogoParamsScreen> {
                                 onFreqChanged: onFreqChanged,
                                 intensity: _intensity,
                                 onIntensityChanged: onIntensityChanged,
+                                colorsStyle: ParamsColorsStyle.pcsOrdinal,
                               ),
                             ),
                             const SizedBox(height: 60),
