@@ -30,8 +30,9 @@ class RunningManager {
   }
 
   void stopAll() {
+    print('>>>>>>>>>>>>>>>> stop all : ${_control.length}');
     for (int i = 0; i < _control.length; ++i) {
-      _control[i].setPower(0);
+      _control[i].reset();//.setPower(0);
     }
   }
 }

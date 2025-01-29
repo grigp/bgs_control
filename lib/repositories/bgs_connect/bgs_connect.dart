@@ -210,6 +210,7 @@ class BgsConnect {
   }
 
   void reset() async {
+    print('-------------------------- reset !!!!!!!!!!!!!');
     await _write([0x91, 0x00]);
   }
 

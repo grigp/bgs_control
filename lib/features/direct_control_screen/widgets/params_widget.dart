@@ -71,44 +71,49 @@ class _ParamsWidgetState extends State<ParamsWidget> {
               ),
             ],
           ),
-          if (widget.isAm)
+          // if (widget.isAm)
 
-            /// Переключатель амплитудной модуляции
-            SizedBox(
-              width: double.infinity,
-              child: SegmentedButton<AmMode>(
-                segments: <ButtonSegment<AmMode>>[
-                  ButtonSegment<AmMode>(
-                    value: AmMode.am_11,
-                    label: Text(
-                      amModeNames[AmMode.am_11]!,
-                      textScaler: const TextScaler.linear(1.0),
-                    ),
+          /// Переключатель амплитудной модуляции
+          AnimatedContainer(
+            duration: const Duration(milliseconds: 300),
+            height: widget.isAm ? 50 : 0,
+            width: double.infinity,
+            child: widget.isAm ?
+            SegmentedButton<AmMode>(
+              segments: <ButtonSegment<AmMode>>[
+                ButtonSegment<AmMode>(
+                  value: AmMode.am_11,
+                  label: Text(
+                    amModeNames[AmMode.am_11]!,
+                    textScaler: const TextScaler.linear(1.0),
                   ),
-                  ButtonSegment<AmMode>(
-                    value: AmMode.am_31,
-                    label: Text(
-                      amModeNames[AmMode.am_31]!,
-                      textScaler: const TextScaler.linear(1.0),
-                    ),
+                ),
+                ButtonSegment<AmMode>(
+                  value: AmMode.am_31,
+                  label: Text(
+                    amModeNames[AmMode.am_31]!,
+                    textScaler: const TextScaler.linear(1.0),
                   ),
-                  ButtonSegment<AmMode>(
-                    value: AmMode.am_51,
-                    label: Text(
-                      amModeNames[AmMode.am_51]!,
-                      textScaler: const TextScaler.linear(1.0),
-                    ),
+                ),
+                ButtonSegment<AmMode>(
+                  value: AmMode.am_51,
+                  label: Text(
+                    amModeNames[AmMode.am_51]!,
+                    textScaler: const TextScaler.linear(1.0),
                   ),
-                ],
-                selected: <AmMode>{widget.amMode},
-                onSelectionChanged: (Set<AmMode> newSelection) {
-                  setState(() {
-                    widget.amMode = newSelection.first;
-                    widget.onAmModeChanged(widget.amMode);
-                  });
-                },
-              ),
-            ),
+                ),
+              ],
+              selected: <AmMode>{widget.amMode},
+              onSelectionChanged: (Set<AmMode> newSelection) {
+                setState(() {
+                  widget.amMode = newSelection.first;
+                  widget.onAmModeChanged(widget.amMode);
+                });
+              },
+            )
+            :
+            const Text(''),
+          ),
           const Divider(),
           Row(
             /// Флажок "FM"
@@ -138,45 +143,54 @@ class _ParamsWidgetState extends State<ParamsWidget> {
           ),
           const Divider(),
           const SizedBox(height: 10),
-          if (!widget.isFm)
+          // if (!widget.isFm)
 
             /// Регулятор частоты
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Частота: ${freqValue[widget.idxFreq]!.toInt()} Гц',
-                  style: theme.textTheme.labelMedium,
-                  textScaler: const TextScaler.linear(1.0),
-                ),
-                Slider.adaptive(
-                  value: widget.idxFreq,
-                  label: freqValue[widget.idxFreq]!.round().toString(),
-                  min: 0,
-                  max: 6,
-                  divisions: 6,
-                  activeColor: widget.colorsStyle == ParamsColorsStyle.pcsYellow
-                      ? backgroundDarknessTestColor
-                      : filledAccentButtonColor,
-                  thumbColor: widget.colorsStyle == ParamsColorsStyle.pcsYellow
-                      ? backgroundDarknessTestColor
-                      : filledAccentButtonColor,
-                  inactiveColor:
-                      widget.colorsStyle == ParamsColorsStyle.pcsYellow
-                          ? backgroundCarpetButtonTestColor
-                          : filledSecondaryButtonColor,
-                  onChanged: (double value) {
-                    setState(() {
-                      widget.idxFreq = value;
-                    });
-                  },
-                  onChangeEnd: (double value) {
-                    /// В этот момент мы будем устанавливать частоту
-                    widget.onFreqChanged(widget.idxFreq);
-                  },
-                ),
-                const Divider(),
-              ],
+            AnimatedContainer(
+              duration: const Duration(milliseconds: 300),
+              height: !widget.isFm ? 90 : 0,
+              child: !widget.isFm ?
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Частота: ${freqValue[widget.idxFreq]!.toInt()} Гц',
+                    style: theme.textTheme.labelMedium,
+                    textScaler: const TextScaler.linear(1.0),
+                  ),
+                  Slider.adaptive(
+                    value: widget.idxFreq,
+                    label: freqValue[widget.idxFreq]!.round().toString(),
+                    min: 0,
+                    max: 6,
+                    divisions: 6,
+                    activeColor:
+                        widget.colorsStyle == ParamsColorsStyle.pcsYellow
+                            ? backgroundDarknessTestColor
+                            : filledAccentButtonColor,
+                    thumbColor:
+                        widget.colorsStyle == ParamsColorsStyle.pcsYellow
+                            ? backgroundDarknessTestColor
+                            : filledAccentButtonColor,
+                    inactiveColor:
+                        widget.colorsStyle == ParamsColorsStyle.pcsYellow
+                            ? backgroundCarpetButtonTestColor
+                            : filledSecondaryButtonColor,
+                    onChanged: (double value) {
+                      setState(() {
+                        widget.idxFreq = value;
+                      });
+                    },
+                    onChangeEnd: (double value) {
+                      /// В этот момент мы будем устанавливать частоту
+                      widget.onFreqChanged(widget.idxFreq);
+                    },
+                  ),
+                  const Divider(),
+                ],
+              )
+              :
+              const Text(''),
             ),
           const SizedBox(height: 10),
           Column(

@@ -42,6 +42,8 @@ class _InvitationToConnectScreenState extends State<InvitationToConnectScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   const SizedBox(height: 40),
+//                  const Spacer(),
+//                  Image.asset('images/texel_200_light.png'),
                   Row(
                     children: [
                       const SizedBox(width: 20),
