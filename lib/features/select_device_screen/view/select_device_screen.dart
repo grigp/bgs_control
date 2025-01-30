@@ -122,16 +122,15 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
                                   if (kDebugMode)
                                     GestureDetector(
                                       onTap: () {
-                                        MaterialPageRoute route =
-                                            MaterialPageRoute(
-                                          builder: (context) => const LogScreen(
+                                        pushScreen(
+                                          context,
+                                          (context, animation,
+                                                  secondaryAnimation) =>
+                                              const LogScreen(
                                             title: 'Лог обмена данными',
                                           ),
-                                          settings: const RouteSettings(
-                                            name: '/log_comm',
-                                          ),
+                                          '/log_comm',
                                         );
-                                        Navigator.of(context).push(route);
                                       },
                                       child: const Icon(Icons.book),
                                     ),
@@ -275,12 +274,6 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
       });
       GetIt.I<CommunicationLogger>().log('-- connect');
       onSelectPressed(device);
-
-      // Переход на следующий экран
-      // MaterialPageRoute route = MaterialPageRoute(
-      //     builder: (context) => DeviceScreen(device: device),
-      //     settings: RouteSettings(name: '/DeviceScreen'));
-      // Navigator.of(context).push(route);
     } else {
       device.disconnectAndUpdateStream().catchError((e) {});
     }
@@ -324,28 +317,17 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
     });
   }
 
-  void _runExecuteScreen(DeviceProgramExecutor driver) {
-    MaterialPageRoute route = MaterialPageRoute(
-      builder: (context) => ExecuteScreen(
-        title: 'Execution',
-        driver: driver,
-      ),
-      settings: const RouteSettings(name: '/execute'),
-    );
-    Navigator.of(context).push(route);
-  }
-
   void _runSelectProgramScreen(
       DeviceProgramExecutor driver, String uidProgram) {
-    MaterialPageRoute route = MaterialPageRoute(
-      builder: (context) => SelectProgramScreen(
+    pushScreen(
+      context,
+      (context, animation, secondaryAnimation) => SelectProgramScreen(
         title: 'Выбор программы',
         driver: driver,
         uidProgram: uidProgram,
       ),
-      settings: const RouteSettings(name: '/select_method'),
+      '/select_method',
     );
-    Navigator.of(context).push(route);
   }
 
   void subsDisconnectStop() {
@@ -414,17 +396,14 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
   }
 
   void onPropertyPressed(String dvcName) async {
-    MaterialPageRoute route =
-    MaterialPageRoute(
-      builder: (context) => DeviceInfoScreen(
+    pushScreen(
+      context,
+      (context, animation, secondaryAnimation) => DeviceInfoScreen(
         title: 'Параметры стимулятора',
         dvcName: dvcName,
       ),
-      settings: const RouteSettings(
-        name: '/dvc_settings',
-      ),
+      '/dvc_settings',
     );
-    Navigator.of(context).push(route);
   }
 
   void onDeleteMissingPressed(String deviceName) {
