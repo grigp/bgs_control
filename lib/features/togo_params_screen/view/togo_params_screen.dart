@@ -6,6 +6,7 @@ import 'package:uuid/uuid.dart';
 import '../../../assets/colors/colors.dart';
 import '../../../repositories/bgs_connect/bgs_connect.dart';
 import '../../../repositories/running_manager/device_program_executor.dart';
+import '../../../utils/baseutils.dart';
 import '../../direct_control_screen/widgets/params_widget.dart';
 import '../../uikit/texel_button.dart';
 import '../../uikit/widgets/back_screen_button.dart';
@@ -142,15 +143,17 @@ class _TogoParamsScreenState extends State<TogoParamsScreen> {
                       _intensity,
                       freqValue[_idxFreq]!,
                     );
-                    MaterialPageRoute route = MaterialPageRoute(
-                      builder: (context) => ExecuteScreen(
+
+                    pushScreen(
+                      context,
+                          (context, animation, secondaryAnimation) =>
+                      ExecuteScreen(
                         title: 'Execution',
                         driver: widget.driver,
                         program: program,
                       ),
-                      settings: const RouteSettings(name: '/execute'),
+                      '/execute',
                     );
-                    Navigator.of(context).push(route);
                   },
                 ),
               ),

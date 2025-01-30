@@ -77,13 +77,14 @@ class WgtMain extends StatelessWidget {
                       Navigator.pop(context);
 
                       /// Покажем окно предупреждения
-                      MaterialPageRoute route = MaterialPageRoute(
-                        builder: (context) => const AttentionScreen(
+                      pushScreen(
+                        context,
+                        (context, animation, secondaryAnimation) =>
+                            const AttentionScreen(
                           title: 'Предупреждение',
                         ),
-                        settings: const RouteSettings(name: '/select'),
+                        '/select',
                       );
-                      Navigator.of(context).push(route);
                     }
                   },
                   child: Column(
