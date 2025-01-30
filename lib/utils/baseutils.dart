@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 String intToSrt(int v) {
   String s = v.toString();
   if (s.length < 2) {
@@ -42,4 +44,27 @@ String getShortDeviceName(String deviceName) {
 
 String getFullDeviceName(String deviceName) {
   return 'Электростимулятор texel №${getStimulatorNumber(deviceName)}';
+}
+
+void pushScreen(BuildContext context, RoutePageBuilder pageBuilder) {
+  Navigator.push(
+    context,
+    PageRouteBuilder(
+      transitionDuration: const Duration(milliseconds: 300),
+      pageBuilder: pageBuilder,
+      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+        var begin = const Offset(1.0, 0.0);
+        var end = Offset.zero;
+        var curve = Curves.easeInOut;
+        var tween =
+        Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+        var offsetAnimation = animation.drive(tween);
+
+        return SlideTransition(
+          position: offsetAnimation,
+          child: child,
+        );
+      },
+    ),
+  );
 }

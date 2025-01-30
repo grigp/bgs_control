@@ -16,6 +16,7 @@ import '../../../repositories/bgs_connect/bgs_connect.dart';
 import '../../../repositories/logger/communication_logger.dart';
 import '../../../repositories/running_manager/device_program_executor.dart';
 import '../../../utils/base_defines.dart';
+import '../../../utils/baseutils.dart';
 import '../../../utils/charge_values.dart';
 import '../../direct_control_screen/view/direct_control_screen.dart';
 import '../../uikit/texel_button.dart';
@@ -274,11 +275,12 @@ class _SelectProgramScreenState extends State<SelectProgramScreen> {
 
   void _runToGoMode() {
     if (_chargeLevel > chargeBreakBoundLevel) {
-      _pushScreen((context, animation, secondaryAnimation) =>
-          TogoParamsScreen(
-            title: 'Индивидуальный режим',
-            driver: widget.driver,
-          ),
+      pushScreen(
+        context,
+        (context, animation, secondaryAnimation) => TogoParamsScreen(
+          title: 'Индивидуальный режим',
+          driver: widget.driver,
+        ),
       );
     } else {
       alertLowEnergy();
@@ -287,11 +289,12 @@ class _SelectProgramScreenState extends State<SelectProgramScreen> {
 
   void _runDirectControl() {
     if (_chargeLevel > chargeBreakBoundLevel) {
-      _pushScreen((context, animation, secondaryAnimation) =>
-          DirectControlScreen(
-            title: 'Direct',
-            driver: widget.driver,
-          ),
+      pushScreen(
+        context,
+        (context, animation, secondaryAnimation) => DirectControlScreen(
+          title: 'Direct',
+          driver: widget.driver,
+        ),
       );
     } else {
       alertLowEnergy();
@@ -322,34 +325,12 @@ class _SelectProgramScreenState extends State<SelectProgramScreen> {
   }
 
   void _runProgram(MethodicProgram program) {
-    _pushScreen((context, animation, secondaryAnimation) =>
-        ProgramParamsScreen(
-          title: 'Программа ${program.title}',
-          driver: widget.driver,
-          program: program,
-        ),
-    );
-  }
-
-  void _pushScreen(RoutePageBuilder pageBuilder) {
-    Navigator.push(
+    pushScreen(
       context,
-      PageRouteBuilder(
-        transitionDuration: const Duration(milliseconds: 300),
-        pageBuilder: pageBuilder,
-        transitionsBuilder: (context, animation, secondaryAnimation, child) {
-          var begin = const Offset(1.0, 0.0);
-          var end = Offset.zero;
-          var curve = Curves.easeInOut;
-          var tween =
-          Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
-          var offsetAnimation = animation.drive(tween);
-
-          return SlideTransition(
-            position: offsetAnimation,
-            child: child,
-          );
-        },
+      (context, animation, secondaryAnimation) => ProgramParamsScreen(
+        title: 'Программа ${program.title}',
+        driver: widget.driver,
+        program: program,
       ),
     );
   }
