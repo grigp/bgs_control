@@ -281,6 +281,7 @@ class _SelectProgramScreenState extends State<SelectProgramScreen> {
           title: 'Индивидуальный режим',
           driver: widget.driver,
         ),
+        '/togo_control',
       );
     } else {
       alertLowEnergy();
@@ -295,6 +296,7 @@ class _SelectProgramScreenState extends State<SelectProgramScreen> {
           title: 'Direct',
           driver: widget.driver,
         ),
+        '/direct_control',
       );
     } else {
       alertLowEnergy();
@@ -332,6 +334,7 @@ class _SelectProgramScreenState extends State<SelectProgramScreen> {
         driver: widget.driver,
         program: program,
       ),
+      '/program_control',
     );
   }
 }

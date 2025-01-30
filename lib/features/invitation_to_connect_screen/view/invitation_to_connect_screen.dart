@@ -3,6 +3,7 @@ import 'package:bgs_control/features/uikit/texel_button.dart';
 import 'package:flutter/material.dart';
 
 import '../../../assets/colors/colors.dart';
+import '../../../utils/baseutils.dart';
 
 class InvitationToConnectScreen extends StatefulWidget {
   const InvitationToConnectScreen({
@@ -75,16 +76,14 @@ class _InvitationToConnectScreenState extends State<InvitationToConnectScreen> {
                           Center(
                             child: TexelButton.accent(
                               onPressed: () {
-                                MaterialPageRoute route = MaterialPageRoute(
-                                  builder: (context) =>
+                                pushScreen(
+                                  context,
+                                  (context, animation, secondaryAnimation) =>
                                       const SelectDeviceScreen(
                                     title: 'Мои стимуляторы',
                                   ),
-                                  settings: const RouteSettings(
-                                    name: '/select',
-                                  ),
+                                  '/select',
                                 );
-                                Navigator.of(context).push(route);
                               },
                               text: 'Подключить',
                             ),
