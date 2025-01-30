@@ -13,7 +13,7 @@ class _ChargeMessageWidgetState extends State<ChargeMessageWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(15),
+      padding: const EdgeInsets.all(5),
       width: double.infinity,
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.error,

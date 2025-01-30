@@ -125,6 +125,10 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
                 ),
               ),
 
+              /// Предупреждение о низком заряде аккумулятора
+              if (_chargeLevel <= chargeAlarmBoundLevel)
+                const ChargeMessageWidget(),
+
               Padding(
                 padding: const EdgeInsets.only(top: 8, bottom: 8),
                 child: GestureDetector(
@@ -314,9 +318,6 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
                     ],
                   ),
                 ),
-
-              if (_chargeLevel <= chargeAlarmBoundLevel)
-                const ChargeMessageWidget(),
 
               /// Кнопка play / pause
               PlayPauseButton(
