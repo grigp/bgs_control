@@ -255,6 +255,12 @@ class _ParamsWidgetState extends State<ParamsWidget> {
       ),
     );
   }
+
+  @override
+  void initState() {
+    super.initState();
+    _isFmExpanded = !widget.isFm;
+  }
 }
 
 enum ParamsColorsStyle { pcsYellow, pcsOrdinal }

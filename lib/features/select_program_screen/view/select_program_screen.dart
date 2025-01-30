@@ -228,7 +228,8 @@ class _SelectProgramScreenState extends State<SelectProgramScreen> {
         _chargeValue = data.chargeValue;
       });
     } else {
-      GetIt.I<CommunicationLogger>().log('SelectProgramScreen.onGetData - set state after dispose');
+      GetIt.I<CommunicationLogger>()
+          .log('SelectProgramScreen.onGetData - set state after dispose');
     }
   }
 
@@ -273,14 +274,12 @@ class _SelectProgramScreenState extends State<SelectProgramScreen> {
 
   void _runToGoMode() {
     if (_chargeLevel > chargeBreakBoundLevel) {
-      MaterialPageRoute route = MaterialPageRoute(
-        builder: (context) => TogoParamsScreen(
-          title: 'Индивидуальный режим',
-          driver: widget.driver,
-        ),
-        settings: const RouteSettings(name: '/togo_control'),
+      _pushScreen((context, animation, secondaryAnimation) =>
+          TogoParamsScreen(
+            title: 'Индивидуальный режим',
+            driver: widget.driver,
+          ),
       );
-      Navigator.of(context).push(route);
     } else {
       alertLowEnergy();
     }
@@ -288,14 +287,12 @@ class _SelectProgramScreenState extends State<SelectProgramScreen> {
 
   void _runDirectControl() {
     if (_chargeLevel > chargeBreakBoundLevel) {
-      MaterialPageRoute route = MaterialPageRoute(
-        builder: (context) => DirectControlScreen(
-          title: 'Direct',
-          driver: widget.driver,
-        ),
-        settings: const RouteSettings(name: '/direct_control'),
+      _pushScreen((context, animation, secondaryAnimation) =>
+          DirectControlScreen(
+            title: 'Direct',
+            driver: widget.driver,
+          ),
       );
-      Navigator.of(context).push(route);
     } else {
       alertLowEnergy();
     }
@@ -325,15 +322,36 @@ class _SelectProgramScreenState extends State<SelectProgramScreen> {
   }
 
   void _runProgram(MethodicProgram program) {
-    MaterialPageRoute route = MaterialPageRoute(
-      builder: (context) => ProgramParamsScreen(
-        title: 'Программа ${program.title}',
-        driver: widget.driver,
-        program: program,
-      ),
-      settings: const RouteSettings(name: '/program_control'),
+    _pushScreen((context, animation, secondaryAnimation) =>
+        ProgramParamsScreen(
+          title: 'Программа ${program.title}',
+          driver: widget.driver,
+          program: program,
+        ),
     );
-    Navigator.of(context).push(route);
+  }
+
+  void _pushScreen(RoutePageBuilder pageBuilder) {
+    Navigator.push(
+      context,
+      PageRouteBuilder(
+        transitionDuration: const Duration(milliseconds: 300),
+        pageBuilder: pageBuilder,
+        transitionsBuilder: (context, animation, secondaryAnimation, child) {
+          var begin = const Offset(1.0, 0.0);
+          var end = Offset.zero;
+          var curve = Curves.easeInOut;
+          var tween =
+          Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+          var offsetAnimation = animation.drive(tween);
+
+          return SlideTransition(
+            position: offsetAnimation,
+            child: child,
+          );
+        },
+      ),
+    );
   }
 }
 
