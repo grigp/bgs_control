@@ -499,17 +499,15 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
       /// Программа завершена - к окну результатов
       widget.driver.saveSettings();
       widget.driver.removeHandler(_uuidGetData);
-      MaterialPageRoute route = MaterialPageRoute(
-        builder: (context) => ResultScreen(
+
+      pushScreen(
+        context,
+        (context, animation, secondaryAnimation) => ResultScreen(
           title: 'Result',
           driver: widget.driver,
         ),
-        settings: const RouteSettings(name: '/result'),
+        '/result',
       );
-      Navigator.of(context).push(route);
-
-      /// Программа завершена - выходим
-      // Navigator.of(context).popUntil(ModalRoute.withName('/select_method'));
     }
   }
 

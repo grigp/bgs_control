@@ -124,15 +124,17 @@ class _ProgramParamsScreenState extends State<ProgramParamsScreen> {
                     padding: const EdgeInsets.all(10),
                     child: TexelButton.accent(
                       onPressed: () {
-                        MaterialPageRoute route = MaterialPageRoute(
-                          builder: (context) => ExecuteScreen(
+                        pushScreen(
+                          context,
+                              (context, animation,
+                              secondaryAnimation) =>
+                          ExecuteScreen(
                             title: 'Execution',
                             driver: widget.driver,
                             program: widget.program,
                           ),
-                          settings: const RouteSettings(name: '/execute'),
+                          '/execute',
                         );
-                        Navigator.of(context).push(route);
                       },
                       text: 'Начать',
                     ),
