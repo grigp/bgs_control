@@ -59,8 +59,8 @@ class _DeviceInfoScreenState extends State<DeviceInfoScreen> {
                     horizontal: 10,
                     vertical: 8,
                   ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                  child: ListView(
+                    shrinkWrap: true,
                     children: [
                       Text(
                         'Стимулятор ${getShortDeviceName(widget.dvcName)}',
