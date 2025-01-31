@@ -282,6 +282,7 @@ class _SelectProgramScreenState extends State<SelectProgramScreen> {
           driver: widget.driver,
         ),
         '/togo_control',
+        ShiftDirection.rightToLeft,
       );
     } else {
       alertLowEnergy();
@@ -297,6 +298,7 @@ class _SelectProgramScreenState extends State<SelectProgramScreen> {
           driver: widget.driver,
         ),
         '/direct_control',
+        ShiftDirection.rightToLeft,
       );
     } else {
       alertLowEnergy();
@@ -335,6 +337,7 @@ class _SelectProgramScreenState extends State<SelectProgramScreen> {
         program: program,
       ),
       '/program_control',
+      ShiftDirection.rightToLeft,
     );
   }
 }

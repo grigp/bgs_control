@@ -46,8 +46,26 @@ String getFullDeviceName(String deviceName) {
   return 'Электростимулятор texel №${getStimulatorNumber(deviceName)}';
 }
 
-void pushScreen(
-    BuildContext context, RoutePageBuilder pageBuilder, String name) {
+void pushScreen(BuildContext context, RoutePageBuilder pageBuilder, String name,
+    ShiftDirection sd) {
+  /// Откуда будет появляться экран
+  double dx = 0.0;
+  double dy = 0.0;
+  if (sd == ShiftDirection.rightToLeft) {
+    dx = 1.0;
+    dy = 0.0;
+  } else if (sd == ShiftDirection.bottomToUp) {
+    dx = 0.0;
+    dy = 1.0;
+  } else if (sd == ShiftDirection.upToBottom) {
+    dx = 0.0;
+    dy = -1.0;
+  } else if (sd == ShiftDirection.leftToRight) {
+    dx = -1.0;
+    dy = 0.0;
+  }
+
+  /// Собственно, открыть анимируя
   Navigator.push(
     context,
     PageRouteBuilder(
@@ -57,7 +75,7 @@ void pushScreen(
         name: name,
       ),
       transitionsBuilder: (context, animation, secondaryAnimation, child) {
-        var begin = const Offset(1.0, 0.0);
+        var begin = Offset(dx, dy);
         var end = Offset.zero;
         var curve = Curves.easeInOut;
         var tween =
@@ -72,3 +90,5 @@ void pushScreen(
     ),
   );
 }
+
+enum ShiftDirection { leftToRight, rightToLeft, bottomToUp, upToBottom }

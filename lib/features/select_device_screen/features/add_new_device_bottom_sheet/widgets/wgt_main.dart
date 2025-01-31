@@ -84,6 +84,7 @@ class WgtMain extends StatelessWidget {
                           title: 'Предупреждение',
                         ),
                         '/select',
+                        ShiftDirection.rightToLeft,
                       );
                     }
                   },

@@ -508,6 +508,7 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
           driver: widget.driver,
         ),
         '/result',
+        ShiftDirection.rightToLeft,
       );
     }
   }

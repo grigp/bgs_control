@@ -134,6 +134,7 @@ class _ProgramParamsScreenState extends State<ProgramParamsScreen> {
                             program: widget.program,
                           ),
                           '/execute',
+                          ShiftDirection.rightToLeft,
                         );
                       },
                       text: 'Начать',

@@ -153,6 +153,7 @@ class _TogoParamsScreenState extends State<TogoParamsScreen> {
                         program: program,
                       ),
                       '/execute',
+                      ShiftDirection.rightToLeft,
                     );
                   },
                 ),

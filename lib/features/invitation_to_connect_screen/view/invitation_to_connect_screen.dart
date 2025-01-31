@@ -83,6 +83,7 @@ class _InvitationToConnectScreenState extends State<InvitationToConnectScreen> {
                                     title: 'Мои стимуляторы',
                                   ),
                                   '/select',
+                                  ShiftDirection.rightToLeft,
                                 );
                               },
                               text: 'Подключить',

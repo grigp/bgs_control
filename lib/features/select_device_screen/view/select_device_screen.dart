@@ -130,6 +130,7 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
                                             title: 'Лог обмена данными',
                                           ),
                                           '/log_comm',
+                                          ShiftDirection.rightToLeft,
                                         );
                                       },
                                       child: const Icon(Icons.book),
@@ -327,6 +328,7 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
         uidProgram: uidProgram,
       ),
       '/select_method',
+      ShiftDirection.rightToLeft,
     );
   }
 
@@ -403,6 +405,7 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
         dvcName: dvcName,
       ),
       '/dvc_settings',
+      ShiftDirection.rightToLeft,
     );
   }
 
