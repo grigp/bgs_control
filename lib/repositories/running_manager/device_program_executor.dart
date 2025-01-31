@@ -94,6 +94,7 @@ class DeviceProgramExecutor {
       _connect.addHandler(_uuidGetData, onGetData);
 
       _timer = Timer.periodic(const Duration(seconds: 1), onTimer);
+      _connect.resetChargeLevel();
 
       _isPlaying = true;
       if (_isOver) {

@@ -115,6 +115,7 @@ class BgsConnect {
   int _curPower = 0;
   int _targetPower = 0;
   bool _isSending = false;
+  double _chargeLevel = 100.0;
 
   var uid = const Uuid().v1(); //TODO: Убрать!!!
 
@@ -279,6 +280,10 @@ class BgsConnect {
     GetIt.I<CommunicationLogger>().log('<< $command');
   }
 
+  void resetChargeLevel() {
+    _chargeLevel = 100.0;
+  }
+
   BlockData _createBlockData(List<int> value) {
     var power = value[5].toDouble();
 
@@ -304,7 +309,10 @@ class BgsConnect {
     }
 
     var intensity = Intensivity.values[value[11]];
-    var chargeLevel = getChargeLevelByADC(value[3]);
+    var cl = getChargeLevelByADC(value[3]);
+    if (cl < _chargeLevel) {
+      _chargeLevel = cl;
+    }
 
     _deviceNumber = value[2] * 256 + value[1];
     _firmwareNumber = value[4] & 0x7F;
@@ -318,7 +326,7 @@ class BgsConnect {
       idxFreq: idxFreq,
       isPowerReset: isPowerReset,
       intensity: intensity,
-      chargeLevel: chargeLevel,
+      chargeLevel: _chargeLevel,
       chargeValue: value[3].toDouble(),
       source: value,
       deviceNumber: _deviceNumber,

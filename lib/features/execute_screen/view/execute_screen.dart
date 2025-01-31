@@ -469,8 +469,8 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
         _powerSet = 0;
       }
 
-      GetIt.I<CommunicationLogger>().log(
-          '$_dataCount  Power: ${_chargeValue.toInt()}  ${_chargeLevel.toInt()}%');
+      // GetIt.I<CommunicationLogger>().log(
+      //     '$_dataCount  Power: ${_chargeValue.toInt()}  ${_chargeLevel.toInt()}%');
       _chargeLevel = data.chargeLevel;
       _chargeValue = data.chargeValue;
 
