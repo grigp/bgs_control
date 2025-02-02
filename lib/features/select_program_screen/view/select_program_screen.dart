@@ -161,6 +161,7 @@ class _SelectProgramScreenState extends State<SelectProgramScreen> {
   void dispose() {
     _isConnected = false;
     // TODO как-то по другому надо получать данные о зарядке
+    // TODO (yasliks): надо по-хорошему порешать все со всеми ТУДУшками
     widget.driver.removeHandler(_uuidGetData);
     widget.driver.disconnect(!widget.driver.isWorkAuto());
 
@@ -205,11 +206,9 @@ class _SelectProgramScreenState extends State<SelectProgramScreen> {
       builder: (BuildContext context) => AlertDialog(
         title: const Text(
           'Не удалось подключиться к стимулятору',
-          textScaler: TextScaler.linear(1.0),
         ),
         content: const Text(
           'Попробуйте повторить попытку',
-          textScaler: TextScaler.linear(1.0),
         ),
         actions: <Widget>[
           TexelButton.accent(
@@ -320,7 +319,9 @@ class _SelectProgramScreenState extends State<SelectProgramScreen> {
             padding: const EdgeInsets.symmetric(horizontal: 22),
             child: TextButton(
               onPressed: () => Navigator.pop(context, true),
-              child: const Text('Да'),
+              child: const Text(
+                'Да',
+              ),
             ),
           ),
         ],

@@ -43,7 +43,6 @@ class _TimeTotalTitle extends State<TimeTotalTitle> {
                   'Время выполнения программы',
                   style: TextStyle(color: Colors.black, fontSize: 16),
                   overflow: TextOverflow.ellipsis,
-                  textScaler: TextScaler.linear(1.0),
                 ),
                 const Spacer(),
                 Text(

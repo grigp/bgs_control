@@ -50,7 +50,6 @@ class MissingDeviceTitle extends StatelessWidget {
                     leading: Icon(Icons.delete),
                     title: Text(
                       'Удалить',
-                      textScaler: TextScaler.linear(1.0),
                     ),
                   ),
                 ),
@@ -60,7 +59,6 @@ class MissingDeviceTitle extends StatelessWidget {
                     leading: Icon(Icons.settings),
                     title: Text(
                       'Свойства',
-                      textScaler: TextScaler.linear(1.0),
                     ),
                   ),
                 ),

@@ -18,19 +18,23 @@ class BgsApp extends StatefulWidget {
   State<BgsApp> createState() => _BgsAppState();
 }
 
-class _BgsAppState extends State<BgsApp>{
+class _BgsAppState extends State<BgsApp> {
   BluetoothAdapterState _adapterState = BluetoothAdapterState.unknown;
 
   late StreamSubscription<BluetoothAdapterState> _adapterStateStateSubscription;
-  late final AppLifecycleListener _listener;
+  late final AppLifecycleListener
+      _listener; // TODO (yasliks): проверить на надобность
 
   @override
   void initState() {
     super.initState();
+
     /// Инициализируем хранилище программ
     GetIt.I<ProgramStorage>().init();
 
-    _listener =AppLifecycleListener(onStateChange: _onStateChanged);
+    _listener = AppLifecycleListener(
+        onStateChange:
+            _onStateChanged); // TODO (yasliks): проверить на надобность
 
     _adapterStateStateSubscription = FlutterBluePlus.adapterState.listen((
       state,
@@ -55,6 +59,13 @@ class _BgsAppState extends State<BgsApp>{
         : BluetoothOffScreen(adapterState: _adapterState);
 
     return MaterialApp(
+      builder: (context, child) => MediaQuery(
+        data: MediaQuery.of(context).copyWith(
+          boldText: false,
+          textScaler: const TextScaler.linear(1.0),
+        ),
+        child: child!,
+      ),
       title: 'bgs',
       theme: lightTheme,
       home: screen,
@@ -66,9 +77,12 @@ class _BgsAppState extends State<BgsApp>{
     if (state == AppLifecycleState.detached) {
       GetIt.I<RunningManager>().stopAll();
     }
-    print('================================ AppLifecycleState : $state =====================');
+    if (kDebugMode) {
+      print(
+        '================================ AppLifecycleState : $state =====================',
+      );
+    }
   }
-
 }
 
 // class BgsApp extends StatelessWidget {

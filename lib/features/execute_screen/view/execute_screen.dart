@@ -8,12 +8,10 @@ import 'package:bgs_control/features/uikit/widgets/program_progress_bar.dart';
 import 'package:bgs_control/repositories/methodic_programs/model/stage_info.dart';
 import 'package:bgs_control/utils/baseutils.dart';
 import 'package:flutter/material.dart';
-import 'package:get_it/get_it.dart';
 import 'package:uuid/uuid.dart';
 
 import '../../../assets/colors/colors.dart';
 import '../../../repositories/bgs_connect/bgs_connect.dart';
-import '../../../repositories/logger/communication_logger.dart';
 import '../../../repositories/methodic_programs/model/methodic_program.dart';
 import '../../../repositories/running_manager/device_program_executor.dart';
 import '../../../utils/base_defines.dart';
@@ -398,11 +396,9 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
         title: (widget.driver.stage().duration > 0)
             ? const Text(
                 'Отменить выполнение программы?',
-                textScaler: const TextScaler.linear(1.0),
               )
             : const Text(
                 'Прервать воздействие?',
-                textScaler: const TextScaler.linear(1.0),
               ),
         actions: <Widget>[
           TexelButton.accent(
@@ -414,7 +410,9 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
             padding: const EdgeInsets.symmetric(horizontal: 22),
             child: TextButton(
               onPressed: () => Navigator.pop(context, true),
-              child: const Text('Да'),
+              child: const Text(
+                'Да',
+              ),
               // width: 120,
             ),
           ),
@@ -523,6 +521,7 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
   }
 
   String _stimulationParamsToString() {
+    // TODO (yasliks): не используемый метод
     String retval = '';
 
     if (widget.driver.stage().isAm) {
@@ -551,11 +550,9 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
       builder: (BuildContext context) => AlertDialog(
         title: const Text(
           'Перейти в режим автономной работы?',
-          textScaler: TextScaler.linear(1.0),
         ),
         content: const Text(
           'При этом воздействие будет продолжено',
-          textScaler: TextScaler.linear(1.0),
         ),
         actions: <Widget>[
           TexelButton.accent(
@@ -572,7 +569,9 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
                   ModalRoute.withName('/select'),
                 );
               },
-              child: const Text('Да'),
+              child: const Text(
+                'Да',
+              ),
               // width: 120,
             ),
           ),

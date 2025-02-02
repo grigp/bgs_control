@@ -72,7 +72,9 @@ class _LogScreenState extends State<LogScreen> {
                           });
                           Navigator.pop(context, 'Cancel');
                         },
-                        child: const Text('Да'),
+                        child: const Text(
+                          'Да',
+                        ),
                       ),
                     ),
                   ],

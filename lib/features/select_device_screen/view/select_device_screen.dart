@@ -15,12 +15,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:get_it/get_it.dart';
 
-import '../../../repositories/bgs_property_storage/bgs_property_storage.dart';
 import '../../../repositories/logger/communication_logger.dart';
 import '../../../repositories/running_manager/device_program_executor.dart';
 import '../../../repositories/running_manager/running_manager.dart';
 import '../../../utils/baseutils.dart';
-import '../../execute_screen/view/execute_screen.dart';
 import '../../select_program_screen/view/select_program_screen.dart';
 
 class SelectDeviceScreen extends StatefulWidget {
@@ -76,7 +74,6 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
           builder: (BuildContext context) => AlertDialog(
             title: const Text(
               'Выйти из программы?',
-              textScaler: TextScaler.linear(1.0),
             ),
             actions: <Widget>[
               TexelButton.accent(
@@ -90,7 +87,9 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
                   onPressed: () {
                     exit(0);
                   },
-                  child: const Text('Да'),
+                  child: const Text(
+                    'Да',
+                  ),
                 ),
               ),
             ],
@@ -342,7 +341,6 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
       builder: (BuildContext context) => AlertDialog(
         title: const Text(
           'Продолжить выполнение прерванной программы?',
-          textScaler: const TextScaler.linear(1.0),
         ),
         actions: <Widget>[
           TexelButton.accent(
@@ -354,7 +352,9 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
             padding: const EdgeInsets.symmetric(horizontal: 22),
             child: TextButton(
               onPressed: () => Navigator.pop(context, true),
-              child: const Text('Да'),
+              child: const Text(
+                'Да',
+              ),
             ),
           ),
         ],
@@ -368,7 +368,6 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
       builder: (BuildContext context) => AlertDialog(
         title: const Text(
           'Удалить стимулятор из списка?',
-          textScaler: const TextScaler.linear(1.0),
         ),
         content: Text(
           getShortDeviceName(device.advName),
@@ -389,7 +388,9 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
                 onRefresh();
                 Navigator.pop(context, 'OK');
               },
-              child: const Text('Да'),
+              child: const Text(
+                'Да',
+              ),
             ),
           ),
         ],
@@ -415,7 +416,6 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
       builder: (BuildContext context) => AlertDialog(
         title: const Text(
           'Удалить стимулятор из списка?',
-          textScaler: TextScaler.linear(1.0),
         ),
         content: Text(
           getShortDeviceName(deviceName),
@@ -436,7 +436,9 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
                 onRefresh();
                 Navigator.pop(context, 'OK');
               },
-              child: const Text('Да'),
+              child: const Text(
+                'Да',
+              ),
             ),
           ),
         ],

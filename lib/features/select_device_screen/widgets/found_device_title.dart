@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 
@@ -86,7 +87,6 @@ class _FoundDeviceTitleState extends State<FoundDeviceTitle> {
                         leading: Icon(Icons.delete),
                         title: Text(
                           'Удалить',
-                          textScaler: TextScaler.linear(1.0),
                         ),
                       ),
                     ),
@@ -96,7 +96,6 @@ class _FoundDeviceTitleState extends State<FoundDeviceTitle> {
                         leading: Icon(Icons.settings),
                         title: Text(
                           'Свойства',
-                          textScaler: TextScaler.linear(1.0),
                         ),
                       ),
                     ),
@@ -120,7 +119,9 @@ class _FoundDeviceTitleState extends State<FoundDeviceTitle> {
   }
 
   Widget _buildTitle(BuildContext context, ThemeData theme) {
-    print('>>>>>>>>> ${widget.result.device.advName}');
+    if (kDebugMode) {
+      print('>>>>>>>>> ${widget.result.device.advName}');
+    }
     if (widget.result.device.advName.isNotEmpty) {
       //platformName.isNotEmpty) {
       return Row(

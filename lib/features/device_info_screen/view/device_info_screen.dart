@@ -54,13 +54,13 @@ class _DeviceInfoScreenState extends State<DeviceInfoScreen> {
                   color: white,
                   child: Image.asset('images/connected_device.png'),
                 ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 10,
-                    vertical: 8,
-                  ),
+                Expanded(
                   child: ListView(
+                    // TODO (yasliks): если список небольшой и возникает ошибка констрента, можно юзать shrinkWrap: true и Expanded
                     shrinkWrap: true,
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 10,
+                    ),
                     children: [
                       Text(
                         'Стимулятор ${getShortDeviceName(widget.dvcName)}',

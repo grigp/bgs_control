@@ -31,7 +31,7 @@ double getChargeLevelByADC(int val) {
     v = 1;
   }
   return v;
-
+  // TODO (yasliks): это старый протокол?
   // if (val < 0x60) {
   //   return 2.0;
   // } else if (val >= 0x60 && val < 0x63) {

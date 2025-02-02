@@ -79,6 +79,4 @@ void main() {
   ).then((_) {
     runApp(const BgsApp());
   });
-
-//  runApp(const BgsApp());
 }

@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:get_it/get_it.dart';
 import 'package:uuid/uuid.dart';
@@ -64,19 +65,20 @@ enum ConnectionFailureMode { cfmResetPower, cfmWorking }
 
 /// Класс пакета данных от устройства
 class BlockData {
-  const BlockData(
-      {required this.power,
-      required this.isAM,
-      required this.isFM,
-      required this.amMode,
-      required this.idxFreq,
-      required this.isPowerReset,
-      required this.intensity,
-      required this.chargeLevel,
-      required this.chargeValue,
-      required this.source,
-      required this.deviceNumber,
-      required this.firmwareNumber});
+  const BlockData({
+    required this.power,
+    required this.isAM,
+    required this.isFM,
+    required this.amMode,
+    required this.idxFreq,
+    required this.isPowerReset,
+    required this.intensity,
+    required this.chargeLevel,
+    required this.chargeValue,
+    required this.source,
+    required this.deviceNumber,
+    required this.firmwareNumber,
+  });
 
   final double power;
   final bool isAM;
@@ -174,9 +176,13 @@ class BgsConnect {
       }
     } catch (e) {
       GetIt.I<CommunicationLogger>().log('bgs_connect. fail connection');
-      print('================================================================');
-      print('Подключиться к стимулятору не  удалось: ${e}');
-      print('================================================================');
+      if (kDebugMode) {
+        print(
+            '================================================================');
+        print('Подключиться к стимулятору не  удалось: $e');
+        print(
+            '================================================================');
+      }
       return false;
     }
 

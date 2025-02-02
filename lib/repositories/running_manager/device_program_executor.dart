@@ -273,8 +273,9 @@ class DeviceProgramExecutor {
           _isOver = true;
         }
       }
-      // // Быстрое завеершение программы
+      // // Быстрое завершение программы
       // // TODO: Убрать!!!
+      // TODO (yasliks): шо это
       // if (_playingTime == 10){
       //   /// Все этапы прошли - выходим
       //   setPower(0);
