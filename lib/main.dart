@@ -9,6 +9,7 @@ import 'package:bgs_control/repositories/running_manager/running_manager.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:get_it/get_it.dart';
 import 'package:workmanager/workmanager.dart';
 
@@ -77,6 +78,8 @@ void main() {
       DeviceOrientation.portraitDown,
     ],
   ).then((_) {
+    // WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+    // FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
     runApp(const BgsApp());
   });
 }

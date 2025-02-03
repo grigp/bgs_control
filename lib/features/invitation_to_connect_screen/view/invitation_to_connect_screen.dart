@@ -23,10 +23,6 @@ class _InvitationToConnectScreenState extends State<InvitationToConnectScreen> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return Scaffold(
-      // appBar: AppBar(
-      //   backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-      //   title: Text(widget.title),
-      // ),
       body: SafeArea(
         child: Center(
           child: Stack(
@@ -42,25 +38,7 @@ class _InvitationToConnectScreenState extends State<InvitationToConnectScreen> {
               Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  const SizedBox(height: 40),
-//                  const Spacer(),
-//                  Image.asset('images/texel_200_light.png'),
-                  Row(
-                    children: [
-                      const SizedBox(width: 20),
-                      Image.asset('images/texel_200.png'),
-                      const Spacer(),
-                    ],
-                  ),
                   const Spacer(),
-                  Row(
-                    children: [
-                      const Spacer(),
-                      Image.asset('images/sk_member.png'),
-                      const SizedBox(width: 20),
-                    ],
-                  ),
-                  const SizedBox(height: 20),
                   Container(
                     color: Colors.white,
                     child: Padding(
