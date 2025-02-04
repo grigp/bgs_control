@@ -51,6 +51,9 @@ class _DirectControlScreenState extends State<DirectControlScreen> {
   double _chargeValue = 0;
   String _uuidSendData = '';
 
+  late Timer _timer;
+  int _secCounter = 0;
+
   @override
   void initState() {
     super.initState();
@@ -59,6 +62,7 @@ class _DirectControlScreenState extends State<DirectControlScreen> {
     widget.driver.initSettings();
     widget.driver.addHandler(_uuidSendData, onGetData);
     widget.driver.reset();
+    _timer = Timer.periodic(const Duration(seconds: 1), onTimer);
   }
 
   @override
@@ -135,6 +139,7 @@ class _DirectControlScreenState extends State<DirectControlScreen> {
 
   @override
   void dispose() {
+    _timer.cancel();
     widget.driver.reset();
     widget.driver.saveSettings();
     widget.driver.removeHandler(_uuidSendData);
@@ -247,7 +252,12 @@ class _DirectControlScreenState extends State<DirectControlScreen> {
     }
   }
 
-  void _setDeviceMode(bool isAM, bool isFM, AmMode amMode, double idxFreq,
+  void onTimer(Timer timer) async {
+    ++_secCounter;
+    print('<<<<<< direct control --------- N : $_secCounter,  time : ${getTimeBySecCount(_secCounter)}');
+  }
+
+    void _setDeviceMode(bool isAM, bool isFM, AmMode amMode, double idxFreq,
       Intensivity intensity) {
     widget.driver.setMode(isAM, isFM, amMode, idxFreq, intensity);
   }

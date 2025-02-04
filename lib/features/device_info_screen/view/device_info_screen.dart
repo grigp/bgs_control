@@ -68,13 +68,13 @@ class _DeviceInfoScreenState extends State<DeviceInfoScreen> {
                         textScaler: const TextScaler.linear(1.0),
                       ),
                       const Divider(),
-                      Text(
-                        'Номер стимулятора: $_sDN',
-                        style: const TextStyle(fontSize: 20),
-                        textScaler: const TextScaler.linear(1.0),
-                        textAlign: TextAlign.left,
-                      ),
-                      const Divider(),
+                      // Text(  Номер не нужен. Пока закомментировал, ибо ветер может подуть с другого направления
+                      //   'Номер стимулятора: $_sDN',
+                      //   style: const TextStyle(fontSize: 20),
+                      //   textScaler: const TextScaler.linear(1.0),
+                      //   textAlign: TextAlign.left,
+                      // ),
+                      // const Divider(),
                       Text(
                         'Номер прошивки: $_sFN',
                         style: const TextStyle(fontSize: 20),
