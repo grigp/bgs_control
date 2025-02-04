@@ -18,6 +18,7 @@ import '../../../repositories/running_manager/device_program_executor.dart';
 import '../../../utils/base_defines.dart';
 import '../../../utils/baseutils.dart';
 import '../../../utils/charge_values.dart';
+import '../../device_info_screen/view/device_info_screen.dart';
 import '../../direct_control_screen/view/direct_control_screen.dart';
 import '../../uikit/texel_button.dart';
 import '../../uikit/widgets/back_screen_button.dart';
@@ -97,11 +98,28 @@ class _SelectProgramScreenState extends State<SelectProgramScreen> {
                               textScaler: const TextScaler.linear(1.0),
                             ),
                             const Spacer(),
-                            Icon(getChargeIconByLevel(_chargeLevel), size: 16),
-                            Text(
-                              '${_chargeLevel.toInt()}%',
-                              style: theme.textTheme.titleSmall,
-                              textScaler: const TextScaler.linear(1.0),
+                            GestureDetector(
+                              onTap: () {
+                                pushScreen(
+                                  context,
+                                      (context, animation, secondaryAnimation) => DeviceInfoScreen(
+                                    title: 'Параметры стимулятора',
+                                    dvcName: widget.driver.deviceName(),
+                                  ),
+                                  '/dvc_settings',
+                                  ShiftDirection.rightToLeft,
+                                );
+                              },
+                              child: Row(
+                                children: [
+                                  Icon(getChargeIconByLevel(_chargeLevel), size: 16),
+                                  Text(
+                                    '${_chargeLevel.toInt()}%',
+                                    style: theme.textTheme.titleSmall,
+                                    textScaler: const TextScaler.linear(1.0),
+                                  ),
+                                ],
+                              ),
                             ),
                           ],
                         ),
