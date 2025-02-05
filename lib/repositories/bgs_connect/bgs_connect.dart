@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:get_it/get_it.dart';
@@ -161,6 +162,10 @@ class BgsConnect {
             device.cancelWhenDisconnected(subscription);
             await c.setNotifyValue(true);
 
+            AppLifecycleListener(
+                onStateChange:
+                _onStateChanged);
+
             /// Запускаем события от таймера, по которым будем растить мощность
             if (!_isPowerTimer) {
               _setPowerTimer = Timer.periodic(
@@ -217,7 +222,6 @@ class BgsConnect {
   }
 
   void reset() async {
-    print('-------------------------- reset !!!!!!!!!!!!!');
     await _write([0x91, 0x00]);
   }
 
@@ -339,4 +343,21 @@ class BgsConnect {
       firmwareNumber: _firmwareNumber,
     );
   }
+
+  void _onStateChanged(AppLifecycleState state) {
+    /// При завершении приложения неплохо было бы выключать воздействие
+    /// Но не работает reset() из этой точки. При передаче команды через _characteristic
+    /// Неплохо бы понять, почему...
+    /// А будет ли при этом прерываться, если перешли в автономку - вопрос...
+    /// Вообщем, пока нет заявки на эту функцию - поставим на паузу
+    if (state == AppLifecycleState.detached) {
+      reset();
+    }
+    if (kDebugMode) {
+      print(
+        '================================ AppLifecycleState : $state =====================',
+      );
+    }
+  }
+
 }
