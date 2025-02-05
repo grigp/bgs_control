@@ -108,10 +108,10 @@ class DeviceProgramExecutor {
       _isOver = false;
       _setParamsStageToDevice();
       _progDuration = _programDuration();
-      _setWorkManagerTask(_progDuration - 2000);
+      setWorkManagerTask(_progDuration - 2000);
 
       /// на 2 сек меньше
-//      _setWorkManagerTask(program.stage(_idxStage).duration - 2000); /// на 2 сек меньше
+//      setWorkManagerTask(program.stage(_idxStage).duration - 2000); /// на 2 сек меньше
       _duration = program.stage(_idxStage).duration;
 
       // _isolate = await Isolate.spawn(onTimerIsolate, receivePort.sendPort);
@@ -262,7 +262,7 @@ class DeviceProgramExecutor {
         if (_idxStage + 1 < program.stagesCount()) {
           ++_idxStage;
           _setParamsStageToDevice();
-          //_setWorkManagerTask(program.stage(_idxStage).duration - 2000);
+          //setWorkManagerTask(program.stage(_idxStage).duration - 2000);
           _stageStartTime = _playingTime;
           _duration = program.stage(_idxStage).duration;
         } else {
@@ -314,13 +314,17 @@ class DeviceProgramExecutor {
     );
   }
 
-  void _setWorkManagerTask(int duration) {
+  void setWorkManagerTask(int duration) {
     Workmanager().cancelAll();
     Workmanager().registerOneOffTask(
       "counter_texel",
       "counter_texel",
       inputData: {'time': duration},
     );
+  }
+
+  void resetWorkManagerTask() {
+    Workmanager().cancelAll();
   }
 
   bool isWorkAuto() => _isWorkAuto;

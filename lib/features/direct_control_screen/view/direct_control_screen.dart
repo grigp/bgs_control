@@ -57,6 +57,7 @@ class _DirectControlScreenState extends State<DirectControlScreen> {
   @override
   void initState() {
     super.initState();
+    widget.driver.setWorkManagerTask(3600000 - 2000);
 
     _uuidSendData = const Uuid().v1();
     widget.driver.initSettings();
@@ -139,14 +140,14 @@ class _DirectControlScreenState extends State<DirectControlScreen> {
 
   @override
   void dispose() {
-    _timer.cancel();
-    widget.driver.reset();
-    widget.driver.saveSettings();
-    widget.driver.removeHandler(_uuidSendData);
+    _stopStimulation();
     super.dispose();
   }
 
   void onAmChanged(bool isAm) {
+    _secCounter = 0;
+    widget.driver.setWorkManagerTask(3600000 - 2000);
+
     Timer(const Duration(seconds: 2), () {
       _isAmChange = true;
     });
@@ -158,6 +159,9 @@ class _DirectControlScreenState extends State<DirectControlScreen> {
   }
 
   void onAmModeChanged(AmMode amMode) {
+    _secCounter = 0;
+    widget.driver.setWorkManagerTask(3600000 - 2000);
+
     Timer(const Duration(seconds: 2), () {
       _isAmModeChange = true;
     });
@@ -169,6 +173,9 @@ class _DirectControlScreenState extends State<DirectControlScreen> {
   }
 
   void onFmChanged(bool isFm) {
+    _secCounter = 0;
+    widget.driver.setWorkManagerTask(3600000 - 2000);
+
     Timer(const Duration(seconds: 2), () {
       _isFmChange = true;
     });
@@ -180,6 +187,9 @@ class _DirectControlScreenState extends State<DirectControlScreen> {
   }
 
   void onFreqChanged(double idxFreq) {
+    _secCounter = 0;
+    widget.driver.setWorkManagerTask(3600000 - 2000);
+
     Timer(const Duration(seconds: 2), () {
       _idxFreqChange = true;
     });
@@ -191,6 +201,9 @@ class _DirectControlScreenState extends State<DirectControlScreen> {
   }
 
   void onIntensityChanged(Intensivity intensivity) {
+    _secCounter = 0;
+    widget.driver.setWorkManagerTask(3600000 - 2000);
+
     Timer(const Duration(seconds: 2), () {
       _intensivityChange = true;
     });
@@ -202,11 +215,17 @@ class _DirectControlScreenState extends State<DirectControlScreen> {
   }
 
   void onPowerSet(double power) {
+    _secCounter = 0;
+    widget.driver.setWorkManagerTask(3600000 - 2000);
+
     widget.driver.setPower(power);
     _powerSet = power;
   }
 
   void onPowerReset() {
+    _secCounter = 0;
+    widget.driver.setWorkManagerTask(3600000 - 2000);
+
     widget.driver.reset();
     _powerSet = 0;
   }
@@ -254,7 +273,10 @@ class _DirectControlScreenState extends State<DirectControlScreen> {
 
   void onTimer(Timer timer) async {
     ++_secCounter;
-    print('<<<<<< direct control --------- N : $_secCounter,  time : ${getTimeBySecCount(_secCounter)}');
+    if (_secCounter >= maxTimeDirectControlMode) {
+      _stopStimulation();
+      Navigator.pop(context);
+    }
   }
 
     void _setDeviceMode(bool isAM, bool isFM, AmMode amMode, double idxFreq,
@@ -269,4 +291,13 @@ class _DirectControlScreenState extends State<DirectControlScreen> {
     }
     return retval;
   }
+
+  void _stopStimulation() {
+    widget.driver.resetWorkManagerTask();
+    _timer.cancel();
+    widget.driver.reset();
+    widget.driver.saveSettings();
+    widget.driver.removeHandler(_uuidSendData);
+  }
+
 }
