@@ -24,6 +24,8 @@ class PowerHorizontalWidget extends StatefulWidget {
 }
 
 class _PowerHorizontalWidgetState extends State<PowerHorizontalWidget> {
+  double _powerOnSlider = 0;
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -45,8 +47,8 @@ class _PowerHorizontalWidgetState extends State<PowerHorizontalWidget> {
                     showValueIndicator: ShowValueIndicator.always,
                   ),
                   child: Slider(
-                    value: widget.powerSet,
-                    label: widget.powerSet.round().toString(),
+                    value: _powerOnSlider,
+                    label: _powerOnSlider.round().toString(), 
                     min: 0,
                     max: 125,
                     activeColor: backgroundDarknessTestColor,
@@ -55,10 +57,11 @@ class _PowerHorizontalWidgetState extends State<PowerHorizontalWidget> {
                     divisions: 125,
                     onChanged: (double value) {
                       setState(() {
-                        widget.powerSet = value;
+                        _powerOnSlider = value;
                       });
                     },
                     onChangeEnd: (double value) {
+                      widget.powerSet = value;
                       /// В этот момент мы будем устанавливать мощность
                       widget.onPowerSet(widget.powerSet);
                     },
@@ -140,6 +143,12 @@ class _PowerHorizontalWidgetState extends State<PowerHorizontalWidget> {
         ),
       ],
     );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _powerOnSlider = widget.powerSet;
   }
 
   void _onPowerSet(TypeChangePowerButton icon) {
