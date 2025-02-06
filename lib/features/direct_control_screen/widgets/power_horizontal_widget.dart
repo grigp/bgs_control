@@ -127,6 +127,9 @@ class _PowerHorizontalWidgetState extends State<PowerHorizontalWidget> {
               onPressed: () {
                 widget.powerSet = 0;
                 widget.onPowerReset();
+                setState(() {
+                  _powerOnSlider = 0;
+                });
               },
             ),
             // child: OutlinedButton(
