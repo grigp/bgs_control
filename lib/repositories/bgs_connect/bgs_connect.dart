@@ -258,15 +258,15 @@ class BgsConnect {
     if (isAM) {
       idxAM = amModeCode[amMode];
     }
-
     int idxFM = 7;
     if (!isFM) {
       idxFM = idxFreq.toInt();
     }
 
     await _write([0xA1, idxAM!]);
-    await _write([0xA2, idxFM]);
     await _write([0xA3, intensity.index]);
+    await _write([0xA2, idxFM]);
+    await _write([0xA2, idxFM]);  /// Костыль для БГС. Если переключаемся из режима FM, команду надо подавать два раза
   }
 
   int deviceNumber() {
