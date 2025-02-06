@@ -56,7 +56,7 @@ class _DeviceInfoScreenState extends State<DeviceInfoScreen> {
                 ),
                 Expanded(
                   child: ListView(
-                    // TODO (yasliks): если список небольшой и возникает ошибка констрента, можно юзать shrinkWrap: true и Expanded
+                    // TODO (yasliks):  если список небольшой и возникает ошибка констрента, можно юзать shrinkWrap: true и Expanded
                     shrinkWrap: true,
                     padding: const EdgeInsets.symmetric(
                       horizontal: 10,
