@@ -120,6 +120,8 @@ class BgsConnect {
   bool _isSending = false;
   double _chargeLevel = 100.0;
 
+  double _idxFreq = 0;
+
   var uid = const Uuid().v1(); //TODO: Убрать!!!
 
   Future<bool> init(BluetoothDevice device) async {
@@ -308,9 +310,10 @@ class BgsConnect {
     }
 
     var isFM = value[10] == 7;
-    double idxFreq = 0;
+    double idxFreq = _idxFreq;
     if (!isFM) {
       idxFreq = value[10].toDouble();
+      _idxFreq = idxFreq;
     }
 
     bool isPowerReset = false;

@@ -279,7 +279,7 @@ class _DirectControlScreenState extends State<DirectControlScreen> {
     }
   }
 
-    void _setDeviceMode(bool isAM, bool isFM, AmMode amMode, double idxFreq,
+  void _setDeviceMode(bool isAM, bool isFM, AmMode amMode, double idxFreq,
       Intensivity intensity) {
     widget.driver.setMode(isAM, isFM, amMode, idxFreq, intensity);
   }
@@ -299,5 +299,4 @@ class _DirectControlScreenState extends State<DirectControlScreen> {
     widget.driver.saveSettings();
     widget.driver.removeHandler(_uuidSendData);
   }
-
 }

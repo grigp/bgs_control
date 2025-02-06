@@ -48,7 +48,7 @@ class _PowerHorizontalWidgetState extends State<PowerHorizontalWidget> {
                   ),
                   child: Slider(
                     value: _powerOnSlider,
-                    label: _powerOnSlider.round().toString(), 
+                    label: _powerOnSlider.round().toString(),
                     min: 0,
                     max: 125,
                     activeColor: backgroundDarknessTestColor,
