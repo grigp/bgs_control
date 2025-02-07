@@ -6,6 +6,7 @@ import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:get_it/get_it.dart';
 import 'package:uuid/uuid.dart';
 
+import '../../utils/baseutils.dart';
 import '../../utils/charge_values.dart';
 import '../logger/communication_logger.dart';
 
@@ -336,8 +337,14 @@ class BgsConnect {
     }
 
     var intensity = Intensivity.values[value[11]];
-//    var cl = getChargeLevelByADC(value[3]);
-    var cl = getChargeLevelByADCExt(value[2] * 256 + value[1]);
+
+    /// Уровень заряда батареи
+    var num = getStimulatorNumber(device.advName);
+    /// TODO: Убрать вариацию с иксированным номером, когда будет решение
+    var cl = getChargeLevelByADC(value[3]);
+    if (num == 42) {
+      cl = getChargeLevelByADCExt(value[2] * 256 + value[1]);
+    }
     if (cl < _chargeLevel) {
       _chargeLevel = cl;
     }
