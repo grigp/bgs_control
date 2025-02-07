@@ -62,3 +62,14 @@ double getChargeLevelByADC(int val) {
   //
   // return 0;
 }
+
+double getChargeLevelByADCExt(int val) {
+  double v = (val - 456) / (521 - 456) * 100;
+  if (v > 100) {
+    v = 100;
+  }
+  if (v < 1) {
+    v = 1;
+  }
+  return v;
+}

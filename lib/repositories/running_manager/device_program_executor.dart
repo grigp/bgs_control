@@ -224,10 +224,6 @@ class DeviceProgramExecutor {
     _connect.setConnectionFailureMode(mode);
   }
 
-  void setModeDepecated(int idxAM, int idxFM, int idxIntencity) async {
-    _connect.setModeDepecated(idxAM, idxFM, idxIntencity);
-  }
-
   void setMode(bool isAM, bool isFM, AmMode amMode, double idxFreq,
       Intensivity intensity) async {
     _connect.setMode(isAM, isFM, amMode, idxFreq, intensity);

@@ -76,6 +76,7 @@ class BlockData {
     required this.intensity,
     required this.chargeLevel,
     required this.chargeValue,
+    required this.chargeValueExt,
     required this.source,
     required this.deviceNumber,
     required this.firmwareNumber,
@@ -90,6 +91,7 @@ class BlockData {
   final Intensivity intensity;
   final double chargeLevel;
   final double chargeValue;
+  final double chargeValueExt;
   final List<int> source;
   final int deviceNumber;
   final int firmwareNumber;
@@ -139,31 +141,33 @@ class BgsConnect {
     try {
       List<BluetoothService> services = await device.discoverServices();
       for (var service in services) {
+        /// Сервис bluetooth для управления БГС - ffe0
         if (service.uuid.toString() == 'ffe0') {
           var characteristics = service.characteristics;
           for (BluetoothCharacteristic c in characteristics) {
             _characteristic = c;
             _isSending = true;
+            /// Вешаем потоковый слушатель на изменение характеристики bluetooth
             final subscription = c.lastValueStream.listen((value) async {
+              /// Данные нужной длины
               if (_isSending && value.length == 14) {
+                /// Логирование принятого значения
                 GetIt.I<CommunicationLogger>().log('>> $value');
+                /// Передача его зарегистрированным слушателям,
+                /// чтобы отображать данные и управлять БГС
                 _value = value;
                 var bd = _createBlockData(_value);
                 for (int i = 0; i < _dataHandlers.length; ++i) {
                   _dataHandlers[i].handler(bd);
                 }
               }
-              // setState(() {
-              //   _value = value;
-              //   ++_dataCount;
-              // });
-              // var uuid = c.uuid;
-              // print('--- uuid : $uuid    value : ${value}');
             });
             _subscription = subscription;
             device.cancelWhenDisconnected(subscription);
             await c.setNotifyValue(true);
 
+            /// Анализируем события жизненного цикла, чтобы выключить БГС.
+            /// Но, не выключается...
             AppLifecycleListener(
                 onStateChange:
                 _onStateChanged);
@@ -238,6 +242,10 @@ class BgsConnect {
     }
   }
 
+  /// Командой включается режим
+  /// ($5B) –« сброс энергии прибора до уровня 0 с сохранением остальных установок при обрыве связи».
+  /// ($00) – « сохранение последних установок (в том числе энергии) при обрыве связи».
+  /// По умолчанию включен режим  $5B
   void setConnectionFailureMode(ConnectionFailureMode mode) async {
     if (mode == ConnectionFailureMode.cfmResetPower) {
       await _write([0xBB, 0x5B]);
@@ -246,56 +254,62 @@ class BgsConnect {
     }
   }
 
-  void setModeDepecated(int idxAM, int idxFM, int idxIntencity) async {
-    await _write([0xA1, idxAM]);
-    await _write([0xA2, idxFM]);
-    await _write([0xA3, idxIntencity]);
-  }
-
+  /// Переключение режима работы БГС
   void setMode(bool isAM, bool isFM, AmMode amMode, double idxFreq,
       Intensivity intensity) async {
+    /// АМ
     int? idxAM = 0;
     if (isAM) {
       idxAM = amModeCode[amMode];
     }
+
+    /// FM
     int idxFM = 7;
     if (!isFM) {
       idxFM = idxFreq.toInt();
     }
 
+    /// Передача команд
     await _write([0xA1, idxAM!]);
     await _write([0xA3, intensity.index]);
     await _write([0xA2, idxFM]);
     await _write([0xA2, idxFM]);  /// Костыль для БГС. Если переключаемся из режима FM, команду надо подавать два раза
   }
 
+  /// Возвращает номер устройства
   int deviceNumber() {
     return _deviceNumber;
   }
 
+  /// Возвращает номер прошивки
   int firmwareNumber() {
     return _firmwareNumber;
   }
 
+  /// Возвращает время работы устройства
   int timeUseDevice() {
     return _timeUseDevice;
   }
 
+  /// Устанавливает время работы устройства
   void setTimeUseDevice(int startVal) {
     _timeUseDevice = startVal;
   }
 
+  /// Записывает команду в устройство
   Future<void> _write(List<int> command) async {
     if (!_isSending) return;
     if (!device.isConnected) return;
     await _characteristic.write(command, withoutResponse: true);
-    GetIt.I<CommunicationLogger>().log('<< $command');
+//    GetIt.I<CommunicationLogger>().log('<< $command');
   }
 
+  /// Сбрасывает уровень заряда
   void resetChargeLevel() {
     _chargeLevel = 100.0;
   }
 
+  /// Сбор данных для передачи
   BlockData _createBlockData(List<int> value) {
     var power = value[5].toDouble();
 
@@ -322,7 +336,8 @@ class BgsConnect {
     }
 
     var intensity = Intensivity.values[value[11]];
-    var cl = getChargeLevelByADC(value[3]);
+//    var cl = getChargeLevelByADC(value[3]);
+    var cl = getChargeLevelByADCExt(value[2] * 256 + value[1]);
     if (cl < _chargeLevel) {
       _chargeLevel = cl;
     }
@@ -331,6 +346,7 @@ class BgsConnect {
     _firmwareNumber = value[4] & 0x7F;
     ++_timeUseDevice;
 
+    /// Передача данных
     return BlockData(
       power: power,
       isAM: isAM,
@@ -341,6 +357,7 @@ class BgsConnect {
       intensity: intensity,
       chargeLevel: _chargeLevel,
       chargeValue: value[3].toDouble(),
+      chargeValueExt: value[2].toDouble() * 256 + value[1].toDouble(),
       source: value,
       deviceNumber: _deviceNumber,
       firmwareNumber: _firmwareNumber,

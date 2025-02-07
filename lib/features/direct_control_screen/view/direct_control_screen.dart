@@ -49,6 +49,7 @@ class _DirectControlScreenState extends State<DirectControlScreen> {
   bool _idxFreqChange = true;
   double _chargeLevel = 100;
   double _chargeValue = 0;
+  double _chargeValueExt = 0;
   String _uuidSendData = '';
 
   late Timer _timer;
@@ -258,11 +259,14 @@ class _DirectControlScreenState extends State<DirectControlScreen> {
       }
       _chargeLevel = data.chargeLevel;
       _chargeValue = data.chargeValue;
-      // Логирование уровня заряда батареи
-      // if (_dataCount % 60 == 0) {
-      //   GetIt.I<CommunicationLogger>().log(
-      //       '${getTimeBySecCount(_dataCount ~/ 60)}  : ${_chargeValue.toInt()}  ${_chargeLevel.toInt()}%');
-      // }
+      _chargeValueExt = data.chargeValueExt;
+
+      /// Логирование уровня заряда батареи
+//      if (_dataCount % 60 == 0) {
+        GetIt.I<CommunicationLogger>().log(
+            '${getTimeBySecCount(_dataCount ~/ 60)}  : ${_chargeValue.toInt()}  ${_chargeValueExt.toInt()}  ${_chargeLevel.toInt()}%');
+//      }
+
       ++_dataCount;
     });
 
