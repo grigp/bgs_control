@@ -339,14 +339,23 @@ class BgsConnect {
     var intensity = Intensivity.values[value[11]];
 
     /// Уровень заряда батареи
-    var num = getStimulatorNumber(device.advName);
-    /// TODO: Убрать вариацию с иксированным номером, когда будет решение
-    var cl = getChargeLevelByADC(value[3]);
-    if (num == 42) {
-      cl = getChargeLevelByADCExt(value[2] * 256 + value[1]);
+    /// TODO: Убрать вариант выбора источника, когда будет решение
+    var vRare = value[3];                    /// Вариант с большим шагом
+    var vOften = value[2] * 256 + value[1];  /// Вариант с малым шагом
+    var cl = getChargeLevelByADC(vRare);
+    /// vRare * 4 ~ vOften. Поэтому можно проверить, если < 10% разницы, то взять с малым шагом
+    if ((1 - (vRare * 4) / vOften).abs() < 0.1) {
+      cl = getChargeLevelByADCExt(vOften);
     }
+    /// Управление отображаемым уровнем заряда батареи
     if (cl < _chargeLevel) {
+      /// Уменьшаем легко
       _chargeLevel = cl;
+    } else {
+      /// А увеличиваем, если за один шаг + 10% или больше или 100%
+      if (cl >= _chargeLevel + 10 || cl == 100) {
+        _chargeLevel = cl;
+      }
     }
 
     _deviceNumber = value[2] * 256 + value[1];

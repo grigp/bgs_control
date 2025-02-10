@@ -112,12 +112,14 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
                       ),
                     ),
                     const SizedBox(width: 10),
-                    Icon(getChargeIconByLevel(_chargeLevel), size: 20),
-                    Text(
-                      '${_chargeLevel.toInt()}%',
-                      style: theme.textTheme.titleSmall,
-                      textScaler: const TextScaler.linear(1.0),
-                    ),
+                    if (_chargeValue > 0)
+                      Icon(getChargeIconByLevel(_chargeLevel), size: 20),
+                    if (_chargeValue > 0)
+                      Text(
+                        '${_chargeLevel.toInt()}%',
+                        style: theme.textTheme.titleSmall,
+                        textScaler: const TextScaler.linear(1.0),
+                      ),
                     const SizedBox(width: 10),
                   ],
                 ),

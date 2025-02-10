@@ -98,29 +98,32 @@ class _SelectProgramScreenState extends State<SelectProgramScreen> {
                               textScaler: const TextScaler.linear(1.0),
                             ),
                             const Spacer(),
-                            GestureDetector(
-                              onTap: () {
-                                pushScreen(
-                                  context,
-                                      (context, animation, secondaryAnimation) => DeviceInfoScreen(
-                                    title: 'Параметры стимулятора',
-                                    dvcName: widget.driver.deviceName(),
-                                  ),
-                                  '/dvc_settings',
-                                  ShiftDirection.rightToLeft,
-                                );
-                              },
-                              child: Row(
-                                children: [
-                                  Icon(getChargeIconByLevel(_chargeLevel), size: 16),
-                                  Text(
-                                    '${_chargeLevel.toInt()}%',
-                                    style: theme.textTheme.titleSmall,
-                                    textScaler: const TextScaler.linear(1.0),
-                                  ),
-                                ],
+                            if (_chargeValue > 0)
+                              GestureDetector(
+                                onTap: () {
+                                  pushScreen(
+                                    context,
+                                    (context, animation, secondaryAnimation) =>
+                                        DeviceInfoScreen(
+                                      title: 'Параметры стимулятора',
+                                      dvcName: widget.driver.deviceName(),
+                                    ),
+                                    '/dvc_settings',
+                                    ShiftDirection.rightToLeft,
+                                  );
+                                },
+                                child: Row(
+                                  children: [
+                                    Icon(getChargeIconByLevel(_chargeLevel),
+                                        size: 16),
+                                    Text(
+                                      '${_chargeLevel.toInt()}%',
+                                      style: theme.textTheme.titleSmall,
+                                      textScaler: const TextScaler.linear(1.0),
+                                    ),
+                                  ],
+                                ),
                               ),
-                            ),
                           ],
                         ),
                       ),
