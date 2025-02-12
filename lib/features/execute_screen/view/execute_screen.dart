@@ -558,21 +558,23 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
         ),
         actions: <Widget>[
           TexelButton.accent(
-            onPressed: () => Navigator.pop(context, false),
-            text: 'Нет',
+            onPressed: () {
+              widget.driver.setIsWorkAuto(true);
+              Navigator.of(context).popUntil(
+                ModalRoute.withName('/select'),
+              );
+            },
+            text: 'Да',
             width: 120,
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 22),
             child: TextButton(
               onPressed: () {
-                widget.driver.setIsWorkAuto(true);
-                Navigator.of(context).popUntil(
-                  ModalRoute.withName('/select'),
-                );
+                Navigator.pop(context, false);
               },
               child: const Text(
-                'Да',
+                'Нет',
               ),
               // width: 120,
             ),

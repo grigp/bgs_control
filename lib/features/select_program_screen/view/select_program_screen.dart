@@ -332,16 +332,16 @@ class _SelectProgramScreenState extends State<SelectProgramScreen> {
         title: const Text('Продолжить выполнение прерванной программы?'),
         actions: <Widget>[
           TexelButton.accent(
-            onPressed: () => Navigator.pop(context, false),
-            text: 'Нет',
+            onPressed: () => Navigator.pop(context, true),
+            text: 'Да',
             width: 120,
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 22),
             child: TextButton(
-              onPressed: () => Navigator.pop(context, true),
+              onPressed: () => Navigator.pop(context, false),
               child: const Text(
-                'Да',
+                'Нет',
               ),
             ),
           ),
