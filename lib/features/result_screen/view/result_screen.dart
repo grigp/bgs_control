@@ -25,8 +25,12 @@ class _ResultScreenState extends State<ResultScreen> {
     final theme = Theme.of(context);
     return PopScope(
       canPop: false,
-      onPopInvoked: (didPop) async {
+      onPopInvokedWithResult: (bool didPop, Object? result) async {
+        if (didPop) {
+          return;
+        }
         Future.delayed(Duration.zero, () {
+          if (!context.mounted) return;
           Navigator.of(context).popUntil(
             ModalRoute.withName('/select_method'),
           );

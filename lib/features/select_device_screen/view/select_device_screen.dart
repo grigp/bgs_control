@@ -66,35 +66,16 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    var retval = PopScope(
+    var retval = PopScope<Object?>(
       canPop: false,
-      onPopInvoked: (didPop) {
-        showDialog<String>(
-          context: context,
-          builder: (BuildContext context) => AlertDialog(
-            title: const Text(
-              'Выйти из программы?',
-            ),
-            actions: <Widget>[
-              TexelButton.accent(
-                onPressed: () => Navigator.pop(context, 'Cancel'),
-                text: 'Нет',
-                width: 120,
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 22),
-                child: TextButton(
-                  onPressed: () {
-                    exit(0);
-                  },
-                  child: const Text(
-                    'Да',
-                  ),
-                ),
-              ),
-            ],
-          ),
-        );
+      onPopInvokedWithResult: (bool didPop, Object? result) async {
+        if (didPop) {
+          return;
+        }
+        final bool shouldPop = await _showBackDialog() ?? false;
+        if (context.mounted && shouldPop) {
+          exit(0);
+        }
       },
       child: Scaffold(
         body: SafeArea(
@@ -509,5 +490,32 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
               onProperty: () => onPropertyPressed(deviceName),
             ))
         .toList();
+  }
+
+  Future<bool?> _showBackDialog() {
+    return showDialog<bool>(
+      context: context,
+      builder: (BuildContext context) => AlertDialog(
+        title: const Text(
+          'Выйти из программы?',
+        ),
+        actions: <Widget>[
+          TexelButton.accent(
+            onPressed: () => Navigator.pop(context, false),
+            text: 'Нет',
+            width: 120,
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 22),
+            child: TextButton(
+              onPressed: () => Navigator.pop(context, true),
+              child: const Text(
+                'Да',
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }

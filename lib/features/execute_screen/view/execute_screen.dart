@@ -66,8 +66,10 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
     final theme = Theme.of(context);
     return PopScope(
       canPop: false,
-      onPopInvoked: (didPop) async {
-        if (didPop) return;
+      onPopInvokedWithResult: (bool didPop, Object? result) async {
+        if (didPop) {
+          return;
+        }
         final bool? dr = await showCancelDialog();
         if (dr!) {
           if (!context.mounted) return;
