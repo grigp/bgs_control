@@ -124,6 +124,7 @@ class BgsConnect {
   double _chargeLevel = 100.0;
 
   double _idxFreq = 0;
+  Intensivity _intensivity = Intensivity.one;
 
   var uid = const Uuid().v1(); //TODO: Убрать!!!
 
@@ -256,8 +257,8 @@ class BgsConnect {
   }
 
   /// Переключение режима работы БГС
-  void setMode(bool isAM, bool isFM, AmMode amMode, double idxFreq,
-      Intensivity intensity) async {
+  Future setMode(bool isAM, bool isFM, AmMode amMode, double idxFreq,
+      Intensivity intensivity) async {
     /// АМ
     int? idxAM = 0;
     if (isAM) {
@@ -270,9 +271,15 @@ class BgsConnect {
       idxFM = idxFreq.toInt();
     }
 
+    /// Сброс мощности в два раза, если увеличивается частота или интенсивность
+    if (idxFreq > _idxFreq || intensivity.index > _intensivity.index) {
+      _curPower = _curPower ~/ 2;
+      await _write([0x91, _curPower]);
+    }
+
     /// Передача команд
     await _write([0xA1, idxAM!]);
-    await _write([0xA3, intensity.index]);
+    await _write([0xA3, intensivity.index]);
     await _write([0xA2, idxFM]);
     await _write([0xA2, idxFM]);  /// Костыль для БГС. Если переключаемся из режима FM, команду надо подавать два раза
   }
@@ -336,7 +343,7 @@ class BgsConnect {
       isPowerReset = true;
     }
 
-    var intensity = Intensivity.values[value[11]];
+    _intensivity = Intensivity.values[value[11]];
 
     /// Уровень заряда батареи
     /// TODO: Убрать вариант выбора источника, когда будет решение
@@ -370,7 +377,7 @@ class BgsConnect {
       amMode: amMode,
       idxFreq: idxFreq,
       isPowerReset: isPowerReset,
-      intensity: intensity,
+      intensity: _intensivity,
       chargeLevel: _chargeLevel,
       chargeValue: value[3].toDouble(),
       chargeValueExt: value[2].toDouble() * 256 + value[1].toDouble(),

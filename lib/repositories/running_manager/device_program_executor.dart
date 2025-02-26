@@ -212,7 +212,7 @@ class DeviceProgramExecutor {
     );
   }
 
-  void setPower(double power) {
+  Future setPower(double power) async {
     _connect.setPower(power);
   }
 
@@ -224,9 +224,9 @@ class DeviceProgramExecutor {
     _connect.setConnectionFailureMode(mode);
   }
 
-  void setMode(bool isAM, bool isFM, AmMode amMode, double idxFreq,
+  Future setMode(bool isAM, bool isFM, AmMode amMode, double idxFreq,
       Intensivity intensity) async {
-    _connect.setMode(isAM, isFM, amMode, idxFreq, intensity);
+    await _connect.setMode(isAM, isFM, amMode, idxFreq, intensity);
   }
 
   int n = 0;

@@ -286,8 +286,8 @@ class _DirectControlScreenState extends State<DirectControlScreen> {
   }
 
   void _setDeviceMode(bool isAM, bool isFM, AmMode amMode, double idxFreq,
-      Intensivity intensity) {
-    widget.driver.setMode(isAM, isFM, amMode, idxFreq, intensity);
+      Intensivity intensity) async {
+    await widget.driver.setMode(isAM, isFM, amMode, idxFreq, intensity);
   }
 
   String _valueToString() {
