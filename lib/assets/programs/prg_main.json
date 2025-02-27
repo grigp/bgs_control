@@ -54,7 +54,7 @@
           "duration": 300000,
           "start_power": 1,
           "power": 1,
-          "frequency": 100,
+          "frequency": 90,
           "am": true,
           "am_mode": 31,
           "intensivity": 1,

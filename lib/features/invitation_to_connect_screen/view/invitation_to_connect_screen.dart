@@ -1,6 +1,7 @@
 import 'package:bgs_control/features/select_device_screen/view/select_device_screen.dart';
 import 'package:bgs_control/features/uikit/texel_button.dart';
 import 'package:flutter/material.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 
 import '../../../assets/colors/colors.dart';
 import '../../../utils/baseutils.dart';
@@ -19,6 +20,16 @@ class InvitationToConnectScreen extends StatefulWidget {
 }
 
 class _InvitationToConnectScreenState extends State<InvitationToConnectScreen> {
+
+  PackageInfo _packageInfo = PackageInfo(
+    appName: '',
+    packageName: '',
+    version: '',
+    buildNumber: '',
+    buildSignature: '',
+    installerStore: '',
+  );
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -39,6 +50,13 @@ class _InvitationToConnectScreenState extends State<InvitationToConnectScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   const Spacer(),
+                  Row(
+                    children: [
+                      const Spacer(),
+                      Text('Версия ${_packageInfo.version}+${_packageInfo.buildNumber}'),
+                      const SizedBox(width: 10),
+                    ],
+                  ),
                   Container(
                     color: Colors.white,
                     child: Padding(
@@ -78,5 +96,19 @@ class _InvitationToConnectScreenState extends State<InvitationToConnectScreen> {
         ),
       ),
     );
+  }
+
+
+  @override
+  void initState() {
+    super.initState();
+    _initPackageInfo();
+  }
+
+  Future<void> _initPackageInfo() async {
+    final info = await PackageInfo.fromPlatform();
+    setState(() {
+      _packageInfo = info;
+    });
   }
 }
