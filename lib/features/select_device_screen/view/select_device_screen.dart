@@ -99,7 +99,7 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
                                     textScaler: const TextScaler.linear(1.0),
                                   ),
                                   const Spacer(),
-                                  if (kDebugMode)
+//                                  if (kDebugMode)
                                     GestureDetector(
                                       onTap: () {
                                         pushScreen(

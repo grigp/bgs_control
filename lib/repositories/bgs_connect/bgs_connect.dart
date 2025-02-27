@@ -309,7 +309,7 @@ class BgsConnect {
     if (!_isSending) return;
     if (!device.isConnected) return;
     await _characteristic.write(command, withoutResponse: true);
-//    GetIt.I<CommunicationLogger>().log('<< $command');
+    GetIt.I<CommunicationLogger>().log('<< $command');
   }
 
   /// Сбрасывает уровень заряда

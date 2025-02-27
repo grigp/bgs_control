@@ -265,8 +265,8 @@ class _DirectControlScreenState extends State<DirectControlScreen> {
 
       /// Логирование уровня заряда батареи
 //      if (_dataCount % 60 == 0) {
-      GetIt.I<CommunicationLogger>().log(
-          '${getTimeBySecCount(_dataCount ~/ 60)}  : ${_chargeValue.toInt()}  ${_chargeValueExt.toInt()}  ${_chargeLevel.toInt()}%');
+//       GetIt.I<CommunicationLogger>().log(
+//           '${getTimeBySecCount(_dataCount ~/ 60)}  : ${_chargeValue.toInt()}  ${_chargeValueExt.toInt()}  ${_chargeLevel.toInt()}%');
 //      }
 
       ++_dataCount;
