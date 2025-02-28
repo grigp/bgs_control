@@ -57,8 +57,12 @@ class _SelectProgramScreenState extends State<SelectProgramScreen> {
         child: Stack(
           children: [
             Container(
+              width: double.infinity,
               color: backgroundTestColor,
-              child: Image.asset('images/background_woman.png'),
+              child: Image.asset(
+                'images/background_woman.png',
+                fit: BoxFit.cover,
+              ),
             ),
             Positioned(
               top: 20,

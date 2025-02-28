@@ -47,7 +47,7 @@ class _TogoParamsScreenState extends State<TogoParamsScreen> {
               color: backgroundTestColor,
               child: Image.asset(
                 'images/background_hand.png',
-                fit: BoxFit.fill,
+                fit: BoxFit.cover,
               ),
             ),
             Positioned(

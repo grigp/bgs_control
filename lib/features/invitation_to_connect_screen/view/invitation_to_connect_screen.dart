@@ -20,7 +20,6 @@ class InvitationToConnectScreen extends StatefulWidget {
 }
 
 class _InvitationToConnectScreenState extends State<InvitationToConnectScreen> {
-
   PackageInfo _packageInfo = PackageInfo(
     appName: '',
     packageName: '',
@@ -41,8 +40,12 @@ class _InvitationToConnectScreenState extends State<InvitationToConnectScreen> {
               Column(
                 children: [
                   Container(
+                    width: double.infinity,
                     color: backgroundTestColor,
-                    child: Image.asset('images/background_woman.png'),
+                    child: Image.asset(
+                      'images/background_woman.png',
+                      fit: BoxFit.cover,
+                    ),
                   ),
                 ],
               ),
@@ -53,7 +56,8 @@ class _InvitationToConnectScreenState extends State<InvitationToConnectScreen> {
                   Row(
                     children: [
                       const Spacer(),
-                      Text('Версия ${_packageInfo.version}+${_packageInfo.buildNumber}'),
+                      Text(
+                          'Версия ${_packageInfo.version}+${_packageInfo.buildNumber}'),
                       const SizedBox(width: 10),
                     ],
                   ),
@@ -97,7 +101,6 @@ class _InvitationToConnectScreenState extends State<InvitationToConnectScreen> {
       ),
     );
   }
-
 
   @override
   void initState() {

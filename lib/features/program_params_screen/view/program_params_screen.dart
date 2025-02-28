@@ -34,12 +34,12 @@ class _ProgramParamsScreenState extends State<ProgramParamsScreen> {
       body: SafeArea(
         child: Stack(
           children: [
-            Column(
-              children: [
-                // if (_chargeLevel <= chargeAlarmBoundLevel)
-                //   const ChargeMessageWidget(),
-                Image.asset('images/background_hand.png'),
-              ],
+            SizedBox(
+              width: double.infinity,
+              child: Image.asset(
+                'images/background_hand.png',
+                fit: BoxFit.cover,
+              ),
             ),
             Positioned(
               top: 20,
@@ -119,16 +119,16 @@ class _ProgramParamsScreenState extends State<ProgramParamsScreen> {
                     ],
                   ),
                 ),
-                Center(
+                Container(
+                  color: Colors.white,
                   child: Padding(
                     padding: const EdgeInsets.all(10),
                     child: TexelButton.accent(
                       onPressed: () {
                         pushScreen(
                           context,
-                              (context, animation,
-                              secondaryAnimation) =>
-                          ExecuteScreen(
+                          (context, animation, secondaryAnimation) =>
+                              ExecuteScreen(
                             title: 'Execution',
                             driver: widget.driver,
                             program: widget.program,
