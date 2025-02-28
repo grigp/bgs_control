@@ -35,8 +35,13 @@ dependencies:
   flutter_native_splash: ^2.3.10
   workmanager:
     git:
-      url: https://github.com/absar/flutter_workmanager.git
-      ref: ios-bg-tasks-enh-final
+      url: https://github.com/fluttercommunity/flutter_workmanager.git
+      path: workmanager
+      ref: main
+#  workmanager:
+#    git:
+#      url: https://github.com/absar/flutter_workmanager.git
+#      ref: ios-bg-tasks-enh-final
 
 dev_dependencies:
   flutter_test:
@@ -116,7 +121,3 @@ flutter_native_splash:
   android_12:
    image: "images/texel_splash.png"
    branding: "images/sk_member_splash.png"
-#workmanager:
-#  git:
-#    url: https://github.com/absar/flutter_workmanager.git
-#    ref: ios-bg-tasks-enh-final
