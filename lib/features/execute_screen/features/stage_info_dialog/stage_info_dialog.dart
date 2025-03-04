@@ -40,12 +40,14 @@ class _StageInfoDialog extends State<StageInfoDialog> {
             ),
             child: Row(
               children: [
-                Text(
-                  'Этап ${widget.stageInfo.value.idxStage + 1} : ${widget.stageInfo.value.nameStage}',
-                  style: theme.textTheme.titleMedium,
-                  textScaler: const TextScaler.linear(1.0),
+                Expanded(
+                  child: Text(
+                    'Этап ${widget.stageInfo.value.idxStage + 1} : ${widget.stageInfo.value.nameStage}',
+                    overflow: TextOverflow.ellipsis,
+                    style: theme.textTheme.titleMedium,
+                    textScaler: const TextScaler.linear(1.0),
+                  ),
                 ),
-                const Spacer(),
                 GestureDetector(
                   onTap: () {
                     Navigator.of(context).pop();
