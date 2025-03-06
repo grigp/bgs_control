@@ -19,6 +19,9 @@ final lightTheme = ThemeData(
       fontSize: 30,
       fontWeight: FontWeight.w700,
     ),
+    toolbarTextStyle: TextStyle(
+      color: black,
+    ),
   ),
   iconTheme: const IconThemeData(
     color: iconColor,

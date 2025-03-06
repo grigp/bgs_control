@@ -33,6 +33,9 @@ class _InvitationToConnectScreenState extends State<InvitationToConnectScreen> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return Scaffold(
+      appBar: AppBar(
+        toolbarHeight: 0,
+      ),
       body: SafeArea(
         child: Center(
           child: Stack(
