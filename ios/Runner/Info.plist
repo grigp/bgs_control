@@ -7,7 +7,7 @@
 	<key>BGTaskSchedulerPermittedIdentifiers</key>
 	<array>
 		<string>counter_texel</string>
-		<string>com.example.bgsControl.iOSBackgroundAppRefresh</string>
+		<string>ru.amed.texel.iOSBackgroundAppRefresh</string>
 	</array>
 	<key>CADisableMinimumFrameDurationOnPhone</key>
 	<true/>
