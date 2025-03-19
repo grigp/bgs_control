@@ -11,3 +11,9 @@ class CommunicationLogger {
     _log.clear();
   }
 }
+
+enum LogSubject {lsComm, lsCharge, lsAll}
+
+LogSubject logSubject = LogSubject.lsCharge;
+
+

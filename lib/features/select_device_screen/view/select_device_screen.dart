@@ -253,7 +253,9 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
         // Snackbar.show(ABC.c, prettyException("Connect Error:", e),
         //     success: false);
       });
-      GetIt.I<CommunicationLogger>().log('-- connect');
+      if (logSubject == LogSubject.lsComm || logSubject == LogSubject.lsAll) {
+        GetIt.I<CommunicationLogger>().log('-- connect');
+      }
       onSelectPressed(device);
     } else {
       device.disconnectAndUpdateStream().catchError((e) {});
@@ -286,7 +288,9 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
     /// Будем получать сообщения о дисконнекте
     _subsDisconnect = device.connectionState.listen((event) {
       if (event == BluetoothConnectionState.disconnected) {
-        GetIt.I<CommunicationLogger>().log('-- disconnect');
+        if (logSubject == LogSubject.lsComm || logSubject == LogSubject.lsAll) {
+          GetIt.I<CommunicationLogger>().log('-- disconnect');
+        }
         Navigator.of(context).popUntil(ModalRoute.withName('/select'));
         subsDisconnectStop();
         // try {

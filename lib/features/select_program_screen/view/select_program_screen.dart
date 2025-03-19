@@ -253,8 +253,10 @@ class _SelectProgramScreenState extends State<SelectProgramScreen> {
         _chargeValue = data.chargeValue;
       });
     } else {
-      GetIt.I<CommunicationLogger>()
-          .log('SelectProgramScreen.onGetData - set state after dispose');
+      if (logSubject == LogSubject.lsComm || logSubject == LogSubject.lsAll) {
+        GetIt.I<CommunicationLogger>()
+            .log('SelectProgramScreen.onGetData - set state after dispose');
+      }
     }
   }
 

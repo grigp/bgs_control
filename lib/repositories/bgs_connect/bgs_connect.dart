@@ -154,7 +154,10 @@ class BgsConnect {
               /// Данные нужной длины
               if (_isSending && value.length == 14) {
                 /// Логирование принятого значения
-                GetIt.I<CommunicationLogger>().log('>> $value');
+                if (logSubject == LogSubject.lsComm || logSubject == LogSubject.lsAll) {
+                  GetIt.I<CommunicationLogger>().log('>> $value');
+                }
+
                 /// Передача его зарегистрированным слушателям,
                 /// чтобы отображать данные и управлять БГС
                 _value = value;
@@ -188,7 +191,9 @@ class BgsConnect {
         }
       }
     } catch (e) {
-      GetIt.I<CommunicationLogger>().log('bgs_connect. fail connection');
+      if (logSubject == LogSubject.lsComm || logSubject == LogSubject.lsAll) {
+        GetIt.I<CommunicationLogger>().log('bgs_connect. fail connection');
+      }
       if (kDebugMode) {
         print(
             '================================================================');
@@ -309,7 +314,9 @@ class BgsConnect {
     if (!_isSending) return;
     if (!device.isConnected) return;
     await _characteristic.write(command, withoutResponse: true);
-    GetIt.I<CommunicationLogger>().log('<< $command');
+    if (logSubject == LogSubject.lsComm || logSubject == LogSubject.lsAll) {
+      GetIt.I<CommunicationLogger>().log('<< $command');
+    }
   }
 
   /// Сбрасывает уровень заряда
