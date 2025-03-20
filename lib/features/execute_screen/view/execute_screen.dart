@@ -469,6 +469,7 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
 
       if (data.isPowerReset) {
         _powerSet = 0;
+        widget.driver.pause();
       }
 
       // GetIt.I<CommunicationLogger>().log(

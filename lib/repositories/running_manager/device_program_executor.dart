@@ -96,7 +96,10 @@ class DeviceProgramExecutor {
       _timer = Timer.periodic(const Duration(seconds: 1), onTimer);
       _connect.resetChargeLevel();
 
-      _isPlaying = true;
+      /// Программа стартует в режиме паузы.
+      /// Чтобы ее запустить, надо нажать на кнопку Play [>]
+      /// Предварительно не помешало бы установить нужный уровень мощности
+      _isPlaying = false;
       if (_isOver) {
         _idxStage = 0;
         _playingTime = 0;
