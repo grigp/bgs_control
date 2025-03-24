@@ -331,6 +331,8 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
                     widget.driver.pause();
                     if (!widget.driver.isPlaying()) {
                       _powerSet = 0;
+                    } else {
+                      widget.driver.setPower(_powerSet);
                     }
                   });
                 },
@@ -426,7 +428,9 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
   }
 
   void onPowerSet(double power) {
-    widget.driver.setPower(power);
+    if (widget.driver.isPlaying()) {
+      widget.driver.setPower(power);
+    }
     setState(() {
       _powerSet = power;
     });
