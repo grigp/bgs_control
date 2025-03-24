@@ -14,6 +14,6 @@ class CommunicationLogger {
 
 enum LogSubject {lsComm, lsCharge, lsAll}
 
-LogSubject logSubject = LogSubject.lsCharge;
+LogSubject logSubject = LogSubject.lsComm;
 
 
