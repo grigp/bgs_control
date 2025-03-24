@@ -12,8 +12,12 @@ class CommunicationLogger {
   }
 }
 
+/// Что можно логировать
+/// lsComm - коммуникационную связь
+/// lsCharge - уровень заряда поминутный
+/// lsAll - всё
 enum LogSubject {lsComm, lsCharge, lsAll}
-
+/// Что логируем в настоящий момент
 LogSubject logSubject = LogSubject.lsComm;
 
 
