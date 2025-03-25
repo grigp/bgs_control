@@ -328,12 +328,7 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
                     : TypePlayPauseButton.play,
                 onClick: () {
                   setState(() {
-                    widget.driver.pause();
-                    if (!widget.driver.isPlaying()) {
-                      _powerSet = 0;
-                    } else {
-                      widget.driver.setPower(_powerSet);
-                    }
+                    _onPlayPauseButton();
                   });
                 },
               ),
@@ -472,8 +467,7 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
       _powerReal = data.power;
 
       if (data.isPowerReset) {
-        _powerSet = 0;
-        widget.driver.pause();
+        _onPlayPauseButton();
       }
 
       // GetIt.I<CommunicationLogger>().log(
@@ -517,6 +511,15 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
         '/result',
         ShiftDirection.rightToLeft,
       );
+    }
+  }
+
+  void _onPlayPauseButton() {
+    widget.driver.pause();
+    if (!widget.driver.isPlaying()) {
+      _powerSet = 0;
+    } else {
+      widget.driver.setPower(_powerSet);
     }
   }
 
