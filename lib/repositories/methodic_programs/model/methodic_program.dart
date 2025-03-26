@@ -94,6 +94,26 @@ class MethodicProgram {
       );
   }
 
+  /// Конструктор в режиме togo
+  factory MethodicProgram.one(bool isAm, bool isFm, AmMode amMode,
+      Intensivity intensity, double frequency, int duration) {
+    return MethodicProgram(
+      uid: '0',
+      statsTitle: 'togo program',
+      title: 'Индивидуальный режим',
+      description: 'Работа с индивидуальными настройками',
+      image: 'togo.png',
+    ).._addStage(
+      'индивидуальные настройки',
+      duration,
+      isAm,
+      isFm,
+      amMode,
+      intensity,
+      frequency,
+    );
+  }
+
   String uid;
   String statsTitle;
   String title;

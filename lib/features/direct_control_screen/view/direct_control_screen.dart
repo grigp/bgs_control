@@ -5,6 +5,7 @@ import 'package:bgs_control/features/direct_control_screen/widgets/power_horizon
 import 'package:bgs_control/features/uikit/widgets/back_screen_button.dart';
 import 'package:bgs_control/features/uikit/widgets/charge_message_widget.dart';
 import 'package:bgs_control/repositories/bgs_connect/bgs_connect.dart';
+import 'package:bgs_control/repositories/methodic_programs/model/methodic_program.dart';
 import 'package:bgs_control/utils/charge_values.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -16,13 +17,19 @@ import '../../../repositories/logger/communication_logger.dart';
 import '../../../repositories/running_manager/device_program_executor.dart';
 import '../../../utils/base_defines.dart';
 import '../../../utils/baseutils.dart';
+import '../../uikit/widgets/play_pause_button.dart';
+import '../../uikit/widgets/program_progress_bar.dart';
 
 class DirectControlScreen extends StatefulWidget {
-  const DirectControlScreen({
+  DirectControlScreen({
     super.key,
     required this.title,
     required this.driver,
-  });
+  }) {
+    // driver.setProgram(MethodicProgram.one(
+    //     false, false, AmMode.am_11, Intensivity.one, 60, 2 * 60 * 1000)); //40 * 60 * 1000));
+    driver.setIsWorkAuto(false);
+  }
 
   final String title;
   final DeviceProgramExecutor driver;
@@ -34,6 +41,8 @@ class DirectControlScreen extends StatefulWidget {
 class _DirectControlScreenState extends State<DirectControlScreen> {
   List<int> _value = [];
   int _dataCount = 0;
+
+  /// Счетчик пакетов стимуляции, один раз в секунду. Время стимуляции
 
   bool _isAm = false;
   bool _isAmChange = true;
@@ -55,14 +64,20 @@ class _DirectControlScreenState extends State<DirectControlScreen> {
   late Timer _timer;
   int _secCounter = 0;
 
+
   @override
   void initState() {
     super.initState();
     widget.driver.setWorkManagerTask(3600000 - 2000);
 
+    widget.driver.setProgram(MethodicProgram.one(
+        false, false, AmMode.am_11, Intensivity.one, 60, 40 * 60 * 1000));
+    widget.driver.run();
+
     _uuidSendData = const Uuid().v1();
     widget.driver.initSettings();
     widget.driver.addHandler(_uuidSendData, onGetData);
+
     widget.driver.reset();
     _timer = Timer.periodic(const Duration(seconds: 1), onTimer);
   }
@@ -130,12 +145,86 @@ class _DirectControlScreenState extends State<DirectControlScreen> {
       ),
       bottomNavigationBar: BottomAppBar(
         color: backgroundTestColor,
-        height: 290,
-        child: PowerHorizontalWidget(
-          powerSet: _powerSet,
-          powerReal: _powerReal,
-          onPowerSet: onPowerSet,
-          onPowerReset: onPowerReset,
+        height: 330,
+        child: Column(
+          children: [
+            /// Регулятор мощности
+            PowerHorizontalWidget(
+              powerSet: _powerSet,
+              powerReal: _powerReal,
+              onPowerSet: onPowerSet,
+              onPowerReset: onPowerReset,
+            ),
+            const SizedBox(height: 10),
+
+            /// Прогресс бар для программы
+            if (widget.driver.stage().duration > 0)
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Column(
+                  children: [
+                    Row(
+                      /// Время осталось
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          'До завершения осталось ${getTimeBySecCount(widget.driver.programDuration() - widget.driver.playingTime())}',
+                          style: theme.textTheme.titleSmall,
+                          textScaler: const TextScaler.linear(1.0),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Expanded(
+                          child: SizedBox(
+                            width: double.infinity,
+                            height: 20,
+                            child: CustomPaint(
+                              painter: ProgramProgressBar(
+                                program: widget.driver.program,
+                                position: widget.driver.playingTime(),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      /// Время воздействия
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          getTimeBySecCount(widget.driver.playingTime()),
+                          style: theme.textTheme.titleSmall,
+                          textScaler: const TextScaler.linear(1.0),
+                        ),
+                        const Spacer(),
+                        Text(
+                          getTimeBySecCount(widget.driver.programDuration()),
+                          style: theme.textTheme.titleSmall,
+                          textScaler: const TextScaler.linear(1.0),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            const SizedBox(height: 10),
+
+            /// Кнопка play / pause
+            PlayPauseButton(
+              type: widget.driver.isPlaying()
+                  ? TypePlayPauseButton.pause
+                  : TypePlayPauseButton.play,
+              onClick: () {
+                setState(() {
+                  _onPlayPauseButton();
+                });
+              },
+            ),
+          ],
         ),
       ),
     );
@@ -221,7 +310,9 @@ class _DirectControlScreenState extends State<DirectControlScreen> {
     _secCounter = 0;
     widget.driver.setWorkManagerTask(3600000 - 2000);
 
-    widget.driver.setPower(power);
+    if (widget.driver.isPlaying()) {
+      widget.driver.setPower(power);
+    }
     _powerSet = power;
   }
 
@@ -272,6 +363,11 @@ class _DirectControlScreenState extends State<DirectControlScreen> {
       }
 
       ++_dataCount;
+
+      /// Если программа закончилась (время вышло), то сбросить мощность и дать возможность запустить ее снова
+      if (widget.driver.isOver()) {
+        widget.driver.resetProgram();
+      }
     });
 
     if (_dataCount == 1) {
@@ -300,11 +396,21 @@ class _DirectControlScreenState extends State<DirectControlScreen> {
     return retval;
   }
 
+  void _onPlayPauseButton() {
+    widget.driver.pause();
+    if (!widget.driver.isPlaying()) {
+      _powerSet = 0;
+    } else {
+      widget.driver.setPower(_powerSet);
+    }
+  }
+
   void _stopStimulation() {
     widget.driver.resetWorkManagerTask();
     _timer.cancel();
     widget.driver.reset();
     widget.driver.saveSettings();
     widget.driver.removeHandler(_uuidSendData);
+    widget.driver.stop();
   }
 }

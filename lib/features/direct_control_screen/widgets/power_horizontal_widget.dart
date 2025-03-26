@@ -116,33 +116,23 @@ class _PowerHorizontalWidgetState extends State<PowerHorizontalWidget> {
             const Spacer(),
           ],
         ),
-        const SizedBox(height: 20),
-        Center(
-          child: SizedBox(
-            width: double.infinity,
-            height: 50,
-            child: TexelButton.yellowDark(
-              text: 'Сброс',
-              onPressed: () {
-                widget.powerSet = 0;
-                widget.onPowerReset();
-                setState(() {
-                  widget.powerSet = 0;
-                });
-              },
-            ),
-            // child: OutlinedButton(
-            //   child: const Text(
-            //     'Сброс',
-            //     style: TextStyle(color: filledBlackButtonColor, fontSize: 24),
-            //   ),
-            //   onPressed: () {
-            //     widget.powerSet = 0;
-            //     widget.onPowerReset();
-            //   },
-            // ),
-          ),
-        ),
+        // const SizedBox(height: 20),
+        // Center(
+        //   child: SizedBox(
+        //     width: double.infinity,
+        //     height: 50,
+        //     child: TexelButton.yellowDark(
+        //       text: 'Сброс',
+        //       onPressed: () {
+        //         widget.powerSet = 0;
+        //         widget.onPowerReset();
+        //         setState(() {
+        //           widget.powerSet = 0;
+        //         });
+        //       },
+        //     ),
+        //   ),
+        // ),
       ],
     );
   }
