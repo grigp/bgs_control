@@ -219,42 +219,6 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
                 ],
               ),
 
-              // if (widget.driver.stage().duration > 0)
-              //
-              //   /// Время этапа, если длительность этапа задана
-              //   Row(
-              //     mainAxisAlignment: MainAxisAlignment.center,
-              //     children: [
-              //       Text(
-              //         '${getTimeBySecCount(widget.driver.stageTime())} / ${getTimeBySecCount(widget.driver.stage().duration ~/ 1000)}',
-              //         style: theme.textTheme.headlineSmall,
-              //         textScaler: const TextScaler.linear(1.0),
-              //       ),
-              //     ],
-              //   ),
-              // Row(
-              //   /// Параметры воздействия
-              //   mainAxisAlignment: MainAxisAlignment.center,
-              //   children: [
-              //     Text(
-              //       _stimulationParamsToString(),
-              //       style: theme.textTheme.titleSmall,
-              //       textScaler: const TextScaler.linear(1.0),
-              //     ),
-              //   ],
-              // ),
-
-              // const Spacer(),
-              //
-              // PowerVerticalWidget(
-              //   powerSet: _powerSet,
-              //   powerReal: _powerReal,
-              //   onPowerSet: onPowerSet,
-              //   onPowerReset: onPowerReset,
-              // ),
-              //
-              // const Spacer(),
-
               const SizedBox(height: 30),
               Expanded(
                 child: PowerVerticalWidget(

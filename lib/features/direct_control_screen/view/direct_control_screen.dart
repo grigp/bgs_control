@@ -26,8 +26,6 @@ class DirectControlScreen extends StatefulWidget {
     required this.title,
     required this.driver,
   }) {
-    // driver.setProgram(MethodicProgram.one(
-    //     false, false, AmMode.am_11, Intensivity.one, 60, 2 * 60 * 1000)); //40 * 60 * 1000));
     driver.setIsWorkAuto(false);
   }
 
@@ -64,14 +62,14 @@ class _DirectControlScreenState extends State<DirectControlScreen> {
   late Timer _timer;
   int _secCounter = 0;
 
-
   @override
   void initState() {
     super.initState();
     widget.driver.setWorkManagerTask(3600000 - 2000);
 
-    widget.driver.setProgram(MethodicProgram.one(
-        false, false, AmMode.am_11, Intensivity.one, 60, 40 * 60 * 1000));
+    widget.driver.setProgram(MethodicProgram.one(false, false, AmMode.am_11,
+        Intensivity.one, 60, maxDirectModeDuration.toInt() * 60 * 1000));
+    widget.driver.resetProgram();
     widget.driver.run();
 
     _uuidSendData = const Uuid().v1();

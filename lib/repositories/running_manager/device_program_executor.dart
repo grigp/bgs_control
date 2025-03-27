@@ -269,6 +269,7 @@ class DeviceProgramExecutor {
           setPower(0);
           Workmanager().cancelAll();
           _isPlaying = false;
+          _playingTime = 0;
           _isOver = true;
         }
       }
