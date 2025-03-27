@@ -157,16 +157,27 @@ class _SelectProgramScreenState extends State<SelectProgramScreen> {
     );
   }
 
-  void alertLowEnergy() {
-    showDialog<String>(
+  Future alertLowEnergy() async {
+    await showDialog<String>(
       context: context,
+      barrierDismissible: false,
       builder: (BuildContext context) => AlertDialog(
         title: const Text('Предупреждение'),
-        content: const Text('Низкий заряд аккумулятора'),
+        titleTextStyle:  const TextStyle(
+          fontSize: 24,
+          fontWeight: FontWeight.bold,
+          color: Colors.black,
+        ),
+        content: const Text(
+            'Низкий заряд аккумулятора.\nСтимулятор может отключиться в любой момент'),
+        contentTextStyle: const TextStyle(
+          fontSize: 20,
+          color: Colors.black,
+        ),
         actions: <Widget>[
           TexelButton.accent(
-            onPressed: () => Navigator.pop(context, 'Cancel'),
-            text: 'Закрыть',
+            onPressed: () => Navigator.pop(context, 'Ok'),
+            text: 'OK',
             width: 120,
           ),
         ],
@@ -212,13 +223,15 @@ class _SelectProgramScreenState extends State<SelectProgramScreen> {
       if (widget.uidProgram != "") {
         for (int i = 0; i < _programs.length; ++i) {
           if (widget.uidProgram == _programs[i].uid) {
-            Timer(const Duration(milliseconds: 100), () {
-              if (_chargeLevel > chargeBreakBoundLevel) {
+            Timer(
+              const Duration(milliseconds: 100),
+              () async {
+                if (_chargeLevel <= chargeBreakBoundLevel) {
+                  await alertLowEnergy();
+                }
                 _runProgram(_programs[i]);
-              } else {
-                alertLowEnergy();
-              }
-            });
+              },
+            );
           }
         }
       }
@@ -267,25 +280,25 @@ class _SelectProgramScreenState extends State<SelectProgramScreen> {
             program: program,
             isLast: index == _programs.length - 1,
             onTap: () async {
-              if (_chargeLevel > chargeBreakBoundLevel) {
-                /// Если запустили повторно незавершенную программу
-                if (program.uid == widget.driver.program.uid &&
-                    !widget.driver.isOver()) {
-                  /// Спросим, надо ли ее продолжить
-                  final bool? isCont = await _showContinueProgramDialog();
-
-                  /// И, если не надо
-                  if (!isCont!) {
-                    /// Сбросить программу
-                    widget.driver.resetProgram();
-                  }
-                }
-
-                /// Ну и запустить экран выполнения
-                _runProgram(program);
-              } else {
-                alertLowEnergy();
+              if (_chargeLevel <= chargeBreakBoundLevel) {
+                await alertLowEnergy();
               }
+
+              /// Если запустили повторно незавершенную программу
+              if (program.uid == widget.driver.program.uid &&
+                  !widget.driver.isOver()) {
+                /// Спросим, надо ли ее продолжить
+                final bool? isCont = await _showContinueProgramDialog();
+
+                /// И, если не надо
+                if (!isCont!) {
+                  /// Сбросить программу
+                  widget.driver.resetProgram();
+                }
+              }
+
+              /// Ну и запустить экран выполнения
+              _runProgram(program);
             },
           ),
         )
@@ -299,36 +312,34 @@ class _SelectProgramScreenState extends State<SelectProgramScreen> {
     return list;
   }
 
-  void _runToGoMode() {
-    if (_chargeLevel > chargeBreakBoundLevel) {
-      pushScreen(
-        context,
-        (context, animation, secondaryAnimation) => TogoParamsScreen(
-          title: 'Индивидуальный режим',
-          driver: widget.driver,
-        ),
-        '/togo_control',
-        ShiftDirection.rightToLeft,
-      );
-    } else {
-      alertLowEnergy();
+  void _runToGoMode() async {
+    if (_chargeLevel <= chargeBreakBoundLevel) {
+      await alertLowEnergy();
     }
+    pushScreen(
+      context,
+      (context, animation, secondaryAnimation) => TogoParamsScreen(
+        title: 'Индивидуальный режим',
+        driver: widget.driver,
+      ),
+      '/togo_control',
+      ShiftDirection.rightToLeft,
+    );
   }
 
-  void _runDirectControl() {
-    if (_chargeLevel > chargeBreakBoundLevel) {
-      pushScreen(
-        context,
-        (context, animation, secondaryAnimation) => DirectControlScreen(
-          title: 'Direct',
-          driver: widget.driver,
-        ),
-        '/direct_control',
-        ShiftDirection.rightToLeft,
-      );
-    } else {
-      alertLowEnergy();
+  void _runDirectControl() async {
+    if (_chargeLevel <= chargeBreakBoundLevel) {
+      await alertLowEnergy();
     }
+    pushScreen(
+      context,
+      (context, animation, secondaryAnimation) => DirectControlScreen(
+        title: 'Direct',
+        driver: widget.driver,
+      ),
+      '/direct_control',
+      ShiftDirection.rightToLeft,
+    );
   }
 
   Future<bool?> _showContinueProgramDialog() async {
