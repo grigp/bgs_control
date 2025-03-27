@@ -55,6 +55,7 @@ class _LogScreenState extends State<LogScreen> {
             onPressed: () {
               showDialog<String>(
                 context: context,
+                barrierDismissible: false,
                 builder: (BuildContext context) => AlertDialog(
                   title: const Text('Очистить лог?'),
                   actions: <Widget>[

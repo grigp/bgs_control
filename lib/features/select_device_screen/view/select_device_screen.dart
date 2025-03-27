@@ -323,6 +323,7 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
   Future<bool?> _showContinueProgramDialog() async {
     return await showDialog<bool>(
       context: context,
+      barrierDismissible: false,
       builder: (BuildContext context) => AlertDialog(
         title: const Text(
           'Продолжить выполнение прерванной программы?',
@@ -350,6 +351,7 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
   void onDeletePressed(BluetoothDevice device) {
     showDialog<String>(
       context: context,
+      barrierDismissible: false,
       builder: (BuildContext context) => AlertDialog(
         title: const Text(
           'Удалить стимулятор из списка?',
@@ -398,6 +400,7 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
   void onDeleteMissingPressed(String deviceName) {
     showDialog<String>(
       context: context,
+      barrierDismissible: false,
       builder: (BuildContext context) => AlertDialog(
         title: const Text(
           'Удалить стимулятор из списка?',
@@ -499,6 +502,7 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
   Future<bool?> _showBackDialog() {
     return showDialog<bool>(
       context: context,
+      barrierDismissible: false,
       builder: (BuildContext context) => AlertDialog(
         title: const Text(
           'Выйти из программы?',

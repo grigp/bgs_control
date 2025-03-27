@@ -241,6 +241,7 @@ class _SelectProgramScreenState extends State<SelectProgramScreen> {
   void _showLostConnectError() {
     showDialog<String>(
       context: context,
+      barrierDismissible: false,
       builder: (BuildContext context) => AlertDialog(
         title: const Text(
           'Не удалось подключиться к стимулятору',
@@ -345,6 +346,7 @@ class _SelectProgramScreenState extends State<SelectProgramScreen> {
   Future<bool?> _showContinueProgramDialog() async {
     return await showDialog<bool>(
       context: context,
+      barrierDismissible: false,
       builder: (BuildContext context) => AlertDialog(
         title: const Text('Продолжить выполнение прерванной программы?'),
         actions: <Widget>[

@@ -393,6 +393,7 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
   Future<bool?> showCancelDialog() async {
     return await showDialog<bool>(
       context: context,
+      barrierDismissible: false,
       builder: (BuildContext context) => AlertDialog(
         title: (widget.driver.stage().duration > 0)
             ? const Text(
@@ -559,6 +560,7 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
   void _doWorkToGo() async {
     await showDialog<bool>(
       context: context,
+      barrierDismissible: false,
       builder: (BuildContext context) => AlertDialog(
         title: const Text(
           'Перейти в режим автономной работы?',
