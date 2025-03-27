@@ -287,7 +287,7 @@ class _SelectProgramScreenState extends State<SelectProgramScreen> {
 
               /// Если запустили повторно незавершенную программу
               if (program.uid == widget.driver.program.uid &&
-                  !widget.driver.isOver()) {
+                  widget.driver.playingTime() > 0) {
                 /// Спросим, надо ли ее продолжить
                 final bool? isCont = await _showContinueProgramDialog();
 

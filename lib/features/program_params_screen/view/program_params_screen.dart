@@ -158,7 +158,7 @@ class _ProgramParamsScreenState extends State<ProgramParamsScreen> {
 
       /// Если программа в драйвере и назначаемая совпадают
       if (widget.driver.program.uid == widget.program.uid &&
-          !widget.driver.isOver()) {
+          widget.driver.playingTime() > 0) {
         if (i < widget.driver.idxStage()) {
           /// Пройденные этапы
           color = filledSecondaryButtonColor;
