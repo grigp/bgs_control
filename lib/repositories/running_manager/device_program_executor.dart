@@ -51,6 +51,9 @@ class DeviceProgramExecutor {
   /// Время выполнения программы
   int _playingTime = 0;
 
+  /// Результирующее время выполнения программы
+  int _programTime = 0;
+
   /// Время процесса
   int _stageStartTime = 0;
 
@@ -171,6 +174,9 @@ class DeviceProgramExecutor {
   /// Возвращает время течения процесса
   int playingTime() => _playingTime;
 
+  /// Результирующее время выполнения программы
+  int programTime() => _programTime;
+
   /// Общая длительность программы
   int programDuration() => _progDuration ~/ 1000;
 
@@ -269,6 +275,7 @@ class DeviceProgramExecutor {
           setPower(0);
           Workmanager().cancelAll();
           _isPlaying = false;
+          _programTime = _playingTime;
           _playingTime = 0;
           _isOver = true;
         }

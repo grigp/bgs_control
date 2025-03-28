@@ -60,7 +60,7 @@ class _ResultScreenState extends State<ResultScreen> {
                         width: 120,
                         child: CustomPaint(
                           painter: CircularValueDiag.text(
-                            getTimeBySecCount(widget.driver.playingTime()),
+                            getTimeBySecCount(widget.driver.programTime()),
                             'мин:сек',
                           ),
                         ),
