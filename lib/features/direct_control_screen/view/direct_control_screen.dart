@@ -342,7 +342,7 @@ class _DirectControlScreenState extends State<DirectControlScreen> {
       }
 
       if (data.isPowerReset) {
-        onPowerReset();
+        _onPlayPauseButton();
       }
 
       if (_intensivityChange) {
