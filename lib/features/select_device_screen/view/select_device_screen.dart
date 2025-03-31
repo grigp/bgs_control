@@ -9,6 +9,7 @@ import 'package:bgs_control/features/select_device_screen/widgets/missing_device
 import 'package:bgs_control/features/uikit/texel_button.dart';
 import 'package:bgs_control/repositories/bgs_connect/ble_service.dart';
 import 'package:bgs_control/repositories/bgs_list/bgs_list.dart';
+import 'package:bgs_control/repositories/methodic_programs/model/methodic_program.dart';
 import 'package:bgs_control/utils/extra.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -265,7 +266,7 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
   void onSelectPressed(BluetoothDevice device) async {
     var driver = GetIt.I<RunningManager>().openDevice(device);
 
-    if (!driver.isOver()) {
+    if (driver.program.mpk == MethodicProgramKind.mpkNormal && !driver.isOver()) {
       /// Если программа не завершена
       if (driver.stage().duration > -1) {
         /// Если это не индивидуальный режим

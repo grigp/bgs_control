@@ -29,6 +29,7 @@ class DeviceProgramExecutor {
     title: '',
     description: '',
     image: '',
+    mpk: MethodicProgramKind.mpkNormal,
   );
   bool _isConnected = false;
   String _uuidGetData = '';

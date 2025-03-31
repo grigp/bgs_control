@@ -32,6 +32,7 @@ class MethodicProgram {
     required this.title,
     required this.description,
     required this.image,
+    required this.mpk
   });
 
   /// Конструктор из json
@@ -44,6 +45,7 @@ class MethodicProgram {
       title: data['title'],
       description: data['description'],
       image: data['icon'],
+      mpk: MethodicProgramKind.mpkNormal,
     );
 
     /// Затем атрибуты из массива
@@ -83,6 +85,7 @@ class MethodicProgram {
       title: 'Индивидуальный режим',
       description: 'Работа с индивидуальными настройками',
       image: 'togo.png',
+      mpk: MethodicProgramKind.mpkPersonal,
     ).._addStage(
         'индивидуальные настройки',
         -1,
@@ -94,7 +97,7 @@ class MethodicProgram {
       );
   }
 
-  /// Конструктор в режиме togo
+  /// Конструктор в режиме direct control
   factory MethodicProgram.one(bool isAm, bool isFm, AmMode amMode,
       Intensivity intensity, double frequency, int duration) {
     return MethodicProgram(
@@ -103,6 +106,7 @@ class MethodicProgram {
       title: 'Индивидуальный режим',
       description: 'Работа с индивидуальными настройками',
       image: 'togo.png',
+      mpk: MethodicProgramKind.mpkDirect,
     ).._addStage(
       'индивидуальные настройки',
       duration,
@@ -119,6 +123,7 @@ class MethodicProgram {
   String title;
   String description;
   String image;
+  MethodicProgramKind mpk;
   List<String> attributes = [];
 
   final List<ProgramStage> _stages = [];
@@ -153,3 +158,9 @@ class MethodicProgram {
     );
   }
 }
+
+/// Типы программ
+/// mpkNormal - обычная
+/// mpkPersonal - индивидуальная
+/// mpkDirect = прямого управления
+enum MethodicProgramKind {mpkNormal, mpkPersonal, mpkDirect}
