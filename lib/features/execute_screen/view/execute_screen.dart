@@ -18,6 +18,7 @@ import '../../../utils/base_defines.dart';
 import '../../../utils/charge_values.dart';
 import '../../uikit/texel_button.dart';
 import '../../uikit/widgets/charge_message_widget.dart';
+import '../../uikit/widgets/safe_level_dialog.dart';
 import 'widgets/power_vertical_widget.dart';
 
 class ExecuteScreen extends StatefulWidget {
@@ -49,6 +50,7 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
   int _dataCount = 0;
   String _uuidGetData = '';
   bool _isOver = false;
+  double _sliderValueStart = 0;
   final stageInfo = ValueNotifier<StageInfo>(StageInfo(
     idxStage: 0,
     isFm: false,
@@ -202,15 +204,10 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
                           thumbColor: black,
                           inactiveColor: backgroundCarpetButtonTestColor,
                           divisions: 125,
-                          onChanged: (double value) {
-                            setState(() {
-                              _powerSet = value;
-                            });
-                          },
-                          onChangeEnd: (double value) {
-                            /// В этот момент мы будем устанавливать мощность
-                            onPowerSet(_powerSet);
-                          },
+                          onChangeStart: _onSliderValueChangeStart,
+                          onChanged: _onSliderValueChanged,
+                          /// В этот момент мы будем устанавливать мощность
+                          onChangeEnd: _onSliderValueChangeEnd,
                         ),
                       ),
                     ),
@@ -313,40 +310,6 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
                     },
                   ),
                 ),
-
-              // if (widget.driver.isPlaying() && _powerReal >= 20)
-              //   Row(
-              //     children: [
-              //       const SizedBox(width: 5),
-              //       SizedBox(
-              //         width: 50,
-              //         height: 50,
-              //         child: Image.asset('images/attention.png'),
-              //       ),
-              //       const SizedBox(width: 5),
-              //       Expanded(
-              //         child: Text(
-              //           'Увеличивайте мощность воздействия, не допуская появления болевых ощущений',
-              //           style: theme.textTheme.bodyLarge,
-              //           textScaler: const TextScaler.linear(1.0),
-              //         ),
-              //       ),
-              //     ],
-              //   ),
-              //             if (widget.driver.isPlaying())
-              //               Container(
-              //                 padding: const EdgeInsets.all(15),
-              //                 decoration: BoxDecoration(
-              //                   color: Theme.of(context).colorScheme.inversePrimary,
-              // //                  borderRadius: BorderRadius.circular(10),
-              //                 ),
-              //                 child: PowerWidget(
-              //                   powerSet: _powerSet,
-              //                   powerReal: _powerReal,
-              //                   onPowerSet: onPowerSet,
-              //                   onPowerReset: onPowerReset,
-              //                 ),
-              //               ),
             ],
           ),
         ),
@@ -401,6 +364,36 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
     setState(() {
       _powerSet = 0;
     });
+  }
+
+  void _onSliderValueChangeStart(double value) {
+    _sliderValueStart = value;
+  }
+
+  void _onSliderValueChanged(double value) {
+    setState(() {
+      _powerSet = value;
+    });
+  }
+
+  void _onSliderValueChangeEnd(double value) async {
+    bool? isEnable = true;
+
+    /// Если мощность в процессе изменения значения слайдера превысила powerSafeLevel,
+    /// то выдаем запрос на подтверждение увеличения мощности
+    if (_powerSet > powerSafeLevel && _sliderValueStart <= powerSafeLevel){
+        isEnable = await safeLevelDialog(context);
+    }
+
+    /// Если разрешили, то увеличиваем мощность
+    if (isEnable!) {
+      onPowerSet(_powerSet);
+    } else {
+      /// А, если не разрешили, то оставляем, как было
+      setState(() {
+        _powerSet = _sliderValueStart;
+      });
+    }
   }
 
   @override

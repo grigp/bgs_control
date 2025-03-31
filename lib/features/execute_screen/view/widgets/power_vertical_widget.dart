@@ -1,7 +1,9 @@
 import 'package:bgs_control/features/execute_screen/view/widgets/animated_round_button.dart';
+import 'package:bgs_control/features/uikit/widgets/safe_level_dialog.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../assets/colors/colors.dart';
+import '../../../../utils/base_defines.dart';
 import '../../../direct_control_screen/widgets/power_horizontal_widget.dart';
 
 class PowerVerticalWidget extends StatefulWidget {
@@ -56,19 +58,29 @@ class _PowerVerticalWidgetState extends State<PowerVerticalWidget> {
     );
   }
 
-  void _onPowerSet(TypeChangePowerButton icon) {
-    setState(() {
-      if (icon == TypeChangePowerButton.plus) {
-        if (widget.powerSet < 125){
-          ++widget.powerSet;
+  void _onPowerSet(TypeChangePowerButton icon) async {
+    bool? isEnable = true;
+    /// Если мощность в процессе изменения значения слайдера превысила powerSafeLevel,
+    /// то выдаем запрос на подтверждение увеличения мощности
+    if (icon == TypeChangePowerButton.plus && widget.powerSet == powerSafeLevel){
+      isEnable = await safeLevelDialog(context);
+    }
+
+    /// Если разрешили, то увеличиваем мощность
+    if (isEnable!) {
+      setState(() {
+        if (icon == TypeChangePowerButton.plus) {
+          if (widget.powerSet < 125) {
+            ++widget.powerSet;
+          }
+        } else {
+          if (widget.powerSet > 0) {
+            --widget.powerSet;
+          }
         }
-      } else {
-        if (widget.powerSet > 0){
-          --widget.powerSet;
-        }
-      }
-      widget.onPowerSet(widget.powerSet);
-    });
+        widget.onPowerSet(widget.powerSet);
+      });
+    }
   }
 }
 

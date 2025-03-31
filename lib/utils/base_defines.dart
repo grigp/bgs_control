@@ -8,3 +8,6 @@ const double maxDirectModeDuration = 40;
 
 /// Время максимального воздействия в режиме Direct Control при отсутствии нажатия на кнопки
 const double maxTimeDirectControlMode = 3600;
+
+/// Уровень безопасной мощности, при пересечении которого появляется предупреждение о небезопасном уровне мощности
+const double powerSafeLevel = 10;
