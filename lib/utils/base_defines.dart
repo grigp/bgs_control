@@ -4,7 +4,7 @@ const double chargeAlarmBoundLevel = 15;
 const double chargeBreakBoundLevel = 5;
 
 /// Максимальное время длительности стимуляции в режиме прямого управления в минутах
-const double maxDirectModeDuration = 2; //40;
+const double maxDirectModeDuration = 40;
 
 /// Время максимального воздействия в режиме Direct Control при отсутствии нажатия на кнопки
 const double maxTimeDirectControlMode = 3600;

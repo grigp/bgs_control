@@ -295,7 +295,7 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
               ),
 
               /// Кнопка [Работать автономно]  в режиме без длительности
-              if (widget.driver.stage().duration < 0)
+              if (widget.driver.program.mpk == MethodicProgramKind.mpkPersonal)
                 Container(
                   padding: const EdgeInsets.only(
                     left: 16,
@@ -503,13 +503,6 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
       retval = '$retval   F = ${widget.driver.stage().frequency.toInt()}';
     }
     retval = '$retval   Int = ${widget.driver.stage().intensity.index + 1}';
-
-    // if (widget.driver.stage().duration >= 0) {
-    //   retval =
-    //       '$retval   Время : ${getTimeBySecCount(widget.driver.stage().duration ~/ 1000)}';
-    // } else {
-    //   retval = '$retval   Время не задано';
-    // }
 
     return retval;
   }

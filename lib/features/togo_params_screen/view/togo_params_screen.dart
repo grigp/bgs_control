@@ -32,6 +32,7 @@ class _TogoParamsScreenState extends State<TogoParamsScreen> {
   bool _isFM = false;
   AmMode _amMode = AmMode.am_11;
   Intensivity _intensity = Intensivity.one;
+  double _duration = 30;
   double _idxFreq = 0;
   String _uuidGetData = '';
 
@@ -65,7 +66,7 @@ class _TogoParamsScreenState extends State<TogoParamsScreen> {
                 const Spacer(),
                 Container(
                   width: double.infinity,
-                  height: 500,
+                  height: 580,
                   decoration: BoxDecoration(
                     color: backgroundColor,
                     borderRadius: BorderRadius.circular(10),
@@ -113,6 +114,31 @@ class _TogoParamsScreenState extends State<TogoParamsScreen> {
                                 colorsStyle: ParamsColorsStyle.pcsOrdinal,
                               ),
                             ),
+                            const Divider(),
+                            Text(
+                              'Длительность: ${_duration.round()} мин',
+                              style: theme.textTheme.labelMedium,
+                              textScaler: const TextScaler.linear(1.0),
+                            ),
+                            Slider.adaptive(
+                              value: _duration,
+                              label: _duration.round().toString(),
+                              min: 1,
+                              max: 40,
+                              divisions: 40,
+                              activeColor: filledAccentButtonColor,
+                              thumbColor: filledAccentButtonColor,
+                              inactiveColor: filledSecondaryButtonColor,
+                              onChanged: (double value) {
+                                setState(() {
+                                  _duration = value;
+                                });
+                              },
+                              onChangeEnd: (double value) {
+                                /// В этот момент мы будем устанавливать частоту
+//                                widget.onFreqChanged(widget.idxFreq);
+                              },
+                            ),
                             const SizedBox(height: 60),
                           ],
                         ),
@@ -137,17 +163,16 @@ class _TogoParamsScreenState extends State<TogoParamsScreen> {
                   text: 'Запустить',
                   onPressed: () {
                     var program = MethodicProgram.togo(
-                      _isAM,
-                      _isFM,
-                      _amMode,
-                      _intensity,
-                      freqValue[_idxFreq]!,
-                    );
+                        _isAM,
+                        _isFM,
+                        _amMode,
+                        _intensity,
+                        freqValue[_idxFreq]!,
+                        _duration.round() * 60 * 1000);
 
                     pushScreen(
                       context,
-                          (context, animation, secondaryAnimation) =>
-                      ExecuteScreen(
+                      (context, animation, secondaryAnimation) => ExecuteScreen(
                         title: 'Execution',
                         driver: widget.driver,
                         program: program,

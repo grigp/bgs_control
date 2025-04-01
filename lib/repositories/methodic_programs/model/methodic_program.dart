@@ -78,7 +78,7 @@ class MethodicProgram {
 
   /// Конструктор в режиме togo
   factory MethodicProgram.togo(bool isAm, bool isFm, AmMode amMode,
-      Intensivity intensity, double frequency) {
+      Intensivity intensity, double frequency, int duration) {
     return MethodicProgram(
       uid: '0',
       statsTitle: 'togo program',
@@ -88,7 +88,7 @@ class MethodicProgram {
       mpk: MethodicProgramKind.mpkPersonal,
     ).._addStage(
         'индивидуальные настройки',
-        -1,
+        duration,
         isAm,
         isFm,
         amMode,
