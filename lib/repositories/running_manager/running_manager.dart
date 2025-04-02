@@ -5,8 +5,12 @@ import 'device_program_executor.dart';
 class RunningManager {
   final List<DeviceProgramExecutor> _control = [];
 
+  String _connectedDevice = '';
+
   /// Открывает устройство и создает драйвет в списке
   DeviceProgramExecutor openDevice(BluetoothDevice device) {
+    _connectedDevice = device.advName;
+
     /// Ищем в списке и возвращаем, если есть
     for (int i = 0; i < _control.length; ++i) {
       if (_control[i].deviceName() == device.advName) {
@@ -17,6 +21,7 @@ class RunningManager {
     /// Не нашли - создаем новый
     var retval = DeviceProgramExecutor(device: device);
     _control.add(retval);
+
     return retval;
   }
 
@@ -26,6 +31,16 @@ class RunningManager {
         _control.removeAt(i);
         break;
       }
+    }
+  }
+
+  String getConnectedDeviceName() {
+    return _connectedDevice;
+  }
+
+  void disconnectDevice(String dn) {
+    if (dn == _connectedDevice) {
+      _connectedDevice = '';
     }
   }
 

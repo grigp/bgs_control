@@ -101,21 +101,21 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
                                   ),
                                   const Spacer(),
 //                                  if (kDebugMode)
-                                    GestureDetector(
-                                      onTap: () {
-                                        pushScreen(
-                                          context,
-                                          (context, animation,
-                                                  secondaryAnimation) =>
-                                              const LogScreen(
-                                            title: 'Лог обмена данными',
-                                          ),
-                                          '/log_comm',
-                                          ShiftDirection.rightToLeft,
-                                        );
-                                      },
-                                      child: const Icon(Icons.book),
-                                    ),
+                                  GestureDetector(
+                                    onTap: () {
+                                      pushScreen(
+                                        context,
+                                        (context, animation,
+                                                secondaryAnimation) =>
+                                            const LogScreen(
+                                          title: 'Лог обмена данными',
+                                        ),
+                                        '/log_comm',
+                                        ShiftDirection.rightToLeft,
+                                      );
+                                    },
+                                    child: const Icon(Icons.book),
+                                  ),
                                 ],
                               ),
                             ),
@@ -255,7 +255,7 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
         //     success: false);
       });
       if (logSubject == LogSubject.lsComm || logSubject == LogSubject.lsAll) {
-        GetIt.I<CommunicationLogger>().log('-- connect');
+        GetIt.I<CommunicationLogger>().log('-- connect : ${device.advName}');
       }
       onSelectPressed(device);
     } else {
@@ -266,7 +266,8 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
   void onSelectPressed(BluetoothDevice device) async {
     var driver = GetIt.I<RunningManager>().openDevice(device);
 
-    if (driver.program.mpk == MethodicProgramKind.mpkNormal && !driver.isOver()) {
+    if (driver.program.mpk == MethodicProgramKind.mpkNormal &&
+        !driver.isOver()) {
       /// Если программа не завершена
       if (driver.stage().duration > -1) {
         /// Если это не индивидуальный режим
@@ -287,20 +288,38 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
     }
 
     /// Будем получать сообщения о дисконнекте
-    _subsDisconnect = device.connectionState.listen((event) {
-      if (event == BluetoothConnectionState.disconnected) {
-        if (logSubject == LogSubject.lsComm || logSubject == LogSubject.lsAll) {
-          GetIt.I<CommunicationLogger>().log('-- disconnect');
+    _subsDisconnect = device.connectionState.listen(
+      (event) {
+        if (event == BluetoothConnectionState.disconnected) {
+          print(
+              '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! onSelectPressed.disconnect');
+          if (logSubject == LogSubject.lsComm ||
+              logSubject == LogSubject.lsAll) {
+            GetIt.I<CommunicationLogger>()
+                .log('-- disconnect : ${device.advName}');
+          }
+          var dn = GetIt.I<RunningManager>().getConnectedDeviceName();
+          if (dn == device.advName) {
+            GetIt.I<RunningManager>().disconnectDevice(dn);
+//          onConnectPressed(device);
+            print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
+            print('   communication failure : $dn');
+            print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
+          }
+
+          Navigator.of(context).popUntil(ModalRoute.withName('/select'));
+          _subsDisconnectStop();
+          // try {
+          //   Navigator.of(context).popUntil(ModalRoute.withName('/select'));
+          // } catch (e) {
+          //   print('---------------- error this page is active -----------------------------');
+          // }
+        } else if (event == BluetoothConnectionState.connected) {
+          print(
+              '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! onSelectPressed.connect');
         }
-        Navigator.of(context).popUntil(ModalRoute.withName('/select'));
-        subsDisconnectStop();
-        // try {
-        //   Navigator.of(context).popUntil(ModalRoute.withName('/select'));
-        // } catch (e) {
-        //   print('---------------- error this page is active -----------------------------');
-        // }
-      }
-    });
+      },
+    );
   }
 
   void _runSelectProgramScreen(
@@ -317,7 +336,7 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
     );
   }
 
-  void subsDisconnectStop() {
+  void _subsDisconnectStop() {
     _subsDisconnect.cancel();
   }
 

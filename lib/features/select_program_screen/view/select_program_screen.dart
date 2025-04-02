@@ -15,6 +15,7 @@ import '../../../assets/colors/colors.dart';
 import '../../../repositories/bgs_connect/bgs_connect.dart';
 import '../../../repositories/logger/communication_logger.dart';
 import '../../../repositories/running_manager/device_program_executor.dart';
+import '../../../repositories/running_manager/running_manager.dart';
 import '../../../utils/base_defines.dart';
 import '../../../utils/baseutils.dart';
 import '../../../utils/charge_values.dart';
@@ -51,107 +52,123 @@ class _SelectProgramScreenState extends State<SelectProgramScreen> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    return Scaffold(
-      body: SafeArea(
-        bottom: false,
-        child: Stack(
-          children: [
-            Container(
-              width: double.infinity,
-              color: backgroundTestColor,
-              child: Image.asset(
-                'images/background_woman.png',
-                fit: BoxFit.cover,
-              ),
-            ),
-            Positioned(
-              top: 20,
-              left: 20,
-              child: BackScreenButton(
-                onBack: () {
-                  Navigator.pop(context);
-                },
-                hasBackground: true,
-              ),
-            ),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.start, //.center,
-              children: <Widget>[
-                const Spacer(),
-                if (_chargeLevel <= chargeAlarmBoundLevel)
-                  const ChargeMessageWidget(),
-                Container(
-                  width: double.infinity,
-                  height: 500,
-                  decoration: BoxDecoration(
-                    color: backgroundColor,
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: Column(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 10,
-                          vertical: 8,
-                        ),
-                        child: Row(
-                          children: [
-                            Text(
-                              'Доступные программы',
-                              style: theme.textTheme.titleMedium,
-                              textScaler: const TextScaler.linear(1.0),
-                            ),
-                            const Spacer(),
-                            if (_chargeValue > 0)
-                              GestureDetector(
-                                onTap: () {
-                                  pushScreen(
-                                    context,
-                                    (context, animation, secondaryAnimation) =>
-                                        DeviceInfoScreen(
-                                      title: 'Параметры стимулятора',
-                                      dvcName: widget.driver.deviceName(),
-                                    ),
-                                    '/dvc_settings',
-                                    ShiftDirection.rightToLeft,
-                                  );
-                                },
-                                child: Row(
-                                  children: [
-                                    Icon(getChargeIconByLevel(_chargeLevel),
-                                        size: 16),
-                                    Text(
-                                      '${_chargeLevel.toInt()}%',
-                                      style: theme.textTheme.titleSmall,
-                                      textScaler: const TextScaler.linear(1.0),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                          ],
-                        ),
-                      ),
-                      const Divider(
-                        height: 0,
-                        indent: 0,
-                        thickness: 1,
-                      ),
-                      Expanded(
-                        child: ListView(
-                          padding: const EdgeInsets.only(bottom: 20),
-                          shrinkWrap: true,
-                          children: <Widget>[
-                            ..._buildProgramTiles(context),
-                            ..._buildHandleProgram(context),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
+
+    return PopScope(
+      canPop: false,
+      onPopInvokedWithResult: (bool didPop, Object? result) async {
+        if (didPop) {
+          return;
+        }
+        GetIt.I<RunningManager>()
+            .disconnectDevice(widget.driver.device.advName);
+        Navigator.pop(context);
+      },
+      child: Scaffold(
+        body: SafeArea(
+          bottom: false,
+          child: Stack(
+            children: [
+              Container(
+                width: double.infinity,
+                color: backgroundTestColor,
+                child: Image.asset(
+                  'images/background_woman.png',
+                  fit: BoxFit.cover,
                 ),
-              ],
-            ),
-          ],
+              ),
+              Positioned(
+                top: 20,
+                left: 20,
+                child: BackScreenButton(
+                  onBack: () {
+                    GetIt.I<RunningManager>()
+                        .disconnectDevice(widget.driver.device.advName);
+                    Navigator.pop(context);
+                  },
+                  hasBackground: true,
+                ),
+              ),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.start, //.center,
+                children: <Widget>[
+                  const Spacer(),
+                  if (_chargeLevel <= chargeAlarmBoundLevel)
+                    const ChargeMessageWidget(),
+                  Container(
+                    width: double.infinity,
+                    height: 500,
+                    decoration: BoxDecoration(
+                      color: backgroundColor,
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 10,
+                            vertical: 8,
+                          ),
+                          child: Row(
+                            children: [
+                              Text(
+                                'Доступные программы',
+                                style: theme.textTheme.titleMedium,
+                                textScaler: const TextScaler.linear(1.0),
+                              ),
+                              const Spacer(),
+                              if (_chargeValue > 0)
+                                GestureDetector(
+                                  onTap: () {
+                                    pushScreen(
+                                      context,
+                                      (context, animation,
+                                              secondaryAnimation) =>
+                                          DeviceInfoScreen(
+                                        title: 'Параметры стимулятора',
+                                        dvcName: widget.driver.deviceName(),
+                                      ),
+                                      '/dvc_settings',
+                                      ShiftDirection.rightToLeft,
+                                    );
+                                  },
+                                  child: Row(
+                                    children: [
+                                      Icon(getChargeIconByLevel(_chargeLevel),
+                                          size: 16),
+                                      Text(
+                                        '${_chargeLevel.toInt()}%',
+                                        style: theme.textTheme.titleSmall,
+                                        textScaler:
+                                            const TextScaler.linear(1.0),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                            ],
+                          ),
+                        ),
+                        const Divider(
+                          height: 0,
+                          indent: 0,
+                          thickness: 1,
+                        ),
+                        Expanded(
+                          child: ListView(
+                            padding: const EdgeInsets.only(bottom: 20),
+                            shrinkWrap: true,
+                            children: <Widget>[
+                              ..._buildProgramTiles(context),
+                              ..._buildHandleProgram(context),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -163,7 +180,7 @@ class _SelectProgramScreenState extends State<SelectProgramScreen> {
       barrierDismissible: false,
       builder: (BuildContext context) => AlertDialog(
         title: const Text('Предупреждение'),
-        titleTextStyle:  const TextStyle(
+        titleTextStyle: const TextStyle(
           fontSize: 24,
           fontWeight: FontWeight.bold,
           color: Colors.black,
