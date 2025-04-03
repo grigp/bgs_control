@@ -497,15 +497,18 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
     var retval = GetIt.I<BleService>()
         .scanResultList
         .value
-        .where((r) => list.contains(r.device.advName))
+//        .where((r) => list.contains(r.device.advName))
         .map((r) {
       _device = r.device;
-      return FoundDeviceTitle(
-        result: r,
-        onTap: () => onConnectPressed(r.device),
-        onSelect: () => onSelectPressed(r.device),
-        onDelete: () => onDeletePressed(r.device),
-        onProperty: () => onPropertyPressed(r.device.advName),
+      return Visibility(
+        visible: list.contains(r.device.advName),
+        child: FoundDeviceTitle(
+          result: r,
+          onTap: () => onConnectPressed(r.device),
+          onSelect: () => onSelectPressed(r.device),
+          onDelete: () => onDeletePressed(r.device),
+          onProperty: () => onPropertyPressed(r.device.advName),
+        ),
       );
     }).toList();
 
@@ -514,7 +517,7 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
       _missingDevices.add(list[i]);
     }
     for (int i = 0; i < retval.length; ++i) {
-      _missingDevices.remove(retval[i].result.device.advName);
+      _missingDevices.remove((retval[i].child as FoundDeviceTitle).result.device.advName);
     }
 
     _devicesCount = retval.length;
