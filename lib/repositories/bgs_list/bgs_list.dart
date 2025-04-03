@@ -18,7 +18,7 @@ class BgsList {
     }
   }
 
-  void _save() async {
+  Future _save() async {
     const storage = FlutterSecureStorage();
     var s = '';
     for (int i = 0; i < _list.length; ++i) {
@@ -42,9 +42,9 @@ class BgsList {
     }
   }
 
-  void delete(String bgsName) {
+  Future delete(String bgsName) async {
     _list.remove(bgsName);
-    _save();
+    await _save();
   }
 
   bool isContains(String bgsName) {

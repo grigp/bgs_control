@@ -241,7 +241,11 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
   }
 
   Future<void> onRefresh() async {
-    _isFirstRun = true;
+    await _onRefresh(true);
+  }
+
+  Future<void> _onRefresh(bool isFirstRun) async {
+    _isFirstRun = isFirstRun;
 
     /// Убрать, если захочется, чтобы автоматически переходило только в первый раз
     await GetIt.I<BleService>().bleStartScan();
@@ -390,9 +394,9 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 22),
             child: TextButton(
-              onPressed: () {
-                GetIt.I<BgsList>().delete(device.advName);
-                onRefresh();
+              onPressed: () async {
+                await GetIt.I<BgsList>().delete(device.advName);
+                _onRefresh(false);
                 Navigator.pop(context, 'OK');
               },
               child: const Text(
@@ -441,7 +445,7 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
             child: TextButton(
               onPressed: () {
                 GetIt.I<BgsList>().delete(deviceName);
-                onRefresh();
+                _onRefresh(false);
                 Navigator.pop(context, 'OK');
               },
               child: const Text(
@@ -481,6 +485,15 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
 
   List<Widget> _buildScanResultTiles(BuildContext context) {
     var list = GetIt.I<BgsList>().getList();
+
+    // print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
+    // String s = 'List : ${list.length} = ';
+    // for (int i = 0; i < list.length; ++i) {
+    //   s = '$s [${list[i]}]';
+    // }
+    // print(s);
+    // print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
+    //
     var retval = GetIt.I<BleService>()
         .scanResultList
         .value
