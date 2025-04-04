@@ -486,15 +486,6 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
 
   List<Widget> _buildScanResultTiles(BuildContext context) {
     var list = GetIt.I<BgsList>().getList();
-
-    // print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
-    // String s = 'List : ${list.length} = ';
-    // for (int i = 0; i < list.length; ++i) {
-    //   s = '$s [${list[i]}]';
-    // }
-    // print(s);
-    // print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
-
     var retval = GetIt.I<BleService>()
         .scanResultList
         .value
