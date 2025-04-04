@@ -70,7 +70,7 @@ class _PowerHorizontalWidgetState extends State<PowerHorizontalWidget> {
           children: [
             const Spacer(),
             Container(
-              padding: const EdgeInsets.all(15),
+              padding: const EdgeInsets.all(10),
               decoration: BoxDecoration(
                 color: backgroundCarpetButtonTestColor,
                 borderRadius: BorderRadius.circular(70),
@@ -87,13 +87,13 @@ class _PowerHorizontalWidgetState extends State<PowerHorizontalWidget> {
                     ),
                     const SizedBox(width: 15),
                     SizedBox(
-                      width: 60,
+                      width:70,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
                             widget.powerReal.round().toString(),
-                            style: theme.textTheme.displayMedium,
+                            style: theme.textTheme.displaySmall,
                             textScaler: const TextScaler.linear(1.0),
                           ),
                         ],
