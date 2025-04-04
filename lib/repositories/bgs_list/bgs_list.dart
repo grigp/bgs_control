@@ -9,6 +9,8 @@ class BgsList {
   }
 
   List<String> _list = [];
+  late Function _onChangeNotifier;
+  bool _isNotifier = false;
 
   void _init() async {
     const storage = FlutterSecureStorage();
@@ -35,16 +37,29 @@ class BgsList {
     await storage.write(key: 'bgs_list', value: s);
   }
 
+  void setNotifier(Function f) {
+    _onChangeNotifier = f;
+    _isNotifier = true;
+  }
+
   void add(String bgsName) {
     if (!isContains(bgsName)) {
       _list.add(bgsName);
       _save();
+
+      if (_isNotifier) {
+        _onChangeNotifier();
+      }
     }
   }
 
   Future delete(String bgsName) async {
     _list.remove(bgsName);
     await _save();
+
+    if (_isNotifier) {
+      _onChangeNotifier();
+    }
   }
 
   bool isContains(String bgsName) {

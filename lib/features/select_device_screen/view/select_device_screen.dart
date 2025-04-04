@@ -40,6 +40,7 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
     super.initState();
 
     init();
+    GetIt.I<BgsList>().setNotifier(_onBgsListUpdated);
 
     /// Если у нас нет своих стимуляторов то вызовем диалог добавления
     Future.delayed(const Duration(milliseconds: 500)).then((_) {
@@ -493,11 +494,11 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
     // }
     // print(s);
     // print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
-    //
+
     var retval = GetIt.I<BleService>()
         .scanResultList
         .value
-//        .where((r) => list.contains(r.device.advName))
+        .where((r) => list.contains(r.device.advName))
         .map((r) {
       _device = r.device;
       return Visibility(
@@ -517,7 +518,8 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
       _missingDevices.add(list[i]);
     }
     for (int i = 0; i < retval.length; ++i) {
-      _missingDevices.remove((retval[i].child as FoundDeviceTitle).result.device.advName);
+      _missingDevices
+          .remove((retval[i].child as FoundDeviceTitle).result.device.advName);
     }
 
     _devicesCount = retval.length;
@@ -561,5 +563,11 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
         ],
       ),
     );
+  }
+
+  void _onBgsListUpdated() {
+    setState(() {
+      _isFirstRun = false;
+    });
   }
 }

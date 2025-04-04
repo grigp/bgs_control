@@ -107,6 +107,7 @@ class WgtMain extends StatelessWidget {
                                 textScaler: const TextScaler.linear(1.0),
                                 style: listRegistred.contains(list[index])
                                     ? theme.textTheme.labelMedium
+                                        ?.copyWith(color: Colors.black26)
                                     : theme.textTheme.labelMedium?.copyWith(
                                         fontWeight: FontWeight.bold,
                                       ),
