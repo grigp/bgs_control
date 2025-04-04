@@ -294,7 +294,7 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
 
     /// Будем получать сообщения о дисконнекте
     _subsDisconnect = device.connectionState.listen(
-      (event) {
+      (event) async {
         if (event == BluetoothConnectionState.disconnected) {
           print(
               '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! onSelectPressed.disconnect');
@@ -307,6 +307,9 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
           if (dn == device.advName) {
             GetIt.I<RunningManager>().disconnectDevice(dn);
 //          onConnectPressed(device);
+
+            /// Сообщение об обрыве связи
+            await _alertConnectionFailure();
             print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
             print('   communication failure : $dn');
             print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
@@ -560,5 +563,34 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
     setState(() {
       _isFirstRun = false;
     });
+  }
+
+  Future _alertConnectionFailure() async {
+    await showDialog<String>(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) => AlertDialog(
+        title: const Text('Предупреждение'),
+        titleTextStyle: const TextStyle(
+          fontSize: 24,
+          fontWeight: FontWeight.bold,
+          color: Colors.black,
+        ),
+        content: const Text(
+            'Произошло отключение от стимулятора из за проблем со связью.\n'
+                'Поднесите телефон ближе к стимулятору и подключите его заново'),
+        contentTextStyle: const TextStyle(
+          fontSize: 20,
+          color: Colors.black,
+        ),
+        actions: <Widget>[
+          TexelButton.accent(
+            onPressed: () => Navigator.pop(context, 'Ok'),
+            text: 'OK',
+            width: 120,
+          ),
+        ],
+      ),
+    );
   }
 }
