@@ -187,28 +187,54 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
                     textScaler: const TextScaler.linear(1.0),
                   ),
 
-                  /// Регулятор мощности
+                  /// Регулятор мощности - два слайдера
                   Expanded(
                     child: SizedBox(
                       width: double.infinity,
-                      child: SliderTheme(
-                        data: const SliderThemeData(
-                          showValueIndicator: ShowValueIndicator.always,
-                        ),
-                        child: Slider(
-                          value: _powerSet,
-                          label: _powerSet.round().toString(),
-                          min: 0,
-                          max: 125,
-                          activeColor: black,
-                          thumbColor: black,
-                          inactiveColor: backgroundCarpetButtonTestColor,
-                          divisions: 125,
-                          onChangeStart: _onSliderValueChangeStart,
-                          onChanged: _onSliderValueChanged,
-                          /// В этот момент мы будем устанавливать мощность
-                          onChangeEnd: _onSliderValueChangeEnd,
-                        ),
+                      child: Stack(
+                        children: [
+                          /// Нижний показывает установленный целевой уровень
+                          /// Показывает бегунок и серый уровень
+                          SliderTheme(
+                            data: const SliderThemeData(
+                              showValueIndicator: ShowValueIndicator.always,
+                            ),
+                            child: Slider(
+                              value: _powerSet,
+                              label: _powerSet.round().toString(),
+                              min: 0,
+                              max: 125,
+                              activeColor: backgroundMiddleTestColor,
+                              thumbColor: black,
+                              inactiveColor: backgroundCarpetButtonTestColor,
+                              divisions: 125,
+                              onChanged: (double value) {},
+                            ),
+                          ),
+
+                          /// Верхний показывает установленный уровень на приборе
+                          /// Показывает черный уровень
+                          SliderTheme(
+                            data: SliderThemeData(
+                              showValueIndicator: ShowValueIndicator.always,
+                              thumbShape: SliderComponentShape.noThumb,
+                            ),
+                            child: Slider(
+                              value: _powerReal,
+                              min: 0,
+                              max: 125,
+                              activeColor: black,
+                              thumbColor: black,
+                              inactiveColor: const Color(0x00000000),
+                              divisions: 125,
+                              onChanged: _onSliderValueChanged,
+                              onChangeStart: _onSliderValueChangeStart,
+
+                              /// В этот момент мы будем устанавливать мощность
+                              onChangeEnd: _onSliderValueChangeEnd,
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                   ),
@@ -381,8 +407,8 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
 
     /// Если мощность в процессе изменения значения слайдера превысила powerSafeLevel,
     /// то выдаем запрос на подтверждение увеличения мощности
-    if (_powerSet > powerSafeLevel && _sliderValueStart <= powerSafeLevel){
-        isEnable = await safeLevelDialog(context);
+    if (_powerSet > powerSafeLevel && _sliderValueStart <= powerSafeLevel) {
+      isEnable = await safeLevelDialog(context);
     }
 
     /// Если разрешили, то увеличиваем мощность

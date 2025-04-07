@@ -44,23 +44,47 @@ class _PowerHorizontalWidgetState extends State<PowerHorizontalWidget> {
             Expanded(
               child: SizedBox(
                 width: double.infinity,
-                child: SliderTheme(
-                  data: const SliderThemeData(
-                    showValueIndicator: ShowValueIndicator.always,
-                  ),
-                  child: Slider(
-                    value: widget.powerSet,
-                    label: widget.powerSet.round().toString(),
-                    min: 0,
-                    max: 125,
-                    activeColor: backgroundDarknessTestColor,
-                    thumbColor: backgroundDarknessTestColor,
-                    inactiveColor: backgroundCarpetButtonTestColor,
-                    divisions: 125,
-                    onChangeStart: _onSliderValueChangeStart,
-                    onChanged: _onSliderValueChanged,
-                    onChangeEnd: _onSliderValueChangeEnd,
-                  ),
+                child: Stack(
+                  children: [
+                    /// Нижний показывает установленный целевой уровень
+                    /// Показывает бегунок и серый уровень
+                    SliderTheme(
+                      data: const SliderThemeData(
+                        showValueIndicator: ShowValueIndicator.always,
+                      ),
+                      child: Slider(
+                        value: widget.powerSet,
+                        label: widget.powerSet.round().toString(),
+                        min: 0,
+                        max: 125,
+                        activeColor: backgroundMiddleTestColor,
+                        thumbColor: backgroundDarknessTestColor,
+                        inactiveColor: backgroundCarpetButtonTestColor,
+                        divisions: 125,
+                        onChanged: (double value) {},
+                      ),
+                    ),
+                    /// Верхний показывает установленный уровень на приборе
+                    /// Показывает черный уровень
+                    SliderTheme(
+                      data: SliderThemeData(
+                        showValueIndicator: ShowValueIndicator.always,
+                        thumbShape: SliderComponentShape.noThumb,
+                      ),
+                      child: Slider(
+                        value: widget.powerReal,
+                        min: 0,
+                        max: 125,
+                        activeColor: black,
+                        thumbColor: black,
+                        inactiveColor: const Color(0x00000000),
+                        divisions: 125,
+                        onChanged: _onSliderValueChanged,
+                        onChangeStart: _onSliderValueChangeStart,
+                        onChangeEnd: _onSliderValueChangeEnd,
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ),
@@ -87,7 +111,7 @@ class _PowerHorizontalWidgetState extends State<PowerHorizontalWidget> {
                     ),
                     const SizedBox(width: 15),
                     SizedBox(
-                      width:70,
+                      width: 70,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -165,13 +189,15 @@ class _PowerHorizontalWidgetState extends State<PowerHorizontalWidget> {
 
     /// Если мощность в процессе изменения значения слайдера превысила powerSafeLevel,
     /// то выдаем запрос на подтверждение увеличения мощности
-    if (widget.powerSet > powerSafeLevel && _sliderValueStart <= powerSafeLevel){
+    if (widget.powerSet > powerSafeLevel &&
+        _sliderValueStart <= powerSafeLevel) {
       isEnable = await safeLevelDialog(context);
     }
 
     /// Если разрешили, то увеличиваем мощность
     if (isEnable!) {
       widget.powerSet = value;
+
       /// В этот момент мы будем устанавливать мощность
       widget.onPowerSet(widget.powerSet);
     } else {
@@ -181,9 +207,6 @@ class _PowerHorizontalWidgetState extends State<PowerHorizontalWidget> {
       });
     }
   }
-
-
 }
-
 
 enum TypeChangePowerButton { plus, minus }
