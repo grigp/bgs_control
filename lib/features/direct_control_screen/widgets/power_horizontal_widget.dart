@@ -77,6 +77,11 @@ class _PowerHorizontalWidgetState extends State<PowerHorizontalWidget> {
                         max: 125,
                         activeColor: black,
                         thumbColor: black,
+                        overlayColor: WidgetStateProperty<Color>.fromMap(<WidgetStatesConstraint, Color>{
+                          WidgetState.focused: const Color(0x00000000),
+                          WidgetState.pressed | WidgetState.hovered: const Color(0x00000000),
+                          WidgetState.any: const Color(0x00000000),
+                        }),
                         inactiveColor: const Color(0x00000000),
                         divisions: 125,
                         onChanged: _onSliderValueChanged,
@@ -169,13 +174,13 @@ class _PowerHorizontalWidgetState extends State<PowerHorizontalWidget> {
             }
           }
           widget.onPowerSet(widget.powerSet);
+          _sliderValueStart = widget.powerSet;
         },
       );
     }
   }
 
   void _onSliderValueChangeStart(double value) {
-    _sliderValueStart = value;
   }
 
   void _onSliderValueChanged(double value) {
@@ -196,10 +201,11 @@ class _PowerHorizontalWidgetState extends State<PowerHorizontalWidget> {
 
     /// Если разрешили, то увеличиваем мощность
     if (isEnable!) {
-      widget.powerSet = value;
+//      widget.powerSet = value;
 
       /// В этот момент мы будем устанавливать мощность
-      widget.onPowerSet(widget.powerSet);
+      widget.onPowerSet(value);//widget.powerSet);
+      _sliderValueStart = value;
     } else {
       /// А, если не разрешили, то оставляем, как было
       setState(() {

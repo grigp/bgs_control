@@ -226,6 +226,11 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
                               activeColor: black,
                               thumbColor: black,
                               inactiveColor: const Color(0x00000000),
+                              overlayColor: WidgetStateProperty<Color>.fromMap(<WidgetStatesConstraint, Color>{
+                                WidgetState.focused: const Color(0x00000000),
+                                WidgetState.pressed | WidgetState.hovered: const Color(0x00000000),
+                                WidgetState.any: const Color(0x00000000),
+                              }),
                               divisions: 125,
                               onChanged: _onSliderValueChanged,
                               onChangeStart: _onSliderValueChangeStart,
@@ -382,6 +387,7 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
     }
     setState(() {
       _powerSet = power;
+      _sliderValueStart = power;
     });
   }
 
@@ -393,7 +399,6 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
   }
 
   void _onSliderValueChangeStart(double value) {
-    _sliderValueStart = value;
   }
 
   void _onSliderValueChanged(double value) {
@@ -414,12 +419,14 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
     /// Если разрешили, то увеличиваем мощность
     if (isEnable!) {
       onPowerSet(_powerSet);
+      _sliderValueStart = value;
     } else {
       /// А, если не разрешили, то оставляем, как было
       setState(() {
         _powerSet = _sliderValueStart;
       });
     }
+
   }
 
   @override
