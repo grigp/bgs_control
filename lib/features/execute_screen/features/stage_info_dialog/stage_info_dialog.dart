@@ -2,7 +2,7 @@ import 'package:bgs_control/repositories/methodic_programs/model/stage_info.dart
 import 'package:flutter/material.dart';
 
 import '../../../../assets/colors/colors.dart';
-import '../../../../repositories/bgs_connect/bgs_connect.dart';
+import '../../../../repositories/bgs_connect/bgs_defines.dart';
 import '../../../../utils/baseutils.dart';
 
 class StageInfoDialog extends StatefulWidget {

@@ -12,6 +12,7 @@ import 'package:uuid/uuid.dart';
 import 'package:workmanager/workmanager.dart';
 
 import '../bgs_connect/bgs_connect.dart';
+import '../bgs_connect/bgs_defines.dart';
 
 /// Класс управления устройством при проведении методики
 class DeviceProgramExecutor {
@@ -159,6 +160,10 @@ class DeviceProgramExecutor {
       resetProgram();
     }
     program = prg;
+
+    print('----------------------------- reset program ---------------------------------');
+    print('      ${program.stagesCount()}');
+    print('-----------------------------------------------------------------------------');
   }
 
   /// Возвращает название устройства

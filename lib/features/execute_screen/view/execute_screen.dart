@@ -12,6 +12,7 @@ import 'package:uuid/uuid.dart';
 
 import '../../../assets/colors/colors.dart';
 import '../../../repositories/bgs_connect/bgs_connect.dart';
+import '../../../repositories/bgs_connect/bgs_defines.dart';
 import '../../../repositories/methodic_programs/model/methodic_program.dart';
 import '../../../repositories/running_manager/device_program_executor.dart';
 import '../../../utils/base_defines.dart';

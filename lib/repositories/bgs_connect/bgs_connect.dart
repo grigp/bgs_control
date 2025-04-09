@@ -9,45 +9,8 @@ import 'package:uuid/uuid.dart';
 import '../../utils/baseutils.dart';
 import '../../utils/charge_values.dart';
 import '../logger/communication_logger.dart';
-
-enum AmMode { am_11, am_31, am_51 }
-
-enum Intensivity { one, two, three, four }
-
-Map<AmMode, String> amModeNames = <AmMode, String>{
-  AmMode.am_11: '1:1',
-  AmMode.am_31: '3:1',
-  AmMode.am_51: '5:1',
-};
-
-Map<int, AmMode> amModeFromJson = <int, AmMode>{
-  11: AmMode.am_11,
-  31: AmMode.am_31,
-  51: AmMode.am_51,
-};
-
-Map<AmMode, int> amModeCode = <AmMode, int>{
-  AmMode.am_11: 3,
-  AmMode.am_31: 1,
-  AmMode.am_51: 2,
-};
-
-Map<int, Intensivity> intensivityFromJson = <int, Intensivity>{
-  1: Intensivity.one,
-  2: Intensivity.two,
-  3: Intensivity.three,
-  4: Intensivity.four,
-};
-
-Map<double, double> freqValue = <double, double>{
-  0: 15,
-  1: 30,
-  2: 60,
-  3: 90,
-  4: 120,
-  5: 180,
-  6: 350,
-};
+import '../methodic_programs/model/methodic_program.dart';
+import 'bgs_defines.dart';
 
 /// Класс функций, вызываемых при получении данных
 class Handler {
@@ -186,7 +149,7 @@ class BgsConnect {
               _isPowerTimer = true;
             }
 
-            reset();
+//            reset(); Обнуление мощности при запуске
           }
         }
       }
@@ -236,6 +199,30 @@ class BgsConnect {
 
   void reset() async {
     await _write([0x91, 0x00]);
+  }
+
+  /// Записывает паузу в устройство
+  /// isPlay = false - пауза
+  /// isPlay = true - нет паузы
+  void pause(bool isPlay) async {
+    int b = 1;
+    if (isPlay) {
+      b = 2;
+    }
+    await _write([0xB1, b]);
+  }
+
+  /// Записывает программу в устройство
+  void setProgram(MethodicProgram prg) async {
+    List<int> command = [0xB3];
+    command.add(int.parse(prg.uid));
+    command.add(prg.stagesCount());
+    for (int i = 0; i < prg.stagesCount(); ++i) {
+      int d = prg.stage(i).duration ~/ 1000;
+      command.add(d & 0xFF);
+      command.add((d & 0xFF00) >> 8);
+    }
+    await _write(command);
   }
 
   /// Функция, вызываемая раз в секунду и меняющая мощность, если нужно

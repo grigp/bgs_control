@@ -13,6 +13,7 @@ import 'package:get_it/get_it.dart';
 import 'package:uuid/uuid.dart';
 
 import '../../../assets/colors/colors.dart';
+import '../../../repositories/bgs_connect/bgs_defines.dart';
 import '../../../repositories/logger/communication_logger.dart';
 import '../../../repositories/running_manager/device_program_executor.dart';
 import '../../../utils/base_defines.dart';

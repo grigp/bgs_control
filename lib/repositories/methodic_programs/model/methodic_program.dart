@@ -1,4 +1,4 @@
-import 'package:bgs_control/repositories/bgs_connect/bgs_connect.dart';
+import '../../bgs_connect/bgs_defines.dart';
 
 /// Класс, содержащий данные об этапе
 class ProgramStage {

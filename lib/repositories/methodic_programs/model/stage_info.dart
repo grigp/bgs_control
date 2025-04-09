@@ -1,4 +1,4 @@
-import '../../bgs_connect/bgs_connect.dart';
+import '../../bgs_connect/bgs_defines.dart';
 
 class StageInfo {
   StageInfo({

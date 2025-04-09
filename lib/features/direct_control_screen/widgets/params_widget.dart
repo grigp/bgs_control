@@ -2,6 +2,7 @@ import 'package:bgs_control/repositories/bgs_connect/bgs_connect.dart';
 import 'package:flutter/material.dart';
 
 import '../../../assets/colors/colors.dart';
+import '../../../repositories/bgs_connect/bgs_defines.dart';
 
 //ignore: must_be_immutable
 class ParamsWidget extends StatefulWidget {
