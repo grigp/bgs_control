@@ -139,18 +139,6 @@ class BgsConnect {
             AppLifecycleListener(
                 onStateChange:
                 _onStateChanged);
-
-            /// Запускаем события от таймера, по которым будем растить мощность
-
-            // if (!_isPowerTimer) {  TODO: Убрать его и все функции, когда появится версия 1.1.0+1
-            //   _setPowerTimer = Timer.periodic(
-            //     const Duration(milliseconds: 1000),
-            //     _setPowerAction,
-            //   );
-            //   _isPowerTimer = true;
-            // }
-
-//            reset(); Обнуление мощности при запуске
           }
         }
       }
@@ -272,46 +260,6 @@ class BgsConnect {
     }
   }
 
-  /// Командой включается режим
-  /// ($5B) –« сброс энергии прибора до уровня 0 с сохранением остальных установок при обрыве связи».
-  /// ($00) – « сохранение последних установок (в том числе энергии) при обрыве связи».
-  /// По умолчанию включен режим  $5B
-  void setConnectionFailureMode(ConnectionFailureMode mode) async {
-    if (mode == ConnectionFailureMode.cfmResetPower) {
-      await _write([0xBB, 0x5B]);
-    } else if (mode == ConnectionFailureMode.cfmWorking) {
-      await _write([0xBB, 0x00]);
-    }
-  }
-
-  /// Переключение режима работы БГС
-  Future setMode(bool isAM, bool isFM, AmMode amMode, double idxFreq,
-      Intensivity intensivity) async {
-    /// АМ
-    int? idxAM = 0;
-    if (isAM) {
-      idxAM = amModeCode[amMode];
-    }
-
-    /// FM
-    int idxFM = 7;
-    if (!isFM) {
-      idxFM = idxFreq.toInt();
-    }
-
-    /// Сброс мощности в два раза, если увеличивается частота или интенсивность
-    if (idxFreq > _idxFreq || intensivity.index > _intensivity.index) {
-      _curPower = _curPower ~/ 2;
-      await _write([0x91, _curPower]);
-    }
-
-    /// Передача команд
-    await _write([0xA1, idxAM!]);
-    await _write([0xA3, intensivity.index]);
-    await _write([0xA2, idxFM]);
-    await _write([0xA2, idxFM]);  /// Костыль для БГС. Если переключаемся из режима FM, команду надо подавать два раза
-  }
-
   /// Возвращает номер устройства
   int deviceNumber() {
     return _deviceNumber;
@@ -337,7 +285,7 @@ class BgsConnect {
     if (!_isSending) return;
     if (!device.isConnected) return;
     /// Поскольку нельзя передавать команды длиной более 20 байт, придется
-    /// передавать из по частям, если длительность превышает 20 байт
+    /// передавать их по частям, если длительность превышает 20 байт
     if (command.length <= 20) {
       await _characteristic.write(command, withoutResponse: true);
     } else {

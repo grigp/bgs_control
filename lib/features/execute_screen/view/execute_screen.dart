@@ -482,11 +482,6 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
       frequency: widget.driver.stage().frequency,
     );
 
-    /// Посылаем команду работать даже при прерывании связи
-    if (_dataCount == 1) {
-      widget.driver.setConnectionFailureMode(ConnectionFailureMode.cfmWorking);
-    }
-
     if (widget.driver.isOver() && !_isOver) {
       _isOver = true;
 

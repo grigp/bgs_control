@@ -114,7 +114,7 @@ class DeviceProgramExecutor {
         _maxPower = 0;
       }
       _isOver = false;
-      _setParamsStageToDevice();
+
       _progDuration = _programDuration();
       setWorkManagerTask(_progDuration - 2000);
 
@@ -237,15 +237,6 @@ class DeviceProgramExecutor {
     _connect.reset();
   }
 
-  void setConnectionFailureMode(ConnectionFailureMode mode) async {
-    _connect.setConnectionFailureMode(mode);
-  }
-
-  Future setMode(bool isAM, bool isFM, AmMode amMode, double idxFreq,
-      Intensivity intensity) async {
-    await _connect.setMode(isAM, isFM, amMode, idxFreq, intensity);
-  }
-
   int n = 0;
 
   void onGetData(BlockData data) {
@@ -274,7 +265,7 @@ class DeviceProgramExecutor {
         /// Если это не последний этап
         if (_idxStage + 1 < program.stagesCount()) {
           ++_idxStage;
-          _setParamsStageToDevice();
+
           //setWorkManagerTask(program.stage(_idxStage).duration - 2000);
           _stageStartTime = _playingTime;
           _duration = program.stage(_idxStage).duration;
@@ -311,23 +302,6 @@ class DeviceProgramExecutor {
   //     print('---------------------------- isolate ${++n}');
   //   });
   // }
-
-  void _setParamsStageToDevice() {
-    double idxFreq = 7;
-    var stage = program.stage(_idxStage);
-    for (final element in freqValue.entries) {
-      if (element.value == stage.frequency) {
-        idxFreq = element.key;
-      }
-    }
-    setMode(
-      stage.isAm,
-      stage.isFm,
-      stage.amMode,
-      idxFreq,
-      stage.intensivity,
-    );
-  }
 
   void setWorkManagerTask(int duration) {
     Workmanager().cancelAll();
