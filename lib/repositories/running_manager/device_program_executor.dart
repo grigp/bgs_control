@@ -140,6 +140,7 @@ class DeviceProgramExecutor {
   void pause() {
     if (program.uid != '') {
       _isPlaying = !_isPlaying;
+      _connect.pause(_isPlaying);
       reset();
     }
   }
@@ -155,15 +156,16 @@ class DeviceProgramExecutor {
   }
 
   /// Задает программу, по которой нужно двигаться
-  void setProgram(MethodicProgram prg) {
+  void setProgram(MethodicProgram prg, bool isWriteToDevice) {
     if (prg.uid != program.uid) {
       resetProgram();
     }
     program = prg;
 
-    print('----------------------------- reset program ---------------------------------');
-    print('      ${program.stagesCount()}');
-    print('-----------------------------------------------------------------------------');
+    /// Записываем программу в устройство
+    if (isWriteToDevice && prg.stagesCount() > 0) {
+      _connect.setProgram(prg);
+    }
   }
 
   /// Возвращает название устройства
@@ -323,7 +325,7 @@ class DeviceProgramExecutor {
       stage.isFm,
       stage.amMode,
       idxFreq,
-      stage.intensity,
+      stage.intensivity,
     );
   }
 

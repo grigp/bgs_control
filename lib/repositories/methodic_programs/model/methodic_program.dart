@@ -10,7 +10,7 @@ class ProgramStage {
     required this.isAm,
     required this.isFm,
     required this.amMode,
-    required this.intensity,
+    required this.intensivity,
     required this.frequency,
   });
 
@@ -19,7 +19,7 @@ class ProgramStage {
   bool isAm;
   bool isFm;
   AmMode amMode;
-  Intensivity intensity;
+  Intensivity intensivity;
   double frequency;
 }
 
@@ -66,7 +66,7 @@ class MethodicProgram {
         isAm: stages[i]['am'],
         isFm: stages[i]['fm'],
         amMode: amModeFromJson[stages[i]['am_mode']]!,
-        intensity: intensivityFromJson[stages[i]['intensivity']]!,
+        intensivity: intensivityFromJson[stages[i]['intensivity']]!,
         frequency: f.toDouble(),
       );
       retval._stages.add(stage);
@@ -80,7 +80,7 @@ class MethodicProgram {
   factory MethodicProgram.togo(bool isAm, bool isFm, AmMode amMode,
       Intensivity intensity, double frequency, int duration) {
     return MethodicProgram(
-      uid: '0',
+      uid: '254',
       statsTitle: 'togo program',
       title: 'Индивидуальный режим',
       description: 'Работа с индивидуальными настройками',
@@ -101,7 +101,7 @@ class MethodicProgram {
   factory MethodicProgram.one(bool isAm, bool isFm, AmMode amMode,
       Intensivity intensity, double frequency, int duration) {
     return MethodicProgram(
-      uid: '0',
+      uid: '255',
       statsTitle: 'togo program',
       title: 'Индивидуальный режим',
       description: 'Работа с индивидуальными настройками',
@@ -136,7 +136,7 @@ class MethodicProgram {
       isAm: isAm,
       isFm: isFm,
       amMode: amMode,
-      intensity: intensity,
+      intensivity: intensity,
       frequency: frequency,
     );
     _stages.add(stage);
@@ -154,7 +154,7 @@ class MethodicProgram {
       isFm: _stages[idx].isFm,
       amMode: _stages[idx].amMode,
       frequency: _stages[idx].frequency,
-      intensity: _stages[idx].intensity,
+      intensivity: _stages[idx].intensivity,
     );
   }
 }

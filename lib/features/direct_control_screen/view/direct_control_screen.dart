@@ -69,7 +69,7 @@ class _DirectControlScreenState extends State<DirectControlScreen> {
     widget.driver.setWorkManagerTask(3600000 - 2000);
 
     widget.driver.setProgram(MethodicProgram.one(false, false, AmMode.am_11,
-        Intensivity.one, 60, maxDirectModeDuration.toInt() * 60 * 1000));
+        Intensivity.one, 60, maxDirectModeDuration.toInt() * 60 * 1000), true);
     widget.driver.resetProgram();
     widget.driver.run();
 

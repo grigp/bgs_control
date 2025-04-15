@@ -141,13 +141,14 @@ class BgsConnect {
                 _onStateChanged);
 
             /// Запускаем события от таймера, по которым будем растить мощность
-            if (!_isPowerTimer) {
-              _setPowerTimer = Timer.periodic(
-                const Duration(milliseconds: 1000),
-                setPowerAction,
-              );
-              _isPowerTimer = true;
-            }
+
+            // if (!_isPowerTimer) {  TODO: Убрать его и все функции, когда появится версия 1.1.0+1
+            //   _setPowerTimer = Timer.periodic(
+            //     const Duration(milliseconds: 1000),
+            //     _setPowerAction,
+            //   );
+            //   _isPowerTimer = true;
+            // }
 
 //            reset(); Обнуление мощности при запуске
           }
@@ -160,7 +161,7 @@ class BgsConnect {
       if (kDebugMode) {
         print(
             '================================================================');
-        print('Подключиться к стимулятору не  удалось: $e');
+        print('Подключиться к стимулятору не удалось: $e');
         print(
             '================================================================');
       }
@@ -192,9 +193,11 @@ class BgsConnect {
     }
   }
 
-  void setPower(double power) {
+  void setPower(double power) async {
     _targetPower = power.toInt();
-    _curPower = _value[5];
+//    _curPower = _value[5];
+    _curPower = power.toInt();
+    await _write([0x91, _curPower]);
   }
 
   void reset() async {
@@ -214,19 +217,52 @@ class BgsConnect {
 
   /// Записывает программу в устройство
   void setProgram(MethodicProgram prg) async {
+    /// Общие параметры программы
     List<int> command = [0xB3];
     command.add(int.parse(prg.uid));
     command.add(prg.stagesCount());
+    /// Этапы программы
     for (int i = 0; i < prg.stagesCount(); ++i) {
+      /// Длительность (2 байта)
       int d = prg.stage(i).duration ~/ 1000;
       command.add(d & 0xFF);
       command.add((d & 0xFF00) >> 8);
+
+      /// AM
+      if (prg.stage(i).isAm){
+        var ami = amModeCode[prg.stage(i).amMode];
+        command.add(ami!);
+      } else {
+        command.add(0);
+      }
+
+      /// FM
+      if (prg.stage(i).isFm) {
+        command.add(1);
+      } else {
+        command.add(0);
+      }
+      /// Частота
+      int f = prg.stage(i).frequency.toInt();
+      command.add(f & 0xFF);
+      command.add((f & 0xFF00) >> 8);
+
+      /// Интенсивность
+      if (prg.stage(i).intensivity == Intensivity.one){
+        command.add(0);
+      } else if (prg.stage(i).intensivity == Intensivity.two){
+        command.add(1);
+      } else if (prg.stage(i).intensivity == Intensivity.three){
+        command.add(2);
+      } else if (prg.stage(i).intensivity == Intensivity.four){
+        command.add(3);
+      }
     }
     await _write(command);
   }
 
   /// Функция, вызываемая раз в секунду и меняющая мощность, если нужно
-  void setPowerAction(Timer timer) async {
+  void _setPowerAction(Timer timer) async {
     if (_curPower < _targetPower) {
       ++_curPower;
       await _write([0x91, _curPower]);
@@ -300,7 +336,22 @@ class BgsConnect {
   Future<void> _write(List<int> command) async {
     if (!_isSending) return;
     if (!device.isConnected) return;
-    await _characteristic.write(command, withoutResponse: true);
+    /// Поскольку нельзя передавать команды длиной более 20 байт, придется
+    /// передавать из по частям, если длительность превышает 20 байт
+    if (command.length <= 20) {
+      await _characteristic.write(command, withoutResponse: true);
+    } else {
+      int b = 0;
+      do {
+        List<int> cmd = [];
+        for(int i = b; i < command.length; ++i) {
+          if (cmd.length == 20) break;
+          cmd.add(command[i]);
+        }
+        await _characteristic.write(cmd, withoutResponse: true);
+        b+=20;
+      } while (b < command.length);
+    }
     if (logSubject == LogSubject.lsComm || logSubject == LogSubject.lsAll) {
       GetIt.I<CommunicationLogger>().log('<< $command');
     }

@@ -30,7 +30,7 @@ class ExecuteScreen extends StatefulWidget {
     this.program,
   }) {
     if (program != null) {
-      driver.setProgram(program!);
+      driver.setProgram(program!, false);
       driver.setIsWorkAuto(false);
     }
   }
@@ -434,7 +434,7 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
   void initState() {
     super.initState();
 
-    widget.driver.setProgram(widget.driver.program);
+    widget.driver.setProgram(widget.driver.program, true);
     widget.driver.run();
 
     _uuidGetData = const Uuid().v1();
@@ -478,7 +478,7 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
       isAm: widget.driver.stage().isAm,
       isFm: widget.driver.stage().isFm,
       amMode: widget.driver.stage().amMode,
-      intensivity: widget.driver.stage().intensity,
+      intensivity: widget.driver.stage().intensivity,
       frequency: widget.driver.stage().frequency,
     );
 
@@ -536,7 +536,7 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
     } else {
       retval = '$retval   F = ${widget.driver.stage().frequency.toInt()}';
     }
-    retval = '$retval   Int = ${widget.driver.stage().intensity.index + 1}';
+    retval = '$retval   Int = ${widget.driver.stage().intensivity.index + 1}';
 
     return retval;
   }
