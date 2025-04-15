@@ -72,7 +72,7 @@ class DeviceProgramExecutor {
 
   /// Запуск программы
   Future<bool> connect() async {
-    if (await _connect.init(device)){
+    if (await _connect.init(device)) {
       device.connectionState.listen((event) {
         _isConnected = event == BluetoothConnectionState.connected;
       });
@@ -213,20 +213,18 @@ class DeviceProgramExecutor {
 
   Future initSettings() async {
     /// Получиим параметры стимулятора. Главное - время работы
-    var dp = await GetIt.I<BgsPropertyStorage>().getProperty(_connect.device.advName);
+    var dp = await GetIt.I<BgsPropertyStorage>()
+        .getProperty(_connect.device.advName);
     _connect.setTimeUseDevice(dp.timeUseDevice);
   }
 
   Future saveSettings() async {
     /// Сохраним параметры стимулятора. Главное - время работы
-    GetIt.I<BgsPropertyStorage>().saveProperty(
-        BgsProperty(
-          bgsName: _connect.device.advName,
-          deviceNumber: _connect.deviceNumber(),
-          firmwareNumber: _connect.firmwareNumber(),
-          timeUseDevice: _connect.timeUseDevice(),
-        )
-    );
+    GetIt.I<BgsPropertyStorage>().saveProperty(BgsProperty(
+      bgsName: _connect.device.advName,
+      firmwareNumber: _connect.firmwareNumber(),
+      timeUseDevice: _connect.timeUseDevice(),
+    ));
   }
 
   Future setPower(double power) async {
@@ -241,7 +239,21 @@ class DeviceProgramExecutor {
 
   void onGetData(BlockData data) {
     if (kDebugMode) {
-      print('------------------------------------ getdata : ${++n}');
+      print(
+          '--------------------- getdata : ${++n} -- metUid: ${data.methodUid}  stage: ${data.stage}  time: ${data.playingTime}');
+    }
+
+    if (_isPlaying) {
+      _playingTime = data.playingTime.toInt();
+      _idxStage = data.stage;
+
+      if (data.methodUid == 0) {
+        Workmanager().cancelAll();
+        _isPlaying = false;
+        _programTime = _playingTime;
+        _playingTime = 0;
+        _isOver = true;
+      }
     }
 
     /// Набор статистики
@@ -255,53 +267,35 @@ class DeviceProgramExecutor {
   }
 
   void onTimer(Timer timer) async {
-    if (kDebugMode) {
-      print(
-          '---------------------------- isPlaying: $_isPlaying      timer:  $_playingTime');
-    }
-    if (_isPlaying) {
-      ++_playingTime;
-      if (_duration > 0 && (stageTime() >= _duration / 1000)) {
-        /// Если это не последний этап
-        if (_idxStage + 1 < program.stagesCount()) {
-          ++_idxStage;
-
-          //setWorkManagerTask(program.stage(_idxStage).duration - 2000);
-          _stageStartTime = _playingTime;
-          _duration = program.stage(_idxStage).duration;
-        } else {
-          /// Все этапы прошли - выходим
-          setPower(0);
-          Workmanager().cancelAll();
-          _isPlaying = false;
-          _programTime = _playingTime;
-          _playingTime = 0;
-          _isOver = true;
-        }
-      }
-      // // Быстрое завершение программы
-      // // TODO: Убрать!!!
-      // TODO (yasliks): шо это
-      // if (_playingTime == 10){
-      //   /// Все этапы прошли - выходим
-      //   setPower(0);
-      //   _isPlaying = false;
-      //   _isOver = true;
-      // }
-    }
-
-    if (_idxStage == -1) {
-      Workmanager().cancelAll();
-      timer.cancel();
-    }
+    // if (kDebugMode) {
+    //   print(
+    //       '---------------------------- isPlaying: $_isPlaying      timer:  $_playingTime');
+    // }
+    // if (_isPlaying) {
+    //   ++_playingTime;
+    //   if (_duration > 0 && (stageTime() >= _duration / 1000)) {
+    //     /// Если это не последний этап
+    //     if (_idxStage + 1 < program.stagesCount()) {
+    //       ++_idxStage;
+    //       _stageStartTime = _playingTime;
+    //       _duration = program.stage(_idxStage).duration;
+    //     } else {
+    //       /// Все этапы прошли - выходим
+    //       setPower(0);
+    //       Workmanager().cancelAll();
+    //       _isPlaying = false;
+    //       _programTime = _playingTime;
+    //       _playingTime = 0;
+    //       _isOver = true;
+    //     }
+    //   }
+    // }
+    //
+    // if (_idxStage == -1) {
+    //   Workmanager().cancelAll();
+    //   timer.cancel();
+    // }
   }
-
-  // static void onTimerIsolate(SendPort sendPort){
-  //   int n = 0;
-  //   Timer.periodic(const Duration(seconds: 1), (Timer timer){
-  //     print('---------------------------- isolate ${++n}');
-  //   });
-  // }
 
   void setWorkManagerTask(int duration) {
     Workmanager().cancelAll();
@@ -328,10 +322,6 @@ class DeviceProgramExecutor {
       pd += program.stage(i).duration;
     }
     return pd;
-  }
-
-  int deviceNumber() {
-    return _connect.deviceNumber();
   }
 
   int firmwareNumber() {

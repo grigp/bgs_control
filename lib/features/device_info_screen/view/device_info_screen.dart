@@ -131,7 +131,6 @@ class _DeviceInfoScreenState extends State<DeviceInfoScreen> {
     /// Получим параметры стимулятора. Главное - время работы
     var dp = await GetIt.I<BgsPropertyStorage>().getProperty(dvcName);
     setState(() {
-      _sDN = '${dp.deviceNumber}';
       _sFN = '${dp.firmwareNumber}';
       _sTC = 'мм:сс';
       if (dp.timeUseDevice > 3600) {

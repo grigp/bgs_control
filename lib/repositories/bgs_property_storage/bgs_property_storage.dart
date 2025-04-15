@@ -9,7 +9,6 @@ import 'package:path_provider/path_provider.dart';
 class BgsProperty {
   BgsProperty({
     required this.bgsName,
-    required this.deviceNumber,
     required this.firmwareNumber,
     required this.timeUseDevice,
   });
@@ -20,7 +19,6 @@ class BgsProperty {
     /// Сначала сам объект с заголовочными полями
     var retval = BgsProperty(
       bgsName: data['bgs'].toString(),
-      deviceNumber: data['dvc_number'],
       firmwareNumber: data['fwr_number'],
       timeUseDevice: data['time_use_dvc'],
     );
@@ -30,13 +28,11 @@ class BgsProperty {
 
   static Map<String, dynamic> toJson(BgsProperty value) => {
         'bgs': value.bgsName,
-        'dvc_number': value.deviceNumber,
         'fwr_number': value.firmwareNumber,
         'time_use_dvc': value.timeUseDevice,
       };
 
   String bgsName;
-  int deviceNumber;
   int firmwareNumber;
   int timeUseDevice;
 }
@@ -54,7 +50,6 @@ class BgsPropertyStorage {
     bool fnd = false;
     for (int i = 0; i < _listBgs.length; ++i) {
       if (_listBgs[i].bgsName == data.bgsName) {
-        _listBgs[i].deviceNumber = data.deviceNumber;
         _listBgs[i].firmwareNumber = data.firmwareNumber;
         _listBgs[i].timeUseDevice = data.timeUseDevice;
         fnd = true;
@@ -76,7 +71,6 @@ class BgsPropertyStorage {
       if (_listBgs[i].bgsName == bgsName) {
         return BgsProperty(
           bgsName: bgsName,
-          deviceNumber: _listBgs[i].deviceNumber,
           firmwareNumber: _listBgs[i].firmwareNumber,
           timeUseDevice: _listBgs[i].timeUseDevice,
         );
@@ -84,7 +78,7 @@ class BgsPropertyStorage {
     }
 
     return BgsProperty(
-        bgsName: '', deviceNumber: 0, firmwareNumber: 0, timeUseDevice: 0);
+        bgsName: '', firmwareNumber: 0, timeUseDevice: 0);
   }
 
   Future add(String bgsName) async {
@@ -101,7 +95,6 @@ class BgsPropertyStorage {
     if (!fnd) {
       _listBgs.add(BgsProperty(
         bgsName: bgsName,
-        deviceNumber: 0,
         firmwareNumber: 0,
         timeUseDevice: 0,
       ));

@@ -41,8 +41,10 @@ class BlockData {
     required this.chargeLevel,
     required this.chargeValue,
     required this.chargeValueExt,
+    required this.methodUid,
+    required this.stage,
+    required this.playingTime,
     required this.source,
-    required this.deviceNumber,
     required this.firmwareNumber,
   });
 
@@ -56,8 +58,10 @@ class BlockData {
   final double chargeLevel;
   final double chargeValue;
   final double chargeValueExt;
+  final int methodUid;
+  final int stage;
+  final double playingTime;
   final List<int> source;
-  final int deviceNumber;
   final int firmwareNumber;
 }
 
@@ -68,7 +72,6 @@ class BgsConnect {
   late BluetoothDevice device;
   List<int> _value = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
-  int _deviceNumber = -1;
   int _firmwareNumber = -1;
   int _timeUseDevice = -1;
 
@@ -260,11 +263,6 @@ class BgsConnect {
     }
   }
 
-  /// Возвращает номер устройства
-  int deviceNumber() {
-    return _deviceNumber;
-  }
-
   /// Возвращает номер прошивки
   int firmwareNumber() {
     return _firmwareNumber;
@@ -341,12 +339,7 @@ class BgsConnect {
     /// Уровень заряда батареи
     /// TODO: Убрать вариант выбора источника, когда будет решение
     var vRare = value[3];                    /// Вариант с большим шагом
-    var vOften = value[2] * 256 + value[1];  /// Вариант с малым шагом
     var cl = getChargeLevelByADC(vRare);
-    /// vRare * 4 ~ vOften. Поэтому можно проверить, если < 10% разницы, то взять с малым шагом
-    if ((1 - (vRare * 4) / vOften).abs() < 0.1) {
-      cl = getChargeLevelByADCExt(vOften);
-    }
     /// Управление отображаемым уровнем заряда батареи
     if (cl < _chargeLevel) {
       /// Уменьшаем легко
@@ -358,7 +351,10 @@ class BgsConnect {
       }
     }
 
-    _deviceNumber = value[2] * 256 + value[1];
+    int methodUid = value[2];
+    int stage = value[6];
+    double playingTime = (value[8] * 256 + value[7]).toDouble();
+
     _firmwareNumber = value[4] & 0x7F;
     ++_timeUseDevice;
 
@@ -375,8 +371,10 @@ class BgsConnect {
       chargeValue: value[3].toDouble(),
       chargeValueExt: value[2].toDouble() * 256 + value[1].toDouble(),
       source: value,
-      deviceNumber: _deviceNumber,
       firmwareNumber: _firmwareNumber,
+      methodUid: methodUid,
+      stage: stage,
+      playingTime: playingTime,
     );
   }
 
