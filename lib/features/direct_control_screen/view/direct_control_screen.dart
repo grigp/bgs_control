@@ -68,8 +68,10 @@ class _DirectControlScreenState extends State<DirectControlScreen> {
     super.initState();
     widget.driver.setWorkManagerTask(3600000 - 2000);
 
-    widget.driver.setProgram(MethodicProgram.one(false, false, AmMode.am_11,
-        Intensivity.one, 60, maxDirectModeDuration.toInt() * 60 * 1000), true);
+    widget.driver.setProgram(
+        MethodicProgram.one(false, false, AmMode.am_11, Intensivity.one, 60,
+            maxDirectModeDuration.toInt() * 60 * 1000),
+        true);
     widget.driver.resetProgram();
     widget.driver.run();
 
@@ -243,6 +245,7 @@ class _DirectControlScreenState extends State<DirectControlScreen> {
       _isAmChange = true;
     });
     _isAmChange = false;
+    _setDeviceMode(isAm, _isFm, _amMode, _idxFreq, _intensivity);
 
     setState(() {
       _isAm = isAm;
@@ -257,6 +260,7 @@ class _DirectControlScreenState extends State<DirectControlScreen> {
       _isAmModeChange = true;
     });
     _isAmModeChange = false;
+    _setDeviceMode(_isAm, _isFm, amMode, _idxFreq, _intensivity);
 
     setState(() {
       _amMode = amMode;
@@ -271,6 +275,7 @@ class _DirectControlScreenState extends State<DirectControlScreen> {
       _isFmChange = true;
     });
     _isFmChange = false;
+    _setDeviceMode(_isAm, isFm, _amMode, _idxFreq, _intensivity);
 
     setState(() {
       _isFm = isFm;
@@ -285,6 +290,7 @@ class _DirectControlScreenState extends State<DirectControlScreen> {
       _idxFreqChange = true;
     });
     _idxFreqChange = false;
+    _setDeviceMode(_isAm, _isFm, _amMode, idxFreq, _intensivity);
 
     setState(() {
       _idxFreq = idxFreq;
@@ -299,6 +305,7 @@ class _DirectControlScreenState extends State<DirectControlScreen> {
       _intensivityChange = true;
     });
     _intensivityChange = false;
+    _setDeviceMode(_isAm, _isFm, _amMode, _idxFreq, intensivity);
 
     setState(() {
       _intensivity = intensivity;
@@ -376,6 +383,18 @@ class _DirectControlScreenState extends State<DirectControlScreen> {
       _stopStimulation();
       Navigator.pop(context);
     }
+  }
+
+  void _setDeviceMode(bool isAM, bool isFM, AmMode amMode, double idxFreq,
+      Intensivity intensity) async {
+    var program = MethodicProgram.togo(
+        isAM,
+        isFM,
+        amMode,
+        intensity,
+        freqValue[_idxFreq]!,
+        (widget.driver.programDuration() - widget.driver.playingTime()) * 1000);
+    widget.driver.setProgram(program, true);
   }
 
   String _valueToString() {
