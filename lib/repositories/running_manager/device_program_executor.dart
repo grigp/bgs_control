@@ -53,6 +53,9 @@ class DeviceProgramExecutor {
   /// Время выполнения программы
   int _playingTime = 0;
 
+  /// Время прохождения этапа из предыдущего пакета данных
+  int _prevTime = 0;
+
   /// Результирующее время выполнения программы
   int _programTime = 0;
 
@@ -244,10 +247,18 @@ class DeviceProgramExecutor {
     }
 
     if (_isPlaying) {
-      _playingTime = data.playingTime.toInt();
-      _idxStage = data.stage;
-
-      if (data.methodUid == 0) {
+      /// Если в пакете код методики == 0, то методика зкончилась, иначе она идет
+      if (data.methodUid != 0) {
+        /// Время этапа меньше, чем в предыдущем пакете - перешли к новому этапу
+        if (data.playingTime.toInt() + 1 < _prevTime) {
+          _stageStartTime = data.playingTime.toInt() + 1;
+        }
+        _playingTime = _stageStartTime + data.playingTime.toInt() + 1;
+        _prevTime = data.playingTime.toInt() + 1;
+        _idxStage = data.stage;
+        _duration = program.stage(_idxStage).duration;
+      } else {
+        /// Методика зкончилась
         Workmanager().cancelAll();
         _isPlaying = false;
         _programTime = _playingTime;
