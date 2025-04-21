@@ -112,6 +112,7 @@ class DeviceProgramExecutor {
         _idxStage = 0;
         _playingTime = 0;
         _stageStartTime = 0;
+        _prevTime = 0;
         _statCount = 0;
         _averagePower = 0;
         _maxPower = 0;
@@ -251,9 +252,11 @@ class DeviceProgramExecutor {
       if (data.methodUid != 0) {
         /// Время этапа меньше, чем в предыдущем пакете - перешли к новому этапу
         if (data.playingTime.toInt() + 1 < _prevTime) {
-          _stageStartTime = data.playingTime.toInt() + 1;
+          _stageStartTime = _prevTime;
+          print('-------------stage start time: $_stageStartTime -----------------');
         }
         _playingTime = _stageStartTime + data.playingTime.toInt() + 1;
+        print('-------------playing time: $_playingTime -----------------');
         _prevTime = data.playingTime.toInt() + 1;
         _idxStage = data.stage;
         _duration = program.stage(_idxStage).duration;

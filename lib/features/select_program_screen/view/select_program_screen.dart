@@ -48,6 +48,7 @@ class _SelectProgramScreenState extends State<SelectProgramScreen> {
   String _uuidGetData = '';
   double _chargeLevel = 100;
   double _chargeValue = 0;
+  int _curMethodic = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -279,6 +280,14 @@ class _SelectProgramScreenState extends State<SelectProgramScreen> {
 
   void onGetData(BlockData data) {
     if (_isConnected) {
+      print('<<<<<<<<<<<<<< sps:onGetData.  met: "${data.methodUid}" met old: $_curMethodic     ${data.stage} - ${data.playingTime} >>>>>>>>>>>>>>>>');
+      if (data.methodUid != _curMethodic && data.methodUid > 0) { //Не отлажено. Мешает
+        var idx = _getMethodisIdx(data.methodUid);
+        if (idx >= 0) {
+          _curMethodic = data.methodUid;
+          _runProgram(_programs[idx]);
+        }
+      }
       setState(() {
         _chargeLevel = data.chargeLevel;
         _chargeValue = data.chargeValue;
@@ -289,6 +298,16 @@ class _SelectProgramScreenState extends State<SelectProgramScreen> {
             .log('SelectProgramScreen.onGetData - set state after dispose');
       }
     }
+  }
+
+  /// Возвращает индекс методики с uid == uidMethodic и -1, если не нашла
+  int _getMethodisIdx(int uidMethodic) {
+    for (int i = 0; i < _programs.length; ++i) {
+      if (int.parse(_programs[i].uid) == uidMethodic){
+        return i;
+      }
+    }
+    return -1;
   }
 
   List<Widget> _buildProgramTiles(BuildContext context) {
@@ -316,6 +335,7 @@ class _SelectProgramScreenState extends State<SelectProgramScreen> {
               }
 
               /// Ну и запустить экран выполнения
+              _curMethodic = int.parse(program.uid);
               _runProgram(program);
             },
           ),

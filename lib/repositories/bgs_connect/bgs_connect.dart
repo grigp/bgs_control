@@ -352,7 +352,7 @@ class BgsConnect {
     }
 
     int methodUid = value[2];
-    int stage = value[6];
+    int stage = value[6] - 1;
     double playingTime = (value[8] * 256 + value[7]).toDouble();
 
     _firmwareNumber = value[4] & 0x7F;
