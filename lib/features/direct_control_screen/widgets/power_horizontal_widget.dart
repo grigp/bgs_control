@@ -37,7 +37,7 @@ class _PowerHorizontalWidgetState extends State<PowerHorizontalWidget> {
           /// Регулятор мощности
           children: [
             Text(
-              '${widget.powerSet.toInt()}',
+              '${widget.powerReal.toInt()}',
               style: theme.textTheme.bodyLarge,
               textScaler: const TextScaler.linear(1.0),
             ),
@@ -121,7 +121,7 @@ class _PowerHorizontalWidgetState extends State<PowerHorizontalWidget> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            widget.powerReal.round().toString(),
+                            widget.powerSet.round().toString(),
                             style: theme.textTheme.displaySmall,
                             textScaler: const TextScaler.linear(1.0),
                           ),

@@ -173,7 +173,7 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
               ),
 
               Text(
-                '${_powerReal.round()}',
+                '${_powerSet.round()}',
                 style: theme.textTheme.headlineLarge,
                 textScaler: const TextScaler.linear(1.0),
               ),
@@ -183,7 +183,7 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
                 children: [
                   const SizedBox(width: 16),
                   Text(
-                    '${_powerSet.round()}',
+                    '${_powerReal.round()}',
                     style: theme.textTheme.bodyLarge,
                     textScaler: const TextScaler.linear(1.0),
                   ),
