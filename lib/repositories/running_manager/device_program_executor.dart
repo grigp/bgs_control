@@ -253,10 +253,8 @@ class DeviceProgramExecutor {
         /// Время этапа меньше, чем в предыдущем пакете - перешли к новому этапу
         if (data.playingTime.toInt() + 1 < _prevTime) {
           _stageStartTime = _prevTime;
-          print('-------------stage start time: $_stageStartTime -----------------');
         }
         _playingTime = _stageStartTime + data.playingTime.toInt() + 1;
-        print('-------------playing time: $_playingTime -----------------');
         _prevTime = data.playingTime.toInt() + 1;
         _idxStage = data.stage;
         _duration = program.stage(_idxStage).duration;

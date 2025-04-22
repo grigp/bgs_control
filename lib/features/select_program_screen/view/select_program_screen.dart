@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:bgs_control/features/execute_screen/view/execute_screen.dart';
 import 'package:bgs_control/features/program_params_screen/view/program_params_screen.dart';
 import 'package:bgs_control/features/select_program_screen/widgets/direct_title.dart';
 import 'package:bgs_control/features/select_program_screen/widgets/program_title.dart';
@@ -247,7 +248,7 @@ class _SelectProgramScreenState extends State<SelectProgramScreen> {
                 if (_chargeLevel <= chargeBreakBoundLevel) {
                   await alertLowEnergy();
                 }
-                _runProgram(_programs[i]);
+                _runProgramWithParams(_programs[i]);
               },
             );
           }
@@ -281,7 +282,7 @@ class _SelectProgramScreenState extends State<SelectProgramScreen> {
   void onGetData(BlockData data) {
     if (_isConnected) {
       print('<<<<<<<<<<<<<< sps:onGetData.  met: "${data.methodUid}" met old: $_curMethodic     ${data.stage} - ${data.playingTime} >>>>>>>>>>>>>>>>');
-      if (data.methodUid != _curMethodic && data.methodUid > 0) { //Не отлажено. Мешает
+      if (data.methodUid != _curMethodic && data.methodUid > 0) {
         var idx = _getMethodisIdx(data.methodUid);
         if (idx >= 0) {
           _curMethodic = data.methodUid;
@@ -336,7 +337,7 @@ class _SelectProgramScreenState extends State<SelectProgramScreen> {
 
               /// Ну и запустить экран выполнения
               _curMethodic = int.parse(program.uid);
-              _runProgram(program);
+              _runProgramWithParams(program);
             },
           ),
         )
@@ -406,7 +407,8 @@ class _SelectProgramScreenState extends State<SelectProgramScreen> {
     );
   }
 
-  void _runProgram(MethodicProgram program) {
+  /// Запускает программу с использованием окан параметров программы
+  void _runProgramWithParams(MethodicProgram program) {
     pushScreen(
       context,
       (context, animation, secondaryAnimation) => ProgramParamsScreen(
@@ -415,6 +417,20 @@ class _SelectProgramScreenState extends State<SelectProgramScreen> {
         program: program,
       ),
       '/program_control',
+      ShiftDirection.rightToLeft,
+    );
+  }
+
+  /// Запускает программу напрямую
+  void _runProgram(MethodicProgram program) {
+    pushScreen(
+      context,
+          (context, animation, secondaryAnimation) => ExecuteScreen(
+        title: 'Execution',
+        driver: widget.driver,
+        program: program,
+      ),
+      '/execute',
       ShiftDirection.rightToLeft,
     );
   }
