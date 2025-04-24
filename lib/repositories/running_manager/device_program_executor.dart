@@ -62,6 +62,10 @@ class DeviceProgramExecutor {
   /// Время процесса
   int _stageStartTime = 0;
 
+  /// Необходимость прочитать позицию из прибора
+  /// Инициируется в run(), читается в getData()
+  bool _isReadPositionFromDevice = false;
+
   /// Время начала этапа
   late Timer _timer;
 
@@ -93,7 +97,7 @@ class DeviceProgramExecutor {
     // }
   }
 
-  void run() async {
+  void run(bool isNewProgram) async {
     if (program.uid != '' && _isConnected) {
       _uuidGetData = const Uuid().v1();
       _connect.addHandler(_uuidGetData, onGetData);
@@ -104,17 +108,22 @@ class DeviceProgramExecutor {
       /// Программа стартует в режиме паузы.
       /// Чтобы ее запустить, надо нажать на кнопку Play [>]
       /// Предварительно не помешало бы установить нужный уровень мощности
-      _isPlaying = false;
-      if (_isOver) {
-        _idxStage = 0;
-        _playingTime = 0;
-        _stageStartTime = 0;
-        _prevTime = 0;
-        _statCount = 0;
-        _averagePower = 0;
-        _maxPower = 0;
+      if (isNewProgram) {
+        _isPlaying = false;
+        if (_isOver) {
+          _idxStage = 0;
+          _playingTime = 0;
+          _stageStartTime = 0;
+          _prevTime = 0;
+          _statCount = 0;
+          _averagePower = 0;
+          _maxPower = 0;
+        }
+        _isOver = false;
+      } else {
+        _isPlaying = true;
+        _isReadPositionFromDevice = true;
       }
-      _isOver = false;
 
       _progDuration = _programDuration();
       setWorkManagerTask(_progDuration - 2000);
@@ -253,6 +262,16 @@ class DeviceProgramExecutor {
     if (kDebugMode) {
       print(
           '--------------------- getdata : ${++n} -- metUid: ${data.methodUid}  stage: ${data.stage}  time: ${data.playingTime}');
+    }
+
+    /// Если восстанаовливаем соединение, то данные о иекущей позиции рассчитать
+    if (_isReadPositionFromDevice){
+      _stageStartTime = 0;
+      for (int i = 0; i < program.stagesCount(); ++i) {
+        if (i == data.stage) break;
+        _stageStartTime += program.stage(i).duration ~/ 1000;
+      }
+      _isReadPositionFromDevice = false;
     }
 
     if (_isPlaying) {

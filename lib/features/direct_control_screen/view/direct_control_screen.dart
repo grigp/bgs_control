@@ -73,7 +73,7 @@ class _DirectControlScreenState extends State<DirectControlScreen> {
             maxDirectModeDuration.toInt() * 60 * 1000),
         true);
     widget.driver.resetProgram();
-    widget.driver.run();
+    widget.driver.run(true);  //TODO: Надо в зависимости от режима в приборе
 
     _uuidSendData = const Uuid().v1();
     widget.driver.initSettings();

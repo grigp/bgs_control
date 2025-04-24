@@ -281,7 +281,8 @@ class _SelectProgramScreenState extends State<SelectProgramScreen> {
 
   void onGetData(BlockData data) {
     if (_isConnected) {
-      print('<<<<<<<<<<<<<< sps:onGetData.  met: "${data.methodUid}" met old: $_curMethodic     ${data.stage} - ${data.playingTime} >>>>>>>>>>>>>>>>');
+      print(
+          '<<<<<<<<<<<<<< sps:onGetData.  met: "${data.methodUid}" met old: $_curMethodic     ${data.stage} - ${data.playingTime} >>>>>>>>>>>>>>>>');
       if (data.methodUid != _curMethodic && data.methodUid > 0) {
         var idx = _getMethodisIdx(data.methodUid);
         if (idx >= 0) {
@@ -304,7 +305,7 @@ class _SelectProgramScreenState extends State<SelectProgramScreen> {
   /// Возвращает индекс методики с uid == uidMethodic и -1, если не нашла
   int _getMethodisIdx(int uidMethodic) {
     for (int i = 0; i < _programs.length; ++i) {
-      if (int.parse(_programs[i].uid) == uidMethodic){
+      if (int.parse(_programs[i].uid) == uidMethodic) {
         return i;
       }
     }
@@ -425,10 +426,11 @@ class _SelectProgramScreenState extends State<SelectProgramScreen> {
   void _runProgram(MethodicProgram program) {
     pushScreen(
       context,
-          (context, animation, secondaryAnimation) => ExecuteScreen(
+      (context, animation, secondaryAnimation) => ExecuteScreen(
         title: 'Execution',
         driver: widget.driver,
         program: program,
+        isNewProgram: false,
       ),
       '/execute',
       ShiftDirection.rightToLeft,

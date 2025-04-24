@@ -28,6 +28,7 @@ class ExecuteScreen extends StatefulWidget {
     required this.title,
     required this.driver,
     this.program,
+    required this.isNewProgram,
   }) {
     if (program != null) {
       driver.setProgram(program!, false);
@@ -38,6 +39,7 @@ class ExecuteScreen extends StatefulWidget {
   final String title;
   final DeviceProgramExecutor driver;
   final MethodicProgram? program;
+  final bool isNewProgram;
 
   @override
   State<ExecuteScreen> createState() => _ExecuteScreenState();
@@ -434,8 +436,10 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
   void initState() {
     super.initState();
 
-    widget.driver.setProgram(widget.driver.program, true);
-    widget.driver.run();
+    if (widget.isNewProgram) {
+      widget.driver.setProgram(widget.driver.program, true);
+    }
+    widget.driver.run(widget.isNewProgram);
 
     _uuidGetData = const Uuid().v1();
     widget.driver.addHandler(_uuidGetData, onGetData);

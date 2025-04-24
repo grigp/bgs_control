@@ -177,6 +177,7 @@ class _TogoParamsScreenState extends State<TogoParamsScreen> {
                         title: 'Execution',
                         driver: widget.driver,
                         program: program,
+                        isNewProgram: true,
                       ),
                       '/execute',
                       ShiftDirection.rightToLeft,
