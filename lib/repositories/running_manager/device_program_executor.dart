@@ -84,11 +84,8 @@ class DeviceProgramExecutor {
     return false;
   }
 
-  void disconnect(bool isReset) {
+  void disconnect() {
     // if (_isConnected) {
-    if (isReset) {
-      _connect.reset();
-    }
     _connect.done();
     _isConnected = false;
 
@@ -134,8 +131,14 @@ class DeviceProgramExecutor {
     _timer.cancel();
     Workmanager().cancelAll();
     _isPlaying = false;
-    // _idxStage = -1;
-    // _playingTime = 0;
+    stopProgram();
+    _idxStage = 0;
+    _playingTime = 0;
+    _stageStartTime = 0;
+    _prevTime = 0;
+    _statCount = 0;
+    _averagePower = 0;
+    _maxPower = 0;
     if (program.uid != '' && _isConnected) {
       _connect.removeHandler(_uuidGetData);
     }
@@ -145,7 +148,6 @@ class DeviceProgramExecutor {
     if (program.uid != '') {
       _isPlaying = !_isPlaying;
       _connect.pause(_isPlaying);
-      reset();
     }
   }
 
@@ -170,6 +172,12 @@ class DeviceProgramExecutor {
     if (isWriteToDevice && prg.stagesCount() > 0) {
       _connect.setProgram(prg);
     }
+  }
+
+  /// Прерывает программу, выполняемую в настоящий момент в устройстве
+  /// И переводит его в режим ожидания
+  void stopProgram() {
+    _connect.stopProgram();
   }
 
   /// Возвращает название устройства
@@ -252,7 +260,7 @@ class DeviceProgramExecutor {
       if (data.methodUid != 0) {
         /// Время этапа меньше, чем в предыдущем пакете - перешли к новому этапу
         if (data.playingTime.toInt() + 1 < _prevTime) {
-          _stageStartTime = _prevTime;
+          _stageStartTime = _stageStartTime + _prevTime;
         }
         _playingTime = _stageStartTime + data.playingTime.toInt() + 1;
         _prevTime = data.playingTime.toInt() + 1;

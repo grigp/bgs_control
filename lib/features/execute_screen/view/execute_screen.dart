@@ -446,9 +446,6 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
   void dispose() {
     widget.driver.saveSettings();
     widget.driver.removeHandler(_uuidGetData);
-    // if (!widget.driver.isWorkAuto()) { TODO: Заменить на останов программы
-    //   widget.driver.setPower(0);
-    // }
     widget.driver.stop();
 
     super.dispose();

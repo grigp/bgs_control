@@ -146,7 +146,7 @@ class MethodicProgram {
   int stagesCount() => _stages.length;
 
   ProgramStage stage(int idx) {
-    assert(idx >= 0 && idx < _stages.length);
+    assert(idx >= 0 && idx < _stages.length, 'idx == $idx, length = ${_stages.length}');
     return ProgramStage(
       comment: _stages[idx].comment,
       duration: _stages[idx].duration,

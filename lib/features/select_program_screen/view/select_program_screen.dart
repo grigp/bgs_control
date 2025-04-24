@@ -218,7 +218,7 @@ class _SelectProgramScreenState extends State<SelectProgramScreen> {
     // TODO как-то по другому надо получать данные о зарядке
     // TODO (yasliks): надо по-хорошему порешать все со всеми ТУДУшками
     widget.driver.removeHandler(_uuidGetData);
-    widget.driver.disconnect(!widget.driver.isWorkAuto());
+    widget.driver.disconnect();
 
     super.dispose();
   }

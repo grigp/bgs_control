@@ -252,6 +252,12 @@ class BgsConnect {
     await _write(command);
   }
 
+  /// Передает команду в устройство перейти в режим ожидания
+  /// При этом программа, выполняемая в настоящий момент прерывается
+  void stopProgram() async {
+    await _write([0xB1, 3]);
+  }
+
   /// Функция, вызываемая раз в секунду и меняющая мощность, если нужно
   void _setPowerAction(Timer timer) async {
     if (_curPower < _targetPower) {
