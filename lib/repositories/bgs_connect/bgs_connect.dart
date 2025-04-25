@@ -300,7 +300,10 @@ class BgsConnect {
           if (cmd.length == 20) break;
           cmd.add(command[i]);
         }
-        await _characteristic.write(cmd, withoutResponse: true);
+        Future.delayed(const Duration(milliseconds: 100), () async {
+          await _characteristic.write(cmd, withoutResponse: true);
+        });
+        // await _characteristic.write(cmd, withoutResponse: true);
         b+=20;
       } while (b < command.length);
     }
