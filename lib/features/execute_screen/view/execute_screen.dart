@@ -54,6 +54,7 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
   String _uuidGetData = '';
   bool _isOver = false;
   double _sliderValueStart = 0;
+  bool _isGetPowerSetFromDevice = false; /// Устанавливается, когда надо прочитать значение установленной мощности из устройства
   final stageInfo = ValueNotifier<StageInfo>(StageInfo(
     idxStage: 0,
     isFm: false,
@@ -438,6 +439,8 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
 
     if (widget.isNewProgram) {
       widget.driver.setProgram(widget.driver.program, true);
+    } else {
+      _isGetPowerSetFromDevice = true;
     }
     widget.driver.run(widget.isNewProgram);
 
@@ -456,6 +459,13 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
   }
 
   void onGetData(BlockData data) {
+    /// Читаем значение установленной мощности из устройства, если подключаемся к
+    /// устройству, на котором работает программа
+    if (_isGetPowerSetFromDevice) {
+      _powerSet = data.power;
+      _isGetPowerSetFromDevice = false;
+    }
+
     setState(() {
       _powerReal = data.power;
 
