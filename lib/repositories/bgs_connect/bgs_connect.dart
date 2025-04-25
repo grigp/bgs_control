@@ -316,6 +316,9 @@ class BgsConnect {
 
   /// Сбор данных для передачи
   BlockData _createBlockData(List<int> value) {
+    if (kDebugMode) {
+      print('data block from device: $value');
+    }
     var power = value[5].toDouble();
 
     var isAM = value[9] > 0;
@@ -358,8 +361,12 @@ class BgsConnect {
     }
 
     int methodUid = value[2];
-    int stage = value[6] - 1;
-    double playingTime = (value[8] * 256 + value[7]).toDouble();
+    int stage = 0;
+    double playingTime = 0;
+    if (methodUid > 0 && value[6] > 0) {
+      stage = value[6] - 1;
+      playingTime = (value[8] * 256 + value[7]).toDouble();
+    }
 
     _firmwareNumber = value[4] & 0x7F;
     ++_timeUseDevice;

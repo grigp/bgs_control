@@ -80,7 +80,7 @@ class MethodicProgram {
   factory MethodicProgram.togo(bool isAm, bool isFm, AmMode amMode,
       Intensivity intensity, double frequency, int duration) {
     return MethodicProgram(
-      uid: '254',
+      uid: '$methodicUidToGo',
       statsTitle: 'togo program',
       title: 'Индивидуальный режим',
       description: 'Работа с индивидуальными настройками',
@@ -101,7 +101,7 @@ class MethodicProgram {
   factory MethodicProgram.one(bool isAm, bool isFm, AmMode amMode,
       Intensivity intensity, double frequency, int duration) {
     return MethodicProgram(
-      uid: '255',
+      uid: '$methodicUidDirect',
       statsTitle: 'togo program',
       title: 'Индивидуальный режим',
       description: 'Работа с индивидуальными настройками',
@@ -164,3 +164,7 @@ class MethodicProgram {
 /// mpkPersonal - индивидуальная
 /// mpkDirect = прямого управления
 enum MethodicProgramKind {mpkNormal, mpkPersonal, mpkDirect}
+
+const int methodicUidToGo = 254;
+const int methodicUidDirect = 255;
+

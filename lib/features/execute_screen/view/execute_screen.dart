@@ -54,7 +54,9 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
   String _uuidGetData = '';
   bool _isOver = false;
   double _sliderValueStart = 0;
-  bool _isGetPowerSetFromDevice = false; /// Устанавливается, когда надо прочитать значение установленной мощности из устройства
+  bool _isGetPowerSetFromDevice = false;
+
+  /// Устанавливается, когда надо прочитать значение установленной мощности из устройства
   final stageInfo = ValueNotifier<StageInfo>(StageInfo(
     idxStage: 0,
     isFm: false,
@@ -230,9 +232,11 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
                               activeColor: black,
                               thumbColor: black,
                               inactiveColor: const Color(0x00000000),
-                              overlayColor: WidgetStateProperty<Color>.fromMap(<WidgetStatesConstraint, Color>{
+                              overlayColor: WidgetStateProperty<
+                                  Color>.fromMap(<WidgetStatesConstraint, Color>{
                                 WidgetState.focused: const Color(0x00000000),
-                                WidgetState.pressed | WidgetState.hovered: const Color(0x00000000),
+                                WidgetState.pressed | WidgetState.hovered:
+                                    const Color(0x00000000),
                                 WidgetState.any: const Color(0x00000000),
                               }),
                               divisions: 125,
@@ -263,11 +267,11 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
               const SizedBox(height: 30),
 
               /// Прогресс бар для программы
-              if (widget.driver.stage().duration > 0)
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: Column(
-                    children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Column(
+                  children: [
+                    if (widget.driver.stage().duration > 0)
                       Row(
                         /// Время осталось
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -279,6 +283,7 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
                           ),
                         ],
                       ),
+                    if (widget.driver.stage().duration > 0)
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -296,26 +301,34 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
                           ),
                         ],
                       ),
-                      Row(
-                        /// Время воздействия
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
+                    Row(
+                      /// Время воздействия
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        widget.driver.stage().duration > 0?
                           Text(
                             getTimeBySecCount(widget.driver.playingTime()),
                             style: theme.textTheme.titleSmall,
                             textScaler: const TextScaler.linear(1.0),
-                          ),
-                          const Spacer(),
+                          )
+                        :
+                        Text(
+                          'Прошло времени - ${getTimeBySecCount(widget.driver.playingTime())}',
+                          style: theme.textTheme.titleSmall,
+                          textScaler: const TextScaler.linear(1.0),
+                        ),
+                        const Spacer(),
+                        if (widget.driver.stage().duration > 0)
                           Text(
                             getTimeBySecCount(widget.driver.programDuration()),
                             style: theme.textTheme.titleSmall,
                             textScaler: const TextScaler.linear(1.0),
                           ),
-                        ],
-                      ),
-                    ],
-                  ),
+                      ],
+                    ),
+                  ],
                 ),
+              ),
 
               /// Кнопка play / pause
               PlayPauseButton(
@@ -402,8 +415,7 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
     });
   }
 
-  void _onSliderValueChangeStart(double value) {
-  }
+  void _onSliderValueChangeStart(double value) {}
 
   void _onSliderValueChanged(double value) {
     setState(() {
@@ -430,7 +442,6 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
         _powerSet = _sliderValueStart;
       });
     }
-
   }
 
   @override

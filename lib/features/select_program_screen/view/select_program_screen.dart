@@ -284,10 +284,17 @@ class _SelectProgramScreenState extends State<SelectProgramScreen> {
       print(
           '<<<<<<<<<<<<<< sps:onGetData.  met: "${data.methodUid}" met old: $_curMethodic     ${data.stage} - ${data.playingTime} >>>>>>>>>>>>>>>>');
       if (data.methodUid != _curMethodic && data.methodUid > 0) {
-        var idx = _getMethodisIdx(data.methodUid);
-        if (idx >= 0) {
+        if (data.methodUid < methodicUidToGo) {
+          var idx = _getMethodisIdx(data.methodUid);
+          if (idx >= 0) {
+            _curMethodic = data.methodUid;
+            _runProgram(_programs[idx]);
+          }
+        } else
+        if (data.methodUid == methodicUidToGo) {
           _curMethodic = data.methodUid;
-          _runProgram(_programs[idx]);
+          var program = MethodicProgram.togo(data.isAM, data.isFM, data.amMode, data.intensity, data.idxFreq, 0); //2400000);
+          _runProgram(program);
         }
       }
       setState(() {
@@ -356,6 +363,7 @@ class _SelectProgramScreenState extends State<SelectProgramScreen> {
     if (_chargeLevel <= chargeBreakBoundLevel) {
       await alertLowEnergy();
     }
+    _curMethodic = methodicUidToGo;
     pushScreen(
       context,
       (context, animation, secondaryAnimation) => TogoParamsScreen(
@@ -371,6 +379,7 @@ class _SelectProgramScreenState extends State<SelectProgramScreen> {
     if (_chargeLevel <= chargeBreakBoundLevel) {
       await alertLowEnergy();
     }
+    _curMethodic = methodicUidDirect;
     pushScreen(
       context,
       (context, animation, secondaryAnimation) => DirectControlScreen(
