@@ -8,6 +8,7 @@ import 'package:bgs_control/features/select_program_screen/widgets/togo_title.da
 import 'package:bgs_control/features/togo_params_screen/view/togo_params_screen.dart';
 import 'package:bgs_control/repositories/methodic_programs/model/methodic_program.dart';
 import 'package:bgs_control/repositories/methodic_programs/storage/program_storage.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:uuid/uuid.dart';
@@ -281,8 +282,10 @@ class _SelectProgramScreenState extends State<SelectProgramScreen> {
 
   void onGetData(BlockData data) {
     if (_isConnected) {
-      print(
-          '<<<<<<<<<<<<<< sps:onGetData.  met: "${data.methodUid}" met old: $_curMethodic     ${data.stage} - ${data.playingTime} >>>>>>>>>>>>>>>>');
+      if (kDebugMode) {
+        print(
+            '<<<<<<<<<<<<<< sps:onGetData.  met: "${data.methodUid}" met old: $_curMethodic     ${data.stage} - ${data.playingTime} >>>>>>>>>>>>>>>>');
+      }
       if (data.methodUid != _curMethodic && data.methodUid > 0) {
         if (data.methodUid < methodicUidToGo) {
           var idx = _getMethodisIdx(data.methodUid);
@@ -290,10 +293,10 @@ class _SelectProgramScreenState extends State<SelectProgramScreen> {
             _curMethodic = data.methodUid;
             _runProgram(_programs[idx]);
           }
-        } else
-        if (data.methodUid == methodicUidToGo) {
+        } else if (data.methodUid == methodicUidToGo) {
           _curMethodic = data.methodUid;
-          var program = MethodicProgram.togo(data.isAM, data.isFM, data.amMode, data.intensity, data.idxFreq, 0);
+          var program = MethodicProgram.togo(data.isAM, data.isFM, data.amMode,
+              data.intensity, data.idxFreq, 0);
           _runProgram(program);
         }
       }

@@ -588,7 +588,7 @@
       "stage": [
         {
           "num": 1,
-          "duration": 60000,
+          "duration": 300000,
           "start_power": 1,
           "power": 1,
           "frequency": 90,
@@ -600,7 +600,7 @@
         },
         {
           "num": 2,
-          "duration": 60000,
+          "duration": 300000,
           "start_power": 1,
           "power": 1,
           "frequency": 60,
@@ -991,6 +991,210 @@
         {
           "num": 6,
           "duration": 300000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 15,
+          "am": true,
+          "am_mode": 11,
+          "intensivity": 3,
+          "fm": false,
+          "comment": "Нормализация функций"
+        }
+      ]
+    },
+    {
+      "id": 118,
+      "title": "Пробный короткий 1 (6 этапов)",
+      "description": "Программа для отладки",
+      "file": "ortez1.png",
+      "icon": "tunnel_syndrome_round.png",
+      "attributes": [
+        {
+          "id": "Мышцы"
+        },
+        {
+          "id": "Фитнес"
+        },
+        {
+          "id": "debug"
+        }
+      ],
+      "electrode": 6,
+      "stage": [
+        {
+          "num": 1,
+          "duration": 10000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 60,
+          "am": true,
+          "am_mode": 31,
+          "intensivity": 2,
+          "fm": false,
+          "comment": "Подготовка"
+        },
+        {
+          "num": 2,
+          "duration": 10000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 60,
+          "am": true,
+          "am_mode": 31,
+          "intensivity": 3,
+          "fm": false,
+          "comment": "Разогрев"
+        },
+        {
+          "num": 3,
+          "duration": 20000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 90,
+          "am": true,
+          "am_mode": 31,
+          "intensivity": 4,
+          "fm": true,
+          "comment": "Адаптация к нагрузке"
+        },
+        {
+          "num": 4,
+          "duration": 20000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 60,
+          "am": true,
+          "am_mode": 31,
+          "intensivity": 4,
+          "fm": false,
+          "comment": "Интенсивная обработка"
+        },
+        {
+          "num": 5,
+          "duration": 10000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 15,
+          "am": true,
+          "am_mode": 11,
+          "intensivity": 2,
+          "fm": false,
+          "comment": "Релаксация"
+        },
+        {
+          "num": 6,
+          "duration": 10000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 15,
+          "am": true,
+          "am_mode": 11,
+          "intensivity": 3,
+          "fm": false,
+          "comment": "Нормализация функций"
+        }
+      ]
+    },
+    {
+      "id": 119,
+      "title": "Пробный короткий 2 (4 этапа)",
+      "description": "Программа для отладки",
+      "file": "ortez1.png",
+      "icon": "tunnel_syndrome_round.png",
+      "attributes": [
+        {
+          "id": "Суставы"
+        },
+        {
+          "id": "debug"
+        }
+      ],
+      "electrode": 6,
+      "stage": [
+        {
+          "num": 1,
+          "duration": 10000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 100,
+          "am": true,
+          "am_mode": 31,
+          "intensivity": 1,
+          "fm": true,
+          "comment": "Подготовка к обработке"
+        },
+        {
+          "num": 2,
+          "duration": 20000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 60,
+          "am": true,
+          "am_mode": 31,
+          "intensivity": 3,
+          "fm": false,
+          "comment": "Разогрев"
+        },
+        {
+          "num": 3,
+          "duration": 20000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 90,
+          "am": true,
+          "am_mode": 31,
+          "intensivity": 2,
+          "fm": false,
+          "comment": "Обработка"
+        },
+        {
+          "num": 4,
+          "duration": 10000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 90,
+          "am": true,
+          "am_mode": 31,
+          "intensivity": 1,
+          "fm": true,
+          "comment": "Закрепление"
+        }
+      ]
+    },
+    {
+      "id": 120,
+      "title": "Пробный короткий 2 (2 этапа)",
+      "description": "Программа для отладки",
+      "file": "ortez1.png",
+      "icon": "tunnel_syndrome_round.png",
+      "attributes": [
+        {
+          "id": "Мышцы"
+        },
+        {
+          "id": "Спорт"
+        },
+        {
+          "id": "debug"
+        }
+      ],
+      "electrode": 6,
+      "stage": [
+        {
+          "num": 1,
+          "duration": 10000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 15,
+          "am": true,
+          "am_mode": 11,
+          "intensivity": 2,
+          "fm": false,
+          "comment": "Релаксация"
+        },
+        {
+          "num": 2,
+          "duration": 10000,
           "start_power": 1,
           "power": 1,
           "frequency": 15,
