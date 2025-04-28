@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:path_provider/path_provider.dart';
 
@@ -32,10 +33,13 @@ class ProgramStorage {
     _listPrograms.clear();
     for (int i = 0; i < listPPDef!.length; ++i) {
       var program = MethodicProgram.fromJson(listPPDef[i]);
-      _listPrograms.add(program);
+      /// Добавляем программы, имеющие аттрибут debug только в debug режиме
+      if ((!kDebugMode && !program.attributes.contains('debug')) ||
+          kDebugMode) {
+        _listPrograms.add(program);
+      }
     }
   }
-
 
   ///// Заполняет рабочий список программ в файле
   // Future _fillWorkList() async {
