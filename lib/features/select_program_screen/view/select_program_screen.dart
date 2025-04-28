@@ -215,13 +215,15 @@ class _SelectProgramScreenState extends State<SelectProgramScreen> {
 
   @override
   void dispose() {
-    _isConnected = false;
-    // TODO как-то по другому надо получать данные о зарядке
-    // TODO (yasliks): надо по-хорошему порешать все со всеми ТУДУшками
-    widget.driver.removeHandler(_uuidGetData);
-    widget.driver.disconnect();
-
+    _doDispose();
     super.dispose();
+  }
+
+  void _doDispose() async {
+    _isConnected = false;
+    await widget.driver.removeHandler(_uuidGetData);
+    await widget.driver.disconnect();
+
   }
 
   void readPrograms() async {
@@ -234,7 +236,6 @@ class _SelectProgramScreenState extends State<SelectProgramScreen> {
 
   void _initConnect() async {
     if (await widget.driver.connect()) {
-      // TODO как-то по другому надо получать данные о зарядке
       _uuidGetData = const Uuid().v1();
       widget.driver.addHandler(_uuidGetData, onGetData);
       _isConnected = true;

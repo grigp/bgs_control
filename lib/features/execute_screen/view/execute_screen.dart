@@ -32,7 +32,6 @@ class ExecuteScreen extends StatefulWidget {
   }) {
     if (program != null) {
       driver.setProgram(program!, false);
-      driver.setIsWorkAuto(false);
     }
   }
 
@@ -55,6 +54,7 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
   bool _isOver = false;
   double _sliderValueStart = 0;
   bool _isGetPowerSetFromDevice = false;
+  bool _isToGoMode = false;  /// Устанавливается в true припереходе в автономный режим
 
   /// Устанавливается, когда надо прочитать значение установленной мощности из устройства
   final stageInfo = ValueNotifier<StageInfo>(StageInfo(
@@ -305,18 +305,17 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
                       /// Время воздействия
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        widget.driver.stage().duration > 0?
-                          Text(
-                            getTimeBySecCount(widget.driver.playingTime()),
-                            style: theme.textTheme.titleSmall,
-                            textScaler: const TextScaler.linear(1.0),
-                          )
-                        :
-                        Text(
-                          'Прошло времени - ${getTimeBySecCount(widget.driver.playingTime())}',
-                          style: theme.textTheme.titleSmall,
-                          textScaler: const TextScaler.linear(1.0),
-                        ),
+                        widget.driver.stage().duration > 0
+                            ? Text(
+                                getTimeBySecCount(widget.driver.playingTime()),
+                                style: theme.textTheme.titleSmall,
+                                textScaler: const TextScaler.linear(1.0),
+                              )
+                            : Text(
+                                'Прошло времени - ${getTimeBySecCount(widget.driver.playingTime())}',
+                                style: theme.textTheme.titleSmall,
+                                textScaler: const TextScaler.linear(1.0),
+                              ),
                         const Spacer(),
                         if (widget.driver.stage().duration > 0)
                           Text(
@@ -342,22 +341,21 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
                 },
               ),
 
-              /// Кнопка [Работать автономно]  в режиме без длительности
-              if (widget.driver.program.mpk == MethodicProgramKind.mpkPersonal)
-                Container(
-                  padding: const EdgeInsets.only(
-                    left: 16,
-                    right: 16,
-                    top: 16,
-                    bottom: 20,
-                  ),
-                  child: TexelButton.yellowDark(
-                    text: 'Работать автономно',
-                    onPressed: () {
-                      _doWorkToGo();
-                    },
-                  ),
+              /// Кнопка [Работать автономно]
+              Container(
+                padding: const EdgeInsets.only(
+                  left: 16,
+                  right: 16,
+                  top: 16,
+                  bottom: 20,
                 ),
+                child: TexelButton.yellowDark(
+                  text: 'Работать автономно',
+                  onPressed: () {
+                    _doWorkToGo();
+                  },
+                ),
+              ),
             ],
           ),
         ),
@@ -464,7 +462,9 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
   void dispose() {
     widget.driver.saveSettings();
     widget.driver.removeHandler(_uuidGetData);
-    widget.driver.stop();
+    if (!_isToGoMode) {
+      widget.driver.stop();
+    }
 
     super.dispose();
   }
@@ -572,7 +572,7 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
         actions: <Widget>[
           TexelButton.accent(
             onPressed: () {
-              widget.driver.setIsWorkAuto(true);
+              _isToGoMode = true;
               Navigator.of(context).popUntil(
                 ModalRoute.withName('/select'),
               );

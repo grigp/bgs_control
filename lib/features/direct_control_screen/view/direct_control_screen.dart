@@ -27,7 +27,6 @@ class DirectControlScreen extends StatefulWidget {
     required this.title,
     required this.driver,
   }) {
-    driver.setIsWorkAuto(false);
   }
 
   final String title;

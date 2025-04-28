@@ -69,7 +69,6 @@ class DeviceProgramExecutor {
   /// Время начала этапа
   late Timer _timer;
 
-  bool _isWorkAuto = false;
   double _averagePower = 0;
   double _maxPower = 0;
   int _statCount = 0;
@@ -88,7 +87,7 @@ class DeviceProgramExecutor {
     return false;
   }
 
-  void disconnect() {
+  Future disconnect() async {
     // if (_isConnected) {
     _connect.done();
     _isConnected = false;
@@ -347,12 +346,6 @@ class DeviceProgramExecutor {
 
   void resetWorkManagerTask() {
     Workmanager().cancelAll();
-  }
-
-  bool isWorkAuto() => _isWorkAuto;
-
-  void setIsWorkAuto(bool isWorkAuto) {
-    _isWorkAuto = isWorkAuto;
   }
 
   int _programDuration() {
