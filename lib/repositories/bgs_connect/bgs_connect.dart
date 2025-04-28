@@ -284,27 +284,38 @@ class BgsConnect {
     _timeUseDevice = startVal;
   }
 
+  static const int maxBytesPerComand = 16;
+
   /// Записывает команду в устройство
   Future<void> _write(List<int> command) async {
     if (!_isSending) return;
     if (!device.isConnected) return;
-    /// Поскольку нельзя передавать команды длиной более 20 байт, придется
-    /// передавать их по частям, если длительность превышает 20 байт
-    if (command.length <= 20) {
+    /// Поскольку нельзя передавать команды длиной более maxBytesPerComand байт, придется
+    /// передавать их по частям, если длительность превышает maxBytesPerComand байт
+    if (command.length <= maxBytesPerComand) {
       await _characteristic.write(command, withoutResponse: true);
     } else {
       int b = 0;
       do {
         List<int> cmd = [];
         for(int i = b; i < command.length; ++i) {
-          if (cmd.length == 20) break;
+          if (cmd.length == maxBytesPerComand) break;
           cmd.add(command[i]);
         }
-        Future.delayed(const Duration(milliseconds: 100), () async {
-          await _characteristic.write(cmd, withoutResponse: true);
-        });
-        // await _characteristic.write(cmd, withoutResponse: true);
-        b+=20;
+        // await Future.delayed(const Duration(milliseconds: 100), () async {
+        //   print('=== ${DateTime.now()} ============== cmd: $cmd ============================================================================');
+        //   await _characteristic.write(cmd, withoutResponse: true);
+        // });
+        print('=== ${DateTime.now()} ============== cmd: $cmd ============================================================================');
+        await _characteristic.write(cmd, withoutResponse: true);
+
+        // var dtStart = DateTime.now();
+        // var dt = DateTime.now();
+        // do {
+        //   dt = DateTime.now();
+        // } while (dt.difference(dtStart).inMilliseconds < 100);
+
+        b += maxBytesPerComand;
       } while (b < command.length);
     }
     if (logSubject == LogSubject.lsComm || logSubject == LogSubject.lsAll) {
