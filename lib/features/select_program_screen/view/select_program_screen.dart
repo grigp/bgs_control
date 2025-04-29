@@ -56,6 +56,9 @@ class _SelectProgramScreenState extends State<SelectProgramScreen> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
+    print(
+        '======================================= select program build =========================');
+
     return PopScope(
       canPop: false,
       onPopInvokedWithResult: (bool didPop, Object? result) async {
@@ -331,10 +334,12 @@ class _SelectProgramScreenState extends State<SelectProgramScreen> {
           _runProgram(program);
         }
       }
-      setState(() {
-        _chargeLevel = data.chargeLevel;
-        _chargeValue = data.chargeValue;
-      });
+      if (data.chargeLevel != _chargeLevel) {
+        setState(() {
+          _chargeLevel = data.chargeLevel;
+          _chargeValue = data.chargeValue;
+        });
+      }
     } else {
       if (logSubject == LogSubject.lsComm || logSubject == LogSubject.lsAll) {
         GetIt.I<CommunicationLogger>()

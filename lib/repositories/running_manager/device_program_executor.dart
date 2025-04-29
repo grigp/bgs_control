@@ -92,7 +92,8 @@ class DeviceProgramExecutor {
     _connect.done();
     _isConnected = false;
 
-    device.disconnectAndUpdateStream().catchError((e) {});
+    await _connect.removeHandlers();
+    await device.disconnectAndUpdateStream().catchError((e) {});
     // }
   }
 
@@ -135,7 +136,7 @@ class DeviceProgramExecutor {
     }
   }
 
-  void stop() {
+  Future stop() async {
     _timer.cancel();
     Workmanager().cancelAll();
     _isPlaying = false;
@@ -264,7 +265,7 @@ class DeviceProgramExecutor {
     }
 
     /// Если восстанаовливаем соединение, то данные о иекущей позиции рассчитать
-    if (_isReadPositionFromDevice){
+    if (_isReadPositionFromDevice) {
       _stageStartTime = 0;
       for (int i = 0; i < program.stagesCount(); ++i) {
         if (i == data.stage) break;

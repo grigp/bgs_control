@@ -92,6 +92,10 @@ class BgsConnect {
   double _idxFreq = 0;
   Intensivity _intensivity = Intensivity.one;
 
+  /// Команда большой длины, разбитая на несколько пакетов
+  List<List<int>> _commandMultiRun = [];
+
+
   var uid = const Uuid().v1(); //TODO: Убрать!!!
 
   Future<bool> init(BluetoothDevice device) async {
@@ -182,6 +186,10 @@ class BgsConnect {
         _dataHandlers.removeAt(i);
       }
     }
+  }
+
+  Future removeHandlers() async {
+    _dataHandlers.clear();
   }
 
   void setPower(double power) async {
@@ -284,7 +292,8 @@ class BgsConnect {
     _timeUseDevice = startVal;
   }
 
-  static const int maxBytesPerComand = 16;
+  static const int maxBytesPerCommand = 16;
+  static const int delayBetweenCommands = 200;
 
   /// Записывает команду в устройство
   Future<void> _write(List<int> command) async {
@@ -292,34 +301,47 @@ class BgsConnect {
     if (!device.isConnected) return;
     /// Поскольку нельзя передавать команды длиной более maxBytesPerComand байт, придется
     /// передавать их по частям, если длительность превышает maxBytesPerComand байт
-    if (command.length <= maxBytesPerComand) {
+    if (command.length <= maxBytesPerCommand) {
       await _characteristic.write(command, withoutResponse: true);
     } else {
+      _commandMultiRun.clear();
       int b = 0;
       do {
         List<int> cmd = [];
         for(int i = b; i < command.length; ++i) {
-          if (cmd.length == maxBytesPerComand) break;
+          if (cmd.length == maxBytesPerCommand) break;
           cmd.add(command[i]);
         }
-        // await Future.delayed(const Duration(milliseconds: 100), () async {
-        //   print('=== ${DateTime.now()} ============== cmd: $cmd ============================================================================');
-        //   await _characteristic.write(cmd, withoutResponse: true);
-        // });
-        print('=== ${DateTime.now()} ============== cmd: $cmd ============================================================================');
-        await _characteristic.write(cmd, withoutResponse: true);
+        _commandMultiRun.add(cmd);
 
-        // var dtStart = DateTime.now();
-        // var dt = DateTime.now();
-        // do {
-        //   dt = DateTime.now();
-        // } while (dt.difference(dtStart).inMilliseconds < 100);
-
-        b += maxBytesPerComand;
+        b += maxBytesPerCommand;
       } while (b < command.length);
+      /// Запускаем таймер передачи команды
+      Timer(const Duration(milliseconds: 100), _sendPartCommand);
     }
     if (logSubject == LogSubject.lsComm || logSubject == LogSubject.lsAll) {
       GetIt.I<CommunicationLogger>().log('<< $command');
+    }
+  }
+
+  /// Передача команды
+  void _sendPartCommand() async {
+    /// Еще есть что передавать
+    if (_commandMultiRun.isNotEmpty) {
+      /// Собираем команду
+      List<int> cmd = [];
+      for (int i = 0; i < _commandMultiRun[0].length; ++i) {
+        cmd.add(_commandMultiRun[0][i]);
+      }
+      /// Удаляем ее из общей очереди
+      _commandMultiRun.removeAt(0);
+      /// Передаем
+      if (kDebugMode) {
+        print('--- send command --- time: ${DateTime.now()} --- cmd: $cmd ------------------------------------------------');
+      }
+      await _characteristic.write(cmd, withoutResponse: true);
+      /// Запускаем таймер передачи остальной части команды
+      Timer(const Duration(milliseconds: delayBetweenCommands), _sendPartCommand);
     }
   }
 

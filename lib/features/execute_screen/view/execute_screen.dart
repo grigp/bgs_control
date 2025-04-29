@@ -460,16 +460,19 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
 
   @override
   void dispose() {
-    widget.driver.saveSettings();
-    widget.driver.removeHandler(_uuidGetData);
-    if (!_isToGoMode) {
-      widget.driver.stop();
-    }
-
+    _doDispose();
     super.dispose();
   }
 
-  void onGetData(BlockData data) {
+  void _doDispose() async {
+    await widget.driver.saveSettings();
+    await widget.driver.removeHandler(_uuidGetData);
+    if (!_isToGoMode) {
+      await widget.driver.stop();
+    }
+  }
+
+    void onGetData(BlockData data) {
     /// Читаем значение установленной мощности из устройства, если подключаемся к
     /// устройству, на котором работает программа
     if (_isGetPowerSetFromDevice) {
@@ -575,6 +578,7 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
               _isToGoMode = true;
               Navigator.of(context).popUntil(
                 ModalRoute.withName('/select'),
+//                ModalRoute.withName('/select_method'),
               );
             },
             text: 'Да',
