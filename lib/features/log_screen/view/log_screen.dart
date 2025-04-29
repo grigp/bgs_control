@@ -93,15 +93,25 @@ class _LogScreenState extends State<LogScreen> {
           const SizedBox(width: 20),
           FloatingActionButton(
             onPressed: () async {
-              final dir = Platform.isAndroid
-                  ? await getExternalStorageDirectory()
-                  : await getApplicationSupportDirectory();
-
               /// TODO Если надо будет файл, то раскомментировать
+              // final dir = Platform.isAndroid
+              //     ? await getExternalStorageDirectory()
+              //     : await getApplicationSupportDirectory();
+
               // print('--------------------${dir?.path}/exchange.log');
               // var f = File('${dir?.path}/exchange.log');
               // await f.writeAsString(formatLog());
               await Share.share(formatLog());
+
+
+              /// Полелиться / удалить файл параметров БГС (для отладки)
+              // final dir = Platform.isAndroid
+              //     ? await getExternalStorageDirectory()
+              //     : await getApplicationSupportDirectory();
+              // var f = File('${dir?.path}/bgs_properties.json');
+              // f.delete();
+              // Share.shareXFiles([XFile('${dir?.path}/bgs_properties.json')],
+              //     text: 'Файл параметров БГС');
             },
             heroTag: 'Share',
             tooltip: 'Поделиться',

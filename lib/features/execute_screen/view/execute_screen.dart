@@ -455,7 +455,7 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
 
     _uuidGetData = const Uuid().v1();
     widget.driver.addHandler(_uuidGetData, onGetData);
-    widget.driver.initSettings();
+    widget.driver.initSettings(); //TODO: В какой-то момент отказался очень большой файл. Понаблюдать, найти причину, исключить
   }
 
   @override
