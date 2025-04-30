@@ -403,6 +403,8 @@ class BgsConnect {
       stage = value[6] - 1;
       playingTime = (value[8] * 256 + value[7]).toDouble();
     }
+    print('--------------- $methodUid  ${value[6]} $playingTime');
+
 
     _firmwareNumber = value[4] & 0x7F;
     ++_timeUseDevice;

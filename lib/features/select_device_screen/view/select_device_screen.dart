@@ -298,8 +298,10 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
     _subsDisconnect = device.connectionState.listen(
       (event) async {
         if (event == BluetoothConnectionState.disconnected) {
-          print(
+          if (kDebugMode) {
+            print(
               '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! onSelectPressed.disconnect');
+          }
           if (logSubject == LogSubject.lsComm ||
               logSubject == LogSubject.lsAll) {
             GetIt.I<CommunicationLogger>()
@@ -312,9 +314,11 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
 
             /// Сообщение об обрыве связи
             await _alertConnectionFailure();
-            print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
-            print('   communication failure : $dn');
-            print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
+            if (kDebugMode) {
+              print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
+              print('   communication failure : $dn');
+              print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
+            }
           }
 
           Navigator.of(context).popUntil(ModalRoute.withName('/select'));
@@ -325,8 +329,10 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
           //   print('---------------- error this page is active -----------------------------');
           // }
         } else if (event == BluetoothConnectionState.connected) {
-          print(
+          if (kDebugMode) {
+            print(
               '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! onSelectPressed.connect');
+          }
         }
       },
     );
