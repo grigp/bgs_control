@@ -1113,7 +1113,7 @@
       "stage": [
         {
           "num": 1,
-          "duration": 10000,
+          "duration": 60000,
           "start_power": 1,
           "power": 1,
           "frequency": 100,
@@ -1125,7 +1125,7 @@
         },
         {
           "num": 2,
-          "duration": 20000,
+          "duration": 120000,
           "start_power": 1,
           "power": 1,
           "frequency": 60,
@@ -1137,7 +1137,7 @@
         },
         {
           "num": 3,
-          "duration": 20000,
+          "duration": 60000,
           "start_power": 1,
           "power": 1,
           "frequency": 90,
@@ -1149,7 +1149,7 @@
         },
         {
           "num": 4,
-          "duration": 10000,
+          "duration": 60000,
           "start_power": 1,
           "power": 1,
           "frequency": 90,

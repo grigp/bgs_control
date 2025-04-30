@@ -267,6 +267,7 @@ class DeviceProgramExecutor {
     /// Если восстанаовливаем соединение, то данные о иекущей позиции рассчитать
     if (_isReadPositionFromDevice) {
       _stageStartTime = 0;
+      _prevTime = 0;
       for (int i = 0; i < program.stagesCount(); ++i) {
         if (i == data.stage) break;
         _stageStartTime += program.stage(i).duration ~/ 1000;
