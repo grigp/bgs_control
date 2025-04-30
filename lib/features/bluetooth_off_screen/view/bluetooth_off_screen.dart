@@ -32,7 +32,7 @@ class BluetoothOffScreen extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.all(14),
                   child: Text(
-                    'Включите Bluetooth, чтобы подключить Ortez',
+                    'Включите Bluetooth, чтобы подключить стимулятор',
                     style: Theme.of(context)
                         .primaryTextTheme
                         .titleMedium

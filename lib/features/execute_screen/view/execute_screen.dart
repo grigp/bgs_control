@@ -54,7 +54,9 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
   bool _isOver = false;
   double _sliderValueStart = 0;
   bool _isGetPowerSetFromDevice = false;
-  bool _isToGoMode = false;  /// Устанавливается в true припереходе в автономный режим
+  bool _isToGoMode = false;
+
+  /// Устанавливается в true припереходе в автономный режим
 
   /// Устанавливается, когда надо прочитать значение установленной мощности из устройства
   final stageInfo = ValueNotifier<StageInfo>(StageInfo(
@@ -455,7 +457,8 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
 
     _uuidGetData = const Uuid().v1();
     widget.driver.addHandler(_uuidGetData, onGetData);
-    widget.driver.initSettings(); //TODO: В какой-то момент отказался очень большой файл. Понаблюдать, найти причину, исключить
+    widget.driver
+        .initSettings(); //TODO: В какой-то момент отказался очень большой файл. Понаблюдать, найти причину, исключить
   }
 
   @override
@@ -472,7 +475,7 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
     }
   }
 
-    void onGetData(BlockData data) {
+  void onGetData(BlockData data) {
     /// Читаем значение установленной мощности из устройства, если подключаемся к
     /// устройству, на котором работает программа
     if (_isGetPowerSetFromDevice) {
