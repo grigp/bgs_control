@@ -249,11 +249,13 @@ class _SelectProgramScreenState extends State<SelectProgramScreen> {
 
   @override
   void dispose() {
-    _doDispose();
     super.dispose();
+    _doDispose();
   }
 
-  void _doDispose() async {
+  Future _doDispose() async {
+    GetIt.I<RunningManager>()
+        .disconnectDevice(widget.driver.device.advName);
     _isConnected = false;
     await widget.driver.removeHandler(_uuidGetData);
     await widget.driver.disconnect();
@@ -261,10 +263,6 @@ class _SelectProgramScreenState extends State<SelectProgramScreen> {
 
   void readPrograms() async {
     _programs = GetIt.I<ProgramStorage>().getPrograms();
-    // print('--------------- select program screen ---- ${_programs.length}');
-    // for (int i = 0; i < _programs.length; ++i){
-    //   print('--------- $i: ${_programs[i].title}');
-    // }
   }
 
   void _initConnect() async {

@@ -19,6 +19,7 @@ import 'package:get_it/get_it.dart';
 import '../../../repositories/logger/communication_logger.dart';
 import '../../../repositories/running_manager/device_program_executor.dart';
 import '../../../repositories/running_manager/running_manager.dart';
+import '../../../utils/base_defines.dart';
 import '../../../utils/baseutils.dart';
 import '../../select_program_screen/view/select_program_screen.dart';
 
@@ -300,7 +301,7 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
         if (event == BluetoothConnectionState.disconnected) {
           if (kDebugMode) {
             print(
-              '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! onSelectPressed.disconnect');
+                '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! onSelectPressed.disconnect');
           }
           if (logSubject == LogSubject.lsComm ||
               logSubject == LogSubject.lsAll) {
@@ -322,16 +323,17 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
           }
 
           Navigator.of(context).popUntil(ModalRoute.withName('/select'));
-          _subsDisconnectStop();
           // try {
           //   Navigator.of(context).popUntil(ModalRoute.withName('/select'));
           // } catch (e) {
           //   print('---------------- error this page is active -----------------------------');
           // }
+
+          _subsDisconnectStop();
         } else if (event == BluetoothConnectionState.connected) {
           if (kDebugMode) {
             print(
-              '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! onSelectPressed.connect');
+                '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! onSelectPressed.connect');
           }
         }
       },
@@ -586,7 +588,7 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
         ),
         content: const Text(
             'Произошло отключение от стимулятора из за проблем со связью.\n'
-                'Поднесите телефон ближе к стимулятору и подключите его заново'),
+            'Поднесите телефон ближе к стимулятору и подключите его заново'),
         contentTextStyle: const TextStyle(
           fontSize: 20,
           color: Colors.black,

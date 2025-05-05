@@ -49,7 +49,7 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
   double _chargeValue = 0;
   double _powerSet = 0;
   double _powerReal = 0;
-  int _dataCount = 0;
+//  int _dataCount = 0;
   String _uuidGetData = '';
   bool _isOver = false;
   double _sliderValueStart = 0;
@@ -463,11 +463,11 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
 
   @override
   void dispose() {
-    _doDispose();
     super.dispose();
+    _doDispose();
   }
 
-  void _doDispose() async {
+  Future _doDispose() async {
     await widget.driver.saveSettings();
     await widget.driver.removeHandler(_uuidGetData);
     if (!_isToGoMode) {
@@ -495,7 +495,7 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
       _chargeLevel = data.chargeLevel;
       _chargeValue = data.chargeValue;
 
-      ++_dataCount;
+//      ++_dataCount;
     });
 
     stageInfo.value = StageInfo(
@@ -577,7 +577,7 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
         ),
         actions: <Widget>[
           TexelButton.accent(
-            onPressed: () {
+            onPressed: () async {
               _isToGoMode = true;
               Navigator.of(context).popUntil(
                 ModalRoute.withName('/select'),
