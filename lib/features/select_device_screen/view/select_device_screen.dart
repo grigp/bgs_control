@@ -256,7 +256,9 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
 
   void onConnectPressed(BluetoothDevice device) async {
     if (!device.isConnected) {
+      bool connectErr = false;
       await device.connectAndUpdateStream().catchError((e) {
+        connectErr = true;
         // Snackbar.show(ABC.c, prettyException("Connect Error:", e),
         //     success: false);
       });
@@ -272,64 +274,13 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
   void onSelectPressed(BluetoothDevice device) async {
     var driver = GetIt.I<RunningManager>().openDevice(device);
 
-    // if (driver.program.mpk == MethodicProgramKind.mpkNormal &&
-    //     !driver.isOver()) {
-    //   /// Если программа не завершена
-    //   if (driver.stage().duration > -1) {
-    //     /// Если это не индивидуальный режим
-    //     final bool? isCont = await _showContinueProgramDialog();
-    //     if (isCont!) {
-    //       /// Выбрали в диалоге "Продолжить программу"
-    //       _runSelectProgramScreen(driver, driver.program.uid);
-    //     } else {
-    //       /// Выбрали в диалоге "Начать новую программу"
-    //       driver.resetProgram();
-    //       _runSelectProgramScreen(driver, "");
-    //     }
-    //   } else {
-    //     _runSelectProgramScreen(driver, "");
-    //   }
-    // } else {
-    //   _runSelectProgramScreen(driver, "");
-    // }
-
     _runSelectProgramScreen(driver, "");
 
     /// Будем получать сообщения о дисконнекте
     _subsDisconnect = device.connectionState.listen(
       (event) async {
         if (event == BluetoothConnectionState.disconnected) {
-          if (kDebugMode) {
-            print(
-                '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! onSelectPressed.disconnect');
-          }
-          if (logSubject == LogSubject.lsComm ||
-              logSubject == LogSubject.lsAll) {
-            GetIt.I<CommunicationLogger>()
-                .log('-- disconnect : ${device.advName}');
-          }
-          var dn = GetIt.I<RunningManager>().getConnectedDeviceName();
-          if (dn == device.advName) {
-            GetIt.I<RunningManager>().disconnectDevice(dn);
-//          onConnectPressed(device);
-
-            /// Сообщение об обрыве связи
-            await _alertConnectionFailure();
-            if (kDebugMode) {
-              print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
-              print('   communication failure : $dn');
-              print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
-            }
-          }
-
-          Navigator.of(context).popUntil(ModalRoute.withName('/select'));
-          // try {
-          //   Navigator.of(context).popUntil(ModalRoute.withName('/select'));
-          // } catch (e) {
-          //   print('---------------- error this page is active -----------------------------');
-          // }
-
-          _subsDisconnectStop();
+          _onDisconnect(device);
         } else if (event == BluetoothConnectionState.connected) {
           if (kDebugMode) {
             print(
@@ -338,6 +289,43 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
         }
       },
     );
+  }
+
+  /// Действия по дисконнекту
+  void _onDisconnect(BluetoothDevice device) async {
+    if (kDebugMode) {
+      print(
+          '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! onSelectPressed.disconnect');
+    }
+    if (logSubject == LogSubject.lsComm || logSubject == LogSubject.lsAll) {
+      GetIt.I<CommunicationLogger>().log('-- disconnect : ${device.advName}');
+    }
+    var dn = GetIt.I<RunningManager>().getConnectedDeviceName();
+    if (dn == device.advName) {
+      GetIt.I<RunningManager>().disconnectDevice(dn);
+
+      /// Сообщение об обрыве связи
+      //    await _alertConnectionFailure();
+      if (kDebugMode) {
+        print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
+        print('   communication failure : $dn');
+        print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
+      }
+    }
+
+    Navigator.of(context).popUntil(ModalRoute.withName('/select'));
+
+    Timer(const Duration(seconds: 2), () {
+      onConnectPressed(device);
+    });
+
+    // try {
+    //   Navigator.of(context).popUntil(ModalRoute.withName('/select'));
+    // } catch (e) {
+    //   print('---------------- error this page is active -----------------------------');
+    // }
+
+    _subsDisconnectStop();
   }
 
   void _runSelectProgramScreen(
