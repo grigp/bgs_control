@@ -28,13 +28,3 @@ Map<int, Intensivity> intensivityFromJson = <int, Intensivity>{
   4: Intensivity.four,
 };
 
-Map<double, double> freqValue = <double, double>{
-  0: 15,
-  1: 30,
-  2: 60,
-  3: 90,
-  4: 120,
-  5: 180,
-  6: 350,
-};
-

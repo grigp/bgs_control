@@ -52,7 +52,7 @@ class _DirectControlScreenState extends State<DirectControlScreen> {
   bool _intensivityChange = true;
   double _powerSet = 0;
   double _powerReal = 0;
-  double _idxFreq = 0;
+  double _freq = 0;
   bool _idxFreqChange = true;
   double _chargeLevel = 100;
   double _chargeValue = 0;
@@ -133,7 +133,7 @@ class _DirectControlScreenState extends State<DirectControlScreen> {
                 onAmModeChanged: onAmModeChanged,
                 isFm: _isFm,
                 onFmChanged: onFmChanged,
-                idxFreq: _idxFreq,
+                freq: _freq,
                 onFreqChanged: onFreqChanged,
                 intensity: _intensivity,
                 onIntensityChanged: onIntensityChanged,
@@ -244,7 +244,7 @@ class _DirectControlScreenState extends State<DirectControlScreen> {
       _isAmChange = true;
     });
     _isAmChange = false;
-    _setDeviceMode(isAm, _isFm, _amMode, _idxFreq, _intensivity);
+    _setDeviceMode(isAm, _isFm, _amMode, _freq, _intensivity);
 
     setState(() {
       _isAm = isAm;
@@ -259,7 +259,7 @@ class _DirectControlScreenState extends State<DirectControlScreen> {
       _isAmModeChange = true;
     });
     _isAmModeChange = false;
-    _setDeviceMode(_isAm, _isFm, amMode, _idxFreq, _intensivity);
+    _setDeviceMode(_isAm, _isFm, amMode, _freq, _intensivity);
 
     setState(() {
       _amMode = amMode;
@@ -274,7 +274,7 @@ class _DirectControlScreenState extends State<DirectControlScreen> {
       _isFmChange = true;
     });
     _isFmChange = false;
-    _setDeviceMode(_isAm, isFm, _amMode, _idxFreq, _intensivity);
+    _setDeviceMode(_isAm, isFm, _amMode, _freq, _intensivity);
 
     setState(() {
       _isFm = isFm;
@@ -292,7 +292,7 @@ class _DirectControlScreenState extends State<DirectControlScreen> {
     _setDeviceMode(_isAm, _isFm, _amMode, idxFreq, _intensivity);
 
     setState(() {
-      _idxFreq = idxFreq;
+      _freq = idxFreq;
     });
   }
 
@@ -304,7 +304,7 @@ class _DirectControlScreenState extends State<DirectControlScreen> {
       _intensivityChange = true;
     });
     _intensivityChange = false;
-    _setDeviceMode(_isAm, _isFm, _amMode, _idxFreq, intensivity);
+    _setDeviceMode(_isAm, _isFm, _amMode, _freq, intensivity);
 
     setState(() {
       _intensivity = intensivity;
@@ -345,7 +345,7 @@ class _DirectControlScreenState extends State<DirectControlScreen> {
         _isFm = data.isFM;
       }
       if (_idxFreqChange) {
-        _idxFreq = data.idxFreq;
+        _freq = data.freq;
       }
 
       if (data.isPowerReset) {
@@ -391,7 +391,7 @@ class _DirectControlScreenState extends State<DirectControlScreen> {
         isFM,
         amMode,
         intensity,
-        freqValue[_idxFreq]!,
+        _freq,
         (widget.driver.programDuration() - widget.driver.playingTime()) * 1000);
     widget.driver.setProgram(program, true);
   }

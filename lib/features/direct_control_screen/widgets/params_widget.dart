@@ -1,3 +1,4 @@
+import 'package:bgs_control/features/direct_control_screen/widgets/standard_frequency_dialog.dart';
 import 'package:bgs_control/repositories/bgs_connect/bgs_connect.dart';
 import 'package:flutter/material.dart';
 
@@ -14,7 +15,7 @@ class ParamsWidget extends StatefulWidget {
     required this.onAmModeChanged,
     required this.isFm,
     required this.onFmChanged,
-    required this.idxFreq,
+    required this.freq,
     required this.onFreqChanged,
     required this.intensity,
     required this.onIntensityChanged,
@@ -27,7 +28,7 @@ class ParamsWidget extends StatefulWidget {
   final Function onAmModeChanged;
   bool isFm;
   final Function onFmChanged;
-  double idxFreq;
+  double freq;
   final Function onFreqChanged;
   Intensivity intensity;
   final Function onIntensityChanged;
@@ -74,6 +75,7 @@ class _ParamsWidgetState extends State<ParamsWidget> {
               ),
             ],
           ),
+
           /// Переключатель амплитудной модуляции
           AnimatedContainer(
             duration: const Duration(milliseconds: 300),
@@ -145,6 +147,7 @@ class _ParamsWidgetState extends State<ParamsWidget> {
           ),
           const Divider(),
           const SizedBox(height: 10),
+
           /// Регулятор частоты
           AnimatedContainer(
             duration: const Duration(milliseconds: 300),
@@ -159,17 +162,36 @@ class _ParamsWidgetState extends State<ParamsWidget> {
                 ? Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        'Частота: ${freqValue[widget.idxFreq]!.toInt()} Гц',
-                        style: theme.textTheme.labelMedium,
-                        textScaler: const TextScaler.linear(1.0),
+                      GestureDetector(
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              'Частота: ${widget.freq.toInt()} Гц',
+                              style: theme.textTheme.labelMedium,
+                              textScaler: const TextScaler.linear(1.0),
+                            ),
+                            const SizedBox(width: 20),
+                            const Icon(
+                              Icons.open_in_browser,
+                              size: 25,
+                            ),
+                          ],
+                        ),
+                        onTap: () {
+                          var freq = _getStandardFrequency(context);
+                          // setState(() {
+                          //   widget.freq = freq;
+                          // });
+                        },
                       ),
                       Slider.adaptive(
-                        value: widget.idxFreq,
-                        label: freqValue[widget.idxFreq]!.round().toString(),
-                        min: 0,
-                        max: 6,
-                        divisions: 6,
+                        value: widget.freq,
+                        label: widget.freq.round().toString(),
+                        min: 1,
+                        max: 350,
+                        //divisions: 6,
                         activeColor:
                             widget.colorsStyle == ParamsColorsStyle.pcsYellow
                                 ? backgroundDarknessTestColor
@@ -184,12 +206,12 @@ class _ParamsWidgetState extends State<ParamsWidget> {
                                 : filledSecondaryButtonColor,
                         onChanged: (double value) {
                           setState(() {
-                            widget.idxFreq = value;
+                            widget.freq = value;
                           });
                         },
                         onChangeEnd: (double value) {
                           /// В этот момент мы будем устанавливать частоту
-                          widget.onFreqChanged(widget.idxFreq);
+                          widget.onFreqChanged(widget.freq);
                         },
                       ),
                       const Divider(),
@@ -261,6 +283,24 @@ class _ParamsWidgetState extends State<ParamsWidget> {
   void initState() {
     super.initState();
     _isFmExpanded = !widget.isFm;
+  }
+
+  void _getStandardFrequency(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      builder: (BuildContext context) {
+        return StandardFrequencyDialog(
+          freqency: 15,
+          onChanged: _onSetStdFrequency,
+        );
+      },
+    );
+  }
+
+  void _onSetStdFrequency(int frequency) {
+    setState(() {
+      widget.freq = frequency.toDouble();
+    });
   }
 }
 

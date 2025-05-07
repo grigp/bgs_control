@@ -34,7 +34,7 @@ class _TogoParamsScreenState extends State<TogoParamsScreen> {
   AmMode _amMode = AmMode.am_11;
   Intensivity _intensity = Intensivity.one;
   double _duration = 30;
-  double _idxFreq = 0;
+  double _freq = 1;
   String _uuidGetData = '';
 
   @override
@@ -108,7 +108,7 @@ class _TogoParamsScreenState extends State<TogoParamsScreen> {
                                 onAmModeChanged: onAmModeChanged,
                                 isFm: _isFM,
                                 onFmChanged: onFmChanged,
-                                idxFreq: _idxFreq,
+                                freq: _freq,
                                 onFreqChanged: onFreqChanged,
                                 intensity: _intensity,
                                 onIntensityChanged: onIntensityChanged,
@@ -168,7 +168,7 @@ class _TogoParamsScreenState extends State<TogoParamsScreen> {
                         _isFM,
                         _amMode,
                         _intensity,
-                        freqValue[_idxFreq]!,
+                        _freq,
                         _duration.round() * 60 * 1000);
 
                     pushScreen(
@@ -205,7 +205,7 @@ class _TogoParamsScreenState extends State<TogoParamsScreen> {
       _isAM = data.isAM;
       _amMode = data.amMode;
       _isFM = data.isFM;
-      _idxFreq = data.idxFreq;
+      _freq = data.freq;
       _intensity = data.intensity;
     });
 
@@ -230,9 +230,9 @@ class _TogoParamsScreenState extends State<TogoParamsScreen> {
     });
   }
 
-  void onFreqChanged(double idxFreq) {
+  void onFreqChanged(double freq) {
     setState(() {
-      _idxFreq = idxFreq;
+      _freq = freq;
     });
   }
 

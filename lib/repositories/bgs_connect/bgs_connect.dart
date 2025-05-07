@@ -35,7 +35,7 @@ class BlockData {
     required this.isAM,
     required this.isFM,
     required this.amMode,
-    required this.idxFreq,
+    required this.freq,
     required this.isPowerReset,
     required this.intensity,
     required this.chargeLevel,
@@ -52,7 +52,7 @@ class BlockData {
   final bool isAM;
   final bool isFM;
   final AmMode amMode;
-  final double idxFreq;
+  final double freq;
   final bool isPowerReset;
   final Intensivity intensity;
   final double chargeLevel;
@@ -89,7 +89,6 @@ class BgsConnect {
   bool _isSending = false;
   double _chargeLevel = 100.0;
 
-  double _idxFreq = 0;
   Intensivity _intensivity = Intensivity.one;
 
   /// Команда большой длины, разбитая на несколько пакетов
@@ -368,11 +367,7 @@ class BgsConnect {
     }
 
     var isFM = value[10] == 7;
-    double idxFreq = _idxFreq;
-    if (!isFM) {
-      idxFreq = value[10].toDouble();
-      _idxFreq = idxFreq;
-    }
+    double freq = (value[13] * 256 + value[12]).toDouble();
 
     bool isPowerReset = false;
     if ((value[4] & 0x80) != 0) {
@@ -413,7 +408,7 @@ class BgsConnect {
       isAM: isAM,
       isFM: isFM,
       amMode: amMode,
-      idxFreq: idxFreq,
+      freq: freq,
       isPowerReset: isPowerReset,
       intensity: _intensivity,
       chargeLevel: _chargeLevel,
