@@ -311,13 +311,18 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
         print('   communication failure : $dn');
         print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
       }
+
+      Navigator.of(context).popUntil(ModalRoute.withName('/select'));
+
+      Timer(const Duration(seconds: 2), () {
+        if (kDebugMode) {
+          print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
+          print('!!!!!               reconnect                      !!!!!!!!!');
+          print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
+        }
+        onConnectPressed(device);
+      });
     }
-
-    Navigator.of(context).popUntil(ModalRoute.withName('/select'));
-
-    Timer(const Duration(seconds: 2), () {
-      onConnectPressed(device);
-    });
 
     // try {
     //   Navigator.of(context).popUntil(ModalRoute.withName('/select'));
