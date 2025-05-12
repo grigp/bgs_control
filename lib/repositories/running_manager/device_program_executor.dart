@@ -189,6 +189,27 @@ class DeviceProgramExecutor {
     _connect.stopProgram();
   }
 
+  /// Запрашивает пакет данных о параметрах программы
+  /// (целевая мощность + длительности этапов)
+  void getProgramParams() async {
+    _connect.getProgramParams();
+  }
+
+  /// Целевая мощность, получаемая по запросу
+  int targetPower() {
+    return _connect.targetPower();
+  }
+
+  /// Кол-во этапов программы, получаемые по запросу
+  int stagesCount() {
+    return _connect.stagesCount();
+  }
+
+  /// Длительность этапа программы, получаемые по запросу
+  double stageDuration(int stage) {
+    return _connect.stageDuration(stage);
+  }
+
   /// Возвращает название устройства
   String deviceName() {
     return device.advName;
@@ -261,7 +282,15 @@ class DeviceProgramExecutor {
   void onGetData(BlockData data) {
     if (kDebugMode) {
       print(
-          '--------------------- getdata : ${++n} -- metUid: ${data.methodUid}  stage: ${data.stage}  time: ${data.playingTime}');
+          '--------------------- getdata : ${++n} -- metUid: ${data.methodUid}  stage: ${data.stage}  duration: ${program.stage(_idxStage).duration}  time: ${data.playingTime}');
+      print(
+          '------ from device - stagesCount: ${_connect.stagesCount()}  duration: ${_connect.stageDuration(_idxStage)}');
+    }
+
+    if (program.stage(_idxStage).duration == 0 &&
+        _connect.stageDuration(_idxStage) > 0) {
+      program.setDuration(_idxStage, _connect.stageDuration(_idxStage).toInt());
+      _progDuration = _programDuration();
     }
 
     /// Если восстанаовливаем соединение, то данные о иекущей позиции рассчитать

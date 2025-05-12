@@ -75,39 +75,31 @@ class BgsConnect {
   int _firmwareNumber = -1;
   int _timeUseDevice = -1;
 
-//  late Function sendData;
   final List<Handler> _dataHandlers = [];
   late BluetoothCharacteristic _characteristic;
   late StreamSubscription _subscription;
   late Timer _setPowerTimer;
-  bool _isPowerTimer = false;
-
-//  late StreamSubscription<BluetoothConnectionState> _streamConnect;
 
   int _curPower = 0;
-  int _targetPower = 0;
   bool _isSending = false;
   double _chargeLevel = 100.0;
+
+  int _targetPower = 0;
+
+  /// Целевая мощность, получаемая по запросу
+  List<double> _stagesDuration = [];
+
+  /// Длительности этапов программы, получаемые по запросу
 
   Intensivity _intensivity = Intensivity.one;
 
   /// Команда большой длины, разбитая на несколько пакетов
   List<List<int>> _commandMultiRun = [];
 
-
   var uid = const Uuid().v1(); //TODO: Убрать!!!
 
   Future<bool> init(BluetoothDevice device) async {
     this.device = device;
-
-    // _streamConnect = device.connectionState.listen((event) {
-    //   if (event == BluetoothConnectionState.disconnected) {
-    //     print('--------------------------------------------------------------------------');
-    //     print('--------------- ${event == BluetoothConnectionState.connected} -----------');
-    //     print('--------------------------------------------------------------------------');
-    //     disconnect();
-    //   }
-    // });
 
     try {
       List<BluetoothService> services = await device.discoverServices();
@@ -118,21 +110,39 @@ class BgsConnect {
           for (BluetoothCharacteristic c in characteristics) {
             _characteristic = c;
             _isSending = true;
+
             /// Вешаем потоковый слушатель на изменение характеристики bluetooth
             final subscription = c.lastValueStream.listen((value) async {
               /// Данные нужной длины
-              if (_isSending && value.length == 14) {
+              if (_isSending && (value.length == 14 || value.length == 15)) {
                 /// Логирование принятого значения
-                if (logSubject == LogSubject.lsComm || logSubject == LogSubject.lsAll) {
+                if (logSubject == LogSubject.lsComm ||
+                    logSubject == LogSubject.lsAll) {
                   GetIt.I<CommunicationLogger>().log('>> $value');
                 }
 
+                /// Это ежесекундный пакет данных
                 /// Передача его зарегистрированным слушателям,
                 /// чтобы отображать данные и управлять БГС
-                _value = value;
-                var bd = _createBlockData(_value);
-                for (int i = 0; i < _dataHandlers.length; ++i) {
-                  _dataHandlers[i].handler(bd);
+                if (value[0] == 0xBC) {
+                  if (kDebugMode) {
+                    print('data block from device: $value');
+                  }
+
+                  _value = value;
+                  var bd = _createBlockData(_value);
+                  for (int i = 0; i < _dataHandlers.length; ++i) {
+                    _dataHandlers[i].handler(bd);
+                  }
+                } else
+
+                /// Это информационный пакет по методике
+                if (value[0] == 0xBE) {
+                  if (kDebugMode) {
+                    print('program params: $value');
+                  }
+
+                  _assignProgramParams(value);
                 }
               }
             });
@@ -142,9 +152,7 @@ class BgsConnect {
 
             /// Анализируем события жизненного цикла, чтобы выключить БГС.
             /// Но, не выключается...
-            AppLifecycleListener(
-                onStateChange:
-                _onStateChanged);
+            AppLifecycleListener(onStateChange: _onStateChanged);
           }
         }
       }
@@ -165,10 +173,6 @@ class BgsConnect {
     // services.forEach((service) async {});
     return true;
   }
-
-  // void disconnect() {
-  //   _streamConnect.cancel();
-  // }
 
   void done() {
     _isSending = false;
@@ -192,8 +196,6 @@ class BgsConnect {
   }
 
   void setPower(double power) async {
-    _targetPower = power.toInt();
-//    _curPower = _value[5];
     _curPower = power.toInt();
     await _write([0x91, _curPower]);
   }
@@ -219,6 +221,7 @@ class BgsConnect {
     List<int> command = [0xB3];
     command.add(int.parse(prg.uid));
     command.add(prg.stagesCount());
+
     /// Этапы программы
     for (int i = 0; i < prg.stagesCount(); ++i) {
       /// Длительность (2 байта)
@@ -227,7 +230,7 @@ class BgsConnect {
       command.add((d & 0xFF00) >> 8);
 
       /// AM
-      if (prg.stage(i).isAm){
+      if (prg.stage(i).isAm) {
         var ami = amModeCode[prg.stage(i).amMode];
         command.add(ami!);
       } else {
@@ -240,19 +243,20 @@ class BgsConnect {
       } else {
         command.add(0);
       }
+
       /// Частота
       int f = prg.stage(i).frequency.toInt();
       command.add(f & 0xFF);
       command.add((f & 0xFF00) >> 8);
 
       /// Интенсивность
-      if (prg.stage(i).intensivity == Intensivity.one){
+      if (prg.stage(i).intensivity == Intensivity.one) {
         command.add(0);
-      } else if (prg.stage(i).intensivity == Intensivity.two){
+      } else if (prg.stage(i).intensivity == Intensivity.two) {
         command.add(1);
-      } else if (prg.stage(i).intensivity == Intensivity.three){
+      } else if (prg.stage(i).intensivity == Intensivity.three) {
         command.add(2);
-      } else if (prg.stage(i).intensivity == Intensivity.four){
+      } else if (prg.stage(i).intensivity == Intensivity.four) {
         command.add(3);
       }
     }
@@ -265,15 +269,10 @@ class BgsConnect {
     await _write([0xB1, 3]);
   }
 
-  /// Функция, вызываемая раз в секунду и меняющая мощность, если нужно
-  void _setPowerAction(Timer timer) async {
-    if (_curPower < _targetPower) {
-      ++_curPower;
-      await _write([0x91, _curPower]);
-    } else if (_curPower > _targetPower) {
-      _curPower = _targetPower;
-      await _write([0x91, _curPower]);
-    }
+  /// Запрашивает пакет данных о параметрах программы
+  /// (целевая мощность + длительности этапов)
+  void getProgramParams() async {
+    await _write([0xB4, 1]);
   }
 
   /// Возвращает номер прошивки
@@ -291,6 +290,22 @@ class BgsConnect {
     _timeUseDevice = startVal;
   }
 
+  /// Целевая мощность, получаемая по запросу
+  int targetPower() {
+    return _targetPower;
+  }
+
+  /// Кол-во этапов программы, получаемые по запросу
+  int stagesCount() {
+    return _stagesDuration.length;
+  }
+
+  /// Длительность этапа программы, получаемые по запросу
+  double stageDuration(int stage) {
+    assert(stage >= 0 && stage < _stagesDuration.length);
+    return _stagesDuration[stage];
+  }
+
   static const int maxBytesPerCommand = 16;
   static const int delayBetweenCommands = 200;
 
@@ -298,6 +313,7 @@ class BgsConnect {
   Future<void> _write(List<int> command) async {
     if (!_isSending) return;
     if (!device.isConnected) return;
+
     /// Поскольку нельзя передавать команды длиной более maxBytesPerComand байт, придется
     /// передавать их по частям, если длительность превышает maxBytesPerComand байт
     if (command.length <= maxBytesPerCommand) {
@@ -307,7 +323,7 @@ class BgsConnect {
       int b = 0;
       do {
         List<int> cmd = [];
-        for(int i = b; i < command.length; ++i) {
+        for (int i = b; i < command.length; ++i) {
           if (cmd.length == maxBytesPerCommand) break;
           cmd.add(command[i]);
         }
@@ -315,6 +331,7 @@ class BgsConnect {
 
         b += maxBytesPerCommand;
       } while (b < command.length);
+
       /// Запускаем таймер передачи команды
       Timer(const Duration(milliseconds: 100), _sendPartCommand);
     }
@@ -332,15 +349,20 @@ class BgsConnect {
       for (int i = 0; i < _commandMultiRun[0].length; ++i) {
         cmd.add(_commandMultiRun[0][i]);
       }
+
       /// Удаляем ее из общей очереди
       _commandMultiRun.removeAt(0);
+
       /// Передаем
       if (kDebugMode) {
-        print('--- send command --- time: ${DateTime.now()} --- cmd: $cmd ------------------------------------------------');
+        print(
+            '--- send command --- time: ${DateTime.now()} --- cmd: $cmd ------------------------------------------------');
       }
       await _characteristic.write(cmd, withoutResponse: true);
+
       /// Запускаем таймер передачи остальной части команды
-      Timer(const Duration(milliseconds: delayBetweenCommands), _sendPartCommand);
+      Timer(
+          const Duration(milliseconds: delayBetweenCommands), _sendPartCommand);
     }
   }
 
@@ -351,9 +373,6 @@ class BgsConnect {
 
   /// Сбор данных для передачи
   BlockData _createBlockData(List<int> value) {
-    if (kDebugMode) {
-      print('data block from device: $value');
-    }
     var power = value[5].toDouble();
 
     var isAM = value[9] > 0;
@@ -378,8 +397,11 @@ class BgsConnect {
 
     /// Уровень заряда батареи
     /// TODO: Убрать вариант выбора источника, когда будет решение
-    var vRare = value[3];                    /// Вариант с большим шагом
+    var vRare = value[3];
+
+    /// Вариант с большим шагом
     var cl = getChargeLevelByADC(vRare);
+
     /// Управление отображаемым уровнем заряда батареи
     if (cl < _chargeLevel) {
       /// Уменьшаем легко
@@ -422,6 +444,27 @@ class BgsConnect {
     );
   }
 
+  /// Разбирает пакет данных с параметрами программы
+  /// (целевая мощность + длительности этапов)
+  void _assignProgramParams(List<int> value) {
+    /// Целевая мощность
+    _targetPower = value[1];
+
+    /// Длительности этапов
+    int cnt = value[2];
+
+    /// Кол-во этапов
+    _stagesDuration.clear();
+    for (int i = 0; i < cnt; ++i) {
+      double duration =
+          ((value[3 + 2 * i + 1] * 256 + value[3 + 2 * i]) * 1000).toDouble();
+      _stagesDuration.add(duration);
+      if (i == 5) break;
+
+      /// Максимум 6 этапов
+    }
+  }
+
   void _onStateChanged(AppLifecycleState state) {
     /// При завершении приложения неплохо было бы выключать воздействие
     /// Но не работает reset() из этой точки. При передаче команды через _characteristic
@@ -437,5 +480,4 @@ class BgsConnect {
       );
     }
   }
-
 }

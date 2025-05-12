@@ -459,6 +459,8 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
     widget.driver.addHandler(_uuidGetData, onGetData);
     widget.driver
         .initSettings(); //TODO: В какой-то момент отказался очень большой файл. Понаблюдать, найти причину, исключить
+
+    widget.driver.getProgramParams();
   }
 
   @override
@@ -478,8 +480,8 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
   void onGetData(BlockData data) {
     /// Читаем значение установленной мощности из устройства, если подключаемся к
     /// устройству, на котором работает программа
-    if (_isGetPowerSetFromDevice) {
-      _powerSet = data.power;
+    if (_isGetPowerSetFromDevice && widget.driver.targetPower() > 0) {
+      _powerSet = widget.driver.targetPower().toDouble();
       _isGetPowerSetFromDevice = false;
     }
 

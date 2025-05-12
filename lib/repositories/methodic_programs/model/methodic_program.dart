@@ -157,6 +157,12 @@ class MethodicProgram {
       intensivity: _stages[idx].intensivity,
     );
   }
+
+  /// Меняет снаружи длительность этапа idx
+  void setDuration(int idx, int duration){
+    assert(idx >= 0 && idx < _stages.length, 'idx == $idx, length = ${_stages.length}');
+    _stages[idx].duration = duration;
+  }
 }
 
 /// Типы программ
