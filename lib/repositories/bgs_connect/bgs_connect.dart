@@ -114,7 +114,7 @@ class BgsConnect {
             /// Вешаем потоковый слушатель на изменение характеристики bluetooth
             final subscription = c.lastValueStream.listen((value) async {
               /// Данные нужной длины
-              if (_isSending && (value.length == 14 || value.length == 15)) {
+              if (_isSending && value.length == 15) {
                 /// Логирование принятого значения
                 if (logSubject == LogSubject.lsComm ||
                     logSubject == LogSubject.lsAll) {

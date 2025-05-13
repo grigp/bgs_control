@@ -48,7 +48,7 @@ class _SelectProgramScreenState extends State<SelectProgramScreen> {
 
   bool _isConnected = false;
   String _uuidGetData = '';
-  double _chargeLevel = 100;
+  double _chargeLevel = 101;
   double _chargeValue = 0;
   int _curMethodic = 0;
 
