@@ -348,7 +348,7 @@ class _DirectControlScreenState extends State<DirectControlScreen> {
         _freq = data.freq;
       }
 
-      if (data.isPowerReset) {
+      if (data.isPause) {
         _onPlayPauseButton();
       }
 

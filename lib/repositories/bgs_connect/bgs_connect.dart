@@ -36,7 +36,7 @@ class BlockData {
     required this.isFM,
     required this.amMode,
     required this.freq,
-    required this.isPowerReset,
+    required this.isPause,
     required this.intensity,
     required this.chargeLevel,
     required this.chargeValue,
@@ -53,7 +53,7 @@ class BlockData {
   final bool isFM;
   final AmMode amMode;
   final double freq;
-  final bool isPowerReset;
+  final bool isPause;
   final Intensivity intensity;
   final double chargeLevel;
   final double chargeValue;
@@ -388,19 +388,12 @@ class BgsConnect {
     var isFM = value[10] == 7;
     double freq = (value[13] * 256 + value[12]).toDouble();
 
-    bool isPowerReset = false;
-    if ((value[4] & 0x80) != 0) {
-      isPowerReset = true;
-    }
+    bool isPause = value[1] == 3;
 
     _intensivity = Intensivity.values[value[11]];
 
     /// Уровень заряда батареи
-    /// TODO: Убрать вариант выбора источника, когда будет решение
-    var vRare = value[3];
-
-    /// Вариант с большим шагом
-    var cl = getChargeLevelByADC(vRare);
+    var cl = getChargeLevelByADC(value[3]);
 
     /// Управление отображаемым уровнем заряда батареи
     if (cl < _chargeLevel) {
@@ -431,7 +424,7 @@ class BgsConnect {
       isFM: isFM,
       amMode: amMode,
       freq: freq,
-      isPowerReset: isPowerReset,
+      isPause: isPause,
       intensity: _intensivity,
       chargeLevel: _chargeLevel,
       chargeValue: value[3].toDouble(),

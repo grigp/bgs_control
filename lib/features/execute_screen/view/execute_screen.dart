@@ -488,8 +488,15 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
     setState(() {
       _powerReal = data.power;
 
-      if (data.isPowerReset) {
-        _onPlayPauseButton();
+      if (data.isPause) {
+        print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
+        print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
+        print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
+        print('                ${widget.driver.isPlaying()}');
+        print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
+        print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
+        widget.driver.pause();
+//        _onPlayPauseButton();
       }
 
       // GetIt.I<CommunicationLogger>().log(
@@ -534,7 +541,7 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
   void _onPlayPauseButton() {
     widget.driver.pause();
     if (!widget.driver.isPlaying()) {
-      _powerSet = 0;
+      //_powerSet = 0;
     } else {
       widget.driver.setPower(_powerSet);
     }
