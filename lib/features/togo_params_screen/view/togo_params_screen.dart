@@ -27,8 +27,6 @@ class TogoParamsScreen extends StatefulWidget {
 }
 
 class _TogoParamsScreenState extends State<TogoParamsScreen> {
-  bool _isConnected = false;
-
   bool _isAM = false;
   bool _isFM = false;
   AmMode _amMode = AmMode.am_11;

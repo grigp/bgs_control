@@ -180,10 +180,7 @@ class _ParamsWidgetState extends State<ParamsWidget> {
                           ],
                         ),
                         onTap: () {
-                          var freq = _getStandardFrequency(context);
-                          // setState(() {
-                          //   widget.freq = freq;
-                          // });
+                          _getStandardFrequency(context);
                         },
                       ),
                       Slider.adaptive(
@@ -300,6 +297,7 @@ class _ParamsWidgetState extends State<ParamsWidget> {
   void _onSetStdFrequency(int frequency) {
     setState(() {
       widget.freq = frequency.toDouble();
+      widget.onFreqChanged(widget.freq);
     });
   }
 }
