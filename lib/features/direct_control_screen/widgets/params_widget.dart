@@ -235,28 +235,28 @@ class _ParamsWidgetState extends State<ParamsWidget> {
                       value: Intensivity.one,
                       label: Text(
                         '1',
-                        textScaler: const TextScaler.linear(1.0),
+                        textScaler: TextScaler.linear(1.0),
                       ),
                     ),
                     ButtonSegment<Intensivity>(
                       value: Intensivity.two,
                       label: Text(
                         '2',
-                        textScaler: const TextScaler.linear(1.0),
+                        textScaler: TextScaler.linear(1.0),
                       ),
                     ),
                     ButtonSegment<Intensivity>(
                       value: Intensivity.three,
                       label: Text(
                         '3',
-                        textScaler: const TextScaler.linear(1.0),
+                        textScaler: TextScaler.linear(1.0),
                       ),
                     ),
                     ButtonSegment<Intensivity>(
                       value: Intensivity.four,
                       label: Text(
                         '4',
-                        textScaler: const TextScaler.linear(1.0),
+                        textScaler: TextScaler.linear(1.0),
                       ),
                     ),
                   ],

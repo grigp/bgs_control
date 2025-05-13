@@ -29,8 +29,8 @@ class _StandardFrequencyDialog extends State<StandardFrequencyDialog> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return SizedBox(
-      height: 300,
-      width: double.infinity,
+      height: 450,
+      width: 160,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
@@ -43,7 +43,7 @@ class _StandardFrequencyDialog extends State<StandardFrequencyDialog> {
               children: [
                 Expanded(
                   child: Text(
-                    'Стандартная частота',
+                    'Частота, Гц',
                     overflow: TextOverflow.ellipsis,
                     style: theme.textTheme.titleMedium,
                     textScaler: const TextScaler.linear(1.0),
@@ -82,55 +82,56 @@ class _StandardFrequencyDialog extends State<StandardFrequencyDialog> {
                   style: SegmentedButton.styleFrom(
                     selectedBackgroundColor: backgroundMiddleTestColor,
                   ),
+                  direction: Axis.vertical,
                   showSelectedIcon: false,
                   segments: const <ButtonSegment<int>>[
                     ButtonSegment<int>(
-                      value: 15,
+                      value: 350,
                       label: Text(
-                        '15',
-                        textScaler: const TextScaler.linear(1.0),
-                      ),
-                    ),
-                    ButtonSegment<int>(
-                      value: 30,
-                      label: Text(
-                        '30',
-                        textScaler: const TextScaler.linear(1.0),
-                      ),
-                    ),
-                    ButtonSegment<int>(
-                      value: 60,
-                      label: Text(
-                        '60',
-                        textScaler: const TextScaler.linear(1.0),
-                      ),
-                    ),
-                    ButtonSegment<int>(
-                      value: 90,
-                      label: Text(
-                        '90',
-                        textScaler: const TextScaler.linear(1.0),
-                      ),
-                    ),
-                    ButtonSegment<int>(
-                      value: 120,
-                      label: Text(
-                        '120',
-                        textScaler: const TextScaler.linear(1.0),
+                        '350',
+                        textScaler: TextScaler.linear(1.0),
                       ),
                     ),
                     ButtonSegment<int>(
                       value: 180,
                       label: Text(
                         '180',
-                        textScaler: const TextScaler.linear(1.0),
+                        textScaler: TextScaler.linear(1.0),
                       ),
                     ),
                     ButtonSegment<int>(
-                      value: 350,
+                      value: 120,
                       label: Text(
-                        '350',
-                        textScaler: const TextScaler.linear(1.0),
+                        '120',
+                        textScaler: TextScaler.linear(1.0),
+                      ),
+                    ),
+                    ButtonSegment<int>(
+                      value: 90,
+                      label: Text(
+                        '90',
+                        textScaler: TextScaler.linear(1.0),
+                      ),
+                    ),
+                    ButtonSegment<int>(
+                      value: 60,
+                      label: Text(
+                        '60',
+                        textScaler: TextScaler.linear(1.0),
+                      ),
+                    ),
+                    ButtonSegment<int>(
+                      value: 30,
+                      label: Text(
+                        '30',
+                        textScaler: TextScaler.linear(1.0),
+                      ),
+                    ),
+                    ButtonSegment<int>(
+                      value: 15,
+                      label: Text(
+                        '15',
+                        textScaler: TextScaler.linear(1.0),
                       ),
                     ),
                   ],
@@ -141,7 +142,6 @@ class _StandardFrequencyDialog extends State<StandardFrequencyDialog> {
                     });
                     widget.onChanged(_freqency);
                     Navigator.pop(context);
-//                    widget.onIntensityChanged(widget.intensity);
                   },
                 ),
               ],
