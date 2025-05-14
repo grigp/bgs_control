@@ -109,7 +109,6 @@ class _LogScreenState extends State<LogScreen> {
               //     ? await getExternalStorageDirectory()
               //     : await getApplicationSupportDirectory();
               // var f = File('${dir?.path}/bgs_properties.json');
-              // f.delete();
               // Share.shareXFiles([XFile('${dir?.path}/bgs_properties.json')],
               //     text: 'Файл параметров БГС');
             },
