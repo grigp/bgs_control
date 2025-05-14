@@ -302,8 +302,10 @@ class BgsConnect {
 
   /// Длительность этапа программы, получаемые по запросу
   double stageDuration(int stage) {
-    assert(stage >= 0 && stage < _stagesDuration.length);
-    return _stagesDuration[stage];
+    if (stage >= 0 && stage < _stagesDuration.length) {
+      return _stagesDuration[stage];
+    }
+    return 0;
   }
 
   static const int maxBytesPerCommand = 16;

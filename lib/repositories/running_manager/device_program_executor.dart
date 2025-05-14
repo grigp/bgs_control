@@ -304,6 +304,11 @@ class DeviceProgramExecutor {
       _isReadPositionFromDevice = false;
     }
 
+    /// Отработка нажатия кнопки на приборе
+    if (data.isPause){
+      _isPlaying = false;
+    }
+
     if (_isPlaying) {
       /// Если в пакете код методики == 0, то методика зкончилась, иначе она идет
       if (data.methodUid != 0) {

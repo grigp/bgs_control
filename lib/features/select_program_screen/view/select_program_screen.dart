@@ -254,8 +254,7 @@ class _SelectProgramScreenState extends State<SelectProgramScreen> {
   }
 
   Future _doDispose() async {
-    GetIt.I<RunningManager>()
-        .disconnectDevice(widget.driver.device.advName);
+    GetIt.I<RunningManager>().disconnectDevice(widget.driver.device.advName);
     _isConnected = false;
     await widget.driver.removeHandler(_uuidGetData);
     await widget.driver.disconnect();
@@ -327,17 +326,15 @@ class _SelectProgramScreenState extends State<SelectProgramScreen> {
           }
         } else if (data.methodUid == methodicUidToGo) {
           _curMethodic = data.methodUid;
-          var program = MethodicProgram.togo(data.isAM, data.isFM, data.amMode,
-              data.intensity, data.freq, 0);
+          var program = MethodicProgram.togo(
+              data.isAM, data.isFM, data.amMode, data.intensity, data.freq, 0);
           _runProgram(program);
         }
       }
-      if (data.chargeLevel != _chargeLevel) {
-        setState(() {
-          _chargeLevel = data.chargeLevel;
-          _chargeValue = data.chargeValue;
-        });
-      }
+      setState(() {
+        _chargeLevel = data.chargeLevel;
+        _chargeValue = data.chargeValue;
+      });
     } else {
       if (logSubject == LogSubject.lsComm || logSubject == LogSubject.lsAll) {
         GetIt.I<CommunicationLogger>()

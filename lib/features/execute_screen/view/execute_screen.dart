@@ -488,17 +488,6 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
     setState(() {
       _powerReal = data.power;
 
-      if (data.isPause) {
-        print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
-        print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
-        print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
-        print('                ${widget.driver.isPlaying()}');
-        print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
-        print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
-        widget.driver.pause();
-//        _onPlayPauseButton();
-      }
-
       // GetIt.I<CommunicationLogger>().log(
       //     '$_dataCount  Power: ${_chargeValue.toInt()}  ${_chargeLevel.toInt()}%');
       _chargeLevel = data.chargeLevel;
