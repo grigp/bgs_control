@@ -22,14 +22,16 @@ import '../../uikit/widgets/play_pause_button.dart';
 import '../../uikit/widgets/program_progress_bar.dart';
 
 class DirectControlScreen extends StatefulWidget {
-  DirectControlScreen({
+  const DirectControlScreen({
     super.key,
     required this.title,
     required this.driver,
-  }) {}
+    required this.isNewProgram,
+  });
 
   final String title;
   final DeviceProgramExecutor driver;
+  final bool isNewProgram;
 
   @override
   State<DirectControlScreen> createState() => _DirectControlScreenState();
@@ -66,13 +68,14 @@ class _DirectControlScreenState extends State<DirectControlScreen> {
     super.initState();
     widget.driver.setWorkManagerTask(3600000 - 2000);
 
-    widget.driver.setProgram(
-        MethodicProgram.one(false, false, AmMode.am_11, Intensivity.one, 60,
-            maxDirectModeDuration.toInt() * 60 * 1000),
-        true);
-    widget.driver.resetProgram();
-    widget.driver.run(true);  //TODO: Надо в зависимости от режима в приборе
-
+    if (widget.isNewProgram) {
+      widget.driver.setProgram(
+          MethodicProgram.one(false, false, AmMode.am_11, Intensivity.one, 60,
+              maxDirectModeDuration.toInt() * 60 * 1000),
+          true);
+      widget.driver.resetProgram();
+      widget.driver.run(true); //TODO: Надо в зависимости от режима в приборе
+    }
     _uuidSendData = const Uuid().v1();
     widget.driver.initSettings();
     widget.driver.addHandler(_uuidSendData, onGetData);
@@ -157,7 +160,7 @@ class _DirectControlScreenState extends State<DirectControlScreen> {
             const SizedBox(height: 10),
 
             /// Прогресс бар для программы
-            if (widget.driver.stage().duration > 0)
+            if (_dataCount > 0 && widget.driver.stage().duration > 0)
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Column(
@@ -329,6 +332,19 @@ class _DirectControlScreenState extends State<DirectControlScreen> {
   }
 
   void onGetData(BlockData data) {
+    print('--------------------- screen.oGetData $_dataCount | isAM:${data.isAM}  isFM:${data.isFM} freq:${data.freq} int:${data.intensity} ------------------');
+    if (!widget.isNewProgram && _dataCount == 0) {
+      widget.driver.stop();
+      widget.driver.setProgram(
+          MethodicProgram.one(
+              data.isAM, data.isFM, data.amMode, data.intensity, data.freq, 0),
+          true);
+      widget.driver.resetProgram();
+      widget.driver.run(false);
+      widget.driver.setPower(_powerSet);
+
+    }
+
     setState(() {
       _value = data.source;
       _powerReal = data.power;

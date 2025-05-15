@@ -59,7 +59,7 @@ class _SelectProgramScreenState extends State<SelectProgramScreen> {
     /// ToDO: нехорошо. надо думать, как избавиться от этого сообщения при проведении программы
     if (kDebugMode) {
       print(
-        '======================================= select program build =========================');
+          '======================================= select program build =========================');
     }
 
     return PopScope(
@@ -320,18 +320,30 @@ class _SelectProgramScreenState extends State<SelectProgramScreen> {
         print(
             '<<<<<<<<<<<<<< sps:onGetData.  met: "${data.methodUid}" met old: $_curMethodic     ${data.stage} - ${data.playingTime} >>>>>>>>>>>>>>>>');
       }
+
+      /// На приборе выполняется одна из методик
       if (data.methodUid != _curMethodic && data.methodUid > 0) {
+        /// Запустить одну из предустановленных методик
         if (data.methodUid < methodicUidToGo) {
           var idx = _getMethodisIdx(data.methodUid);
           if (idx >= 0) {
             _curMethodic = data.methodUid;
             _runProgram(_programs[idx]);
           }
-        } else if (data.methodUid == methodicUidToGo) {
+        } else
+
+        /// Запустить индивидуальный режим
+        if (data.methodUid == methodicUidToGo) {
           _curMethodic = data.methodUid;
           var program = MethodicProgram.togo(
               data.isAM, data.isFM, data.amMode, data.intensity, data.freq, 0);
           _runProgram(program);
+        } else
+
+        /// Запустить режим прямого управления
+        if (data.methodUid == methodicUidDirect) {
+          _curMethodic = data.methodUid;
+          _runDirectControl(false);
         }
       }
       setState(() {
@@ -392,7 +404,13 @@ class _SelectProgramScreenState extends State<SelectProgramScreen> {
   List<Widget> _buildHandleProgram(BuildContext context) {
     List<Widget> list = [];
     list.add(TogoTitle(onTap: _runToGoMode));
-    list.add(DirectTitle(onTap: _runDirectControl));
+    list.add(
+      DirectTitle(
+        onTap: () {
+          _runDirectControl(true);
+        },
+      ),
+    );
     return list;
   }
 
@@ -412,7 +430,7 @@ class _SelectProgramScreenState extends State<SelectProgramScreen> {
     );
   }
 
-  void _runDirectControl() async {
+  void _runDirectControl(bool isNewProgram) async {
     if (_chargeLevel <= chargeBreakBoundLevel) {
       await alertLowEnergy();
     }
@@ -422,6 +440,7 @@ class _SelectProgramScreenState extends State<SelectProgramScreen> {
       (context, animation, secondaryAnimation) => DirectControlScreen(
         title: 'Direct',
         driver: widget.driver,
+        isNewProgram: isNewProgram,
       ),
       '/direct_control',
       ShiftDirection.rightToLeft,
