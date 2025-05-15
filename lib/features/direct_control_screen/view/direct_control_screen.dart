@@ -26,8 +26,7 @@ class DirectControlScreen extends StatefulWidget {
     super.key,
     required this.title,
     required this.driver,
-  }) {
-  }
+  }) {}
 
   final String title;
   final DeviceProgramExecutor driver;
@@ -52,7 +51,7 @@ class _DirectControlScreenState extends State<DirectControlScreen> {
   bool _intensivityChange = true;
   double _powerSet = 0;
   double _powerReal = 0;
-  double _freq = 0;
+  double _freq = 1;
   bool _idxFreqChange = true;
   double _chargeLevel = 100;
   double _chargeValue = 0;
@@ -384,16 +383,19 @@ class _DirectControlScreenState extends State<DirectControlScreen> {
     }
   }
 
-  void _setDeviceMode(bool isAM, bool isFM, AmMode amMode, double idxFreq,
-      Intensivity intensity) async {
-    var program = MethodicProgram.togo(
-        isAM,
-        isFM,
-        amMode,
-        intensity,
-        _freq,
-        (widget.driver.programDuration() - widget.driver.playingTime()) * 1000);
+  void _setDeviceMode(bool isAM, bool isFM, AmMode amMode, double freq,
+      Intensivity intensivity) async {
+    int duration =
+        (widget.driver.programDuration() - widget.driver.playingTime()) * 1000;
+    print(
+        '----------- _setDeviceMode ($isAM $isFM $amMode $freq, $intensivity   duration: $duration)');
+    widget.driver.stop();
+    var program =
+        MethodicProgram.one(isAM, isFM, amMode, intensivity, freq, duration);
     widget.driver.setProgram(program, true);
+//    widget.driver.resetProgram();
+    widget.driver.playAfterChangeProgram();
+    widget.driver.setPower(_powerSet);
   }
 
   String _valueToString() {

@@ -56,8 +56,11 @@ class _SelectProgramScreenState extends State<SelectProgramScreen> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    print(
+    /// ToDO: нехорошо. надо думать, как избавиться от этого сообщения при проведении программы
+    if (kDebugMode) {
+      print(
         '======================================= select program build =========================');
+    }
 
     return PopScope(
       canPop: false,

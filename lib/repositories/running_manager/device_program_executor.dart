@@ -66,9 +66,6 @@ class DeviceProgramExecutor {
   /// Инициируется в run(), читается в getData()
   bool _isReadPositionFromDevice = false;
 
-  /// Время начала этапа
-  late Timer _timer;
-
   double _averagePower = 0;
   double _maxPower = 0;
   int _statCount = 0;
@@ -98,11 +95,10 @@ class DeviceProgramExecutor {
   }
 
   void run(bool isNewProgram) async {
+    print('---------------------- dpe.run()    ${program.uid}  $_isConnected');
     if (program.uid != '' && _isConnected) {
-      _uuidGetData = const Uuid().v1();
-      _connect.addHandler(_uuidGetData, onGetData);
+      _addHandler();
 
-      _timer = Timer.periodic(const Duration(seconds: 1), onTimer);
       _connect.resetChargeLevel();
 
       /// Программа стартует в режиме паузы.
@@ -131,13 +127,10 @@ class DeviceProgramExecutor {
       /// на 2 сек меньше
 //      setWorkManagerTask(program.stage(_idxStage).duration - 2000); /// на 2 сек меньше
       _duration = program.stage(_idxStage).duration;
-
-      // _isolate = await Isolate.spawn(onTimerIsolate, receivePort.sendPort);
     }
   }
 
   Future stop() async {
-    _timer.cancel();
     Workmanager().cancelAll();
     _isPlaying = false;
     stopProgram();
@@ -158,6 +151,12 @@ class DeviceProgramExecutor {
       _isPlaying = !_isPlaying;
       _connect.pause(_isPlaying);
     }
+  }
+
+  void playAfterChangeProgram() {
+    _connect.pause(true);
+    _isPlaying = true;
+    _addHandler();
   }
 
   void resetProgram() {
@@ -340,37 +339,6 @@ class DeviceProgramExecutor {
     }
   }
 
-  void onTimer(Timer timer) async {
-    // if (kDebugMode) {
-    //   print(
-    //       '---------------------------- isPlaying: $_isPlaying      timer:  $_playingTime');
-    // }
-    // if (_isPlaying) {
-    //   ++_playingTime;
-    //   if (_duration > 0 && (stageTime() >= _duration / 1000)) {
-    //     /// Если это не последний этап
-    //     if (_idxStage + 1 < program.stagesCount()) {
-    //       ++_idxStage;
-    //       _stageStartTime = _playingTime;
-    //       _duration = program.stage(_idxStage).duration;
-    //     } else {
-    //       /// Все этапы прошли - выходим
-    //       setPower(0);
-    //       Workmanager().cancelAll();
-    //       _isPlaying = false;
-    //       _programTime = _playingTime;
-    //       _playingTime = 0;
-    //       _isOver = true;
-    //     }
-    //   }
-    // }
-    //
-    // if (_idxStage == -1) {
-    //   Workmanager().cancelAll();
-    //   timer.cancel();
-    // }
-  }
-
   void setWorkManagerTask(int duration) {
     Workmanager().cancelAll();
     Workmanager().registerOneOffTask(
@@ -395,4 +363,10 @@ class DeviceProgramExecutor {
   int firmwareNumber() {
     return _connect.firmwareNumber();
   }
+
+  void _addHandler(){
+    _uuidGetData = const Uuid().v1();
+    _connect.addHandler(_uuidGetData, onGetData);
+  }
+
 }
