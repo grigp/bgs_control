@@ -79,13 +79,13 @@ class _DirectControlScreenState extends State<DirectControlScreen> {
       widget.driver.run(true); //TODO: Надо в зависимости от режима в приборе
     } else {
       _isGetPowerSetFromDevice = true;
+      widget.driver.getProgramParams();
     }
     _uuidSendData = const Uuid().v1();
     widget.driver.initSettings();
     widget.driver.addHandler(_uuidSendData, onGetData);
 
     _timer = Timer.periodic(const Duration(seconds: 1), onTimer);
-    widget.driver.getProgramParams();
   }
 
   @override
@@ -346,7 +346,7 @@ class _DirectControlScreenState extends State<DirectControlScreen> {
     if (!widget.isNewProgram && _dataCount == 0) {
       widget.driver.setProgram(
           MethodicProgram.one(
-              data.isAM, data.isFM, data.amMode, data.intensity, data.freq, 0),
+              data.isAM, data.isFM, data.amMode, data.intensivity, data.freq, 0),
           false);
       widget.driver.run(false);
     }
@@ -374,7 +374,7 @@ class _DirectControlScreenState extends State<DirectControlScreen> {
       }
 
       if (_intensivityChange) {
-        _intensivity = data.intensity;
+        _intensivity = data.intensivity;
       }
       _chargeLevel = data.chargeLevel;
       _chargeValue = data.chargeValue;

@@ -31,13 +31,14 @@ enum ConnectionFailureMode { cfmResetPower, cfmWorking }
 /// Класс пакета данных от устройства
 class BlockData {
   const BlockData({
+    required this.deviceMode,
     required this.power,
     required this.isAM,
     required this.isFM,
     required this.amMode,
     required this.freq,
     required this.isPause,
-    required this.intensity,
+    required this.intensivity,
     required this.chargeLevel,
     required this.chargeValue,
     required this.chargeValueExt,
@@ -48,13 +49,14 @@ class BlockData {
     required this.firmwareNumber,
   });
 
+  final DeviceMode deviceMode;
   final double power;
   final bool isAM;
   final bool isFM;
   final AmMode amMode;
   final double freq;
   final bool isPause;
-  final Intensivity intensity;
+  final Intensivity intensivity;
   final double chargeLevel;
   final double chargeValue;
   final double chargeValueExt;
@@ -375,6 +377,7 @@ class BgsConnect {
 
   /// Сбор данных для передачи
   BlockData _createBlockData(List<int> value) {
+    DeviceMode dm = DeviceMode.values[value[1]];
     var power = value[5].toDouble();
 
     var isAM = value[9] > 0;
@@ -421,13 +424,14 @@ class BgsConnect {
 
     /// Передача данных
     return BlockData(
+      deviceMode: dm,
       power: power,
       isAM: isAM,
       isFM: isFM,
       amMode: amMode,
       freq: freq,
       isPause: isPause,
-      intensity: _intensivity,
+      intensivity: _intensivity,
       chargeLevel: _chargeLevel,
       chargeValue: value[3].toDouble(),
       chargeValueExt: value[2].toDouble() * 256 + value[1].toDouble(),

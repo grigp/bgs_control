@@ -204,7 +204,7 @@ class _TogoParamsScreenState extends State<TogoParamsScreen> {
       _amMode = data.amMode;
       _isFM = data.isFM;
       _freq = data.freq;
-      _intensity = data.intensity;
+      _intensity = data.intensivity;
     });
 
     widget.driver.removeHandler(_uuidGetData);

@@ -336,7 +336,7 @@ class _SelectProgramScreenState extends State<SelectProgramScreen> {
         if (data.methodUid == methodicUidToGo) {
           _curMethodic = data.methodUid;
           var program = MethodicProgram.togo(
-              data.isAM, data.isFM, data.amMode, data.intensity, data.freq, 0);
+              data.isAM, data.isFM, data.amMode, data.intensivity, data.freq, 0);
           _runProgram(program);
         } else
 

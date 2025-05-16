@@ -452,6 +452,7 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
       widget.driver.setProgram(widget.driver.program, true);
     } else {
       _isGetPowerSetFromDevice = true;
+      widget.driver.getProgramParams();
     }
     widget.driver.run(widget.isNewProgram);
 
@@ -459,8 +460,6 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
     widget.driver.addHandler(_uuidGetData, onGetData);
     widget.driver
         .initSettings(); //TODO: В какой-то момент отказался очень большой файл. Понаблюдать, найти причину, исключить
-
-    widget.driver.getProgramParams();
   }
 
   @override
