@@ -17,6 +17,7 @@ import '../../../repositories/methodic_programs/model/methodic_program.dart';
 import '../../../repositories/running_manager/device_program_executor.dart';
 import '../../../utils/base_defines.dart';
 import '../../../utils/charge_values.dart';
+import '../../../utils/screen_utils.dart';
 import '../../uikit/texel_button.dart';
 import '../../uikit/widgets/charge_message_widget.dart';
 import '../../uikit/widgets/safe_level_dialog.dart';
@@ -353,8 +354,14 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
                 ),
                 child: TexelButton.yellowDark(
                   text: 'Работать автономно',
-                  onPressed: () {
-                    _doWorkToGo();
+                  onPressed: () async {
+                    bool? isGo = await isWorkToGo(context);
+                    if (isGo!) {
+                      _isToGoMode = true;
+                      Navigator.of(context).popUntil(
+                        ModalRoute.withName('/select'),
+                      );
+                    }
                   },
                 ),
               ),
@@ -559,45 +566,5 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
     retval = '$retval   Int = ${widget.driver.stage().intensivity.index + 1}';
 
     return retval;
-  }
-
-  void _doWorkToGo() async {
-    await showDialog<bool>(
-      context: context,
-      barrierDismissible: false,
-      builder: (BuildContext context) => AlertDialog(
-        title: const Text(
-          'Перейти в режим автономной работы?',
-        ),
-        content: const Text(
-          'При этом воздействие будет продолжено',
-        ),
-        actions: <Widget>[
-          TexelButton.accent(
-            onPressed: () async {
-              _isToGoMode = true;
-              Navigator.of(context).popUntil(
-                ModalRoute.withName('/select'),
-//                ModalRoute.withName('/select_method'),
-              );
-            },
-            text: 'Да',
-            width: 120,
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 22),
-            child: TextButton(
-              onPressed: () {
-                Navigator.pop(context, false);
-              },
-              child: const Text(
-                'Нет',
-              ),
-              // width: 120,
-            ),
-          ),
-        ],
-      ),
-    );
   }
 }

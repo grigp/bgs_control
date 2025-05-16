@@ -7,6 +7,7 @@ import 'package:bgs_control/features/uikit/widgets/charge_message_widget.dart';
 import 'package:bgs_control/repositories/bgs_connect/bgs_connect.dart';
 import 'package:bgs_control/repositories/methodic_programs/model/methodic_program.dart';
 import 'package:bgs_control/utils/charge_values.dart';
+import 'package:bgs_control/utils/screen_utils.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
@@ -18,6 +19,7 @@ import '../../../repositories/logger/communication_logger.dart';
 import '../../../repositories/running_manager/device_program_executor.dart';
 import '../../../utils/base_defines.dart';
 import '../../../utils/baseutils.dart';
+import '../../uikit/texel_button.dart';
 import '../../uikit/widgets/play_pause_button.dart';
 import '../../uikit/widgets/program_progress_bar.dart';
 
@@ -61,6 +63,7 @@ class _DirectControlScreenState extends State<DirectControlScreen> {
   String _uuidSendData = '';
 
   bool _isGetPowerSetFromDevice = false;
+  bool _isToGoMode = false;
 
   late Timer _timer;
   int _secCounter = 0;
@@ -151,7 +154,7 @@ class _DirectControlScreenState extends State<DirectControlScreen> {
       ),
       bottomNavigationBar: BottomAppBar(
         color: backgroundTestColor,
-        height: 330,
+        height: 360,
         child: Column(
           children: [
             /// Регулятор мощности
@@ -161,7 +164,6 @@ class _DirectControlScreenState extends State<DirectControlScreen> {
               onPowerSet: onPowerSet,
               onPowerReset: onPowerReset,
             ),
-            const SizedBox(height: 10),
 
             /// Прогресс бар для программы
             if (_dataCount > 0 && widget.driver.stage().duration > 0)
@@ -217,7 +219,6 @@ class _DirectControlScreenState extends State<DirectControlScreen> {
                   ],
                 ),
               ),
-            const SizedBox(height: 10),
 
             /// Кнопка play / pause
             PlayPauseButton(
@@ -229,6 +230,28 @@ class _DirectControlScreenState extends State<DirectControlScreen> {
                   _onPlayPauseButton();
                 });
               },
+            ),
+
+            /// Кнопка [Работать автономно]
+            Container(
+              padding: const EdgeInsets.only(
+                left: 16,
+                right: 16,
+                top: 4,
+                bottom: 4,
+              ),
+              child: TexelButton.yellowDark(
+                text: 'Работать автономно',
+                onPressed: () async {
+                  bool? isGo = await isWorkToGo(context);
+                  if (isGo!) {
+                    _isToGoMode = true;
+                    Navigator.of(context).popUntil(
+                      ModalRoute.withName('/select'),
+                    );
+                  }
+                },
+              ),
             ),
           ],
         ),
@@ -345,8 +368,8 @@ class _DirectControlScreenState extends State<DirectControlScreen> {
 
     if (!widget.isNewProgram && _dataCount == 0) {
       widget.driver.setProgram(
-          MethodicProgram.one(
-              data.isAM, data.isFM, data.amMode, data.intensivity, data.freq, 0),
+          MethodicProgram.one(data.isAM, data.isFM, data.amMode,
+              data.intensivity, data.freq, 0),
           false);
       widget.driver.run(false);
     }
@@ -440,9 +463,13 @@ class _DirectControlScreenState extends State<DirectControlScreen> {
   void _stopStimulation() {
     widget.driver.resetWorkManagerTask();
     _timer.cancel();
-    widget.driver.reset();
+    if (!_isToGoMode) {
+      widget.driver.reset();
+    }
     widget.driver.saveSettings();
     widget.driver.removeHandler(_uuidSendData);
-    widget.driver.stop();
+    if (!_isToGoMode) {
+      widget.driver.stop();
+    }
   }
 }
