@@ -387,7 +387,7 @@ class BgsConnect {
       }
     }
 
-    var isFM = value[10] == 7;
+    var isFM = value[10] == 1;
     double freq = (value[13] * 256 + value[12]).toDouble();
 
     bool isPause = value[1] == 3;
