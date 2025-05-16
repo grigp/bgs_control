@@ -60,6 +60,8 @@ class _DirectControlScreenState extends State<DirectControlScreen> {
   double _chargeValueExt = 0;
   String _uuidSendData = '';
 
+  bool _isGetPowerSetFromDevice = false;
+
   late Timer _timer;
   int _secCounter = 0;
 
@@ -75,13 +77,15 @@ class _DirectControlScreenState extends State<DirectControlScreen> {
           true);
       widget.driver.resetProgram();
       widget.driver.run(true); //TODO: Надо в зависимости от режима в приборе
+    } else {
+      _isGetPowerSetFromDevice = true;
     }
     _uuidSendData = const Uuid().v1();
     widget.driver.initSettings();
     widget.driver.addHandler(_uuidSendData, onGetData);
 
-    widget.driver.reset();
     _timer = Timer.periodic(const Duration(seconds: 1), onTimer);
+    widget.driver.getProgramParams();
   }
 
   @override
@@ -332,17 +336,19 @@ class _DirectControlScreenState extends State<DirectControlScreen> {
   }
 
   void onGetData(BlockData data) {
-    print('--------------------- screen.oGetData $_dataCount | isAM:${data.isAM}  isFM:${data.isFM} freq:${data.freq} int:${data.intensity} ------------------');
+    /// Читаем значение установленной мощности из устройства, если подключаемся к
+    /// устройству, на котором работает программа
+    if (_isGetPowerSetFromDevice && widget.driver.targetPower() > 0) {
+      _powerSet = widget.driver.targetPower().toDouble();
+      _isGetPowerSetFromDevice = false;
+    }
+
     if (!widget.isNewProgram && _dataCount == 0) {
-      widget.driver.stop();
       widget.driver.setProgram(
           MethodicProgram.one(
               data.isAM, data.isFM, data.amMode, data.intensity, data.freq, 0),
-          true);
-      widget.driver.resetProgram();
+          false);
       widget.driver.run(false);
-      widget.driver.setPower(_powerSet);
-
     }
 
     setState(() {
