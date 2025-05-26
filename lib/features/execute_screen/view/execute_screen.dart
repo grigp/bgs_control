@@ -533,12 +533,12 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
     }
   }
 
-  void _onPlayPauseButton() {
-    widget.driver.pause();
+  void _onPlayPauseButton() async {
+    await widget.driver.pause();
     if (!widget.driver.isPlaying()) {
       //_powerSet = 0;
     } else {
-      widget.driver.setPower(_powerSet);
+      await widget.driver.setPower(_powerSet);
     }
   }
 

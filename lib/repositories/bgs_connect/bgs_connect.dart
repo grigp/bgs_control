@@ -209,7 +209,7 @@ class BgsConnect {
   /// Записывает паузу в устройство
   /// isPlay = false - пауза
   /// isPlay = true - нет паузы
-  void pause(bool isPlay) async {
+  Future pause(bool isPlay) async {
     int b = 1;
     if (isPlay) {
       b = 2;

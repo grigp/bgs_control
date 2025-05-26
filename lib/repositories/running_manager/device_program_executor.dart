@@ -70,8 +70,8 @@ class DeviceProgramExecutor {
   double _maxPower = 0;
   int _statCount = 0;
 
-  // late Isolate _isolate;
-  // final receivePort = ReceivePort();
+  /// Костыль, запрещающий воспринимать кнопку пауза на приборе быстрее, чем заданное время от нажатия ее в программе
+  bool _isPauseHandling = true;
 
   /// Запуск программы
   Future<bool> connect() async {
@@ -146,10 +146,17 @@ class DeviceProgramExecutor {
     }
   }
 
-  void pause() {
+  /// Переключение режима паузы
+  Future pause() async {
     if (program.uid != '') {
       _isPlaying = !_isPlaying;
-      _connect.pause(_isPlaying);
+     await _connect.pause(_isPlaying);
+
+     /// Запретим реагировать на кнопку pause на приборе на 2 секунды
+     _isPauseHandling = false;
+      Timer(const Duration(seconds: 2), () {
+        _isPauseHandling = true;
+      });
     }
   }
 
@@ -304,7 +311,7 @@ class DeviceProgramExecutor {
     }
 
     /// Отработка нажатия кнопки на приборе
-    if (data.isPause){
+    if (data.isPause && _isPauseHandling){
       _isPlaying = false;
     }
 
