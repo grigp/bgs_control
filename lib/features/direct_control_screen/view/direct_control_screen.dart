@@ -392,10 +392,6 @@ class _DirectControlScreenState extends State<DirectControlScreen> {
         _freq = data.freq;
       }
 
-      if (data.isPause) {
-        _onPlayPauseButton();
-      }
-
       if (_intensivityChange) {
         _intensivity = data.intensivity;
       }
@@ -451,12 +447,12 @@ class _DirectControlScreenState extends State<DirectControlScreen> {
     return retval;
   }
 
-  void _onPlayPauseButton() {
-    widget.driver.pause();
+  void _onPlayPauseButton() async {
+    await widget.driver.pause();
     if (!widget.driver.isPlaying()) {
-      _powerSet = 0;
+//      _powerSet = 0;
     } else {
-      widget.driver.setPower(_powerSet);
+      await widget.driver.setPower(_powerSet);
     }
   }
 
