@@ -1,9 +1,13 @@
 import 'package:bgs_control/features/direct_control_screen/widgets/standard_frequency_dialog.dart';
 import 'package:bgs_control/repositories/bgs_connect/bgs_connect.dart';
 import 'package:flutter/material.dart';
+import 'package:wheel_picker/wheel_picker.dart';
 
 import '../../../assets/colors/colors.dart';
 import '../../../repositories/bgs_connect/bgs_defines.dart';
+
+final frequencyWheel = WheelPickerController(itemCount: 350);
+const freqWheelTextStyle = TextStyle(fontSize: 24.0, height: 1.5);
 
 //ignore: must_be_immutable
 class ParamsWidget extends StatefulWidget {
@@ -158,6 +162,33 @@ class _ParamsWidgetState extends State<ParamsWidget> {
               });
             },
             height: !widget.isFm ? 90 : 0,
+            // child: Container(
+            //   color: Colors.white,
+            //   child: WheelPicker(
+            //     builder: (BuildContext context, int index) => SizedBox(
+            //       width: 70,
+            //       child: Text(
+            //         "${index + 1}",
+            //         style: freqWheelTextStyle,
+            //       ),
+            //     ),
+            //     controller: frequencyWheel,
+            //     scrollDirection: Axis.horizontal,
+            //     looping: false,
+            //     onIndexChanged:
+            //         (int index, WheelPickerInteractionType interactionType) {
+            //       print('$index');
+            //     },
+            //     style: const WheelPickerStyle(
+            //       itemExtent: 50,
+            //       squeeze: 1.25,
+            //       diameterRatio: 100.8,
+            //       surroundingOpacity: 0.25,
+            //       magnification: 1.2,
+            //     ),
+            //   ),
+            // ),
+
             child: !widget.isFm && _isFmExpanded
                 ? Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
