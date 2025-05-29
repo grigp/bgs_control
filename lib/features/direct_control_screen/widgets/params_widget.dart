@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:bgs_control/features/direct_control_screen/widgets/standard_frequency_dialog.dart';
 import 'package:bgs_control/repositories/bgs_connect/bgs_connect.dart';
 import 'package:flutter/material.dart';
@@ -5,9 +7,6 @@ import 'package:wheel_picker/wheel_picker.dart';
 
 import '../../../assets/colors/colors.dart';
 import '../../../repositories/bgs_connect/bgs_defines.dart';
-
-final frequencyWheel = WheelPickerController(itemCount: 350);
-const freqWheelTextStyle = TextStyle(fontSize: 24.0, height: 1.5);
 
 //ignore: must_be_immutable
 class ParamsWidget extends StatefulWidget {
@@ -45,9 +44,28 @@ class ParamsWidget extends StatefulWidget {
 
 class _ParamsWidgetState extends State<ParamsWidget> {
   bool _isFmExpanded = false;
+  final _frequencyWheel = WheelPickerController(itemCount: 350);
+  final TextStyle _freqWheelTextStyle =
+      const TextStyle(fontSize: 24.0, height: 1.5);
+
+  /// Переменные для управления сменой частоты
+  bool _isFreqChanged = false;
+
+  /// Пикер крутим
+  int _freqChangeTimer = 0;
+
+  /// Время от установки последнего значения
+  int _lastFreqSet = 15;
+
+  /// Последнее установленное значение частоты
+  late Timer _timer;
 
   @override
   Widget build(BuildContext context) {
+    if (!_isFreqChanged) {
+      _frequencyWheel.shiftTo(widget.freq.toInt() - 1);
+    }
+
     final theme = Theme.of(context);
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8),
@@ -162,90 +180,122 @@ class _ParamsWidgetState extends State<ParamsWidget> {
               });
             },
             height: !widget.isFm ? 90 : 0,
-            // child: Container(
-            //   color: Colors.white,
-            //   child: WheelPicker(
-            //     builder: (BuildContext context, int index) => SizedBox(
-            //       width: 70,
-            //       child: Text(
-            //         "${index + 1}",
-            //         style: freqWheelTextStyle,
-            //       ),
-            //     ),
-            //     controller: frequencyWheel,
-            //     scrollDirection: Axis.horizontal,
-            //     looping: false,
-            //     onIndexChanged:
-            //         (int index, WheelPickerInteractionType interactionType) {
-            //       print('$index');
-            //     },
-            //     style: const WheelPickerStyle(
-            //       itemExtent: 50,
-            //       squeeze: 1.25,
-            //       diameterRatio: 100.8,
-            //       surroundingOpacity: 0.25,
-            //       magnification: 1.2,
-            //     ),
-            //   ),
-            // ),
-
             child: !widget.isFm && _isFmExpanded
-                ? Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      GestureDetector(
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              'Частота: ${widget.freq.toInt()} Гц',
-                              style: theme.textTheme.labelMedium,
-                              textScaler: const TextScaler.linear(1.0),
-                            ),
-                            const SizedBox(width: 20),
-                            const Icon(
-                              Icons.open_in_browser,
-                              size: 25,
-                            ),
-                          ],
+                ? Row(
+                  children: [
+                    Text(
+                      'Частота, Гц',
+                      style: theme.textTheme.labelMedium,
+                      textScaler: const TextScaler.linear(1.0),
+                    ),
+                    const SizedBox(width: 20),
+                    SizedBox(
+                      width: 100,
+                      child: WheelPicker(
+                        builder: (BuildContext context, int index) =>
+                            SizedBox(
+                          width: 70,
+                          child: Text(
+                            "${index + 1}",
+                            style: _freqWheelTextStyle,
+                          ),
                         ),
-                        onTap: () {
-                          _getStandardFrequency(context);
+                        controller: _frequencyWheel,
+                //                     scrollDirection: Axis.horizontal,
+                        looping: false,
+                        onIndexChanged: (int index,
+                            WheelPickerInteractionType interactionType) {
+                          _isFreqChanged = true;
+                          _freqChangeTimer = 0;
+                          _lastFreqSet = index + 1;
                         },
+
+                        style: const WheelPickerStyle(
+                          itemExtent: 50,
+                          squeeze: 1.25,
+                          diameterRatio: 100.8,
+                          surroundingOpacity: 0.25,
+                          magnification: 1.2,
+                        ),
                       ),
-                      Slider.adaptive(
-                        value: widget.freq,
-                        label: widget.freq.round().toString(),
-                        min: 1,
-                        max: 350,
-                        //divisions: 6,
-                        activeColor:
-                            widget.colorsStyle == ParamsColorsStyle.pcsYellow
-                                ? backgroundDarknessTestColor
-                                : filledAccentButtonColor,
-                        thumbColor:
-                            widget.colorsStyle == ParamsColorsStyle.pcsYellow
-                                ? backgroundDarknessTestColor
-                                : filledAccentButtonColor,
-                        inactiveColor:
-                            widget.colorsStyle == ParamsColorsStyle.pcsYellow
-                                ? backgroundCarpetButtonTestColor
-                                : filledSecondaryButtonColor,
-                        onChanged: (double value) {
-                          setState(() {
-                            widget.freq = value;
-                          });
-                        },
-                        onChangeEnd: (double value) {
-                          /// В этот момент мы будем устанавливать частоту
-                          widget.onFreqChanged(widget.freq);
-                        },
+                    ),
+                    const Spacer(),
+                    ElevatedButton(
+                      onPressed: () {
+                        _getStandardFrequency(context);
+                      },
+                      style: const ButtonStyle(
+                        backgroundColor: WidgetStatePropertyAll<Color>(
+                            backgroundCarpetButtonTestColor),
                       ),
-                      const Divider(),
-                    ],
-                  )
+                      child: const Icon(
+                        Icons.open_in_browser,
+                        color: black,
+                        size: 20,
+                      ),
+                    )
+                  ],
+                )
                 : const Text(''),
+
+            // TODO: Старый вариант управления частотой с помощью слайдера. Когда утрясется, решить с закомментированным
+            // child: !widget.isFm && _isFmExpanded
+            //     ? Column(
+            //         crossAxisAlignment: CrossAxisAlignment.start,
+            //         children: [
+            //           GestureDetector(
+            //             child: Row(
+            //               mainAxisSize: MainAxisSize.min,
+            //               mainAxisAlignment: MainAxisAlignment.center,
+            //               children: [
+            //                 Text(
+            //                   'Частота: ${widget.freq.toInt()} Гц',
+            //                   style: theme.textTheme.labelMedium,
+            //                   textScaler: const TextScaler.linear(1.0),
+            //                 ),
+            //                 const SizedBox(width: 20),
+            //                 const Icon(
+            //                   Icons.open_in_browser,
+            //                   size: 25,
+            //                 ),
+            //               ],
+            //             ),
+            //             onTap: () {
+            //               _getStandardFrequency(context);
+            //             },
+            //           ),
+            //           Slider.adaptive(
+            //             value: widget.freq,
+            //             label: widget.freq.round().toString(),
+            //             min: 1,
+            //             max: 350,
+            //             //divisions: 6,
+            //             activeColor:
+            //                 widget.colorsStyle == ParamsColorsStyle.pcsYellow
+            //                     ? backgroundDarknessTestColor
+            //                     : filledAccentButtonColor,
+            //             thumbColor:
+            //                 widget.colorsStyle == ParamsColorsStyle.pcsYellow
+            //                     ? backgroundDarknessTestColor
+            //                     : filledAccentButtonColor,
+            //             inactiveColor:
+            //                 widget.colorsStyle == ParamsColorsStyle.pcsYellow
+            //                     ? backgroundCarpetButtonTestColor
+            //                     : filledSecondaryButtonColor,
+            //             onChanged: (double value) {
+            //               setState(() {
+            //                 widget.freq = value;
+            //               });
+            //             },
+            //             onChangeEnd: (double value) {
+            //               /// В этот момент мы будем устанавливать частоту
+            //               widget.onFreqChanged(widget.freq);
+            //             },
+            //           ),
+            //           const Divider(),
+            //         ],
+            //       )
+            //     : const Text(''),
           ),
           const SizedBox(height: 10),
           Column(
@@ -311,6 +361,26 @@ class _ParamsWidgetState extends State<ParamsWidget> {
   void initState() {
     super.initState();
     _isFmExpanded = !widget.isFm;
+
+    _timer = Timer.periodic(const Duration(seconds: 1), _onTimer);
+  }
+
+  @override
+  void dispose() {
+    _timer.cancel();
+    super.dispose();
+  }
+
+  void _onTimer(Timer timer) async {
+    if (_isFreqChanged) {
+      ++_freqChangeTimer;
+      if (_freqChangeTimer >= 2) {
+        _isFreqChanged = false;
+        _freqChangeTimer = 0;
+        widget.freq = _lastFreqSet.toDouble();
+        widget.onFreqChanged(widget.freq);
+      }
+    }
   }
 
   void _getStandardFrequency(BuildContext context) {
@@ -329,6 +399,7 @@ class _ParamsWidgetState extends State<ParamsWidget> {
     setState(() {
       widget.freq = frequency.toDouble();
       widget.onFreqChanged(widget.freq);
+      _frequencyWheel.shiftTo(frequency - 1);
     });
   }
 }

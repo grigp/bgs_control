@@ -58,7 +58,7 @@ class _PowerHorizontalWidgetState extends State<PowerHorizontalWidget> {
                         min: 0,
                         max: 125,
                         activeColor: backgroundMiddleTestColor,
-                        thumbColor: backgroundDarknessTestColor,
+                        thumbColor: black,
                         inactiveColor: backgroundCarpetButtonTestColor,
                         divisions: 125,
                         onChanged: (double value) {},

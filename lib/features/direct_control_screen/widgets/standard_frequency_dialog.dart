@@ -29,7 +29,7 @@ class _StandardFrequencyDialog extends State<StandardFrequencyDialog> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return SizedBox(
-      height: 450,
+      height: 470,
       width: 160,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
