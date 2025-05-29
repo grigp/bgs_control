@@ -20,8 +20,8 @@ class ParamsWidget extends StatefulWidget {
     required this.onFmChanged,
     required this.freq,
     required this.onFreqChanged,
-    required this.intensity,
-    required this.onIntensityChanged,
+    required this.intensivity,
+    required this.onIntensivityChanged,
     required this.colorsStyle,
   });
 
@@ -33,8 +33,8 @@ class ParamsWidget extends StatefulWidget {
   final Function onFmChanged;
   double freq;
   final Function onFreqChanged;
-  Intensivity intensity;
-  final Function onIntensityChanged;
+  Intensivity intensivity;
+  final Function onIntensivityChanged;
 
   final ParamsColorsStyle colorsStyle;
 
@@ -341,12 +341,12 @@ class _ParamsWidgetState extends State<ParamsWidget> {
                       ),
                     ),
                   ],
-                  selected: <Intensivity>{widget.intensity},
+                  selected: <Intensivity>{widget.intensivity},
                   onSelectionChanged: (Set<Intensivity> newSelection) {
                     setState(() {
-                      widget.intensity = newSelection.first;
+                      widget.intensivity = newSelection.first;
                     });
-                    widget.onIntensityChanged(widget.intensity);
+                    widget.onIntensivityChanged(widget.intensivity);
                   },
                 ),
               ),

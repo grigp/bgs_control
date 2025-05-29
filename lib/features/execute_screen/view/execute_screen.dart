@@ -479,7 +479,7 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
     await widget.driver.saveSettings();
     await widget.driver.removeHandler(_uuidGetData);
     if (!_isToGoMode) {
-      await widget.driver.stop();
+      await widget.driver.stop(false);
     }
   }
 

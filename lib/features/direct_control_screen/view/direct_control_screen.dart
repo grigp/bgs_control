@@ -144,8 +144,8 @@ class _DirectControlScreenState extends State<DirectControlScreen> {
                 onFmChanged: onFmChanged,
                 freq: _freq,
                 onFreqChanged: onFreqChanged,
-                intensity: _intensivity,
-                onIntensityChanged: onIntensityChanged,
+                intensivity: _intensivity,
+                onIntensivityChanged: onIntensivityChanged,
                 colorsStyle: ParamsColorsStyle.pcsYellow,
               ),
             ),
@@ -266,78 +266,88 @@ class _DirectControlScreenState extends State<DirectControlScreen> {
   }
 
   void onAmChanged(bool isAm) {
-    _secCounter = 0;
-    widget.driver.setWorkManagerTask(3600000 - 2000);
+    if (widget.driver.isPlaying()) {
+      _secCounter = 0;
+      widget.driver.setWorkManagerTask(3600000 - 2000);
 
-    Timer(const Duration(seconds: 2), () {
-      _isAmChange = true;
-    });
-    _isAmChange = false;
-    _setDeviceMode(isAm, _isFm, _amMode, _freq, _intensivity);
+      Timer(const Duration(seconds: 2), () {
+        _isAmChange = true;
+      });
+      _isAmChange = false;
+      _setDeviceMode(isAm, _isFm, _amMode, _freq, _intensivity);
 
-    setState(() {
-      _isAm = isAm;
-    });
+      setState(() {
+        _isAm = isAm;
+      });
+    }
   }
 
   void onAmModeChanged(AmMode amMode) {
-    _secCounter = 0;
-    widget.driver.setWorkManagerTask(3600000 - 2000);
+    if (widget.driver.isPlaying()) {
+      _secCounter = 0;
+      widget.driver.setWorkManagerTask(3600000 - 2000);
 
-    Timer(const Duration(seconds: 2), () {
-      _isAmModeChange = true;
-    });
-    _isAmModeChange = false;
-    _setDeviceMode(_isAm, _isFm, amMode, _freq, _intensivity);
+      Timer(const Duration(seconds: 2), () {
+        _isAmModeChange = true;
+      });
+      _isAmModeChange = false;
+      _setDeviceMode(_isAm, _isFm, amMode, _freq, _intensivity);
 
-    setState(() {
-      _amMode = amMode;
-    });
+      setState(() {
+        _amMode = amMode;
+      });
+    }
   }
 
   void onFmChanged(bool isFm) {
-    _secCounter = 0;
-    widget.driver.setWorkManagerTask(3600000 - 2000);
+    if (widget.driver.isPlaying()) {
+      _secCounter = 0;
+      widget.driver.setWorkManagerTask(3600000 - 2000);
 
-    Timer(const Duration(seconds: 2), () {
-      _isFmChange = true;
-    });
-    _isFmChange = false;
-    _setDeviceMode(_isAm, isFm, _amMode, _freq, _intensivity);
+      Timer(const Duration(seconds: 2), () {
+        _isFmChange = true;
+      });
+      _isFmChange = false;
+      _setDeviceMode(_isAm, isFm, _amMode, _freq, _intensivity);
 
-    setState(() {
-      _isFm = isFm;
-    });
+      setState(() {
+        _isFm = isFm;
+      });
+    }
   }
 
   void onFreqChanged(double idxFreq) {
-    _secCounter = 0;
-    widget.driver.setWorkManagerTask(3600000 - 2000);
+    if (widget.driver.isPlaying()) {
+      _secCounter = 0;
+      widget.driver.setWorkManagerTask(3600000 - 2000);
 
-    Timer(const Duration(seconds: 2), () {
-      _idxFreqChange = true;
-    });
-    _idxFreqChange = false;
-    _setDeviceMode(_isAm, _isFm, _amMode, idxFreq, _intensivity);
+      Timer(const Duration(seconds: 2), () {
+        _idxFreqChange = true;
+      });
+      _idxFreqChange = false;
+      _setDeviceMode(_isAm, _isFm, _amMode, idxFreq, _intensivity);
 
-    setState(() {
-      _freq = idxFreq;
-    });
+      setState(() {
+        _freq = idxFreq;
+      });
+    }
   }
 
-  void onIntensityChanged(Intensivity intensivity) {
-    _secCounter = 0;
-    widget.driver.setWorkManagerTask(3600000 - 2000);
+  void onIntensivityChanged(Intensivity intensivity) {
+    if (widget.driver.isPlaying()) {
+      _secCounter = 0;
+      widget.driver.setWorkManagerTask(3600000 - 2000);
 
-    Timer(const Duration(seconds: 2), () {
-      _intensivityChange = true;
-    });
-    _intensivityChange = false;
-    _setDeviceMode(_isAm, _isFm, _amMode, _freq, intensivity);
+      Timer(const Duration(seconds: 2), () {
+        _intensivityChange = true;
+      });
+      _intensivityChange = false;
+      _setDeviceMode(_isAm, _isFm, _amMode, _freq, intensivity);
 
-    setState(() {
-      _intensivity = intensivity;
-    });
+      setState(() {
+        _intensivity = intensivity;
+      });
+    }
   }
 
   void onPowerSet(double power) {
@@ -378,19 +388,21 @@ class _DirectControlScreenState extends State<DirectControlScreen> {
       _value = data.source;
       _powerReal = data.power;
 
-      if (_isAmChange) {
-        _isAm = data.isAM;
-      }
-      if (_isAmModeChange) {
-        _amMode = data.amMode;
-      }
+//      if (widget.driver.isPlaying()) {
+        if (_isAmChange) {
+          _isAm = data.isAM;
+        }
+        if (_isAmModeChange) {
+          _amMode = data.amMode;
+        }
 
-      if (_isFmChange) {
-        _isFm = data.isFM;
-      }
-      if (_idxFreqChange) {
-        _freq = data.freq;
-      }
+        if (_isFmChange) {
+          _isFm = data.isFM;
+        }
+        if (_idxFreqChange) {
+          _freq = data.freq;
+        }
+//      }
 
       if (_intensivityChange) {
         _intensivity = data.intensivity;
@@ -424,13 +436,13 @@ class _DirectControlScreenState extends State<DirectControlScreen> {
     }
   }
 
-  void _setDeviceMode(bool isAM, bool isFM, AmMode amMode, double freq,
+  Future _setDeviceMode(bool isAM, bool isFM, AmMode amMode, double freq,
       Intensivity intensivity) async {
     int duration =
         (widget.driver.programDuration() - widget.driver.playingTime()) * 1000;
     print(
         '----------- _setDeviceMode ($isAM $isFM $amMode $freq, $intensivity   duration: $duration)');
-    widget.driver.stop();
+    widget.driver.stop(true);
     var program =
         MethodicProgram.one(isAM, isFM, amMode, intensivity, freq, duration);
     widget.driver.setProgram(program, true);
@@ -452,6 +464,7 @@ class _DirectControlScreenState extends State<DirectControlScreen> {
     if (!widget.driver.isPlaying()) {
 //      _powerSet = 0;
     } else {
+      await _setDeviceMode(_isAm, _isFm, _amMode, _freq, _intensivity);
       await widget.driver.setPower(_powerSet);
     }
   }
@@ -465,7 +478,7 @@ class _DirectControlScreenState extends State<DirectControlScreen> {
     widget.driver.saveSettings();
     widget.driver.removeHandler(_uuidSendData);
     if (!_isToGoMode) {
-      widget.driver.stop();
+      widget.driver.stop(false);
     }
   }
 }

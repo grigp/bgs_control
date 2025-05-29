@@ -130,9 +130,20 @@ class DeviceProgramExecutor {
     }
   }
 
-  Future stop() async {
+  /// Останавливает выполнение программы.
+  /// Если isPause == true, запретим реагировать на кнопку pause на приборе на 2 секунды
+  Future stop(bool isPause) async {
+    if (isPause) {
+      /// Запретим реагировать на кнопку pause на приборе на 2 секунды
+      _isPauseHandling = false;
+      Timer(const Duration(seconds: 2), () {
+        _isPauseHandling = true;
+      });
+    } else {
+      _isPlaying = false;
+    }
+
     Workmanager().cancelAll();
-    _isPlaying = false;
     stopProgram();
     _idxStage = 0;
     _playingTime = 0;
@@ -150,10 +161,10 @@ class DeviceProgramExecutor {
   Future pause() async {
     if (program.uid != '') {
       _isPlaying = !_isPlaying;
-     await _connect.pause(_isPlaying);
+      await _connect.pause(_isPlaying);
 
-     /// Запретим реагировать на кнопку pause на приборе на 2 секунды
-     _isPauseHandling = false;
+      /// Запретим реагировать на кнопку pause на приборе на 2 секунды
+      _isPauseHandling = false;
       Timer(const Duration(seconds: 2), () {
         _isPauseHandling = true;
       });
@@ -311,7 +322,7 @@ class DeviceProgramExecutor {
     }
 
     /// Отработка нажатия кнопки на приборе
-    if (data.isPause && _isPauseHandling){
+    if (data.isPause && _isPauseHandling) {
       _isPlaying = false;
     }
 
@@ -329,7 +340,9 @@ class DeviceProgramExecutor {
       } else {
         /// Методика зкончилась
         Workmanager().cancelAll();
-        _isPlaying = false;
+        if (_isPauseHandling) {
+          _isPlaying = false;
+        }
         _programTime = _playingTime;
         _playingTime = 0;
         _isOver = true;
@@ -371,9 +384,8 @@ class DeviceProgramExecutor {
     return _connect.firmwareNumber();
   }
 
-  void _addHandler(){
+  void _addHandler() {
     _uuidGetData = const Uuid().v1();
     _connect.addHandler(_uuidGetData, onGetData);
   }
-
 }
