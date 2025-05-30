@@ -275,11 +275,11 @@ class _DirectControlScreenState extends State<DirectControlScreen> {
       });
       _isAmChange = false;
       _setDeviceMode(isAm, _isFm, _amMode, _freq, _intensivity);
-
-      setState(() {
-        _isAm = isAm;
-      });
     }
+
+    setState(() {
+      _isAm = isAm;
+    });
   }
 
   void onAmModeChanged(AmMode amMode) {
@@ -292,11 +292,11 @@ class _DirectControlScreenState extends State<DirectControlScreen> {
       });
       _isAmModeChange = false;
       _setDeviceMode(_isAm, _isFm, amMode, _freq, _intensivity);
-
-      setState(() {
-        _amMode = amMode;
-      });
     }
+
+    setState(() {
+      _amMode = amMode;
+    });
   }
 
   void onFmChanged(bool isFm) {
@@ -309,11 +309,11 @@ class _DirectControlScreenState extends State<DirectControlScreen> {
       });
       _isFmChange = false;
       _setDeviceMode(_isAm, isFm, _amMode, _freq, _intensivity);
-
-      setState(() {
-        _isFm = isFm;
-      });
     }
+
+    setState(() {
+      _isFm = isFm;
+    });
   }
 
   void onFreqChanged(double idxFreq) {
@@ -326,11 +326,11 @@ class _DirectControlScreenState extends State<DirectControlScreen> {
       });
       _idxFreqChange = false;
       _setDeviceMode(_isAm, _isFm, _amMode, idxFreq, _intensivity);
-
-      setState(() {
-        _freq = idxFreq;
-      });
     }
+
+    setState(() {
+      _freq = idxFreq;
+    });
   }
 
   void onIntensivityChanged(Intensivity intensivity) {
@@ -343,11 +343,11 @@ class _DirectControlScreenState extends State<DirectControlScreen> {
       });
       _intensivityChange = false;
       _setDeviceMode(_isAm, _isFm, _amMode, _freq, intensivity);
-
-      setState(() {
-        _intensivity = intensivity;
-      });
     }
+
+    setState(() {
+      _intensivity = intensivity;
+    });
   }
 
   void onPowerSet(double power) {
@@ -388,25 +388,24 @@ class _DirectControlScreenState extends State<DirectControlScreen> {
       _value = data.source;
       _powerReal = data.power;
 
-//      if (widget.driver.isPlaying()) {
+      if (widget.driver.isPlaying()) {
         if (_isAmChange) {
           _isAm = data.isAM;
         }
         if (_isAmModeChange) {
           _amMode = data.amMode;
         }
-
         if (_isFmChange) {
           _isFm = data.isFM;
         }
         if (_idxFreqChange) {
           _freq = data.freq;
         }
-//      }
-
-      if (_intensivityChange) {
-        _intensivity = data.intensivity;
+        if (_intensivityChange) {
+          _intensivity = data.intensivity;
+        }
       }
+
       _chargeLevel = data.chargeLevel;
       _chargeValue = data.chargeValue;
       _chargeValueExt = data.chargeValueExt;
