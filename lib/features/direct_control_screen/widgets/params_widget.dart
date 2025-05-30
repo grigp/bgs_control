@@ -192,7 +192,6 @@ class _ParamsWidgetState extends State<ParamsWidget> {
                       SizedBox(
                         width: 100,
                         child: Container(
-                          // margin: const EdgeInsets.all(15.0),
                           padding: const EdgeInsets.all(3.0),
                           decoration: BoxDecoration(
                             border: Border.all(
