@@ -182,60 +182,81 @@ class _ParamsWidgetState extends State<ParamsWidget> {
             height: !widget.isFm ? 90 : 0,
             child: !widget.isFm && _isFmExpanded
                 ? Row(
-                  children: [
-                    Text(
-                      'Частота, Гц',
-                      style: theme.textTheme.labelMedium,
-                      textScaler: const TextScaler.linear(1.0),
-                    ),
-                    const SizedBox(width: 20),
-                    SizedBox(
-                      width: 100,
-                      child: WheelPicker(
-                        builder: (BuildContext context, int index) =>
-                            SizedBox(
-                          width: 70,
-                          child: Text(
-                            "${index + 1}",
-                            style: _freqWheelTextStyle,
+                    children: [
+                      Text(
+                        'Частота, Гц',
+                        style: theme.textTheme.labelMedium,
+                        textScaler: const TextScaler.linear(1.0),
+                      ),
+                      const SizedBox(width: 20),
+                      SizedBox(
+                        width: 100,
+                        child: Container(
+                          // margin: const EdgeInsets.all(15.0),
+                          padding: const EdgeInsets.all(3.0),
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                              color: Colors.black87,
+                            ),
+                            gradient: const LinearGradient(
+                              begin: Alignment.topCenter,
+                              end: Alignment.bottomCenter,
+                              colors: <Color>[
+                                Color(0xffafafaf),
+                                Color(0xffeeeeee),
+                                Color(0xffafafaf),
+                              ],
+                            ),
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(10)),
+                          ),
+                          child: WheelPicker(
+                            builder: (BuildContext context, int index) =>
+                                SizedBox(
+                              width: 70,
+                              child: Text(
+                                "${index + 1}",
+                                style: _freqWheelTextStyle,
+                              ),
+                            ),
+                            controller: _frequencyWheel,
+                            //                     scrollDirection: Axis.horizontal,
+                            looping: false,
+                            onIndexChanged: (int index,
+                                WheelPickerInteractionType interactionType) {
+                              _isFreqChanged = true;
+                              _freqChangeTimer = 0;
+                              _lastFreqSet = index + 1;
+                            },
+
+                            style: const WheelPickerStyle(
+                              itemExtent: 50,
+                              squeeze: 1.25,
+                              diameterRatio: 100.8,
+                              surroundingOpacity: 0.25,
+                              magnification: 1.2,
+                            ),
                           ),
                         ),
-                        controller: _frequencyWheel,
-                //                     scrollDirection: Axis.horizontal,
-                        looping: false,
-                        onIndexChanged: (int index,
-                            WheelPickerInteractionType interactionType) {
-                          _isFreqChanged = true;
-                          _freqChangeTimer = 0;
-                          _lastFreqSet = index + 1;
+                      ),
+                      const Spacer(),
+                      ElevatedButton(
+                        onPressed: () {
+                          _getStandardFrequency(context);
                         },
-
-                        style: const WheelPickerStyle(
-                          itemExtent: 50,
-                          squeeze: 1.25,
-                          diameterRatio: 100.8,
-                          surroundingOpacity: 0.25,
-                          magnification: 1.2,
+                        style: const ButtonStyle(
+                          backgroundColor: WidgetStatePropertyAll<Color>(
+                            Color(0xffafafaf),
+                          ),
                         ),
-                      ),
-                    ),
-                    const Spacer(),
-                    ElevatedButton(
-                      onPressed: () {
-                        _getStandardFrequency(context);
-                      },
-                      style: const ButtonStyle(
-                        backgroundColor: WidgetStatePropertyAll<Color>(
-                            backgroundCarpetButtonTestColor),
-                      ),
-                      child: const Icon(
-                        Icons.open_in_browser,
-                        color: black,
-                        size: 20,
-                      ),
-                    )
-                  ],
-                )
+                        child: const Icon(
+                          Icons.open_in_browser,
+                          color: black,
+                          size: 20,
+                        ),
+                      )
+                    ],
+                  )
                 : const Text(''),
 
             // TODO: Старый вариант управления частотой с помощью слайдера. Когда утрясется, решить с закомментированным
