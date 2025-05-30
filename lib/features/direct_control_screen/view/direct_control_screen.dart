@@ -316,8 +316,8 @@ class _DirectControlScreenState extends State<DirectControlScreen> {
     });
   }
 
-  void onFreqChanged(double idxFreq) {
-    if (widget.driver.isPlaying()) {
+  void onFreqChanged(double freq) {
+    if (widget.driver.isPlaying() && (freq != _freq)) {
       _secCounter = 0;
       widget.driver.setWorkManagerTask(3600000 - 2000);
 
@@ -325,11 +325,11 @@ class _DirectControlScreenState extends State<DirectControlScreen> {
         _idxFreqChange = true;
       });
       _idxFreqChange = false;
-      _setDeviceMode(_isAm, _isFm, _amMode, idxFreq, _intensivity);
+      _setDeviceMode(_isAm, _isFm, _amMode, freq, _intensivity);
     }
 
     setState(() {
-      _freq = idxFreq;
+      _freq = freq;
     });
   }
 
@@ -440,7 +440,7 @@ class _DirectControlScreenState extends State<DirectControlScreen> {
     int duration =
         (widget.driver.programDuration() - widget.driver.playingTime()) * 1000;
     print(
-        '----------- _setDeviceMode ($isAM $isFM $amMode $freq, $intensivity   duration: $duration)');
+        '------------ _setDeviceMode ($isAM $isFM $amMode $freq, $intensivity   duration: $duration)');
     widget.driver.stop(true);
     var program =
         MethodicProgram.one(isAM, isFM, amMode, intensivity, freq, duration);

@@ -95,7 +95,7 @@ class DeviceProgramExecutor {
   }
 
   void run(bool isNewProgram) async {
-    print('---------------------- dpe.run()    ${program.uid}  $_isConnected');
+    print('---------------------- dpe.run()    ${program.uid}  $_isConnected  isNewProg: $isNewProgram');
     if (program.uid != '' && _isConnected) {
       _addHandler();
 
