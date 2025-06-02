@@ -367,6 +367,21 @@ class _ParamsWidgetState extends State<ParamsWidget> {
                       widget.intensivity = newSelection.first;
                     });
                     widget.onIntensivityChanged(widget.intensivity);
+
+                    /// Коррекция частоты в зависимости от интенсивности
+                    /// Открыть, когда договоримся, как
+                    // if (widget.intensivity == Intensivity.three && widget.freq > 330){
+                    //   setState(() {
+                    //     widget.freq = 330;
+                    //   });
+                    //   widget.onFreqChanged(widget.freq);
+                    // }
+                    // if (widget.intensivity == Intensivity.four && widget.freq > 250){
+                    //   setState(() {
+                    //     widget.freq = 250;
+                    //   });
+                    //   widget.onFreqChanged(widget.freq);
+                    // }
                   },
                 ),
               ),
@@ -391,6 +406,7 @@ class _ParamsWidgetState extends State<ParamsWidget> {
     super.dispose();
   }
 
+  /// Обработчик таймера, служащего для изменения частоты
   void _onTimer(Timer timer) async {
     if (_isFreqChanged) {
       ++_freqChangeTimer;
@@ -399,6 +415,20 @@ class _ParamsWidgetState extends State<ParamsWidget> {
         _freqChangeTimer = 0;
         widget.freq = _lastFreqSet.toDouble();
         widget.onFreqChanged(widget.freq);
+        /// Коррекция интенсивности в зависимости от частоты
+        /// Открыть, когда договоримся, как
+        // if (widget.intensivity == Intensivity.four && widget.freq >= 250) {
+        //   setState(() {
+        //     widget.intensivity = Intensivity.three;
+        //   });
+        //   widget.onIntensivityChanged(widget.intensivity);
+        // }
+        // if (widget.intensivity == Intensivity.three && widget.freq >= 333) {
+        //   setState(() {
+        //     widget.intensivity = Intensivity.two;
+        //   });
+        //   widget.onIntensivityChanged(widget.intensivity);
+        // }
       }
     }
   }

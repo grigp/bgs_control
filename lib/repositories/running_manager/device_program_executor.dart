@@ -95,7 +95,8 @@ class DeviceProgramExecutor {
   }
 
   void run(bool isNewProgram) async {
-    print('---------------------- dpe.run()    ${program.uid}  $_isConnected  isNewProg: $isNewProgram');
+    print(
+        '---------------------- dpe.run()    ${program.uid}  $_isConnected  isNewProg: $isNewProgram');
     if (program.uid != '' && _isConnected) {
       _addHandler();
 
@@ -328,7 +329,13 @@ class DeviceProgramExecutor {
 
     if (_isPlaying) {
       /// Если в пакете код методики == 0, то методика зкончилась, иначе она идет
-      if (data.methodUid != 0) {
+      /// или режим работы не выполнение и не пауза
+      /// Или время пошло в минус (КОСТЫЛЬ)
+//      if ((data.methodUid != 0) && ((programDuration() - playingTime()) > 0)) {
+      if (data.methodUid != 0 &&
+          (data.deviceMode == DeviceMode.dm_execution ||
+              data.deviceMode == DeviceMode.dm_pause)) {
+//      if (data.methodUid != 0) { TODO: убрать, когда отработаем длительность
         /// Время этапа меньше, чем в предыдущем пакете - перешли к новому этапу
         if (data.playingTime.toInt() + 1 < _prevTime) {
           _stageStartTime = _stageStartTime + _prevTime;
@@ -338,6 +345,9 @@ class DeviceProgramExecutor {
         _idxStage = data.stage;
         _duration = program.stage(_idxStage).duration;
       } else {
+        if (kDebugMode) {
+          print('---------- METHODIC FINISHED - device mode: ${data.deviceMode};  method uid: ${data.methodUid}.');
+        }
         /// Методика зкончилась
         Workmanager().cancelAll();
         if (_isPauseHandling) {

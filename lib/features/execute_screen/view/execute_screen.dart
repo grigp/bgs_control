@@ -50,6 +50,7 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
   double _chargeValue = 0;
   double _powerSet = 0;
   double _powerReal = 0;
+
 //  int _dataCount = 0;
   String _uuidGetData = '';
   bool _isOver = false;
