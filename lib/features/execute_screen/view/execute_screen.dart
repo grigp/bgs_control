@@ -489,6 +489,7 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
     /// устройству, на котором работает программа
     if (_isGetPowerSetFromDevice && widget.driver.targetPower() > 0) {
       _powerSet = widget.driver.targetPower().toDouble();
+      _sliderValueStart = _powerSet;
       _isGetPowerSetFromDevice = false;
     }
 
