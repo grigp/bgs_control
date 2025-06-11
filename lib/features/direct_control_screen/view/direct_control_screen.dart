@@ -61,6 +61,7 @@ class _DirectControlScreenState extends State<DirectControlScreen> {
   double _chargeValue = 0;
   double _chargeValueExt = 0;
   String _uuidSendData = '';
+  bool _isVisibleChargeMessageWidget = false;
 
   bool _isGetPowerSetFromDevice = false;
   bool _isToGoMode = false;
@@ -109,22 +110,49 @@ class _DirectControlScreenState extends State<DirectControlScreen> {
           textScaler: const TextScaler.linear(1.0),
         ),
         actions: [
-          if (_chargeValue > 0)
-            Icon(getChargeIconByLevel(_chargeLevel), size: 20),
-          if (_chargeValue > 0)
-            Text(
-              '${_chargeLevel.toInt()}%',
-              style: theme.textTheme.titleMedium,
-              textScaler: const TextScaler.linear(1.0),
+          GestureDetector(
+            child: Row(
+              children: [
+                if (_chargeValue > 0)
+                  if (_chargeLevel <= chargeAlarmBoundLevel)
+                    Icon(
+                      Icons.warning,
+                      color: Colors.red.shade800,
+                    ),
+                  Icon(
+                    getChargeIconByLevel(_chargeLevel),
+                    size: 20,
+                    color: _chargeLevel > chargeAlarmBoundLevel
+                        ? Colors.black
+                        : Colors.red.shade800,
+                  ),
+                if (_chargeValue > 0)
+                  Text(
+                    '${_chargeLevel.toInt()}%',
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: _chargeLevel > chargeAlarmBoundLevel
+                          ? Colors.black
+                          : Colors.red.shade800,
+                    ),
+                    textScaler: const TextScaler.linear(1.0),
+                  ),
+                const SizedBox(width: 10),
+              ],
             ),
-          const SizedBox(width: 10),
+            onTap: () {
+              _isVisibleChargeMessageWidget =
+              !_isVisibleChargeMessageWidget;
+            },
+          ),
         ],
       ),
       body: SafeArea(
         child: ListView(
           padding: const EdgeInsets.all(20),
           children: [
-            if (_chargeLevel <= chargeAlarmBoundLevel)
+            if (_chargeLevel <= chargeAlarmBoundLevel &&
+                _isVisibleChargeMessageWidget)
               const ChargeMessageWidget(),
             if (kDebugMode)
               Text(

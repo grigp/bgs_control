@@ -48,6 +48,7 @@ class ExecuteScreen extends StatefulWidget {
 class _ExecuteScreenState extends State<ExecuteScreen> {
   double _chargeLevel = 100;
   double _chargeValue = 0;
+  bool _isVisibleChargeMessageWidget = false;
   double _powerSet = 0;
   double _powerReal = 0;
 
@@ -127,12 +128,37 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
                     ),
                     const SizedBox(width: 10),
                     if (_chargeValue > 0)
-                      Icon(getChargeIconByLevel(_chargeLevel), size: 20),
-                    if (_chargeValue > 0)
-                      Text(
-                        '${_chargeLevel.toInt()}%',
-                        style: theme.textTheme.titleSmall,
-                        textScaler: const TextScaler.linear(1.0),
+                      GestureDetector(
+                        child: Row(
+                          children: [
+                            if (_chargeLevel <= chargeAlarmBoundLevel)
+                              Icon(
+                                Icons.warning,
+                                color: Colors.red.shade800,
+                              ),
+                            Icon(
+                              getChargeIconByLevel(_chargeLevel),
+                              size: 20,
+                              color: _chargeLevel > chargeAlarmBoundLevel
+                                  ? Colors.black
+                                  : Colors.red.shade800,
+                            ),
+                            Text(
+                              '${_chargeLevel.toInt()}%',
+                              style: TextStyle(
+                                fontSize: 14,
+                                color: _chargeLevel > chargeAlarmBoundLevel
+                                    ? Colors.black
+                                    : Colors.red.shade800,
+                              ),
+                              textScaler: const TextScaler.linear(1.0),
+                            ),
+                          ],
+                        ),
+                        onTap: () {
+                          _isVisibleChargeMessageWidget =
+                              !_isVisibleChargeMessageWidget;
+                        },
                       ),
                     const SizedBox(width: 10),
                   ],
@@ -140,7 +166,8 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
               ),
 
               /// Предупреждение о низком заряде аккумулятора
-              if (_chargeLevel <= chargeAlarmBoundLevel)
+              if (_chargeLevel <= chargeAlarmBoundLevel &&
+                  _isVisibleChargeMessageWidget)
                 const ChargeMessageWidget(),
 
               Padding(
@@ -259,7 +286,7 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
                 ],
               ),
 
-              const SizedBox(height: 30),
+              const SizedBox(height: 10),
               Expanded(
                 child: PowerVerticalWidget(
                   powerSet: _powerSet,
@@ -268,7 +295,7 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
                   onPowerReset: onPowerReset,
                 ),
               ),
-              const SizedBox(height: 30),
+              const SizedBox(height: 10),
 
               /// Прогресс бар для программы
               Padding(
@@ -350,8 +377,8 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
                 padding: const EdgeInsets.only(
                   left: 16,
                   right: 16,
-                  top: 16,
-                  bottom: 20,
+                  top: 8,
+                  bottom: 8,
                 ),
                 child: TexelButton.yellowDark(
                   text: 'Работать автономно',

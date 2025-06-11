@@ -144,11 +144,25 @@ class _SelectProgramScreenState extends State<SelectProgramScreen> {
                                     },
                                     child: Row(
                                       children: [
+                                        if (_chargeLevel <= chargeAlarmBoundLevel)
+                                          Icon(
+                                            Icons.warning,
+                                            color: Colors.red.shade800,
+                                          ),
                                         Icon(getChargeIconByLevel(_chargeLevel),
-                                            size: 16),
+                                            size: 16,
+                                          color: _chargeLevel > chargeAlarmBoundLevel
+                                              ? Colors.black
+                                              : Colors.red.shade800,
+                                        ),
                                         Text(
                                           '${_chargeLevel.toInt()}%',
-                                          style: theme.textTheme.titleSmall,
+                                          style: TextStyle(
+                                            fontSize: 14,
+                                            color: _chargeLevel > chargeAlarmBoundLevel
+                                                ? Colors.black
+                                                : Colors.red.shade800,
+                                          ),
                                           textScaler:
                                               const TextScaler.linear(1.0),
                                         ),

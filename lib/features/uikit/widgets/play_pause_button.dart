@@ -18,8 +18,8 @@ class PlayPauseButton extends StatelessWidget {
     return Container(
       color: transparentButton,
       width: double.infinity,
-      height: 60,
-      padding: const EdgeInsets.all(10),
+      height: 46,
+      padding: const EdgeInsets.all(2),
       child: FilledButton(
         style: ButtonStyle(
           backgroundColor: WidgetStateProperty.all<Color>(transparentButton),
