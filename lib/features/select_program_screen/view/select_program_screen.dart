@@ -6,6 +6,7 @@ import 'package:bgs_control/features/select_program_screen/widgets/direct_title.
 import 'package:bgs_control/features/select_program_screen/widgets/program_title.dart';
 import 'package:bgs_control/features/select_program_screen/widgets/togo_title.dart';
 import 'package:bgs_control/features/togo_params_screen/view/togo_params_screen.dart';
+import 'package:bgs_control/repositories/app_monitor/app_monitor.dart';
 import 'package:bgs_control/repositories/methodic_programs/model/methodic_program.dart';
 import 'package:bgs_control/repositories/methodic_programs/storage/program_storage.dart';
 import 'package:flutter/foundation.dart';
@@ -259,15 +260,16 @@ class _SelectProgramScreenState extends State<SelectProgramScreen> {
   @override
   void initState() {
     super.initState();
-
+    GetIt.I<AppMonitor>().setWindowStatus(AppWindows.awSelectProgram, true);
     readPrograms();
     _initConnect();
   }
 
   @override
   void dispose() {
-    super.dispose();
+    GetIt.I<AppMonitor>().setWindowStatus(AppWindows.awSelectProgram, false);
     _doDispose();
+    super.dispose();
   }
 
   Future _doDispose() async {

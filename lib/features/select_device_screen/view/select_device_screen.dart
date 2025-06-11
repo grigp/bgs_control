@@ -7,6 +7,7 @@ import 'package:bgs_control/features/select_device_screen/features/add_new_devic
 import 'package:bgs_control/features/select_device_screen/widgets/found_device_title.dart';
 import 'package:bgs_control/features/select_device_screen/widgets/missing_device_title.dart';
 import 'package:bgs_control/features/uikit/texel_button.dart';
+import 'package:bgs_control/repositories/app_monitor/app_monitor.dart';
 import 'package:bgs_control/repositories/bgs_connect/ble_service.dart';
 import 'package:bgs_control/repositories/bgs_list/bgs_list.dart';
 import 'package:bgs_control/repositories/methodic_programs/model/methodic_program.dart';
@@ -335,16 +336,20 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
 
   void _runSelectProgramScreen(
       DeviceProgramExecutor driver, String uidProgram) {
-    pushScreen(
-      context,
-      (context, animation, secondaryAnimation) => SelectProgramScreen(
-        title: 'Выбор программы',
-        driver: driver,
-        uidProgram: uidProgram,
-      ),
-      '/select_method',
-      ShiftDirection.rightToLeft,
-    );
+    bool isRunned =
+        GetIt.I<AppMonitor>().isWindowOpened(AppWindows.awSelectProgram);
+    if (!isRunned) {
+      pushScreen(
+        context,
+        (context, animation, secondaryAnimation) => SelectProgramScreen(
+          title: 'Выбор программы',
+          driver: driver,
+          uidProgram: uidProgram,
+        ),
+        '/select_method',
+        ShiftDirection.rightToLeft,
+      );
+    }
   }
 
   void _subsDisconnectStop() {

@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:bgs_control/repositories/app_monitor/app_monitor.dart';
 import 'package:bgs_control/repositories/bgs_connect/ble_service.dart';
 import 'package:bgs_control/repositories/bgs_list/bgs_list.dart';
 import 'package:bgs_control/repositories/bgs_property_storage/bgs_property_storage.dart';
@@ -70,6 +71,7 @@ void main() {
   GetIt.I.registerLazySingleton<CommunicationLogger>(
     () => CommunicationLogger(),
   );
+  GetIt.I.registerLazySingleton<AppMonitor>(() => AppMonitor());
 
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations(

@@ -332,9 +332,15 @@ class DeviceProgramExecutor {
       /// или режим работы не выполнение и не пауза
       /// Или время пошло в минус (КОСТЫЛЬ)
 //      if ((data.methodUid != 0) && ((programDuration() - playingTime()) > 0)) {
-      if (data.methodUid != 0 &&
-          (data.deviceMode == DeviceMode.dm_execution ||
-              data.deviceMode == DeviceMode.dm_pause)) {
+
+      /// Режим работы не выполнение и не пауза, но только, если время выполнения методики не 0
+      bool isExecMode = true;
+      if (_playingTime > 0) {
+        isExecMode = (data.deviceMode == DeviceMode.dm_execution ||
+            data.deviceMode == DeviceMode.dm_pause);
+      }
+
+      if (data.methodUid != 0 && isExecMode) {
 //      if (data.methodUid != 0) { TODO: убрать, когда отработаем длительность
         /// Время этапа меньше, чем в предыдущем пакете - перешли к новому этапу
         if (data.playingTime.toInt() + 1 < _prevTime) {
@@ -346,8 +352,10 @@ class DeviceProgramExecutor {
         _duration = program.stage(_idxStage).duration;
       } else {
         if (kDebugMode) {
-          print('---------- METHODIC FINISHED - device mode: ${data.deviceMode};  method uid: ${data.methodUid}.');
+          print(
+              '---------- METHODIC FINISHED - device mode: ${data.deviceMode};  method uid: ${data.methodUid}.');
         }
+
         /// Методика зкончилась
         Workmanager().cancelAll();
         if (_isPauseHandling) {
