@@ -5,6 +5,7 @@ import 'package:bgs_control/features/result_screen/view/result_screen.dart';
 import 'package:bgs_control/features/uikit/widgets/back_screen_button.dart';
 import 'package:bgs_control/features/uikit/widgets/play_pause_button.dart';
 import 'package:bgs_control/features/uikit/widgets/program_progress_bar.dart';
+import 'package:bgs_control/features/uikit/widgets/shutdown_low_level_battery_dialog.dart';
 import 'package:bgs_control/repositories/methodic_programs/model/stage_info.dart';
 import 'package:bgs_control/utils/baseutils.dart';
 import 'package:flutter/material.dart';
@@ -58,6 +59,8 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
   double _sliderValueStart = 0;
   bool _isGetPowerSetFromDevice = false;
   bool _isToGoMode = false;
+
+  bool _isOffLowLvlBat = false;  // Shutdown by low level battery
 
   /// Устанавливается в true припереходе в автономный режим
 
@@ -518,6 +521,13 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
       _powerSet = widget.driver.targetPower().toDouble();
       _sliderValueStart = _powerSet;
       _isGetPowerSetFromDevice = false;
+    }
+
+    /// Если прибор вернул отключение по низкому заряду, то обработать это
+    if (!_isOffLowLvlBat && data.isOffLowLvlBat) {
+      _isOffLowLvlBat = data.isOffLowLvlBat;
+
+      shutdownByLowLevelBatteryDialog(context);
     }
 
     setState(() {

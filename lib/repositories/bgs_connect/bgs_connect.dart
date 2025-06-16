@@ -47,6 +47,8 @@ class BlockData {
     required this.playingTime,
     required this.source,
     required this.firmwareNumber,
+    required this.isOffLowLvlBat,
+    required this.isButtonPressed,
   });
 
   final DeviceMode deviceMode;
@@ -65,6 +67,8 @@ class BlockData {
   final double playingTime;
   final List<int> source;
   final int firmwareNumber;
+  final bool isOffLowLvlBat;
+  final bool isButtonPressed;
 }
 
 /// Класс для управления устройством БГС
@@ -76,6 +80,9 @@ class BgsConnect {
 
   int _firmwareNumber = -1;
   int _timeUseDevice = -1;
+
+  bool _isOffLowLvlBat = false;  // Shutdown by low level battery
+  bool _isButtonPressed = false; // Pressed button on device
 
   final List<Handler> _dataHandlers = [];
   late BluetoothCharacteristic _characteristic;
@@ -419,7 +426,9 @@ class BgsConnect {
       playingTime = (value[8] * 256 + value[7]).toDouble();
     }
 
-    _firmwareNumber = value[4] & 0x7F;
+    _firmwareNumber = value[4] & 0x3F;
+    _isOffLowLvlBat = (value[4] & 0x40) != 0;
+    _isButtonPressed = (value[4] & 0x80) != 0;
     ++_timeUseDevice;
 
     /// Передача данных
@@ -437,6 +446,8 @@ class BgsConnect {
       chargeValueExt: value[2].toDouble() * 256 + value[1].toDouble(),
       source: value,
       firmwareNumber: _firmwareNumber,
+      isOffLowLvlBat: _isOffLowLvlBat,
+      isButtonPressed: _isButtonPressed,
       methodUid: methodUid,
       stage: stage,
       playingTime: playingTime,
