@@ -22,6 +22,7 @@ import '../../../utils/baseutils.dart';
 import '../../uikit/texel_button.dart';
 import '../../uikit/widgets/play_pause_button.dart';
 import '../../uikit/widgets/program_progress_bar.dart';
+import '../../uikit/widgets/shutdown_low_level_battery_dialog.dart';
 
 class DirectControlScreen extends StatefulWidget {
   const DirectControlScreen({
@@ -62,6 +63,7 @@ class _DirectControlScreenState extends State<DirectControlScreen> {
   double _chargeValueExt = 0;
   String _uuidSendData = '';
   bool _isVisibleChargeMessageWidget = false;
+  bool _isOffLowLvlBat = false;  // Shutdown by low level battery
 
   bool _isGetPowerSetFromDevice = false;
   bool _isToGoMode = false;
@@ -402,6 +404,13 @@ class _DirectControlScreenState extends State<DirectControlScreen> {
     if (_isGetPowerSetFromDevice && widget.driver.targetPower() > 0) {
       _powerSet = widget.driver.targetPower().toDouble();
       _isGetPowerSetFromDevice = false;
+    }
+
+    /// Если прибор вернул отключение по низкому заряду, то обработать это
+    if (!_isOffLowLvlBat && data.isOffLowLvlBat) {
+      _isOffLowLvlBat = data.isOffLowLvlBat;
+
+      shutdownByLowLevelBatteryDialog(context);
     }
 
     if (!widget.isNewProgram && _dataCount == 0) {
