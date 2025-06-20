@@ -44,7 +44,7 @@ class ParamsWidget extends StatefulWidget {
 
 class _ParamsWidgetState extends State<ParamsWidget> {
   bool _isFmExpanded = false;
-  final _frequencyWheel = WheelPickerController(itemCount: 350);
+  final _frequencyWheel = WheelPickerController(itemCount: 400); //350);
   final TextStyle _freqWheelTextStyle =
       const TextStyle(fontSize: 24.0, height: 1.5);
 
@@ -195,19 +195,19 @@ class _ParamsWidgetState extends State<ParamsWidget> {
                           padding: const EdgeInsets.all(3.0),
                           decoration: BoxDecoration(
                             border: Border.all(
-                              color: Colors.black87,
+                              color: const Color(0xffcacaca),
                             ),
                             gradient: const LinearGradient(
                               begin: Alignment.topCenter,
                               end: Alignment.bottomCenter,
                               colors: <Color>[
-                                Color(0xffafafaf),
-                                Color(0xffeeeeee),
-                                Color(0xffafafaf),
+                                Color(0xffefefef),
+                                Color(0xffffffff),
+                                Color(0xffefefef),
                               ],
                             ),
                             borderRadius:
-                                const BorderRadius.all(Radius.circular(10)),
+                                const BorderRadius.all(Radius.circular(2)),
                           ),
                           child: WheelPicker(
                             builder: (BuildContext context, int index) =>
@@ -245,7 +245,7 @@ class _ParamsWidgetState extends State<ParamsWidget> {
                         },
                         style: const ButtonStyle(
                           backgroundColor: WidgetStatePropertyAll<Color>(
-                            Color(0xffafafaf),
+                            Color(0xffeaeaea),
                           ),
                         ),
                         child: const Icon(
