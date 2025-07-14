@@ -81,7 +81,7 @@ class BgsConnect {
   int _firmwareNumber = -1;
   int _timeUseDevice = -1;
 
-  bool _isOffLowLvlBat = false;  // Shutdown by low level battery
+  bool _isOffLowLvlBat = false; // Shutdown by low level battery
   bool _isButtonPressed = false; // Pressed button on device
 
   final List<Handler> _dataHandlers = [];
@@ -328,7 +328,11 @@ class BgsConnect {
     /// Поскольку нельзя передавать команды длиной более maxBytesPerComand байт, придется
     /// передавать их по частям, если длительность превышает maxBytesPerComand байт
     if (command.length <= maxBytesPerCommand) {
-      await _characteristic.write(command, withoutResponse: true);
+      try {
+        await _characteristic.write(command, withoutResponse: true);
+      } catch (e) {
+        await _characteristic.write(command, allowLongWrite: true, withoutResponse: false);
+      }
     } else {
       _commandMultiRun.clear();
       int b = 0;
@@ -369,7 +373,11 @@ class BgsConnect {
         print(
             '--- send command --- time: ${DateTime.now()} --- cmd: $cmd ------------------------------------------------');
       }
-      await _characteristic.write(cmd, withoutResponse: true);
+      try {
+        await _characteristic.write(cmd, withoutResponse: true);
+      } catch (e) {
+        await _characteristic.write(cmd, allowLongWrite: true, withoutResponse: false);
+      }
 
       /// Запускаем таймер передачи остальной части команды
       Timer(

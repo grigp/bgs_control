@@ -255,7 +255,12 @@ class DeviceProgramExecutor {
   int idxStage() => _idxStage;
 
   /// Средняя мощность
-  double averagePower() => _averagePower / _statCount;
+  double averagePower() {
+    if (_statCount > 0) {
+      return _averagePower / _statCount;
+    }
+    return 0;
+  }
 
   /// Максимальная мощность
   double maxPower() => _maxPower;
