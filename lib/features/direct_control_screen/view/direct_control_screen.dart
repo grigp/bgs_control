@@ -57,7 +57,7 @@ class _DirectControlScreenState extends State<DirectControlScreen> {
   double _powerSet = 0;
   double _powerReal = 0;
   double _freq = 1;
-  bool _idxFreqChange = true;
+  bool _idxFreqChange = false;
   double _chargeLevel = 100;
   double _chargeValue = 0;
   double _chargeValueExt = 0;
