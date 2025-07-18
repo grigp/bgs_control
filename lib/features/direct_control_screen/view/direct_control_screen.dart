@@ -47,13 +47,13 @@ class _DirectControlScreenState extends State<DirectControlScreen> {
   /// Счетчик пакетов стимуляции, один раз в секунду. Время стимуляции
 
   bool _isAm = false;
-  bool _isAmChange = true;
+  bool _isAmChange = false;
   bool _isFm = false;
-  bool _isFmChange = true;
+  bool _isFmChange = false;
   AmMode _amMode = AmMode.am_11;
-  bool _isAmModeChange = true;
+  bool _isAmModeChange = false;
   Intensivity _intensivity = Intensivity.one;
-  bool _intensivityChange = true;
+  bool _intensivityChange = false;
   double _powerSet = 0;
   double _powerReal = 0;
   double _freq = 1;
