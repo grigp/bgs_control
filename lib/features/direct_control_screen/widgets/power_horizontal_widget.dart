@@ -201,10 +201,12 @@ class _PowerHorizontalWidgetState extends State<PowerHorizontalWidget> {
 
     /// Если разрешили, то увеличиваем мощность
     if (isEnable!) {
-//      widget.powerSet = value;
+      setState(() {
+        widget.powerSet = value;
+      });
 
       /// В этот момент мы будем устанавливать мощность
-      widget.onPowerSet(value);//widget.powerSet);
+      widget.onPowerSet(value);
       _sliderValueStart = value;
     } else {
       /// А, если не разрешили, то оставляем, как было
