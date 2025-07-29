@@ -51,8 +51,8 @@ class _TogoParamsScreenState extends State<TogoParamsScreen> {
               ),
             ),
             Positioned(
-              top: 20,
-              left: 20,
+              top: 10,
+              left: 10,
               child: BackScreenButton(
                 onBack: () {
                   Navigator.pop(context);
@@ -65,7 +65,7 @@ class _TogoParamsScreenState extends State<TogoParamsScreen> {
                 const Spacer(),
                 Container(
                   width: double.infinity,
-                  height: 580,
+                  height: 540,
                   decoration: BoxDecoration(
                     color: backgroundColor,
                     borderRadius: BorderRadius.circular(10),
@@ -113,7 +113,7 @@ class _TogoParamsScreenState extends State<TogoParamsScreen> {
                                 colorsStyle: ParamsColorsStyle.pcsOrdinal,
                               ),
                             ),
-                            const Divider(),
+                            const Divider(height: 2),
                             Text(
                               'Длительность: ${_duration.round()} мин',
                               style: theme.textTheme.labelMedium,

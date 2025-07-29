@@ -68,7 +68,7 @@ class _ParamsWidgetState extends State<ParamsWidget> {
 
     final theme = Theme.of(context);
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8),
+      padding: const EdgeInsets.symmetric(vertical: 2),
       child: Column(
         children: [
           Row(
@@ -139,7 +139,7 @@ class _ParamsWidgetState extends State<ParamsWidget> {
                   )
                 : const Text(''),
           ),
-          const Divider(),
+          const Divider(height: 2),
           Row(
             /// Флажок "FM"
             children: [
@@ -167,7 +167,7 @@ class _ParamsWidgetState extends State<ParamsWidget> {
               ),
             ],
           ),
-          const Divider(),
+          const Divider(height: 2),
           const SizedBox(height: 10),
 
           /// Регулятор частоты
@@ -318,6 +318,7 @@ class _ParamsWidgetState extends State<ParamsWidget> {
             //     : const Text(''),
           ),
           const SizedBox(height: 10),
+          const Divider(height: 2),
           Column(
             /// Переключатель интенсивности
             crossAxisAlignment: CrossAxisAlignment.start,

@@ -112,8 +112,8 @@ class _DeviceInfoScreenState extends State<DeviceInfoScreen> {
               ],
             ),
             Positioned(
-              top: 20,
-              left: 20,
+              top: 10,
+              left: 10,
               child: BackScreenButton(
                 onBack: () {
                   Navigator.pop(context);

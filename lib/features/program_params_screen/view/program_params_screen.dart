@@ -42,7 +42,7 @@ class _ProgramParamsScreenState extends State<ProgramParamsScreen> {
               ),
             ),
             Positioned(
-              top: 20,
+              top: 10,
               left: 10,
               child: BackScreenButton(
                 onBack: () {
