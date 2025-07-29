@@ -58,7 +58,7 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
   late StreamSubscription _subsDisconnect;
 
   int _devicesCount = 0;
-  late BluetoothDevice _device;
+  BluetoothDevice? _device;
   bool _isFirstRun = true;
 
   @override
@@ -198,11 +198,11 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
     );
 
     /// Запускаем через 500 мс, чтобы, если включено несколько БГС, они все появились в списке
-    Timer(const Duration(milliseconds: 500), () {
+    Timer(const Duration(milliseconds: 1000), () {
       /// Если одно устройство в списке, то сразу подключаемся на него.
       if (_devicesCount == 1 && _isFirstRun) {
         _isFirstRun = false;
-        onConnectPressed(_device);
+        onConnectPressed(_device!);
       }
     });
 
@@ -248,7 +248,7 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
   }
 
   Future<void> _onRefresh(bool isFirstRun) async {
-    _isFirstRun = isFirstRun;
+//    _isFirstRun = isFirstRun; Временно закрыто
 
     /// Убрать, если захочется, чтобы автоматически переходило только в первый раз
     await GetIt.I<BleService>().bleStartScan();
@@ -525,6 +525,9 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
     }
 
     _devicesCount = retval.length;
+    // _autoConnectCounter = 10;
+    bool isRunned = GetIt.I<AppMonitor>().isWindowOpened(AppWindows.awSelectProgram);
+    _isFirstRun =  !isRunned;
 
     return retval;
   }
