@@ -1,5 +1,7 @@
 import 'dart:async';
+import 'dart:developer';
 
+import 'package:bgs_control/features/direct_control_screen/widgets/horizontal_wheel_picker.dart';
 import 'package:bgs_control/features/direct_control_screen/widgets/standard_frequency_dialog.dart';
 import 'package:bgs_control/repositories/bgs_connect/bgs_connect.dart';
 import 'package:flutter/material.dart';
@@ -56,6 +58,8 @@ class _ParamsWidgetState extends State<ParamsWidget> {
 
   /// Время от установки последнего значения
   int _lastFreqSet = 15;
+  int _lastFreqSetH = 1;
+
 
   /// Последнее установленное значение частоты
   late Timer _timer;
@@ -169,6 +173,14 @@ class _ParamsWidgetState extends State<ParamsWidget> {
           ),
           const Divider(height: 2),
           const SizedBox(height: 10),
+          HorizontalWheelPicker(
+            min: 1,
+            max: 400,
+            value: _lastFreqSetH.toDouble(),
+            onChange: (double value) {
+              _lastFreqSetH = value.round();
+            },
+          ),
 
           /// Регулятор частоты
           AnimatedContainer(
@@ -370,13 +382,15 @@ class _ParamsWidgetState extends State<ParamsWidget> {
                     widget.onIntensivityChanged(widget.intensivity);
 
                     /// Коррекция частоты в зависимости от интенсивности
-                    if (widget.intensivity == Intensivity.three && widget.freq > 330){
+                    if (widget.intensivity == Intensivity.three &&
+                        widget.freq > 330) {
                       setState(() {
                         widget.freq = 330;
                       });
                       widget.onFreqChanged(widget.freq);
                     }
-                    if (widget.intensivity == Intensivity.four && widget.freq > 250){
+                    if (widget.intensivity == Intensivity.four &&
+                        widget.freq > 250) {
                       setState(() {
                         widget.freq = 250;
                       });
@@ -415,6 +429,7 @@ class _ParamsWidgetState extends State<ParamsWidget> {
         _freqChangeTimer = 0;
         widget.freq = _lastFreqSet.toDouble();
         widget.onFreqChanged(widget.freq);
+
         /// Коррекция интенсивности в зависимости от частоты
         if (widget.intensivity == Intensivity.four && widget.freq > 250) {
           setState(() {
