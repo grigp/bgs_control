@@ -29,6 +29,7 @@ class _HorizontalWheelPickerState extends State<HorizontalWheelPicker> {
 
   double _startPosition = 0;
   double _startValue = 0;
+  double _offset = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -57,10 +58,11 @@ class _HorizontalWheelPickerState extends State<HorizontalWheelPicker> {
         onHorizontalDragUpdate: _onHorizontalDragUpdate,
         child: CustomPaint(
           painter: WheelPainter(
-            widget.min,
-            widget.max,
-            widget.value.roundToDouble(),
-          ),
+              widget.min,
+              widget.max,
+              widget.value.roundToDouble(),
+              _offset,
+              widget.value.roundToDouble()),
         ),
       ),
     );
@@ -78,57 +80,77 @@ class _HorizontalWheelPickerState extends State<HorizontalWheelPicker> {
     super.dispose();
   }
 
-  void _onHorizontalDragStart (DragStartDetails details) {
+  void _onHorizontalDragStart(DragStartDetails details) {
     _startPosition = details.globalPosition.dx;
     _startValue = widget.value;
   }
-  void _onHorizontalDragEnd (DragEndDetails details) {
-    _startPosition = 0;
-    _speed = -details.velocity.pixelsPerSecond.dx;
-    log('***** END: ${details.velocity.pixelsPerSecond.dx}   value: ${widget.value}');
+
+  void _onHorizontalDragEnd(DragEndDetails details) {
+    widget.value = _startValue - _offset / ValueSize;
+
+    log('***** END: ${details.velocity.pixelsPerSecond.dx}  offset: $_offset  value: ${widget.value}');
+
+    if (details.velocity.pixelsPerSecond.dx == 0) {
+      widget.onChange(widget.value);
+      _startPosition = 0;
+      _offset = 0;
+    }
+    _speed = -details.velocity.pixelsPerSecond.dx / 10;
+    if (_speed.abs() > 1000) _speed = 1000 * (_speed.abs() / _speed);
   }
 
   void _onHorizontalDragUpdate(DragUpdateDetails details) {
     setState(() {
-      var pos = details.globalPosition.dx - _startPosition;
-      widget.value = _startValue - pos / ValueSize;
-      widget.onChange(widget.value);
+      _offset = details.globalPosition.dx - _startPosition;
     });
   }
 
   void _onRollingTimer(Timer timer) {
     if (_speed != 0) {
-      if (_speed > 0) {
-        _speed -= 40;
-        if (_speed < 0) _speed = 0;
+      log('***** CORRECT speed: ${_speed}  offset: $_offset  value: ${widget.value}');
+      _speed /= (1 + 5/_speed.abs());
+
+      if (_speed.abs() <= 50) {
+        setState(() {
+          widget.value = _startValue - _offset / ValueSize;
+          if (widget.value <= widget.min) {
+            widget.value = widget.min;
+            _speed = 0;
+            _startPosition = 0;
+            _offset = 0;
+          }
+          if (widget.value >= widget.max) {
+            widget.value = widget.max;
+            _speed = 0;
+            _startPosition = 0;
+            _offset = 0;
+          }
+        });
+        widget.onChange(widget.value);
+        _startPosition = 0;
+        _offset = 0;
+        _speed = 0;
       }
-      if (_speed < 0) {
-        _speed += 40;
-        if (_speed > 0) _speed = 0;
+
+      log('***** CORRECT speed: ${_speed}  offset: $_offset  value: ${widget.value}');
+
+      if (_speed != 0) {
+        setState(() {
+          _offset -= (_speed * 0.1);
+        });
       }
-      
-      widget.value += (_speed * 0.01);
-      if (widget.value < widget.min){
-        widget.value = widget.min;
-      }
-      if (widget.value > widget.max){
-        widget.value = widget.max;
-      }
-      
-      log('***** SPEED: ${_speed} value: ${widget.value}');
-      
-      widget.onChange(widget.value);
     }
   }
-
 }
 
 class WheelPainter extends CustomPainter {
-  WheelPainter(this.min, this.max, this.value);
+  WheelPainter(this.min, this.max, this.value, this.offset, this.speed);
 
   double min;
   double max;
   double value;
+  double offset;
+  double speed;
 
   /// Выводит текст
   void drawText(Canvas canvas, Size size, String text, double x, double y,
@@ -154,50 +176,52 @@ class WheelPainter extends CustomPainter {
     textPainter.paint(canvas, offset);
   }
 
-  @override
+
+    @override
   void paint(Canvas canvas, Size size) {
-    double midX = size.width / 2;
+    double midX = size.width / 2 + offset;
     double midY = size.height / 2;
 
-    drawText(canvas, size, value.toInt().toString(), midX - 14, midY - 14,
-        Colors.black, 28);
-
     double n = 0;
-    while (true) {
-      ++n;
+    do {
       if (value + n < max) {
         double x = midX + n * ValueSize;
-        if (x > size.width) {
-          break;
+        if (x > 0 && x < size.width) {
+          drawText(
+            canvas,
+            size,
+            (value + n).toInt().toString(),
+            x - 14,
+            midY - 14,
+            Colors.black,
+            // Color.fromRGBO((50 + n * 10).toInt(), (50 + n * 10).toInt(),
+            //     (50 + n * 10).toInt(), 1),
+            28,
+          );
         }
-        drawText(
-          canvas,
-          size,
-          (value + n).toInt().toString(),
-          x - 14,
-          midY - 14,
-          Color.fromRGBO((100 + n * 30).toInt(), (100 + n * 30).toInt(),
-              (100 + n * 30).toInt(), 1),
-          28,
-        );
       }
       if (value - n > min) {
         double x = midX - n * ValueSize;
-        if (x < 0) {
-          break;
+        if (x > 0 && x < size.width) {
+          drawText(
+            canvas,
+            size,
+            (value - n).toInt().toString(),
+            x - 14,
+            midY - 14,
+            Colors.black,
+            // Color.fromRGBO((50 + n * 10).toInt(), (50 + n * 10).toInt(),
+            //     (50 + n * 10).toInt(), 1),
+            28,
+          );
         }
-        drawText(
-          canvas,
-          size,
-          (value - n).toInt().toString(),
-          x - 14,
-          midY - 14,
-          Color.fromRGBO((100 + n * 30).toInt(), (100 + n * 30).toInt(),
-              (100 + n * 30).toInt(), 1),
-          28,
-        );
       }
-    }
+      ++n;
+    } while (value - n >= min || value + n <= max);
+
+
+    // drawText(
+    //     canvas, size, speed.toInt().toString(), 5, midY - 14, Colors.red, 28);
   }
 
   @override

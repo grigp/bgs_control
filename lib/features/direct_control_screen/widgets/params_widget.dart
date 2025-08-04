@@ -60,7 +60,6 @@ class _ParamsWidgetState extends State<ParamsWidget> {
   int _lastFreqSet = 15;
   int _lastFreqSetH = 1;
 
-
   /// Последнее установленное значение частоты
   late Timer _timer;
 
@@ -173,13 +172,61 @@ class _ParamsWidgetState extends State<ParamsWidget> {
           ),
           const Divider(height: 2),
           const SizedBox(height: 10),
-          HorizontalWheelPicker(
-            min: 1,
-            max: 400,
-            value: _lastFreqSetH.toDouble(),
-            onChange: (double value) {
-              _lastFreqSetH = value.round();
+
+          /// Регулятор частоты
+          AnimatedContainer(
+            duration: const Duration(milliseconds: 300),
+            curve: Curves.easeIn,
+            onEnd: () {
+              setState(() {
+                _isFmExpanded = true;
+              });
             },
+            height: !widget.isFm ? 50 : 0,
+            child: !widget.isFm && _isFmExpanded
+                ? Row(
+                    children: [
+                      Text(
+                        'Частота, Гц',
+                        style: theme.textTheme.labelMedium,
+                        textScaler: const TextScaler.linear(1.0),
+                      ),
+                      const SizedBox(width: 20),
+                      SizedBox(
+                        width: 180,
+                        child: HorizontalWheelPicker(
+                          min: 1,
+                          max: 400,
+                          value: _lastFreqSetH.toDouble(),
+                          onChange: (double value) {
+                            _lastFreqSetH = value.round();
+                            print('');
+                            print('*************************************************************');
+                            print('  FREQUENCY = $_lastFreqSetH Гц');
+                            print('*************************************************************');
+                            print('');
+                          },
+                        ),
+                      ),
+                      const Spacer(),
+                      ElevatedButton(
+                        onPressed: () {
+                          _getStandardFrequency(context);
+                        },
+                        style: const ButtonStyle(
+                          backgroundColor: WidgetStatePropertyAll<Color>(
+                            Color(0xffeaeaea),
+                          ),
+                        ),
+                        child: const Icon(
+                          Icons.open_in_browser,
+                          color: black,
+                          size: 20,
+                        ),
+                      )
+                    ],
+                  )
+                : const Text(''),
           ),
 
           /// Регулятор частоты
