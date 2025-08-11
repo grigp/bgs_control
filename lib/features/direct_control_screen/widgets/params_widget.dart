@@ -57,8 +57,7 @@ class _ParamsWidgetState extends State<ParamsWidget> {
   int _freqChangeTimer = 0;
 
   /// Время от установки последнего значения
-  int _lastFreqSet = 15;
-  int _lastFreqSetH = 1;
+  int _lastFreqSet = 1;
 
   /// Последнее установленное значение частоты
   late Timer _timer;
@@ -197,14 +196,11 @@ class _ParamsWidgetState extends State<ParamsWidget> {
                         child: HorizontalWheelPicker(
                           min: 1,
                           max: 400,
-                          value: _lastFreqSetH.toDouble(),
+                          value: _lastFreqSet.toDouble(),
                           onChange: (double value) {
-                            _lastFreqSetH = value.round();
-                            print('');
-                            print('*************************************************************');
-                            print('  FREQUENCY = $_lastFreqSetH Гц');
-                            print('*************************************************************');
-                            print('');
+                            _isFreqChanged = true;
+                            _freqChangeTimer = 0;
+                            _lastFreqSet = value.round();
                           },
                         ),
                       ),
@@ -230,152 +226,153 @@ class _ParamsWidgetState extends State<ParamsWidget> {
           ),
 
           /// Регулятор частоты
-          AnimatedContainer(
-            duration: const Duration(milliseconds: 300),
-            curve: Curves.easeIn,
-            onEnd: () {
-              setState(() {
-                _isFmExpanded = true;
-              });
-            },
-            height: !widget.isFm ? 90 : 0,
-            child: !widget.isFm && _isFmExpanded
-                ? Row(
-                    children: [
-                      Text(
-                        'Частота, Гц',
-                        style: theme.textTheme.labelMedium,
-                        textScaler: const TextScaler.linear(1.0),
-                      ),
-                      const SizedBox(width: 20),
-                      SizedBox(
-                        width: 100,
-                        child: Container(
-                          padding: const EdgeInsets.all(3.0),
-                          decoration: BoxDecoration(
-                            border: Border.all(
-                              color: const Color(0xffcacaca),
-                            ),
-                            gradient: const LinearGradient(
-                              begin: Alignment.topCenter,
-                              end: Alignment.bottomCenter,
-                              colors: <Color>[
-                                Color(0xffefefef),
-                                Color(0xffffffff),
-                                Color(0xffefefef),
-                              ],
-                            ),
-                            borderRadius:
-                                const BorderRadius.all(Radius.circular(2)),
-                          ),
-                          child: WheelPicker(
-                            builder: (BuildContext context, int index) =>
-                                SizedBox(
-                              width: 70,
-                              child: Text(
-                                "${index + 1}",
-                                style: _freqWheelTextStyle,
-                              ),
-                            ),
-                            controller: _frequencyWheel,
-                            //                     scrollDirection: Axis.horizontal,
-                            looping: false,
-                            onIndexChanged: (int index,
-                                WheelPickerInteractionType interactionType) {
-                              _isFreqChanged = true;
-                              _freqChangeTimer = 0;
-                              _lastFreqSet = index + 1;
-                            },
-
-                            style: const WheelPickerStyle(
-                              itemExtent: 50,
-                              squeeze: 1.25,
-                              diameterRatio: 100.8,
-                              surroundingOpacity: 0.25,
-                              magnification: 1.2,
-                            ),
-                          ),
-                        ),
-                      ),
-                      const Spacer(),
-                      ElevatedButton(
-                        onPressed: () {
-                          _getStandardFrequency(context);
-                        },
-                        style: const ButtonStyle(
-                          backgroundColor: WidgetStatePropertyAll<Color>(
-                            Color(0xffeaeaea),
-                          ),
-                        ),
-                        child: const Icon(
-                          Icons.open_in_browser,
-                          color: black,
-                          size: 20,
-                        ),
-                      )
-                    ],
-                  )
-                : const Text(''),
-
-            // TODO: Старый вариант управления частотой с помощью слайдера. Когда утрясется, решить с закомментированным
-            // child: !widget.isFm && _isFmExpanded
-            //     ? Column(
-            //         crossAxisAlignment: CrossAxisAlignment.start,
-            //         children: [
-            //           GestureDetector(
-            //             child: Row(
-            //               mainAxisSize: MainAxisSize.min,
-            //               mainAxisAlignment: MainAxisAlignment.center,
-            //               children: [
-            //                 Text(
-            //                   'Частота: ${widget.freq.toInt()} Гц',
-            //                   style: theme.textTheme.labelMedium,
-            //                   textScaler: const TextScaler.linear(1.0),
-            //                 ),
-            //                 const SizedBox(width: 20),
-            //                 const Icon(
-            //                   Icons.open_in_browser,
-            //                   size: 25,
-            //                 ),
-            //               ],
-            //             ),
-            //             onTap: () {
-            //               _getStandardFrequency(context);
-            //             },
-            //           ),
-            //           Slider.adaptive(
-            //             value: widget.freq,
-            //             label: widget.freq.round().toString(),
-            //             min: 1,
-            //             max: 350,
-            //             //divisions: 6,
-            //             activeColor:
-            //                 widget.colorsStyle == ParamsColorsStyle.pcsYellow
-            //                     ? backgroundDarknessTestColor
-            //                     : filledAccentButtonColor,
-            //             thumbColor:
-            //                 widget.colorsStyle == ParamsColorsStyle.pcsYellow
-            //                     ? backgroundDarknessTestColor
-            //                     : filledAccentButtonColor,
-            //             inactiveColor:
-            //                 widget.colorsStyle == ParamsColorsStyle.pcsYellow
-            //                     ? backgroundCarpetButtonTestColor
-            //                     : filledSecondaryButtonColor,
-            //             onChanged: (double value) {
-            //               setState(() {
-            //                 widget.freq = value;
-            //               });
-            //             },
-            //             onChangeEnd: (double value) {
-            //               /// В этот момент мы будем устанавливать частоту
-            //               widget.onFreqChanged(widget.freq);
-            //             },
-            //           ),
-            //           const Divider(),
-            //         ],
-            //       )
-            //     : const Text(''),
-          ),
+          /// TODO: Вертикальный регулятор частоты. Когда утрясется, решить с закомментированным
+          // AnimatedContainer(
+          //   duration: const Duration(milliseconds: 300),
+          //   curve: Curves.easeIn,
+          //   onEnd: () {
+          //     setState(() {
+          //       _isFmExpanded = true;
+          //     });
+          //   },
+          //   height: !widget.isFm ? 90 : 0,
+          //   child: !widget.isFm && _isFmExpanded
+          //       ? Row(
+          //           children: [
+          //             Text(
+          //               'Частота, Гц',
+          //               style: theme.textTheme.labelMedium,
+          //               textScaler: const TextScaler.linear(1.0),
+          //             ),
+          //             const SizedBox(width: 20),
+          //             SizedBox(
+          //               width: 100,
+          //               child: Container(
+          //                 padding: const EdgeInsets.all(3.0),
+          //                 decoration: BoxDecoration(
+          //                   border: Border.all(
+          //                     color: const Color(0xffcacaca),
+          //                   ),
+          //                   gradient: const LinearGradient(
+          //                     begin: Alignment.topCenter,
+          //                     end: Alignment.bottomCenter,
+          //                     colors: <Color>[
+          //                       Color(0xffefefef),
+          //                       Color(0xffffffff),
+          //                       Color(0xffefefef),
+          //                     ],
+          //                   ),
+          //                   borderRadius:
+          //                       const BorderRadius.all(Radius.circular(2)),
+          //                 ),
+          //                 child: WheelPicker(
+          //                   builder: (BuildContext context, int index) =>
+          //                       SizedBox(
+          //                     width: 70,
+          //                     child: Text(
+          //                       "${index + 1}",
+          //                       style: _freqWheelTextStyle,
+          //                     ),
+          //                   ),
+          //                   controller: _frequencyWheel,
+          //                   //                     scrollDirection: Axis.horizontal,
+          //                   looping: false,
+          //                   onIndexChanged: (int index,
+          //                       WheelPickerInteractionType interactionType) {
+          //                     _isFreqChanged = true;
+          //                     _freqChangeTimer = 0;
+          //                     _lastFreqSet = index + 1;
+          //                   },
+          //
+          //                   style: const WheelPickerStyle(
+          //                     itemExtent: 50,
+          //                     squeeze: 1.25,
+          //                     diameterRatio: 100.8,
+          //                     surroundingOpacity: 0.25,
+          //                     magnification: 1.2,
+          //                   ),
+          //                 ),
+          //               ),
+          //             ),
+          //             const Spacer(),
+          //             ElevatedButton(
+          //               onPressed: () {
+          //                 _getStandardFrequency(context);
+          //               },
+          //               style: const ButtonStyle(
+          //                 backgroundColor: WidgetStatePropertyAll<Color>(
+          //                   Color(0xffeaeaea),
+          //                 ),
+          //               ),
+          //               child: const Icon(
+          //                 Icons.open_in_browser,
+          //                 color: black,
+          //                 size: 20,
+          //               ),
+          //             )
+          //           ],
+          //         )
+          //       : const Text(''),
+          //
+          //   // TODO: Старый вариант управления частотой с помощью слайдера. Когда утрясется, решить с закомментированным
+          //   // child: !widget.isFm && _isFmExpanded
+          //   //     ? Column(
+          //   //         crossAxisAlignment: CrossAxisAlignment.start,
+          //   //         children: [
+          //   //           GestureDetector(
+          //   //             child: Row(
+          //   //               mainAxisSize: MainAxisSize.min,
+          //   //               mainAxisAlignment: MainAxisAlignment.center,
+          //   //               children: [
+          //   //                 Text(
+          //   //                   'Частота: ${widget.freq.toInt()} Гц',
+          //   //                   style: theme.textTheme.labelMedium,
+          //   //                   textScaler: const TextScaler.linear(1.0),
+          //   //                 ),
+          //   //                 const SizedBox(width: 20),
+          //   //                 const Icon(
+          //   //                   Icons.open_in_browser,
+          //   //                   size: 25,
+          //   //                 ),
+          //   //               ],
+          //   //             ),
+          //   //             onTap: () {
+          //   //               _getStandardFrequency(context);
+          //   //             },
+          //   //           ),
+          //   //           Slider.adaptive(
+          //   //             value: widget.freq,
+          //   //             label: widget.freq.round().toString(),
+          //   //             min: 1,
+          //   //             max: 350,
+          //   //             //divisions: 6,
+          //   //             activeColor:
+          //   //                 widget.colorsStyle == ParamsColorsStyle.pcsYellow
+          //   //                     ? backgroundDarknessTestColor
+          //   //                     : filledAccentButtonColor,
+          //   //             thumbColor:
+          //   //                 widget.colorsStyle == ParamsColorsStyle.pcsYellow
+          //   //                     ? backgroundDarknessTestColor
+          //   //                     : filledAccentButtonColor,
+          //   //             inactiveColor:
+          //   //                 widget.colorsStyle == ParamsColorsStyle.pcsYellow
+          //   //                     ? backgroundCarpetButtonTestColor
+          //   //                     : filledSecondaryButtonColor,
+          //   //             onChanged: (double value) {
+          //   //               setState(() {
+          //   //                 widget.freq = value;
+          //   //               });
+          //   //             },
+          //   //             onChangeEnd: (double value) {
+          //   //               /// В этот момент мы будем устанавливать частоту
+          //   //               widget.onFreqChanged(widget.freq);
+          //   //             },
+          //   //           ),
+          //   //           const Divider(),
+          //   //         ],
+          //   //       )
+          //   //     : const Text(''),
+          // ),
           const SizedBox(height: 10),
           const Divider(height: 2),
           Column(
@@ -511,6 +508,7 @@ class _ParamsWidgetState extends State<ParamsWidget> {
       widget.freq = frequency.toDouble();
       widget.onFreqChanged(widget.freq);
       _frequencyWheel.shiftTo(frequency - 1);
+      _lastFreqSet = frequency;
     });
   }
 }

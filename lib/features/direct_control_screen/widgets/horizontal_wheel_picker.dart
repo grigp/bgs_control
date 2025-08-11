@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:developer';
 
 import 'package:flutter/material.dart';
 
@@ -71,7 +70,8 @@ class _HorizontalWheelPickerState extends State<HorizontalWheelPicker> {
   @override
   void initState() {
     super.initState();
-    _timer = Timer.periodic(const Duration(milliseconds: 50), _onRollingTimer);
+//    _timer = Timer.periodic(const Duration(seconds: 0), _onRollingTimer);
+    _timer = Timer.periodic(const Duration(milliseconds: 10), _onRollingTimer);
   }
 
   @override
@@ -87,8 +87,6 @@ class _HorizontalWheelPickerState extends State<HorizontalWheelPicker> {
 
   void _onHorizontalDragEnd(DragEndDetails details) {
     widget.value = _startValue - _offset / ValueSize;
-
-    log('***** END: ${details.velocity.pixelsPerSecond.dx}  offset: $_offset  value: ${widget.value}');
 
     if (details.velocity.pixelsPerSecond.dx == 0) {
       widget.onChange(widget.value);
@@ -107,8 +105,7 @@ class _HorizontalWheelPickerState extends State<HorizontalWheelPicker> {
 
   void _onRollingTimer(Timer timer) {
     if (_speed != 0) {
-      log('***** CORRECT speed: ${_speed}  offset: $_offset  value: ${widget.value}');
-      _speed /= (1 + 5/_speed.abs());
+      _speed /= (1 + 5 / _speed.abs());
 
       if (_speed.abs() <= 50) {
         setState(() {
@@ -130,13 +127,15 @@ class _HorizontalWheelPickerState extends State<HorizontalWheelPicker> {
         _startPosition = 0;
         _offset = 0;
         _speed = 0;
+      } else {
+        setState(() {
+          widget.value = _startValue - _offset / ValueSize;
+        });
       }
-
-      log('***** CORRECT speed: ${_speed}  offset: $_offset  value: ${widget.value}');
 
       if (_speed != 0) {
         setState(() {
-          _offset -= (_speed * 0.1);
+          _offset -= (_speed / _speed.abs() * 40);
         });
       }
     }
@@ -172,17 +171,23 @@ class WheelPainter extends CustomPainter {
       maxWidth: size.width,
     );
     final offset = Offset(x, y);
-//    print('------------ $text : ${textPainter.width}');
     textPainter.paint(canvas, offset);
   }
 
-
-    @override
+  @override
   void paint(Canvas canvas, Size size) {
     double midX = size.width / 2 + offset;
     double midY = size.height / 2;
 
     double n = 0;
+
+    int xOffs = 10;
+    if (value >= 10 && value <= 99) {
+      xOffs = 17;
+    } else if (value >= 100) {
+      xOffs = 24;
+    }
+
     do {
       if (value + n < max) {
         double x = midX + n * ValueSize;
@@ -191,11 +196,9 @@ class WheelPainter extends CustomPainter {
             canvas,
             size,
             (value + n).toInt().toString(),
-            x - 14,
+            x - xOffs,
             midY - 14,
-            Colors.black,
-            // Color.fromRGBO((50 + n * 10).toInt(), (50 + n * 10).toInt(),
-            //     (50 + n * 10).toInt(), 1),
+            n == 0? Colors.black : Colors.black38,
             28,
           );
         }
@@ -207,21 +210,15 @@ class WheelPainter extends CustomPainter {
             canvas,
             size,
             (value - n).toInt().toString(),
-            x - 14,
+            x - xOffs,
             midY - 14,
-            Colors.black,
-            // Color.fromRGBO((50 + n * 10).toInt(), (50 + n * 10).toInt(),
-            //     (50 + n * 10).toInt(), 1),
+            n == 0? Colors.black : Colors.black38,
             28,
           );
         }
       }
       ++n;
     } while (value - n >= min || value + n <= max);
-
-
-    // drawText(
-    //     canvas, size, speed.toInt().toString(), 5, midY - 14, Colors.red, 28);
   }
 
   @override
