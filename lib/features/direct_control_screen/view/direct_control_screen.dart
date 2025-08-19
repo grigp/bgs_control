@@ -426,19 +426,19 @@ class _DirectControlScreenState extends State<DirectControlScreen> {
       _powerReal = data.power;
 
       if (widget.driver.isPlaying()) {
-        if (_isAmChange) {
+        if (_isAmChange || (_dataCount == 0)) {
           _isAm = data.isAM;
         }
-        if (_isAmModeChange) {
+        if (_isAmModeChange || (_dataCount == 0)) {
           _amMode = data.amMode;
         }
-        if (_isFmChange) {
+        if (_isFmChange || (_dataCount == 0)) {
           _isFm = data.isFM;
         }
-        if (_idxFreqChange) {
+        if (_idxFreqChange || (_dataCount == 0)) {
           _freq = data.freq;
         }
-        if (_intensivityChange) {
+        if (_intensivityChange || (_dataCount == 0)) {
           _intensivity = data.intensivity;
         }
       }

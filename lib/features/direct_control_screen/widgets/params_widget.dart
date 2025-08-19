@@ -65,6 +65,7 @@ class _ParamsWidgetState extends State<ParamsWidget> {
   @override
   Widget build(BuildContext context) {
     if (!_isFreqChanged) {
+      _lastFreqSet = widget.freq.toInt();
       _frequencyWheel.shiftTo(widget.freq.toInt() - 1);
     }
 
