@@ -305,7 +305,7 @@ class DeviceProgramExecutor {
   void onGetData(BlockData data) {
     if (kDebugMode) {
       print(
-          '--------------------- getdata : ${++n} -- metUid: ${data.methodUid}  stage: ${data.stage}  duration: ${program.stage(_idxStage).duration}  time: ${data.playingTime}');
+          '--- EXECUTE ------ getdata : ${++n} -- metUid: ${data.methodUid}  stage: ${data.stage}  duration: ${program.stage(_idxStage).duration}  time: ${data.playingTime}  total duration: $_progDuration');
       print(
           '------ from device - stagesCount: ${_connect.stagesCount()}  duration: ${_connect.stageDuration(_idxStage)}');
     }
@@ -345,7 +345,10 @@ class DeviceProgramExecutor {
             data.deviceMode == DeviceMode.dm_pause);
       }
 
-      if (data.methodUid != 0 && isExecMode) {
+
+      if (data.methodUid != 0 &&                                  /// Прибор говорит, что методика запущена
+          isExecMode &&                                           /// Режим прибора - выполнение или пауза
+          data.playingTime.toInt() * 1000 < _progDuration) {      /// Текущее время методики не истекло
 //      if (data.methodUid != 0) { TODO: убрать, когда отработаем длительность
         /// Время этапа меньше, чем в предыдущем пакете - перешли к новому этапу
         if (data.playingTime.toInt() + 1 < _prevTime) {
