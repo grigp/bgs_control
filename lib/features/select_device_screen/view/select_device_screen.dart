@@ -199,8 +199,13 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
 
     /// Запускаем через 500 мс, чтобы, если включено несколько БГС, они все появились в списке
     Timer(const Duration(milliseconds: 1000), () {
+      var isAttention =
+          GetIt.I<AppMonitor>().isWindowOpened(AppWindows.awAttention);
+      var isSelProgram =
+          GetIt.I<AppMonitor>().isWindowOpened(AppWindows.awSelectProgram);
+
       /// Если одно устройство в списке, то сразу подключаемся на него.
-      if (_devicesCount == 1 && _isFirstRun) {
+      if (_devicesCount == 1 && _isFirstRun && !isAttention && !isSelProgram) {
         _isFirstRun = false;
         onConnectPressed(_device!);
       }
@@ -526,8 +531,9 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
 
     _devicesCount = retval.length;
     // _autoConnectCounter = 10;
-    bool isRunned = GetIt.I<AppMonitor>().isWindowOpened(AppWindows.awSelectProgram);
-    _isFirstRun =  !isRunned;
+    bool isRunned =
+        GetIt.I<AppMonitor>().isWindowOpened(AppWindows.awSelectProgram);
+    _isFirstRun = !isRunned;
 
     return retval;
   }

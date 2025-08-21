@@ -1,7 +1,7 @@
 /// Класс, содержащий данные о выполнении программы
 /// В частности возвращает, открыто или нет то или иное окно
 class AppMonitor {
-  final List<bool> _openedWindows = [false, false, false];
+  final List<bool> _openedWindows = [false, false, false, false];
 
   /// Устанавливает статус окна, открыто ли оно
   void setWindowStatus(AppWindows wnd, bool status) {
@@ -18,4 +18,5 @@ class AppMonitor {
 /// awSelectProgram - выбора программы стимуляции
 /// awExecute - выполнения программы
 /// awDirectControl - прямого управления
-enum AppWindows {awSelectProgram, awExecute, awDirectControl}
+/// awAttention - предупреждения
+enum AppWindows {awSelectProgram, awExecute, awDirectControl, awAttention}

@@ -182,44 +182,53 @@ class _ParamsWidgetState extends State<ParamsWidget> {
                 _isFmExpanded = true;
               });
             },
-            height: !widget.isFm ? 50 : 0,
+            height: !widget.isFm ? 70 : 0,
             child: !widget.isFm && _isFmExpanded
-                ? Row(
+                ? Column(
                     children: [
-                      Text(
-                        'Частота, Гц',
-                        style: theme.textTheme.labelMedium,
-                        textScaler: const TextScaler.linear(1.0),
-                      ),
-                      const SizedBox(width: 20),
-                      SizedBox(
-                        width: 180,
-                        child: HorizontalWheelPicker(
-                          min: 1,
-                          max: 400,
-                          value: _lastFreqSet.toDouble(),
-                          onChange: (double value) {
-                            _isFreqChanged = true;
-                            _freqChangeTimer = 0;
-                            _lastFreqSet = value.round();
-                          },
-                        ),
-                      ),
-                      const Spacer(),
-                      ElevatedButton(
-                        onPressed: () {
-                          _getStandardFrequency(context);
-                        },
-                        style: const ButtonStyle(
-                          backgroundColor: WidgetStatePropertyAll<Color>(
-                            Color(0xffeaeaea),
+                      Row(
+                        children: [
+                          Text(
+                            'Частота, Гц',
+                            style: theme.textTheme.labelMedium,
+                            textScaler: const TextScaler.linear(1.0),
+                            textAlign: TextAlign.left,
                           ),
-                        ),
-                        child: const Icon(
-                          Icons.open_in_browser,
-                          color: black,
-                          size: 20,
-                        ),
+                          const Spacer(),
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          SizedBox(
+                            width: 180,
+                            child: HorizontalWheelPicker(
+                              min: 1,
+                              max: 400,
+                              value: _lastFreqSet.toDouble(),
+                              onChange: (double value) {
+                                _isFreqChanged = true;
+                                _freqChangeTimer = 0;
+                                _lastFreqSet = value.round();
+                              },
+                            ),
+                          ),
+                          const Spacer(),
+                          ElevatedButton(
+                            onPressed: () {
+                              _getStandardFrequency(context);
+                            },
+                            style: const ButtonStyle(
+                              backgroundColor: WidgetStatePropertyAll<Color>(
+                                Color(0xffeaeaea),
+                              ),
+                            ),
+                            child: const Icon(
+                              Icons.open_in_browser,
+                              color: black,
+                              size: 20,
+                            ),
+                          )
+                        ],
                       )
                     ],
                   )
@@ -374,7 +383,6 @@ class _ParamsWidgetState extends State<ParamsWidget> {
           //   //       )
           //   //     : const Text(''),
           // ),
-          const SizedBox(height: 10),
           const Divider(height: 2),
           Column(
             /// Переключатель интенсивности
@@ -385,7 +393,6 @@ class _ParamsWidgetState extends State<ParamsWidget> {
                 style: theme.textTheme.labelMedium,
                 textScaler: const TextScaler.linear(1.0),
               ),
-              const SizedBox(height: 10),
               SizedBox(
                 width: double.infinity,
                 child: SegmentedButton<Intensivity>(

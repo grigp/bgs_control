@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 
+import '../../../repositories/app_monitor/app_monitor.dart';
 import '../../uikit/texel_button.dart';
 
 class AttentionScreen extends StatefulWidget {
@@ -71,5 +73,18 @@ class _AttentionScreenState extends State<AttentionScreen> {
         ),
       ),
     );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    GetIt.I<AppMonitor>().setWindowStatus(AppWindows.awAttention, true);
+
+  }
+
+  @override
+  void dispose() {
+    GetIt.I<AppMonitor>().setWindowStatus(AppWindows.awAttention, false);
+    super.dispose();
   }
 }
