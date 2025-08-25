@@ -416,7 +416,7 @@ class _DirectControlScreenState extends State<DirectControlScreen> {
     if (!widget.isNewProgram && _dataCount == 0) {
       widget.driver.setProgram(
           MethodicProgram.one(data.isAM, data.isFM, data.amMode,
-              data.intensivity, data.freq, 0),
+              data.intensivity, data.freq, maxDirectModeDuration.toInt() * 60 * 1000),
           false);
       widget.driver.run(false);
     }

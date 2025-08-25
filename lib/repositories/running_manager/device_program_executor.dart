@@ -345,10 +345,12 @@ class DeviceProgramExecutor {
             data.deviceMode == DeviceMode.dm_pause);
       }
 
-
-      if (data.methodUid != 0 &&                                  /// Прибор говорит, что методика запущена
-          isExecMode &&                                           /// Режим прибора - выполнение или пауза
-          data.playingTime.toInt() * 1000 < _progDuration) {      /// Текущее время методики не истекло
+      /// Прибор говорит, что методика запущена (data.methodUid != 0 )
+      /// Режим прибора - выполнение или пауза (isExecMode)
+      /// Текущее время методики не истекло (data.playingTime... * 1000 < _progDuration)
+      if (data.methodUid != 0 &&
+          isExecMode &&
+          data.playingTime.toInt() * 1000 < _progDuration) {
 //      if (data.methodUid != 0) { TODO: убрать, когда отработаем длительность
         /// Время этапа меньше, чем в предыдущем пакете - перешли к новому этапу
         if (data.playingTime.toInt() + 1 < _prevTime) {
