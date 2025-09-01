@@ -512,7 +512,17 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
         visible: list.contains(r.device.advName),
         child: FoundDeviceTitle(
           result: r,
-          onTap: () => onConnectPressed(r.device),
+          onTap: () {
+            var isAttention =
+                GetIt.I<AppMonitor>().isWindowOpened(AppWindows.awAttention);
+            var isSelProgram = GetIt.I<AppMonitor>()
+                .isWindowOpened(AppWindows.awSelectProgram);
+            if (!isAttention && !isSelProgram) {
+              _isFirstRun = false;
+              onConnectPressed(r.device);
+            }
+          },
+          //onTap: () => onConnectPressed(r.device),
           onSelect: () => onSelectPressed(r.device),
           onDelete: () => onDeletePressed(r.device),
           onProperty: () => onPropertyPressed(r.device.advName),
