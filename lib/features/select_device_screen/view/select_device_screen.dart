@@ -60,6 +60,10 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
   int _devicesCount = 0;
   BluetoothDevice? _device;
   bool _isFirstRun = true;
+  /// Инициализируется (=false) при начале построения списка текущих устройств
+  /// =true после того, как список построен и проанализирован на одно устройство и
+  /// отработал автомат на коннект для одного устройства
+  bool _isBuilded = false;
 
   @override
   void dispose() {
@@ -207,8 +211,14 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
       /// Если одно устройство в списке, то сразу подключаемся на него.
       if (_devicesCount == 1 && _isFirstRun && !isAttention && !isSelProgram) {
         _isFirstRun = false;
+        if (kDebugMode) {
+          print('<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>');
+          print('auto $_isBuilded ');
+          print('<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>');
+        }
         onConnectPressed(_device!);
       }
+      _isBuilded = true;
     });
 
     return retval;
@@ -513,15 +523,13 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
         child: FoundDeviceTitle(
           result: r,
           onTap: () {
-            if (!_isFirstRun) {
-              var isAttention =
-                  GetIt.I<AppMonitor>().isWindowOpened(AppWindows.awAttention);
-              var isSelProgram = GetIt.I<AppMonitor>()
-                  .isWindowOpened(AppWindows.awSelectProgram);
-              if (!isAttention && !isSelProgram) {
-                _isFirstRun = false;
-                onConnectPressed(r.device);
-              }
+            if(kDebugMode) {
+              print('<><><><><><><><><><><><><><><><><><><><><><><><><><><><>');
+              print('on tap $_isBuilded ');
+              print('<><><><><><><><><><><><><><><><><><><><><><><><><><><><>');
+            }
+            if (_isBuilded) {
+              onConnectPressed(r.device);
             }
           },
           //onTap: () => onConnectPressed(r.device),
@@ -546,6 +554,7 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
     bool isRunned =
         GetIt.I<AppMonitor>().isWindowOpened(AppWindows.awSelectProgram);
     _isFirstRun = !isRunned;
+    _isBuilded = false;
 
     return retval;
   }

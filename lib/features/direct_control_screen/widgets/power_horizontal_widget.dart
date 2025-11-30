@@ -27,9 +27,16 @@ class PowerHorizontalWidget extends StatefulWidget {
 
 class _PowerHorizontalWidgetState extends State<PowerHorizontalWidget> {
   double _sliderValueStart = 0;
+  double _powerSet = 0;   /// Установленная мощность с учетом процесса регулирования
+  /// В процессе сдвига регулятора мощности true, если он не двигается, false
+  bool _isChangePowerSet = false;
 
   @override
   Widget build(BuildContext context) {
+    ///Если не в процессе сдвига регулятора мощности, то устанавливаем мощность, переданную из родителя
+    if(!_isChangePowerSet){
+      _powerSet = widget.powerSet;
+    }
     final theme = Theme.of(context);
     return Column(
       children: [
@@ -53,8 +60,8 @@ class _PowerHorizontalWidgetState extends State<PowerHorizontalWidget> {
                         showValueIndicator: ShowValueIndicator.always,
                       ),
                       child: Slider(
-                        value: widget.powerSet,
-                        label: widget.powerSet.round().toString(),
+                        value: _powerSet,
+                        label: _powerSet.round().toString(),
                         min: 0,
                         max: 125,
                         activeColor: backgroundMiddleTestColor,
@@ -121,7 +128,7 @@ class _PowerHorizontalWidgetState extends State<PowerHorizontalWidget> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            widget.powerSet.round().toString(),
+                            _powerSet.round().toString(),
                             style: theme.textTheme.displaySmall,
                             textScaler: const TextScaler.linear(1.0),
                           ),
@@ -156,7 +163,7 @@ class _PowerHorizontalWidgetState extends State<PowerHorizontalWidget> {
     /// Если мощность в процессе изменения значения слайдера превысила powerSafeLevel,
     /// то выдаем запрос на подтверждение увеличения мощности
     if (icon == TypeChangePowerButton.plus &&
-        widget.powerSet == powerSafeLevel) {
+        _powerSet == powerSafeLevel) {
       isEnable = await safeLevelDialog(context);
     }
 
@@ -165,45 +172,46 @@ class _PowerHorizontalWidgetState extends State<PowerHorizontalWidget> {
       setState(
         () {
           if (icon == TypeChangePowerButton.plus) {
-            if (widget.powerSet < 125) {
-              ++widget.powerSet;
+            if (_powerSet < 125) {
+              ++_powerSet;
             }
           } else {
-            if (widget.powerSet > 0) {
-              --widget.powerSet;
+            if (_powerSet > 0) {
+              --_powerSet;
             }
           }
-          widget.onPowerSet(widget.powerSet);
-          _sliderValueStart = widget.powerSet;
+          widget.onPowerSet(_powerSet);
+          _sliderValueStart = _powerSet;
         },
       );
     }
   }
 
   void _onSliderValueChangeStart(double value) {
+    _isChangePowerSet = true;
   }
 
   void _onSliderValueChanged(double value) {
     setState(() {
-      widget.powerSet = value;
+      _powerSet = value;
     });
   }
 
   void _onSliderValueChangeEnd(double value) async {
     bool? isEnable = true;
 
-    /// Если мощность в процессе изменения значения слайдера превысила powerSafeLevel,
+    /// Если мощность в процессе изменения значения слайдера превысила powerLevel,
     /// то выдаем запрос на подтверждение увеличения мощности
-    if (widget.powerSet > powerSafeLevel &&
+    if (_powerSet > powerSafeLevel &&
         _sliderValueStart <= powerSafeLevel) {
       isEnable = await safeLevelDialog(context);
     }
 
     /// Если разрешили, то увеличиваем мощность
     if (isEnable!) {
-      setState(() {
-        widget.powerSet = value;
-      });
+      // setState(() {
+      //   widget.powerSet = value;
+      // });
 
       /// В этот момент мы будем устанавливать мощность
       widget.onPowerSet(value);
@@ -214,6 +222,7 @@ class _PowerHorizontalWidgetState extends State<PowerHorizontalWidget> {
         widget.powerSet = _sliderValueStart;
       });
     }
+    _isChangePowerSet = false;
   }
 }
 
