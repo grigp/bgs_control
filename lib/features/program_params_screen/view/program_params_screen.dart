@@ -72,12 +72,15 @@ class _ProgramParamsScreenState extends State<ProgramParamsScreen> {
                         ),
                         child: Row(
                           children: [
-                            Text(
-                              widget.program.title,
-                              style: theme.textTheme.titleMedium,
-                              textScaler: const TextScaler.linear(1.0),
+                            Expanded(
+                                child: Text(
+                                  widget.program.title,
+                                  overflow: TextOverflow.fade,//ellipsis,
+                                  style: theme.textTheme.titleMedium,
+                                  textScaler: const TextScaler.linear(1.0),
+                                ),
                             ),
-                            const Spacer(),
+                            const SizedBox(width: 10),
                             Text(
                               getTimeBySecCount(_programDuration() ~/ 1000),
                               style: theme.textTheme.titleMedium,
