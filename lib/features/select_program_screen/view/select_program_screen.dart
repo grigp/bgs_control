@@ -419,11 +419,14 @@ class _SelectProgramScreenState extends State<SelectProgramScreen> {
 
   List<Widget> _buildHandleProgram(BuildContext context) {
     List<Widget> list = [];
-    list.add(TogoTitle(onTap: _runToGoMode));
+    //list.add(TogoTitle(onTap: _runToGoMode));
     list.add(
       DirectTitle(
-        onTap: () {
-          _runDirectControl(true);
+        onTap: () async {
+          final bool? isRun = await _askRunDCMode();
+          if (isRun!) {
+            _runDirectControl(true);
+          }
         },
       ),
     );
@@ -460,6 +463,32 @@ class _SelectProgramScreenState extends State<SelectProgramScreen> {
       ),
       '/direct_control',
       ShiftDirection.rightToLeft,
+    );
+  }
+
+  Future<bool?> _askRunDCMode() async {
+    return await showDialog<bool>(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) => AlertDialog(
+        title: const Text('Запустить выполнение произвольной программы?'),
+        actions: <Widget>[
+          TexelButton.accent(
+            onPressed: () => Navigator.pop(context, true),
+            text: 'Да',
+            width: 120,
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 22),
+            child: TextButton(
+              onPressed: () => Navigator.pop(context, false),
+              child: const Text(
+                'Нет',
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 

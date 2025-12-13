@@ -52,13 +52,13 @@ class _DirectTitleState extends State<DirectTitle> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Прямое управление',
+                  'Произвольная программа',
                   style: theme.textTheme.titleMedium,
                   overflow: TextOverflow.ellipsis,
                   textScaler: const TextScaler.linear(1.0),
                 ),
                 Text(
-                  'Прямое управление работой стимулятора в реальном времени',
+                  'Ручное управление режимом воздействия',
                   style: theme.textTheme.labelSmall,
                   overflow: TextOverflow.ellipsis,
                   textScaler: const TextScaler.linear(1.0),

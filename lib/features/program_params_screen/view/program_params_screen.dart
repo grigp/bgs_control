@@ -70,24 +70,43 @@ class _ProgramParamsScreenState extends State<ProgramParamsScreen> {
                           horizontal: 10,
                           vertical: 8,
                         ),
-                        child: Row(
-                          children: [
-                            Expanded(
-                                child: Text(
-                                  widget.program.title,
-                                  overflow: TextOverflow.fade,//ellipsis,
-                                  style: theme.textTheme.titleMedium,
-                                  textScaler: const TextScaler.linear(1.0),
+                        child: Column(children: [
+                          Row(
+                            children: [
+                              Expanded(
+                                child: Padding(
+                                  padding:
+                                      const EdgeInsets.symmetric(vertical: 10),
+                                  child: Text(
+                                    widget.program.title,
+                                    overflow: TextOverflow.fade, //ellipsis,
+                                    style: theme.textTheme.titleMedium,
+                                    textScaler: const TextScaler.linear(1.0),
+                                  ),
                                 ),
-                            ),
-                            const SizedBox(width: 10),
-                            Text(
-                              getTimeBySecCount(_programDuration() ~/ 1000),
-                              style: theme.textTheme.titleMedium,
+                              ),
+                              const SizedBox(width: 10),
+                              Text(
+                                getTimeBySecCount(_programDuration() ~/ 1000),
+                                style: theme.textTheme.titleMedium,
+                                textScaler: const TextScaler.linear(1.0),
+                              ),
+                            ],
+                          ),
+                          const Divider(
+                            height: 0,
+                            indent: 0,
+                            thickness: 1,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 10),
+                            child: Text(
+                              widget.program.description,
+                              style: theme.textTheme.titleSmall,
                               textScaler: const TextScaler.linear(1.0),
                             ),
-                          ],
-                        ),
+                          ),
+                        ]),
                       ),
                       // Row(
                       //   children: [

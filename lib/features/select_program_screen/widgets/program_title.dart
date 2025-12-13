@@ -56,13 +56,14 @@ class _ProgramTitleState extends State<ProgramTitle> {
                       overflow: TextOverflow.fade,//ellipsis,
                       textScaler: const TextScaler.linear(1.0),
                     ),
-                    Text(
-                      widget.program.description,
-                      style: theme.textTheme.labelSmall,
-                      overflow: TextOverflow.fade, //.ellipsis,
-                      textScaler: const TextScaler.linear(1.0),
-                      maxLines: 4,
-                    ),
+                    // Показывает описание методики. Закрыто потому, что так решили все, но я не согласен
+                    // Text(
+                    //   widget.program.description,
+                    //   style: theme.textTheme.labelSmall,
+                    //   overflow: TextOverflow.fade, //.ellipsis,
+                    //   textScaler: const TextScaler.linear(1.0),
+                    //   maxLines: 4,
+                    // ),
                   ],
                 ),
               ),
