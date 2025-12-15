@@ -23,7 +23,7 @@ class MissingDeviceTitle extends StatelessWidget {
           children: [
             const SizedBox(width: 10),
             Image.asset(
-              'lib/assets/bgs/BGS_64.png',
+              'lib/assets/bgs/BGS_128_c.png',
               width: 56,
               height: 56,
             ),

@@ -138,7 +138,7 @@ class _FoundDeviceTitleState extends State<FoundDeviceTitle> {
             child: Row(
               children: [
                 Image.asset(
-                  'lib/assets/bgs/BGS_128.png',
+                  'lib/assets/bgs/BGS_128_c.png',
                   width: 56,
                   height: 56,
                 ),
