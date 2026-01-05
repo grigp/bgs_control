@@ -166,7 +166,7 @@
         {
           "num": 3,
           "duration": 300000,
-          "start_power": 1,
+          " start_power": 1,
           "power": 1,
           "frequency": 60,
           "am": true,

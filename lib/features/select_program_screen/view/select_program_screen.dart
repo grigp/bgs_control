@@ -83,7 +83,7 @@ class _SelectProgramScreenState extends State<SelectProgramScreen> {
                   width: double.infinity,
                   color: backgroundTestColor,
                   child: Image.asset(
-                    'images/background_woman.png',
+                    'images/select_method.png',
                     fit: BoxFit.cover,
                   ),
                 ),

@@ -46,7 +46,7 @@ class _InvitationToConnectScreenState extends State<InvitationToConnectScreen> {
                     width: double.infinity,
                     color: backgroundTestColor,
                     child: Image.asset(
-                      'images/background_woman.png',
+                      'images/invitation.png',
                       fit: BoxFit.cover,
                     ),
                   ),

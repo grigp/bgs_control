@@ -35,10 +35,11 @@ class _ProgramParamsScreenState extends State<ProgramParamsScreen> {
       body: SafeArea(
         child: Stack(
           children: [
-            SizedBox(
+            Container(
               width: double.infinity,
+              color: backgroundTestColor,
               child: Image.asset(
-                'images/background_hand.png',
+                'images/program_params.png',
                 fit: BoxFit.cover,
               ),
             ),

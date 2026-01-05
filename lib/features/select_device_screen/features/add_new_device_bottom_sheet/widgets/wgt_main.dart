@@ -95,7 +95,7 @@ class WgtMain extends StatelessWidget {
                         child: Row(
                           children: [
                             Image.asset(
-                              'lib/assets/bgs/BGS_128_c.png',
+                              'images/device.png',
                               width: 40,
                               height: 40,
                             ),
