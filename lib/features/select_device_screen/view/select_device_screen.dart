@@ -166,8 +166,9 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
                           SizedBox(
                             width: 250,
                             height: 250,
-                            child: Image.asset('images/connect_device.png'),
+                            child: Image.asset('images/connect_to_device.png'),
                           ),
+                          const Spacer(),
                           const Center(
                             child: SizedBox(
                               width: 150,
@@ -177,7 +178,7 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
                               ),
                             ),
                           ),
-                          const SizedBox(height: 20),
+                          const Spacer(),
                           Text(
                             'Поиск стимуляторов',
                             style: theme.textTheme.headlineMedium,
@@ -306,7 +307,6 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
           _isLoading = false;
           _onDisconnect(device);
         } else if (event == BluetoothConnectionState.connected) {
-          // _isLoading = false;
           if (kDebugMode) {
             print(
                 '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! onSelectPressed.connect');

@@ -148,14 +148,18 @@ class _SelectProgramScreenState extends State<SelectProgramScreen> {
                                     },
                                     child: Row(
                                       children: [
-                                        if (_chargeLevel <= Constants.chargeAlarmBoundLevel)
+                                        if (_chargeLevel <=
+                                            Constants.chargeAlarmBoundLevel)
                                           Icon(
                                             Icons.warning,
                                             color: Colors.red.shade800,
                                           ),
-                                        Icon(getChargeIconByLevel(_chargeLevel),
-                                            size: 16,
-                                          color: _chargeLevel > Constants.chargeAlarmBoundLevel
+                                        Icon(
+                                          getChargeIconByLevel(_chargeLevel),
+                                          size: 16,
+                                          color: _chargeLevel >
+                                                  Constants
+                                                      .chargeAlarmBoundLevel
                                               ? Colors.black
                                               : Colors.red.shade800,
                                         ),
@@ -163,7 +167,9 @@ class _SelectProgramScreenState extends State<SelectProgramScreen> {
                                           '${_chargeLevel.toInt()}%',
                                           style: TextStyle(
                                             fontSize: 14,
-                                            color: _chargeLevel > Constants.chargeAlarmBoundLevel
+                                            color: _chargeLevel >
+                                                    Constants
+                                                        .chargeAlarmBoundLevel
                                                 ? Colors.black
                                                 : Colors.red.shade800,
                                           ),
@@ -182,13 +188,15 @@ class _SelectProgramScreenState extends State<SelectProgramScreen> {
                             thickness: 1,
                           ),
                           Expanded(
-                            child: ListView(
-                              padding: const EdgeInsets.only(bottom: 20),
-                              shrinkWrap: true,
-                              children: <Widget>[
-                                ..._buildProgramTiles(context),
-                                ..._buildHandleProgram(context),
-                              ],
+                            child: SafeArea(
+                              child: ListView(
+                                padding: const EdgeInsets.only(bottom: 20),
+                                shrinkWrap: true,
+                                children: <Widget>[
+                                  ..._buildProgramTiles(context),
+                                  ..._buildHandleProgram(context),
+                                ],
+                              ),
                             ),
                           ),
                         ],
@@ -204,8 +212,9 @@ class _SelectProgramScreenState extends State<SelectProgramScreen> {
                     SizedBox(
                       width: 250,
                       height: 250,
-                      child: Image.asset('images/connected_device.png'),
+                      child: Image.asset('images/connect_to_device.png'),
                     ),
+                    const Spacer(),
                     const Center(
                       child: SizedBox(
                         width: 150,
@@ -215,7 +224,7 @@ class _SelectProgramScreenState extends State<SelectProgramScreen> {
                         ),
                       ),
                     ),
-                    const SizedBox(height: 20),
+                    const Spacer(),
                     Text(
                       'Подключение к стимулятору ${getShortDeviceName(widget.driver.deviceName())}',
                       style: theme.textTheme.headlineMedium,
@@ -354,8 +363,8 @@ class _SelectProgramScreenState extends State<SelectProgramScreen> {
         /// Запустить индивидуальный режим
         if (data.methodUid == methodicUidToGo) {
           _curMethodic = data.methodUid;
-          var program = MethodicProgram.togo(
-              data.isAM, data.isFM, data.amMode, data.intensivity, data.freq, 0);
+          var program = MethodicProgram.togo(data.isAM, data.isFM, data.amMode,
+              data.intensivity, data.freq, 0);
           _runProgram(program);
         } else
 

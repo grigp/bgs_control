@@ -26,7 +26,6 @@ class ProgramParamsScreen extends StatefulWidget {
   State<ProgramParamsScreen> createState() => _ProgramParamsScreenState();
 }
 
-
 class _ProgramParamsScreenState extends State<ProgramParamsScreen> {
   @override
   Widget build(BuildContext context) {
@@ -34,6 +33,7 @@ class _ProgramParamsScreenState extends State<ProgramParamsScreen> {
     return Scaffold(
       backgroundColor: backgroundTestColor,
       body: SafeArea(
+        bottom: false,
         child: Stack(
           children: [
             Container(
@@ -111,21 +111,6 @@ class _ProgramParamsScreenState extends State<ProgramParamsScreen> {
                           ),
                         ]),
                       ),
-                      // Row(
-                      //   children: [
-                      //     Text(
-                      //       getFullDeviceName(widget.driver.device.advName),
-                      //       style: theme.textTheme.titleMedium,
-                      //       textScaler: const TextScaler.linear(1.0),
-                      //     ),
-                      //     const Spacer(),
-                      //     // Icon(getChargeIconByLevel(_chargeLevel), size: 20),
-                      //     // Text(
-                      //     //   '${_chargeLevel.toInt()}%',
-                      //     //   style: theme.textTheme.titleMedium,
-                      //     // ),
-                      //   ],
-                      // ),
                       const Divider(
                         height: 0,
                         indent: 0,
@@ -148,22 +133,24 @@ class _ProgramParamsScreenState extends State<ProgramParamsScreen> {
                   color: Colors.white,
                   child: Padding(
                     padding: const EdgeInsets.all(10),
-                    child: TexelButton.accent(
-                      onPressed: () {
-                        pushScreen(
-                          context,
-                          (context, animation, secondaryAnimation) =>
-                              ExecuteScreen(
-                            title: 'Execution',
-                            driver: widget.driver,
-                            program: widget.program,
-                            isNewProgram: true,
-                          ),
-                          '/execute',
-                          ShiftDirection.rightToLeft,
-                        );
-                      },
-                      text: 'Начать',
+                    child: SafeArea(
+                      child: TexelButton.accent(
+                        onPressed: () {
+                          pushScreen(
+                            context,
+                            (context, animation, secondaryAnimation) =>
+                                ExecuteScreen(
+                              title: 'Execution',
+                              driver: widget.driver,
+                              program: widget.program,
+                              isNewProgram: true,
+                            ),
+                            '/execute',
+                            ShiftDirection.rightToLeft,
+                          );
+                        },
+                        text: 'Начать',
+                      ),
                     ),
                   ),
                 ),

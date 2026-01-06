@@ -35,8 +35,9 @@ class _InvitationToConnectScreenState extends State<InvitationToConnectScreen> {
     return Scaffold(
       backgroundColor: backgroundTestColor,
       body: Padding(
-        padding: const EdgeInsets.only(top: 20),
+        padding: const EdgeInsets.only(top: 0),
         child: SafeArea(
+          bottom: false,
           child: Center(
             child: Stack(
               children: [
@@ -66,34 +67,37 @@ class _InvitationToConnectScreenState extends State<InvitationToConnectScreen> {
                     ),
                     Container(
                       color: Colors.white,
-                      child: Padding(
-                        padding: const EdgeInsets.all(10),
-                        child: Column(
-                          children: [
-                            const SizedBox(height: 16),
-                            Text(
-                              'Подключите стимулятор к электроду и включите на нем питание, после чего нажмите кнопку "Подключить" ниже',
-                              textAlign: TextAlign.center,
-                              style: theme.textTheme.bodyMedium,
-                            ),
-                            const SizedBox(height: 16),
-                            Center(
-                              child: TexelButton.accent(
-                                onPressed: () {
-                                  pushScreen(
-                                    context,
-                                    (context, animation, secondaryAnimation) =>
-                                        const SelectDeviceScreen(
-                                      title: 'Мои стимуляторы',
-                                    ),
-                                    '/select',
-                                    ShiftDirection.rightToLeft,
-                                  );
-                                },
-                                text: 'Подключить',
+                      child: SafeArea(
+                        child: Padding(
+                          padding: const EdgeInsets.all(10),
+                          child: Column(
+                            children: [
+                              const SizedBox(height: 16),
+                              Text(
+                                'Подключите стимулятор к электроду и включите на нем питание, после чего нажмите кнопку "Подключить" ниже',
+                                textAlign: TextAlign.center,
+                                style: theme.textTheme.bodyMedium,
                               ),
-                            ),
-                          ],
+                              const SizedBox(height: 16),
+                              Center(
+                                child: TexelButton.accent(
+                                  onPressed: () {
+                                    pushScreen(
+                                      context,
+                                      (context, animation,
+                                              secondaryAnimation) =>
+                                          const SelectDeviceScreen(
+                                        title: 'Мои стимуляторы',
+                                      ),
+                                      '/select',
+                                      ShiftDirection.rightToLeft,
+                                    );
+                                  },
+                                  text: 'Подключить',
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ),

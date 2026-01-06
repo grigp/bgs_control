@@ -59,6 +59,7 @@ flutter:
      - images/select_method.png
      - images/program_params.png
      - images/device.png
+     - images/connect_to_device.png
      - images/background_woman.png
      - images/connect_device.png
      - images/connected_device.png
