@@ -7,6 +7,7 @@ import '../../../assets/colors/colors.dart';
 import '../../../repositories/bgs_connect/bgs_connect.dart';
 import '../../../repositories/bgs_connect/bgs_defines.dart';
 import '../../../repositories/running_manager/device_program_executor.dart';
+import '../../../utils/Constants.dart';
 import '../../../utils/baseutils.dart';
 import '../../direct_control_screen/widgets/params_widget.dart';
 import '../../uikit/texel_button.dart';
@@ -162,12 +163,13 @@ class _TogoParamsScreenState extends State<TogoParamsScreen> {
                   text: 'Запустить',
                   onPressed: () {
                     var program = MethodicProgram.togo(
-                        _isAM,
-                        _isFM,
-                        _amMode,
-                        _intensity,
-                        _freq,
-                        _duration.round() * 60 * 1000);
+                      _isAM,
+                      _isFM,
+                      _amMode,
+                      _intensity,
+                      _freq,
+                      _duration.round() * Constants.sixty * 1000,
+                    );
 
                     pushScreen(
                       context,

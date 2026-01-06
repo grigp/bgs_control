@@ -19,4 +19,4 @@ class AppMonitor {
 /// awExecute - выполнения программы
 /// awDirectControl - прямого управления
 /// awAttention - предупреждения
-enum AppWindows {awSelectProgram, awExecute, awDirectControl, awAttention}
+enum AppWindows { awSelectProgram, awExecute, awDirectControl, awAttention }

@@ -1,6 +1,5 @@
-
 /// Режимы работы БГС: Сон, ожидание, стимуляция, пауза
-enum DeviceMode { dm_sleep, dm_wait, dm_execution, dm_pause}
+enum DeviceMode { dm_sleep, dm_wait, dm_execution, dm_pause }
 
 /// Режимы амплитудной модуляции
 enum AmMode { am_11, am_31, am_51 }
@@ -36,4 +35,3 @@ Map<int, Intensivity> intensivityFromJson = <int, Intensivity>{
   3: Intensivity.three,
   4: Intensivity.four,
 };
-

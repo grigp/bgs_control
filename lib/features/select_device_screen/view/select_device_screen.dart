@@ -17,10 +17,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:get_it/get_it.dart';
 
+import '../../../dev/LogUtils.dart';
 import '../../../repositories/logger/communication_logger.dart';
 import '../../../repositories/running_manager/device_program_executor.dart';
 import '../../../repositories/running_manager/running_manager.dart';
-import '../../../utils/base_defines.dart';
+import '../../../utils/Constants.dart';
 import '../../../utils/baseutils.dart';
 import '../../select_program_screen/view/select_program_screen.dart';
 
@@ -57,9 +58,11 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
   bool _isShowMissingDevices = false;
   late StreamSubscription _subsDisconnect;
 
+  bool _isLoading = false;
   int _devicesCount = 0;
   BluetoothDevice? _device;
   bool _isFirstRun = true;
+
   /// Инициализируется (=false) при начале построения списка текущих устройств
   /// =true после того, как список построен и проанализирован на одно устройство и
   /// отработал автомат на коннект для одного устройства
@@ -216,6 +219,7 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
           print('auto $_isBuilded ');
           print('<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>');
         }
+        LogUtils.i(tag: 'bug_connect', 'auto');
         onConnectPressed(_device!);
       }
       _isBuilded = true;
@@ -271,6 +275,7 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
   }
 
   void onConnectPressed(BluetoothDevice device) async {
+    _isLoading = true;
     if (!device.isConnected) {
       bool connectErr = false;
       await device.connectAndUpdateStream().catchError((e) {
@@ -283,7 +288,9 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
       }
       onSelectPressed(device);
     } else {
-      device.disconnectAndUpdateStream().catchError((e) {});
+      device.disconnectAndUpdateStream().catchError((e) {
+        _isLoading = false;
+      });
     }
   }
 
@@ -296,8 +303,10 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
     _subsDisconnect = device.connectionState.listen(
       (event) async {
         if (event == BluetoothConnectionState.disconnected) {
+          _isLoading = false;
           _onDisconnect(device);
         } else if (event == BluetoothConnectionState.connected) {
+          // _isLoading = false;
           if (kDebugMode) {
             print(
                 '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! onSelectPressed.connect');
@@ -336,6 +345,7 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
           print('!!!!!               reconnect                      !!!!!!!!!');
           print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
         }
+        LogUtils.i(tag: 'bug_connect', '_onDisconnect');
         onConnectPressed(device);
       });
     }
@@ -354,16 +364,22 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
     bool isRunned =
         GetIt.I<AppMonitor>().isWindowOpened(AppWindows.awSelectProgram);
     if (!isRunned) {
-      pushScreen(
-        context,
-        (context, animation, secondaryAnimation) => SelectProgramScreen(
-          title: 'Выбор программы',
-          driver: driver,
-          uidProgram: uidProgram,
-        ),
-        '/select_method',
-        ShiftDirection.rightToLeft,
-      );
+      final currentScreen = ModalRoute.of(context)?.settings.name;
+      LogUtils.i(tag: 'bug_connect', 'currentScreen = [$currentScreen], _isLoading = [$_isLoading]');
+
+      if (_isLoading) {
+        _isLoading = false;
+        pushScreen(
+          context,
+          (context, animation, secondaryAnimation) => SelectProgramScreen(
+            title: 'Выбор программы',
+            driver: driver,
+            uidProgram: uidProgram,
+          ),
+          '/select_method',
+          ShiftDirection.rightToLeft,
+        );
+      }
     }
   }
 
@@ -523,12 +539,13 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
         child: FoundDeviceTitle(
           result: r,
           onTap: () {
-            if(kDebugMode) {
+            if (kDebugMode) {
               print('<><><><><><><><><><><><><><><><><><><><><><><><><><><><>');
               print('on tap $_isBuilded ');
               print('<><><><><><><><><><><><><><><><><><><><><><><><><><><><>');
             }
             if (_isBuilded) {
+              LogUtils.i(tag: 'bug_connect', '_buildScanResultTiles');
               onConnectPressed(r.device);
             }
           },

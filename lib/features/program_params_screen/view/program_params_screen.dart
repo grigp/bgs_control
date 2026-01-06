@@ -32,6 +32,7 @@ class _ProgramParamsScreenState extends State<ProgramParamsScreen> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return Scaffold(
+      backgroundColor: backgroundTestColor,
       body: SafeArea(
         child: Stack(
           children: [

@@ -9,7 +9,6 @@ import '../model/methodic_program.dart';
 
 /// Класс, предоставляющий доступ к списку доступных программ
 class ProgramStorage {
-  List<dynamic>? _listPPWork = [];
   final List<MethodicProgram> _listPrograms = [];
 
   void init() async {

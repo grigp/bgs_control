@@ -16,7 +16,7 @@ import '../../../repositories/bgs_connect/bgs_connect.dart';
 import '../../../repositories/bgs_connect/bgs_defines.dart';
 import '../../../repositories/methodic_programs/model/methodic_program.dart';
 import '../../../repositories/running_manager/device_program_executor.dart';
-import '../../../utils/base_defines.dart';
+import '../../../utils/Constants.dart';
 import '../../../utils/charge_values.dart';
 import '../../../utils/screen_utils.dart';
 import '../../uikit/texel_button.dart';
@@ -134,7 +134,7 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
                       GestureDetector(
                         child: Row(
                           children: [
-                            if (_chargeLevel <= chargeAlarmBoundLevel)
+                            if (_chargeLevel <= Constants.chargeAlarmBoundLevel)
                               Icon(
                                 Icons.warning,
                                 color: Colors.red.shade800,
@@ -142,7 +142,7 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
                             Icon(
                               getChargeIconByLevel(_chargeLevel),
                               size: 20,
-                              color: _chargeLevel > chargeAlarmBoundLevel
+                              color: _chargeLevel > Constants.chargeAlarmBoundLevel
                                   ? Colors.black
                                   : Colors.red.shade800,
                             ),
@@ -150,7 +150,7 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
                               '${_chargeLevel.toInt()}%',
                               style: TextStyle(
                                 fontSize: 14,
-                                color: _chargeLevel > chargeAlarmBoundLevel
+                                color: _chargeLevel > Constants.chargeAlarmBoundLevel
                                     ? Colors.black
                                     : Colors.red.shade800,
                               ),
@@ -169,7 +169,7 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
               ),
 
               /// Предупреждение о низком заряде аккумулятора
-              if (_chargeLevel <= chargeAlarmBoundLevel &&
+              if (_chargeLevel <= Constants.chargeAlarmBoundLevel &&
                   _isVisibleChargeMessageWidget)
                 const ChargeMessageWidget(),
 
@@ -466,7 +466,7 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
 
     /// Если мощность в процессе изменения значения слайдера превысила powerSafeLevel,
     /// то выдаем запрос на подтверждение увеличения мощности
-    if (_powerSet > powerSafeLevel && _sliderValueStart <= powerSafeLevel) {
+    if (_powerSet > Constants.powerSafeLevel && _sliderValueStart <= Constants.powerSafeLevel) {
       isEnable = await safeLevelDialog(context);
     }
 

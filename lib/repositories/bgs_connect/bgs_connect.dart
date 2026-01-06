@@ -105,7 +105,7 @@ class BgsConnect {
   /// Команда большой длины, разбитая на несколько пакетов
   List<List<int>> _commandMultiRun = [];
 
-  var uid = const Uuid().v1(); //TODO: Убрать!!!
+  // var uid = const Uuid().v1(); //TODO: Убрать!!!
 
   Future<bool> init(BluetoothDevice device) async {
     this.device = device;
@@ -331,7 +331,8 @@ class BgsConnect {
       try {
         await _characteristic.write(command, withoutResponse: true);
       } catch (e) {
-        await _characteristic.write(command, allowLongWrite: true, withoutResponse: false);
+        await _characteristic.write(command,
+            allowLongWrite: true, withoutResponse: false);
       }
     } else {
       _commandMultiRun.clear();
@@ -376,7 +377,8 @@ class BgsConnect {
       try {
         await _characteristic.write(cmd, withoutResponse: true);
       } catch (e) {
-        await _characteristic.write(cmd, allowLongWrite: true, withoutResponse: false);
+        await _characteristic.write(cmd,
+            allowLongWrite: true, withoutResponse: false);
       }
 
       /// Запускаем таймер передачи остальной части команды

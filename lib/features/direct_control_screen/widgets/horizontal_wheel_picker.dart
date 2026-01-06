@@ -2,8 +2,6 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 
-const int ValueSize = 60;
-
 class HorizontalWheelPicker extends StatefulWidget {
   HorizontalWheelPicker({
     super.key,
@@ -25,6 +23,8 @@ class HorizontalWheelPicker extends StatefulWidget {
 class _HorizontalWheelPickerState extends State<HorizontalWheelPicker> {
   double _speed = 0;
   late Timer _timer;
+
+  final valueSize = 60;
 
   double _startPosition = 0;
   double _startValue = 0;
@@ -61,7 +61,9 @@ class _HorizontalWheelPickerState extends State<HorizontalWheelPicker> {
               widget.max,
               widget.value.roundToDouble(),
               _offset,
-              widget.value.roundToDouble()),
+              widget.value.roundToDouble(),
+              valueSize,
+          ),
         ),
       ),
     );
@@ -86,7 +88,7 @@ class _HorizontalWheelPickerState extends State<HorizontalWheelPicker> {
   }
 
   void _onHorizontalDragEnd(DragEndDetails details) {
-    widget.value = _startValue - _offset / ValueSize;
+    widget.value = _startValue - _offset / valueSize;
 
     if (details.velocity.pixelsPerSecond.dx == 0) {
       widget.onChange(widget.value);
@@ -109,7 +111,7 @@ class _HorizontalWheelPickerState extends State<HorizontalWheelPicker> {
 
       if (_speed.abs() <= 50) {
         setState(() {
-          widget.value = _startValue - _offset / ValueSize;
+          widget.value = _startValue - _offset / valueSize;
           if (widget.value <= widget.min) {
             widget.value = widget.min;
             _speed = 0;
@@ -129,7 +131,7 @@ class _HorizontalWheelPickerState extends State<HorizontalWheelPicker> {
         _speed = 0;
       } else {
         setState(() {
-          widget.value = _startValue - _offset / ValueSize;
+          widget.value = _startValue - _offset / valueSize;
         });
       }
 
@@ -143,13 +145,21 @@ class _HorizontalWheelPickerState extends State<HorizontalWheelPicker> {
 }
 
 class WheelPainter extends CustomPainter {
-  WheelPainter(this.min, this.max, this.value, this.offset, this.speed);
+  WheelPainter(
+    this.min,
+    this.max,
+    this.value,
+    this.offset,
+    this.speed,
+    this.valueSize,
+  );
 
   double min;
   double max;
   double value;
   double offset;
   double speed;
+  int valueSize;
 
   /// Выводит текст
   void drawText(Canvas canvas, Size size, String text, double x, double y,
@@ -190,7 +200,7 @@ class WheelPainter extends CustomPainter {
 
     do {
       if (value + n < max) {
-        double x = midX + n * ValueSize;
+        double x = midX + n * valueSize;
         if (x > 0 && x < size.width) {
           drawText(
             canvas,
@@ -198,13 +208,13 @@ class WheelPainter extends CustomPainter {
             (value + n).toInt().toString(),
             x - xOffs,
             midY - 14,
-            n == 0? Colors.black : Colors.black38,
+            n == 0 ? Colors.black : Colors.black38,
             28,
           );
         }
       }
       if (value - n > min) {
-        double x = midX - n * ValueSize;
+        double x = midX - n * valueSize;
         if (x > 0 && x < size.width) {
           drawText(
             canvas,
@@ -212,7 +222,7 @@ class WheelPainter extends CustomPainter {
             (value - n).toInt().toString(),
             x - xOffs,
             midY - 14,
-            n == 0? Colors.black : Colors.black38,
+            n == 0 ? Colors.black : Colors.black38,
             28,
           );
         }

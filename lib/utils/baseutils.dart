@@ -1,3 +1,4 @@
+import 'package:bgs_control/utils/Constants.dart';
 import 'package:flutter/material.dart';
 
 String intToSrt(int v) {
@@ -9,15 +10,15 @@ String intToSrt(int v) {
 }
 
 String getTimeBySecCount(int secCnt) {
-  int min = secCnt ~/ 60;
-  int sec = secCnt % 60;
-  int hour = min ~/ 60;
+  int min = secCnt ~/ Constants.sixty;
+  int sec = secCnt % Constants.sixty;
+  int hour = min ~/ Constants.sixty;
 
   String sm = intToSrt(min);
   String ss = intToSrt(sec);
 
   if (hour > 0) {
-    min = min % 60;
+    min = min % Constants.sixty;
 
     String sh = intToSrt(hour);
     sm = intToSrt(min);

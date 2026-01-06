@@ -17,7 +17,7 @@ import '../../../assets/colors/colors.dart';
 import '../../../repositories/bgs_connect/bgs_defines.dart';
 import '../../../repositories/logger/communication_logger.dart';
 import '../../../repositories/running_manager/device_program_executor.dart';
-import '../../../utils/base_defines.dart';
+import '../../../utils/Constants.dart';
 import '../../../utils/baseutils.dart';
 import '../../uikit/texel_button.dart';
 import '../../uikit/widgets/play_pause_button.dart';
@@ -63,7 +63,7 @@ class _DirectControlScreenState extends State<DirectControlScreen> {
   double _chargeValueExt = 0;
   String _uuidSendData = '';
   bool _isVisibleChargeMessageWidget = false;
-  bool _isOffLowLvlBat = false;  // Shutdown by low level battery
+  bool _isOffLowLvlBat = false; // Shutdown by low level battery
 
   bool _isGetPowerSetFromDevice = false;
   bool _isToGoMode = false;
@@ -78,9 +78,15 @@ class _DirectControlScreenState extends State<DirectControlScreen> {
 
     if (widget.isNewProgram) {
       widget.driver.setProgram(
-          MethodicProgram.one(false, false, AmMode.am_11, Intensivity.one, 60,
-              maxDirectModeDuration.toInt() * 60 * 1000),
-          true);
+        MethodicProgram.one(
+            false,
+            false,
+            AmMode.am_11,
+            Intensivity.one,
+            Constants.sixty.toDouble(),
+            Constants.maxDirectModeDuration.toInt() * Constants.sixty * 1000),
+        true,
+      );
       widget.driver.resetProgram();
       widget.driver.run(true); //TODO: Надо в зависимости от режима в приборе
     } else {
@@ -116,24 +122,24 @@ class _DirectControlScreenState extends State<DirectControlScreen> {
             child: Row(
               children: [
                 if (_chargeValue > 0)
-                  if (_chargeLevel <= chargeAlarmBoundLevel)
+                  if (_chargeLevel <= Constants.chargeAlarmBoundLevel)
                     Icon(
                       Icons.warning,
                       color: Colors.red.shade800,
                     ),
-                  Icon(
-                    getChargeIconByLevel(_chargeLevel),
-                    size: 20,
-                    color: _chargeLevel > chargeAlarmBoundLevel
-                        ? Colors.black
-                        : Colors.red.shade800,
-                  ),
+                Icon(
+                  getChargeIconByLevel(_chargeLevel),
+                  size: 20,
+                  color: _chargeLevel > Constants.chargeAlarmBoundLevel
+                      ? Colors.black
+                      : Colors.red.shade800,
+                ),
                 if (_chargeValue > 0)
                   Text(
                     '${_chargeLevel.toInt()}%',
                     style: TextStyle(
                       fontSize: 14,
-                      color: _chargeLevel > chargeAlarmBoundLevel
+                      color: _chargeLevel > Constants.chargeAlarmBoundLevel
                           ? Colors.black
                           : Colors.red.shade800,
                     ),
@@ -143,8 +149,7 @@ class _DirectControlScreenState extends State<DirectControlScreen> {
               ],
             ),
             onTap: () {
-              _isVisibleChargeMessageWidget =
-              !_isVisibleChargeMessageWidget;
+              _isVisibleChargeMessageWidget = !_isVisibleChargeMessageWidget;
             },
           ),
         ],
@@ -153,7 +158,7 @@ class _DirectControlScreenState extends State<DirectControlScreen> {
         child: ListView(
           padding: const EdgeInsets.all(20),
           children: [
-            if (_chargeLevel <= chargeAlarmBoundLevel &&
+            if (_chargeLevel <= Constants.chargeAlarmBoundLevel &&
                 _isVisibleChargeMessageWidget)
               const ChargeMessageWidget(),
             if (kDebugMode)
@@ -415,8 +420,14 @@ class _DirectControlScreenState extends State<DirectControlScreen> {
 
     if (!widget.isNewProgram && _dataCount == 0) {
       widget.driver.setProgram(
-          MethodicProgram.one(data.isAM, data.isFM, data.amMode,
-              data.intensivity, data.freq, maxDirectModeDuration.toInt() * 60 * 1000),
+          MethodicProgram.one(
+            data.isAM,
+            data.isFM,
+            data.amMode,
+            data.intensivity,
+            data.freq,
+            Constants.maxDirectModeDuration.toInt() * Constants.sixty * 1000,
+          ),
           false);
       widget.driver.run(false);
     }
@@ -449,7 +460,7 @@ class _DirectControlScreenState extends State<DirectControlScreen> {
 
       /// Логирование уровня заряда батареи
       if (logSubject == LogSubject.lsCharge || logSubject == LogSubject.lsAll) {
-        if (_dataCount % 60 == 0) {
+        if (_dataCount % Constants.sixty == 0) {
           GetIt.I<CommunicationLogger>().log(
               '${getTimeBySecCount(_dataCount ~/ 60)}  : ${_chargeValue.toInt()}  ${_chargeLevel.toInt()}%');
         }
@@ -466,21 +477,35 @@ class _DirectControlScreenState extends State<DirectControlScreen> {
 
   void onTimer(Timer timer) async {
     ++_secCounter;
-    if (_secCounter >= maxTimeDirectControlMode) {
+    if (_secCounter >= Constants.maxTimeDirectControlMode) {
       _stopStimulation();
       Navigator.pop(context);
     }
   }
 
-  Future _setDeviceMode(bool isAM, bool isFM, AmMode amMode, double freq,
-      Intensivity intensivity) async {
+  Future _setDeviceMode(
+    bool isAM,
+    bool isFM,
+    AmMode amMode,
+    double freq,
+    Intensivity intensivity,
+  ) async {
     int duration =
         (widget.driver.programDuration() - widget.driver.playingTime()) * 1000;
-    print(
-        '------------ _setDeviceMode ($isAM $isFM $amMode $freq, $intensivity   duration: $duration)');
+    if (kDebugMode) {
+      print(
+        '------------ _setDeviceMode ($isAM $isFM $amMode $freq, $intensivity   duration: $duration)',
+      );
+    }
     widget.driver.stop(true);
-    var program =
-        MethodicProgram.one(isAM, isFM, amMode, intensivity, freq, duration);
+    var program = MethodicProgram.one(
+      isAM = isAM,
+      isFM = isFM,
+      amMode = amMode,
+      intensivity = intensivity,
+      freq = freq,
+      duration = duration,
+    );
     widget.driver.setProgram(program, true);
 //    widget.driver.resetProgram();
     widget.driver.playAfterChangeProgram();
@@ -500,7 +525,13 @@ class _DirectControlScreenState extends State<DirectControlScreen> {
     if (!widget.driver.isPlaying()) {
 //      _powerSet = 0;
     } else {
-      await _setDeviceMode(_isAm, _isFm, _amMode, _freq, _intensivity);
+      await _setDeviceMode(
+        _isAm,
+        _isFm,
+        _amMode,
+        _freq,
+        _intensivity,
+      );
       await widget.driver.setPower(_powerSet);
     }
   }

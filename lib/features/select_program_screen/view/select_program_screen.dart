@@ -15,11 +15,12 @@ import 'package:get_it/get_it.dart';
 import 'package:uuid/uuid.dart';
 
 import '../../../assets/colors/colors.dart';
+import '../../../dev/LogUtils.dart';
 import '../../../repositories/bgs_connect/bgs_connect.dart';
 import '../../../repositories/logger/communication_logger.dart';
 import '../../../repositories/running_manager/device_program_executor.dart';
 import '../../../repositories/running_manager/running_manager.dart';
-import '../../../utils/base_defines.dart';
+import '../../../utils/Constants.dart';
 import '../../../utils/baseutils.dart';
 import '../../../utils/charge_values.dart';
 import '../../device_info_screen/view/device_info_screen.dart';
@@ -74,6 +75,7 @@ class _SelectProgramScreenState extends State<SelectProgramScreen> {
         Navigator.pop(context);
       },
       child: Scaffold(
+        backgroundColor: backgroundTestColor,
         body: SafeArea(
           bottom: false,
           child: Stack(
@@ -104,7 +106,7 @@ class _SelectProgramScreenState extends State<SelectProgramScreen> {
                   mainAxisAlignment: MainAxisAlignment.start, //.center,
                   children: <Widget>[
                     const Spacer(),
-                    if (_chargeLevel <= chargeAlarmBoundLevel)
+                    if (_chargeLevel <= Constants.chargeAlarmBoundLevel)
                       const ChargeMessageWidget(),
                     Container(
                       width: double.infinity,
@@ -113,6 +115,7 @@ class _SelectProgramScreenState extends State<SelectProgramScreen> {
                         color: backgroundColor,
                         borderRadius: BorderRadius.circular(10),
                       ),
+                      // FIXME: yasliks -> grig: нужно уменьшить вложенность - нечитаемо
                       child: Column(
                         children: [
                           Padding(
@@ -145,14 +148,14 @@ class _SelectProgramScreenState extends State<SelectProgramScreen> {
                                     },
                                     child: Row(
                                       children: [
-                                        if (_chargeLevel <= chargeAlarmBoundLevel)
+                                        if (_chargeLevel <= Constants.chargeAlarmBoundLevel)
                                           Icon(
                                             Icons.warning,
                                             color: Colors.red.shade800,
                                           ),
                                         Icon(getChargeIconByLevel(_chargeLevel),
                                             size: 16,
-                                          color: _chargeLevel > chargeAlarmBoundLevel
+                                          color: _chargeLevel > Constants.chargeAlarmBoundLevel
                                               ? Colors.black
                                               : Colors.red.shade800,
                                         ),
@@ -160,7 +163,7 @@ class _SelectProgramScreenState extends State<SelectProgramScreen> {
                                           '${_chargeLevel.toInt()}%',
                                           style: TextStyle(
                                             fontSize: 14,
-                                            color: _chargeLevel > chargeAlarmBoundLevel
+                                            color: _chargeLevel > Constants.chargeAlarmBoundLevel
                                                 ? Colors.black
                                                 : Colors.red.shade800,
                                           ),
@@ -296,7 +299,7 @@ class _SelectProgramScreenState extends State<SelectProgramScreen> {
             Timer(
               const Duration(milliseconds: 100),
               () async {
-                if (_chargeLevel <= chargeBreakBoundLevel) {
+                if (_chargeLevel <= Constants.chargeBreakBoundLevel) {
                   await alertLowEnergy();
                 }
                 _runProgramWithParams(_programs[i]);
@@ -391,7 +394,7 @@ class _SelectProgramScreenState extends State<SelectProgramScreen> {
             program: program,
             isLast: index == _programs.length - 1,
             onTap: () async {
-              if (_chargeLevel <= chargeBreakBoundLevel) {
+              if (_chargeLevel <= Constants.chargeBreakBoundLevel) {
                 await alertLowEnergy();
               }
 
@@ -434,7 +437,7 @@ class _SelectProgramScreenState extends State<SelectProgramScreen> {
   }
 
   void _runToGoMode() async {
-    if (_chargeLevel <= chargeBreakBoundLevel) {
+    if (_chargeLevel <= Constants.chargeBreakBoundLevel) {
       await alertLowEnergy();
     }
     _curMethodic = methodicUidToGo;
@@ -450,7 +453,7 @@ class _SelectProgramScreenState extends State<SelectProgramScreen> {
   }
 
   void _runDirectControl(bool isNewProgram) async {
-    if (_chargeLevel <= chargeBreakBoundLevel) {
+    if (_chargeLevel <= Constants.chargeBreakBoundLevel) {
       await alertLowEnergy();
     }
     _curMethodic = methodicUidDirect;

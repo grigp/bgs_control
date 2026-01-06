@@ -1,7 +1,7 @@
 import 'package:bgs_control/assets/colors/colors.dart';
 import 'package:flutter/material.dart';
 
-import '../../../utils/base_defines.dart';
+import '../../../utils/Constants.dart';
 import '../../execute_screen/view/widgets/animated_round_button.dart';
 import '../../uikit/texel_button.dart';
 import '../../uikit/widgets/safe_level_dialog.dart';
@@ -163,7 +163,7 @@ class _PowerHorizontalWidgetState extends State<PowerHorizontalWidget> {
     /// Если мощность в процессе изменения значения слайдера превысила powerSafeLevel,
     /// то выдаем запрос на подтверждение увеличения мощности
     if (icon == TypeChangePowerButton.plus &&
-        _powerSet == powerSafeLevel) {
+        _powerSet == Constants.powerSafeLevel) {
       isEnable = await safeLevelDialog(context);
     }
 
@@ -202,8 +202,8 @@ class _PowerHorizontalWidgetState extends State<PowerHorizontalWidget> {
 
     /// Если мощность в процессе изменения значения слайдера превысила powerLevel,
     /// то выдаем запрос на подтверждение увеличения мощности
-    if (_powerSet > powerSafeLevel &&
-        _sliderValueStart <= powerSafeLevel) {
+    if (_powerSet > Constants.powerSafeLevel &&
+        _sliderValueStart <= Constants.powerSafeLevel) {
       isEnable = await safeLevelDialog(context);
     }
 

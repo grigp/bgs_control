@@ -31,7 +31,8 @@ class _ProgramTitleState extends State<ProgramTitle> {
 
   Widget _buildTitle(BuildContext context, ThemeData theme) {
     return Container(
-      margin: const EdgeInsets.only(
+      color: Colors.transparent,
+      padding: const EdgeInsets.only(
         left: 6,
         right: 6,
         top: 12,
@@ -53,7 +54,7 @@ class _ProgramTitleState extends State<ProgramTitle> {
                     Text(
                       widget.program.title,
                       style: theme.textTheme.titleMedium,
-                      overflow: TextOverflow.fade,//ellipsis,
+                      overflow: TextOverflow.fade, //ellipsis,
                       textScaler: const TextScaler.linear(1.0),
                     ),
                     // Показывает описание методики. Закрыто потому, что так решили все, но я не согласен

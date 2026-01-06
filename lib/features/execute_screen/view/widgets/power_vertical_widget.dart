@@ -3,7 +3,7 @@ import 'package:bgs_control/features/uikit/widgets/safe_level_dialog.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../assets/colors/colors.dart';
-import '../../../../utils/base_defines.dart';
+import '../../../../utils/Constants.dart';
 import '../../../direct_control_screen/widgets/power_horizontal_widget.dart';
 
 class PowerVerticalWidget extends StatefulWidget {
@@ -62,7 +62,7 @@ class _PowerVerticalWidgetState extends State<PowerVerticalWidget> {
     bool? isEnable = true;
     /// Если мощность в процессе изменения значения слайдера превысила powerSafeLevel,
     /// то выдаем запрос на подтверждение увеличения мощности
-    if (icon == TypeChangePowerButton.plus && widget.powerSet == powerSafeLevel){
+    if (icon == TypeChangePowerButton.plus && widget.powerSet == Constants.powerSafeLevel){
       isEnable = await safeLevelDialog(context);
     }
 

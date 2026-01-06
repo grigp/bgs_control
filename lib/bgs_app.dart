@@ -22,8 +22,6 @@ class _BgsAppState extends State<BgsApp> {
   BluetoothAdapterState _adapterState = BluetoothAdapterState.unknown;
 
   late StreamSubscription<BluetoothAdapterState> _adapterStateStateSubscription;
-  late final AppLifecycleListener
-      _listener; // TODO (yasliks): проверить на надобность
 
   @override
   void initState() {

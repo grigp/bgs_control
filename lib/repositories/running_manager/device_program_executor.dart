@@ -95,8 +95,10 @@ class DeviceProgramExecutor {
   }
 
   void run(bool isNewProgram) async {
-    print(
-        '---------------------- dpe.run()    ${program.uid}  $_isConnected  isNewProg: $isNewProgram');
+    if (kDebugMode) {
+      print(
+          '---------------------- dpe.run()    ${program.uid}  $_isConnected  isNewProg: $isNewProgram');
+    }
     if (program.uid != '' && _isConnected) {
       _addHandler();
 
@@ -126,7 +128,7 @@ class DeviceProgramExecutor {
       setWorkManagerTask(_progDuration - 2000);
 
       /// на 2 сек меньше
-//      setWorkManagerTask(program.stage(_idxStage).duration - 2000); /// на 2 сек меньше
+//      setWorkManagerTask(program.stage(_idxStage).duration - 2000);
       _duration = program.stage(_idxStage).duration;
     }
   }

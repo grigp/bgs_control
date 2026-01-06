@@ -26,14 +26,13 @@ class ProgramStage {
 /// Класс, содержащий данные о программе.
 /// Заголовок и этапы
 class MethodicProgram {
-  MethodicProgram({
-    required this.uid,
-    required this.statsTitle,
-    required this.title,
-    required this.description,
-    required this.image,
-    required this.mpk
-  });
+  MethodicProgram(
+      {required this.uid,
+      required this.statsTitle,
+      required this.title,
+      required this.description,
+      required this.image,
+      required this.mpk});
 
   /// Конструктор из json
   factory MethodicProgram.fromJson(dynamic data) {
@@ -77,8 +76,14 @@ class MethodicProgram {
   }
 
   /// Конструктор в режиме togo
-  factory MethodicProgram.togo(bool isAm, bool isFm, AmMode amMode,
-      Intensivity intensity, double frequency, int duration) {
+  factory MethodicProgram.togo(
+    bool isAm,
+    bool isFm,
+    AmMode amMode,
+    Intensivity intensity,
+    double frequency,
+    int duration,
+  ) {
     return MethodicProgram(
       uid: '$methodicUidToGo',
       statsTitle: 'togo program',
@@ -98,8 +103,14 @@ class MethodicProgram {
   }
 
   /// Конструктор в режиме direct control
-  factory MethodicProgram.one(bool isAm, bool isFm, AmMode amMode,
-      Intensivity intensity, double frequency, int duration) {
+  factory MethodicProgram.one(
+    bool isAm,
+    bool isFm,
+    AmMode amMode,
+    Intensivity intensity,
+    double frequency,
+    int duration,
+  ) {
     return MethodicProgram(
       uid: '$methodicUidDirect',
       statsTitle: 'togo program',
@@ -108,14 +119,14 @@ class MethodicProgram {
       image: 'togo.png',
       mpk: MethodicProgramKind.mpkDirect,
     ).._addStage(
-      'индивидуальные настройки',
-      duration,
-      isAm,
-      isFm,
-      amMode,
-      intensity,
-      frequency,
-    );
+        'индивидуальные настройки',
+        duration,
+        isAm,
+        isFm,
+        amMode,
+        intensity,
+        frequency,
+      );
   }
 
   String uid;
@@ -146,7 +157,8 @@ class MethodicProgram {
   int stagesCount() => _stages.length;
 
   ProgramStage stage(int idx) {
-    assert(idx >= 0 && idx < _stages.length, 'idx == $idx, length = ${_stages.length}');
+    assert(idx >= 0 && idx < _stages.length,
+        'idx == $idx, length = ${_stages.length}');
     return ProgramStage(
       comment: _stages[idx].comment,
       duration: _stages[idx].duration,
@@ -159,8 +171,9 @@ class MethodicProgram {
   }
 
   /// Меняет снаружи длительность этапа idx
-  void setDuration(int idx, int duration){
-    assert(idx >= 0 && idx < _stages.length, 'idx == $idx, length = ${_stages.length}');
+  void setDuration(int idx, int duration) {
+    assert(idx >= 0 && idx < _stages.length,
+        'idx == $idx, length = ${_stages.length}');
     _stages[idx].duration = duration;
   }
 }
@@ -169,8 +182,7 @@ class MethodicProgram {
 /// mpkNormal - обычная
 /// mpkPersonal - индивидуальная
 /// mpkDirect = прямого управления
-enum MethodicProgramKind {mpkNormal, mpkPersonal, mpkDirect}
+enum MethodicProgramKind { mpkNormal, mpkPersonal, mpkDirect }
 
 const int methodicUidToGo = 254;
 const int methodicUidDirect = 255;
-
