@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:bgs_control/assets/colors/colors.dart';
 import 'package:bgs_control/features/device_info_screen/view/device_info_screen.dart';
 import 'package:bgs_control/features/log_screen/view/log_screen.dart';
 import 'package:bgs_control/features/select_device_screen/features/add_new_device_bottom_sheet/add_new_device_bottom_sheet.dart';
@@ -174,7 +175,9 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
                               width: 150,
                               height: 150,
                               child: CircularProgressIndicator(
-                                strokeWidth: 2,
+                                strokeWidth: 8,
+                                strokeCap: StrokeCap.round,
+                                color: black,
                               ),
                             ),
                           ),

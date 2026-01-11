@@ -74,7 +74,7 @@ class _InvitationToConnectScreenState extends State<InvitationToConnectScreen> {
                             children: [
                               const SizedBox(height: 16),
                               Text(
-                                'Подключите стимулятор к электроду и включите на нем питание, после чего нажмите кнопку "Подключить" ниже',
+                                'Включите стимулятор, установите его на магнитные контакты электрода и нажмите кнопку "Подключить" на экране',
                                 textAlign: TextAlign.center,
                                 style: theme.textTheme.bodyMedium,
                               ),

@@ -53,7 +53,7 @@ class _DirectTitleState extends State<DirectTitle> {
               children: [
                 Text(
                   'Произвольная программа',
-                  style: theme.textTheme.titleMedium,
+                  style: theme.textTheme.bodyLarge,
                   overflow: TextOverflow.ellipsis,
                   textScaler: const TextScaler.linear(1.0),
                 ),

@@ -106,8 +106,6 @@ class _SelectProgramScreenState extends State<SelectProgramScreen> {
                   mainAxisAlignment: MainAxisAlignment.start, //.center,
                   children: <Widget>[
                     const Spacer(),
-                    if (_chargeLevel <= Constants.chargeAlarmBoundLevel)
-                      const ChargeMessageWidget(),
                     Container(
                       width: double.infinity,
                       height: 500,
@@ -182,6 +180,8 @@ class _SelectProgramScreenState extends State<SelectProgramScreen> {
                               ],
                             ),
                           ),
+                          if (_chargeLevel <= Constants.chargeAlarmBoundLevel)
+                            const ChargeMessageWidget(),
                           const Divider(
                             height: 0,
                             indent: 0,
@@ -220,7 +220,9 @@ class _SelectProgramScreenState extends State<SelectProgramScreen> {
                         width: 150,
                         height: 150,
                         child: CircularProgressIndicator(
-                          strokeWidth: 2,
+                          strokeWidth: 8,
+                          strokeCap: StrokeCap.round,
+                          color: black,
                         ),
                       ),
                     ),

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../../../assets/colors/colors.dart';
+
 class WgtWait extends StatelessWidget {
   const WgtWait({super.key});
 
@@ -20,7 +22,9 @@ class WgtWait extends StatelessWidget {
                 width: 150,
                 height: 150,
                 child: CircularProgressIndicator(
-                  strokeWidth: 2,
+                  strokeWidth: 8,
+                  strokeCap: StrokeCap.round,
+                  color: black,
                 ),
               ),
             ),

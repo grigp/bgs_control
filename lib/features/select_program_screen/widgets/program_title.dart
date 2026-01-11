@@ -53,7 +53,7 @@ class _ProgramTitleState extends State<ProgramTitle> {
                   children: [
                     Text(
                       widget.program.title,
-                      style: theme.textTheme.titleMedium,
+                      style: theme.textTheme.bodyLarge,
                       overflow: TextOverflow.fade, //ellipsis,
                       textScaler: const TextScaler.linear(1.0),
                     ),
