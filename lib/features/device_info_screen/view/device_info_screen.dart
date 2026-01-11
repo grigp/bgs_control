@@ -52,7 +52,7 @@ class _DeviceInfoScreenState extends State<DeviceInfoScreen> {
               children: [
                 Container(
                   color: white,
-                  child: Image.asset('images/connect_to_device.png'),
+                  child: Image.asset('images/device.png'),
                 ),
                 Expanded(
                   child: ListView(

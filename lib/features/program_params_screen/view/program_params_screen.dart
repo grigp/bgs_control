@@ -57,76 +57,83 @@ class _ProgramParamsScreenState extends State<ProgramParamsScreen> {
             Column(
               mainAxisAlignment: MainAxisAlignment.start, //.center,
               children: <Widget>[
-                const Spacer(),
-                Container(
-                  width: double.infinity,
-                  height: 500,
-                  padding: const EdgeInsets.all(0),
-                  decoration: BoxDecoration(
-                    color: backgroundColor,
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: Column(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 10,
-                          vertical: 8,
-                        ),
-                        child: Column(children: [
-                          Row(
-                            children: [
-                              Expanded(
-                                child: Padding(
-                                  padding:
-                                      const EdgeInsets.symmetric(vertical: 10),
-                                  child: Text(
-                                    widget.program.title,
-                                    overflow: TextOverflow.fade, //ellipsis,
-                                    style: theme.textTheme.titleMedium,
-                                    textScaler: const TextScaler.linear(1.0),
+                // const Spacer(),
+                Expanded(
+                  flex: 3,
+                  child: Container(),
+                ),
+                Expanded(
+                  flex: 7,
+                  child: Container(
+                    width: double.infinity,
+                    height: 500,
+                    padding: const EdgeInsets.all(0),
+                    decoration: BoxDecoration(
+                      color: backgroundColor,
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 10,
+                            vertical: 8,
+                          ),
+                          child: Column(children: [
+                            Row(
+                              children: [
+                                Expanded(
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: 10),
+                                    child: Text(
+                                      widget.program.title,
+                                      overflow: TextOverflow.fade, //ellipsis,
+                                      style: theme.textTheme.titleMedium,
+                                      textScaler: const TextScaler.linear(1.0),
+                                    ),
                                   ),
                                 ),
-                              ),
-                              const SizedBox(width: 10),
-                              Text(
-                                getTimeBySecCount(_programDuration() ~/ 1000),
-                                style: theme.textTheme.titleMedium,
+                                const SizedBox(width: 10),
+                                Text(
+                                  getTimeBySecCount(_programDuration() ~/ 1000),
+                                  style: theme.textTheme.titleMedium,
+                                  textScaler: const TextScaler.linear(1.0),
+                                ),
+                              ],
+                            ),
+                            const Divider(
+                              height: 0,
+                              indent: 0,
+                              thickness: 1,
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 10),
+                              child: Text(
+                                widget.program.description,
+                                style: theme.textTheme.titleSmall,
                                 textScaler: const TextScaler.linear(1.0),
                               ),
+                            ),
+                          ]),
+                        ),
+                        const Divider(
+                          height: 0,
+                          indent: 0,
+                          thickness: 1,
+                        ),
+                        Expanded(
+                          child: ListView(
+                            padding: const EdgeInsets.only(),
+                            shrinkWrap: true,
+                            children: <Widget>[
+                              ..._buildStageTiles(context),
+//                            ..._buildTotalTimeTitle(),
                             ],
                           ),
-                          const Divider(
-                            height: 0,
-                            indent: 0,
-                            thickness: 1,
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 10),
-                            child: Text(
-                              widget.program.description,
-                              style: theme.textTheme.titleSmall,
-                              textScaler: const TextScaler.linear(1.0),
-                            ),
-                          ),
-                        ]),
-                      ),
-                      const Divider(
-                        height: 0,
-                        indent: 0,
-                        thickness: 1,
-                      ),
-                      Expanded(
-                        child: ListView(
-                          padding: const EdgeInsets.only(),
-                          shrinkWrap: true,
-                          children: <Widget>[
-                            ..._buildStageTiles(context),
-//                            ..._buildTotalTimeTitle(),
-                          ],
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
                 Container(

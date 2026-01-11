@@ -105,101 +105,107 @@ class _SelectProgramScreenState extends State<SelectProgramScreen> {
                 Column(
                   mainAxisAlignment: MainAxisAlignment.start, //.center,
                   children: <Widget>[
-                    const Spacer(),
-                    Container(
-                      width: double.infinity,
-                      height: 500,
-                      decoration: BoxDecoration(
-                        color: backgroundColor,
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      // FIXME: yasliks -> grig: нужно уменьшить вложенность - нечитаемо
-                      child: Column(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 10,
-                              vertical: 8,
-                            ),
-                            child: Row(
-                              children: [
-                                Text(
-                                  'Доступные программы',
-                                  style: theme.textTheme.titleMedium,
-                                  textScaler: const TextScaler.linear(1.0),
-                                ),
-                                const Spacer(),
-                                if (_chargeValue > 0)
-                                  GestureDetector(
-                                    onTap: () {
-                                      pushScreen(
-                                        context,
-                                        (context, animation,
-                                                secondaryAnimation) =>
-                                            DeviceInfoScreen(
-                                          title: 'Параметры стимулятора',
-                                          dvcName: widget.driver.deviceName(),
-                                        ),
-                                        '/dvc_settings',
-                                        ShiftDirection.rightToLeft,
-                                      );
-                                    },
-                                    child: Row(
-                                      children: [
-                                        if (_chargeLevel <=
-                                            Constants.chargeAlarmBoundLevel)
-                                          Icon(
-                                            Icons.warning,
-                                            color: Colors.red.shade800,
+                    Expanded(
+                      flex: 4,
+                      child: Container(),
+                    ),
+                    Expanded(
+                      flex: 6,
+                      child: Container(
+                        width: double.infinity,
+                        height: 500,
+                        decoration: BoxDecoration(
+                          color: backgroundColor,
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        // FIXME: yasliks -> grig: нужно уменьшить вложенность - нечитаемо
+                        child: Column(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 10,
+                                vertical: 8,
+                              ),
+                              child: Row(
+                                children: [
+                                  Text(
+                                    'Доступные программы',
+                                    style: theme.textTheme.titleMedium,
+                                    textScaler: const TextScaler.linear(1.0),
+                                  ),
+                                  const Spacer(),
+                                  if (_chargeValue > 0)
+                                    GestureDetector(
+                                      onTap: () {
+                                        pushScreen(
+                                          context,
+                                          (context, animation,
+                                                  secondaryAnimation) =>
+                                              DeviceInfoScreen(
+                                            title: 'Параметры стимулятора',
+                                            dvcName: widget.driver.deviceName(),
                                           ),
-                                        Icon(
-                                          getChargeIconByLevel(_chargeLevel),
-                                          size: 16,
-                                          color: _chargeLevel >
-                                                  Constants
-                                                      .chargeAlarmBoundLevel
-                                              ? Colors.black
-                                              : Colors.red.shade800,
-                                        ),
-                                        Text(
-                                          '${_chargeLevel.toInt()}%',
-                                          style: TextStyle(
-                                            fontSize: 14,
+                                          '/dvc_settings',
+                                          ShiftDirection.rightToLeft,
+                                        );
+                                      },
+                                      child: Row(
+                                        children: [
+                                          if (_chargeLevel <=
+                                              Constants.chargeAlarmBoundLevel)
+                                            Icon(
+                                              Icons.warning,
+                                              color: Colors.red.shade800,
+                                            ),
+                                          Icon(
+                                            getChargeIconByLevel(_chargeLevel),
+                                            size: 16,
                                             color: _chargeLevel >
                                                     Constants
                                                         .chargeAlarmBoundLevel
                                                 ? Colors.black
                                                 : Colors.red.shade800,
                                           ),
-                                          textScaler:
-                                              const TextScaler.linear(1.0),
-                                        ),
-                                      ],
+                                          Text(
+                                            '${_chargeLevel.toInt()}%',
+                                            style: TextStyle(
+                                              fontSize: 14,
+                                              color: _chargeLevel >
+                                                      Constants
+                                                          .chargeAlarmBoundLevel
+                                                  ? Colors.black
+                                                  : Colors.red.shade800,
+                                            ),
+                                            textScaler:
+                                                const TextScaler.linear(1.0),
+                                          ),
+                                        ],
+                                      ),
                                     ),
-                                  ),
-                              ],
-                            ),
-                          ),
-                          if (_chargeLevel <= Constants.chargeAlarmBoundLevel)
-                            const ChargeMessageWidget(),
-                          const Divider(
-                            height: 0,
-                            indent: 0,
-                            thickness: 1,
-                          ),
-                          Expanded(
-                            child: SafeArea(
-                              child: ListView(
-                                padding: const EdgeInsets.only(bottom: 20),
-                                shrinkWrap: true,
-                                children: <Widget>[
-                                  ..._buildProgramTiles(context),
-                                  ..._buildHandleProgram(context),
                                 ],
                               ),
                             ),
-                          ),
-                        ],
+                            if (_chargeLevel <= Constants.chargeAlarmBoundLevel)
+                              const ChargeMessageWidget(),
+                            const Divider(
+                              height: 0,
+                              indent: 0,
+                              thickness: 1,
+                            ),
+                            Expanded(
+                              child: SafeArea(
+                                child: ListView(
+                                  padding: const EdgeInsets.only(bottom: 20),
+                                  shrinkWrap: true,
+                                  children: <Widget>[
+                                    ..._buildProgramTiles(context),
+                                    ..._buildHandleProgram(context),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ],
@@ -210,8 +216,8 @@ class _SelectProgramScreenState extends State<SelectProgramScreen> {
                   children: [
                     const Spacer(),
                     SizedBox(
-                      width: 250,
-                      height: 250,
+                      width: 160,
+                      height: 160,
                       child: Image.asset('images/connect_to_device.png'),
                     ),
                     const Spacer(),
@@ -234,6 +240,7 @@ class _SelectProgramScreenState extends State<SelectProgramScreen> {
                       textScaler: const TextScaler.linear(1.0),
                     ),
                     const Spacer(),
+                    const SizedBox(height: 20),
                   ],
                 ),
             ],

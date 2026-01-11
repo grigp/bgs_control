@@ -165,8 +165,8 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
                         children: [
                           const Spacer(),
                           SizedBox(
-                            width: 250,
-                            height: 250,
+                            width: 160,
+                            height: 160,
                             child: Image.asset('images/connect_to_device.png'),
                           ),
                           const Spacer(),
@@ -188,6 +188,7 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
                             textScaler: const TextScaler.linear(1.0),
                           ),
                           const Spacer(),
+                          const SizedBox(height: 20),
                         ],
                       ),
                 Positioned(
