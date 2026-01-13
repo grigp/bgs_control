@@ -1,3 +1,5 @@
+import 'package:flutter/foundation.dart';
+
 /// утилита логирования
 class LogUtils {
   static const String _DEFAULT_TAG_PREFIX = "texel_app";
@@ -18,13 +20,13 @@ class LogUtils {
   }
 
   static int getLogLevel() {
-    LogUtils.i("Current Log Level is " + _getPriorityText(_currentLogLevel));
+    LogUtils.i("Current Log Level is ${_getPriorityText(_currentLogLevel)}");
     return _currentLogLevel;
   }
 
   static _log(int priority, String tag, String message) {
-    if (_currentLogLevel <= priority) {
-      print(_getPriorityText(priority) + tag + ": " + message);
+    if (_currentLogLevel <= priority && kDebugMode) {
+      print("${_getPriorityText(priority)}$tag: $message");
     }
   }
 
