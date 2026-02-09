@@ -45,7 +45,8 @@ class SelectProgramScreen extends StatefulWidget {
   State<SelectProgramScreen> createState() => _SelectProgramScreenState();
 }
 
-class _SelectProgramScreenState extends State<SelectProgramScreen> {
+class _SelectProgramScreenState extends State<SelectProgramScreen>
+    with TickerProviderStateMixin {
   List<MethodicProgram> _programs = [];
 
   bool _isConnected = false;
@@ -53,6 +54,10 @@ class _SelectProgramScreenState extends State<SelectProgramScreen> {
   double _chargeLevel = 101;
   double _chargeValue = 0;
   int _curMethodic = 0;
+
+  late PageController _pageViewController;
+  late TabController _tabController;
+  int _currentPageIndex = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -112,100 +117,31 @@ class _SelectProgramScreenState extends State<SelectProgramScreen> {
                     Expanded(
                       flex: 6,
                       child: Container(
-                        width: double.infinity,
-                        height: 500,
                         decoration: BoxDecoration(
                           color: backgroundColor,
                           borderRadius: BorderRadius.circular(10),
                         ),
-                        // FIXME: yasliks -> grig: нужно уменьшить вложенность - нечитаемо
-                        child: Column(
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 10,
-                                vertical: 8,
-                              ),
-                              child: Row(
-                                children: [
-                                  Text(
-                                    'Доступные программы',
-                                    style: theme.textTheme.titleMedium,
-                                    textScaler: const TextScaler.linear(1.0),
-                                  ),
-                                  const Spacer(),
-                                  if (_chargeValue > 0)
-                                    GestureDetector(
-                                      onTap: () {
-                                        pushScreen(
-                                          context,
-                                          (context, animation,
-                                                  secondaryAnimation) =>
-                                              DeviceInfoScreen(
-                                            title: 'Параметры стимулятора',
-                                            dvcName: widget.driver.deviceName(),
-                                          ),
-                                          '/dvc_settings',
-                                          ShiftDirection.rightToLeft,
-                                        );
-                                      },
-                                      child: Row(
-                                        children: [
-                                          if (_chargeLevel <=
-                                              Constants.chargeAlarmBoundLevel)
-                                            Icon(
-                                              Icons.warning,
-                                              color: Colors.red.shade800,
-                                            ),
-                                          Icon(
-                                            getChargeIconByLevel(_chargeLevel),
-                                            size: 16,
-                                            color: _chargeLevel >
-                                                    Constants
-                                                        .chargeAlarmBoundLevel
-                                                ? Colors.black
-                                                : Colors.red.shade800,
-                                          ),
-                                          Text(
-                                            '${_chargeLevel.toInt()}%',
-                                            style: TextStyle(
-                                              fontSize: 14,
-                                              color: _chargeLevel >
-                                                      Constants
-                                                          .chargeAlarmBoundLevel
-                                                  ? Colors.black
-                                                  : Colors.red.shade800,
-                                            ),
-                                            textScaler:
-                                                const TextScaler.linear(1.0),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                ],
-                              ),
+                        child: Stack(
+                          alignment: Alignment.bottomCenter,
+                          children: <Widget>[
+                            PageView(
+                              controller: _pageViewController,
+                              onPageChanged: _handlePageViewChanged,
+                              children: <Widget>[
+                                Center(child: _getSelectProgramWidget()),
+                                Center(child: Text('Wizard')),
+                              ],
                             ),
-                            if (_chargeLevel <= Constants.chargeAlarmBoundLevel)
-                              const ChargeMessageWidget(),
-                            const Divider(
-                              height: 0,
-                              indent: 0,
-                              thickness: 1,
-                            ),
-                            Expanded(
-                              child: SafeArea(
-                                child: ListView(
-                                  padding: const EdgeInsets.only(bottom: 20),
-                                  shrinkWrap: true,
-                                  children: <Widget>[
-                                    ..._buildProgramTiles(context),
-                                    ..._buildHandleProgram(context),
-                                  ],
-                                ),
-                              ),
+                            PageIndicator(
+                              tabController: _tabController,
+                              currentPageIndex: _currentPageIndex,
+                              onUpdateCurrentPageIndex: _updateCurrentPageIndex,
+                              isOnDesktopAndWeb: _isOnDesktopAndWeb,
                             ),
                           ],
                         ),
+
+                        //                      child: _getSelectProgramWidget(),
                       ),
                     ),
                   ],
@@ -250,6 +186,91 @@ class _SelectProgramScreenState extends State<SelectProgramScreen> {
     );
   }
 
+  /// Возвращает виджет со списком программ
+  Widget _getSelectProgramWidget() {
+    final theme = Theme.of(context);
+    return Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.symmetric(
+            horizontal: 10,
+            vertical: 8,
+          ),
+          child: Row(
+            children: [
+              Text(
+                'Доступные программы',
+                style: theme.textTheme.titleMedium,
+                textScaler: const TextScaler.linear(1.0),
+              ),
+              const Spacer(),
+              if (_chargeValue > 0)
+                GestureDetector(
+                  onTap: () {
+                    pushScreen(
+                      context,
+                      (context, animation, secondaryAnimation) =>
+                          DeviceInfoScreen(
+                        title: 'Параметры стимулятора',
+                        dvcName: widget.driver.deviceName(),
+                      ),
+                      '/dvc_settings',
+                      ShiftDirection.rightToLeft,
+                    );
+                  },
+                  child: Row(
+                    children: [
+                      if (_chargeLevel <= Constants.chargeAlarmBoundLevel)
+                        Icon(
+                          Icons.warning,
+                          color: Colors.red.shade800,
+                        ),
+                      Icon(
+                        getChargeIconByLevel(_chargeLevel),
+                        size: 16,
+                        color: _chargeLevel > Constants.chargeAlarmBoundLevel
+                            ? Colors.black
+                            : Colors.red.shade800,
+                      ),
+                      Text(
+                        '${_chargeLevel.toInt()}%',
+                        style: TextStyle(
+                          fontSize: 14,
+                          color: _chargeLevel > Constants.chargeAlarmBoundLevel
+                              ? Colors.black
+                              : Colors.red.shade800,
+                        ),
+                        textScaler: const TextScaler.linear(1.0),
+                      ),
+                    ],
+                  ),
+                ),
+            ],
+          ),
+        ),
+        if (_chargeLevel <= Constants.chargeAlarmBoundLevel)
+          const ChargeMessageWidget(),
+        const Divider(
+          height: 0,
+          indent: 0,
+          thickness: 1,
+        ),
+        Expanded(
+          child: SafeArea(
+            child: ListView(
+              padding: const EdgeInsets.only(bottom: 20),
+              shrinkWrap: true,
+              children: <Widget>[
+                ..._buildProgramTiles(context),
+                ..._buildHandleProgram(context),
+              ],
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
   Future alertLowEnergy() async {
     await showDialog<String>(
       context: context,
@@ -281,6 +302,9 @@ class _SelectProgramScreenState extends State<SelectProgramScreen> {
   @override
   void initState() {
     super.initState();
+    _pageViewController = PageController();
+    _tabController = TabController(length: 2, vsync: this);
+
     GetIt.I<AppMonitor>().setWindowStatus(AppWindows.awSelectProgram, true);
     readPrograms();
     _initConnect();
@@ -290,6 +314,8 @@ class _SelectProgramScreenState extends State<SelectProgramScreen> {
   void dispose() {
     GetIt.I<AppMonitor>().setWindowStatus(AppWindows.awSelectProgram, false);
     _doDispose();
+    _pageViewController.dispose();
+    _tabController.dispose();
     super.dispose();
   }
 
@@ -565,6 +591,99 @@ class _SelectProgramScreenState extends State<SelectProgramScreen> {
       ),
       '/execute',
       ShiftDirection.rightToLeft,
+    );
+  }
+
+  void _handlePageViewChanged(int currentPageIndex) {
+    if (!_isOnDesktopAndWeb) {
+      return;
+    }
+    _tabController.index = currentPageIndex;
+    setState(() {
+      _currentPageIndex = currentPageIndex;
+    });
+  }
+
+  void _updateCurrentPageIndex(int index) {
+    _tabController.index = index;
+    _pageViewController.animateToPage(
+      index,
+      duration: const Duration(milliseconds: 400),
+      curve: Curves.easeInOut,
+    );
+  }
+
+  bool get _isOnDesktopAndWeb => true;
+  // bool get _isOnDesktopAndWeb =>
+  //     kIsWeb ||
+  //     switch (defaultTargetPlatform) {
+  //       TargetPlatform.macOS ||
+  //       TargetPlatform.linux ||
+  //       TargetPlatform.windows =>
+  //         true,
+  //       TargetPlatform.android ||
+  //       TargetPlatform.iOS ||
+  //       TargetPlatform.fuchsia =>
+  //         false,
+  //     };
+}
+
+class PageIndicator extends StatelessWidget {
+  const PageIndicator({
+    super.key,
+    required this.tabController,
+    required this.currentPageIndex,
+    required this.onUpdateCurrentPageIndex,
+    required this.isOnDesktopAndWeb,
+  });
+
+  final int currentPageIndex;
+  final TabController tabController;
+  final void Function(int) onUpdateCurrentPageIndex;
+  final bool isOnDesktopAndWeb;
+
+  @override
+  Widget build(BuildContext context) {
+    if (!isOnDesktopAndWeb) {
+      return const SizedBox.shrink();
+    }
+    final ColorScheme colorScheme = Theme.of(context).colorScheme;
+
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          IconButton(
+            splashRadius: 16.0,
+            padding: EdgeInsets.zero,
+            onPressed: () {
+              if (currentPageIndex == 0) {
+                return;
+              }
+              onUpdateCurrentPageIndex(currentPageIndex - 1);
+            },
+            icon: const Icon(Icons.arrow_left_rounded, size: 32.0),
+          ),
+          TabPageSelector(
+            controller: tabController,
+            color: colorScheme.surface,
+            selectedColor: colorScheme.primary,
+          ),
+          IconButton(
+            splashRadius: 16.0,
+            padding: EdgeInsets.zero,
+            onPressed: () {
+              if (currentPageIndex == 1) {
+                return;
+              }
+              onUpdateCurrentPageIndex(currentPageIndex + 1);
+            },
+            icon: const Icon(Icons.arrow_right_rounded, size: 32.0),
+          ),
+        ],
+      ),
     );
   }
 }
