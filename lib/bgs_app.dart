@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:bgs_control/assets/themes/light_theme.dart';
 import 'package:bgs_control/features/invitation_to_connect_screen/view/invitation_to_connect_screen.dart';
 import 'package:bgs_control/repositories/methodic_programs/storage/program_storage.dart';
+import 'package:bgs_control/repositories/methodic_programs/storage/select_program_manager.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -29,6 +30,7 @@ class _BgsAppState extends State<BgsApp> {
 
     /// Инициализируем хранилище программ
     GetIt.I<ProgramStorage>().init();
+    GetIt.I<SelectProgramManager>().init();
 
     _adapterStateStateSubscription = FlutterBluePlus.adapterState.listen((
       state,

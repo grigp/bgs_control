@@ -9,6 +9,7 @@ import 'package:bgs_control/features/togo_params_screen/view/togo_params_screen.
 import 'package:bgs_control/repositories/app_monitor/app_monitor.dart';
 import 'package:bgs_control/repositories/methodic_programs/model/methodic_program.dart';
 import 'package:bgs_control/repositories/methodic_programs/storage/program_storage.dart';
+import 'package:bgs_control/repositories/methodic_programs/storage/select_program_manager.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
@@ -18,6 +19,7 @@ import '../../../assets/colors/colors.dart';
 import '../../../dev/LogUtils.dart';
 import '../../../repositories/bgs_connect/bgs_connect.dart';
 import '../../../repositories/logger/communication_logger.dart';
+import '../../../repositories/methodic_programs/model/select_item_info.dart';
 import '../../../repositories/running_manager/device_program_executor.dart';
 import '../../../repositories/running_manager/running_manager.dart';
 import '../../../utils/Constants.dart';
@@ -48,6 +50,7 @@ class SelectProgramScreen extends StatefulWidget {
 class _SelectProgramScreenState extends State<SelectProgramScreen>
     with TickerProviderStateMixin {
   List<MethodicProgram> _programs = [];
+  List<SelectItemInfo> _selectItems = [];
 
   bool _isConnected = false;
   String _uuidGetData = '';
@@ -128,8 +131,8 @@ class _SelectProgramScreenState extends State<SelectProgramScreen>
                               controller: _pageViewController,
                               onPageChanged: _handlePageViewChanged,
                               children: <Widget>[
+                                Center(child: _getAvaiableProgramWidget()),
                                 Center(child: _getSelectProgramWidget()),
-                                Center(child: Text('Wizard')),
                               ],
                             ),
                             PageIndicator(
@@ -187,7 +190,7 @@ class _SelectProgramScreenState extends State<SelectProgramScreen>
   }
 
   /// Возвращает виджет со списком программ
-  Widget _getSelectProgramWidget() {
+  Widget _getAvaiableProgramWidget() {
     final theme = Theme.of(context);
     return Column(
       children: [
@@ -271,6 +274,90 @@ class _SelectProgramScreenState extends State<SelectProgramScreen>
     );
   }
 
+  /// Возвращает виджет со списком программ
+  Widget _getSelectProgramWidget() {
+    final theme = Theme.of(context);
+    return Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.symmetric(
+            horizontal: 10,
+            vertical: 8,
+          ),
+          child: Row(
+            children: [
+              Text(
+                'Выберите желаемый тип воздействия',
+                style: theme.textTheme.titleMedium,
+                textScaler: const TextScaler.linear(1.0),
+              ),
+              const Spacer(),
+              if (_chargeValue > 0)
+                GestureDetector(
+                  onTap: () {
+                    pushScreen(
+                      context,
+                          (context, animation, secondaryAnimation) =>
+                          DeviceInfoScreen(
+                            title: 'Параметры стимулятора',
+                            dvcName: widget.driver.deviceName(),
+                          ),
+                      '/dvc_settings',
+                      ShiftDirection.rightToLeft,
+                    );
+                  },
+                  child: Row(
+                    children: [
+                      if (_chargeLevel <= Constants.chargeAlarmBoundLevel)
+                        Icon(
+                          Icons.warning,
+                          color: Colors.red.shade800,
+                        ),
+                      Icon(
+                        getChargeIconByLevel(_chargeLevel),
+                        size: 16,
+                        color: _chargeLevel > Constants.chargeAlarmBoundLevel
+                            ? Colors.black
+                            : Colors.red.shade800,
+                      ),
+                      Text(
+                        '${_chargeLevel.toInt()}%',
+                        style: TextStyle(
+                          fontSize: 14,
+                          color: _chargeLevel > Constants.chargeAlarmBoundLevel
+                              ? Colors.black
+                              : Colors.red.shade800,
+                        ),
+                        textScaler: const TextScaler.linear(1.0),
+                      ),
+                    ],
+                  ),
+                ),
+            ],
+          ),
+        ),
+        if (_chargeLevel <= Constants.chargeAlarmBoundLevel)
+          const ChargeMessageWidget(),
+        const Divider(
+          height: 0,
+          indent: 0,
+          thickness: 1,
+        ),
+        Expanded(
+          child: SafeArea(
+            child: ListView(
+              padding: const EdgeInsets.only(bottom: 20),
+              shrinkWrap: true,
+              children: <Widget>[
+                ..._buildSelectProgramMenu(context),
+               ],
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
   Future alertLowEnergy() async {
     await showDialog<String>(
       context: context,
@@ -307,6 +394,7 @@ class _SelectProgramScreenState extends State<SelectProgramScreen>
 
     GetIt.I<AppMonitor>().setWindowStatus(AppWindows.awSelectProgram, true);
     readPrograms();
+    _readSelectProgramItems();
     _initConnect();
   }
 
@@ -328,6 +416,10 @@ class _SelectProgramScreenState extends State<SelectProgramScreen>
 
   void readPrograms() async {
     _programs = GetIt.I<ProgramStorage>().getPrograms();
+  }
+
+  void _readSelectProgramItems() async {
+    _selectItems = await GetIt.I<SelectProgramManager>().getItemsByParent(-1);
   }
 
   void _initConnect() async {
@@ -480,6 +572,39 @@ class _SelectProgramScreenState extends State<SelectProgramScreen>
     return list;
   }
 
+  List<Widget> _buildSelectProgramMenu(BuildContext context) {
+    return _programs
+        .mapIndexed(
+          (program, index) => ProgramTitle(
+        program: program,
+        isLast: index == _programs.length - 1,
+        onTap: () async {
+          if (_chargeLevel <= Constants.chargeBreakBoundLevel) {
+            await alertLowEnergy();
+          }
+
+          /// Если запустили повторно незавершенную программу
+          if (program.uid == widget.driver.program.uid &&
+              widget.driver.playingTime() > 0) {
+            /// Спросим, надо ли ее продолжить
+            final bool? isCont = await _showContinueProgramDialog();
+
+            /// И, если не надо
+            if (!isCont!) {
+              /// Сбросить программу
+              widget.driver.resetProgram();
+            }
+          }
+
+          /// Ну и запустить экран выполнения
+          _curMethodic = int.parse(program.uid);
+          _runProgramWithParams(program);
+        },
+      ),
+    )
+        .toList();
+  }
+
   void _runToGoMode() async {
     if (_chargeLevel <= Constants.chargeBreakBoundLevel) {
       await alertLowEnergy();
@@ -614,18 +739,18 @@ class _SelectProgramScreenState extends State<SelectProgramScreen>
   }
 
   bool get _isOnDesktopAndWeb => true;
-  // bool get _isOnDesktopAndWeb =>
-  //     kIsWeb ||
-  //     switch (defaultTargetPlatform) {
-  //       TargetPlatform.macOS ||
-  //       TargetPlatform.linux ||
-  //       TargetPlatform.windows =>
-  //         true,
-  //       TargetPlatform.android ||
-  //       TargetPlatform.iOS ||
-  //       TargetPlatform.fuchsia =>
-  //         false,
-  //     };
+// bool get _isOnDesktopAndWeb =>
+//     kIsWeb ||
+//     switch (defaultTargetPlatform) {
+//       TargetPlatform.macOS ||
+//       TargetPlatform.linux ||
+//       TargetPlatform.windows =>
+//         true,
+//       TargetPlatform.android ||
+//       TargetPlatform.iOS ||
+//       TargetPlatform.fuchsia =>
+//         false,
+//     };
 }
 
 class PageIndicator extends StatelessWidget {
@@ -651,7 +776,6 @@ class PageIndicator extends StatelessWidget {
 
     return Padding(
       padding: const EdgeInsets.all(8.0),
-
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
@@ -664,12 +788,17 @@ class PageIndicator extends StatelessWidget {
               }
               onUpdateCurrentPageIndex(currentPageIndex - 1);
             },
-            icon: const Icon(Icons.arrow_left_rounded, size: 32.0),
+            icon: const Icon(
+              Icons.arrow_left_rounded,
+              size: 32.0,
+              color: filledAccentButtonColor,
+            ),
           ),
           TabPageSelector(
             controller: tabController,
             color: colorScheme.surface,
-            selectedColor: colorScheme.primary,
+            indicatorSize: 12,
+            selectedColor: filledAccentButtonColor, //colorScheme.primary,
           ),
           IconButton(
             splashRadius: 16.0,
@@ -680,7 +809,11 @@ class PageIndicator extends StatelessWidget {
               }
               onUpdateCurrentPageIndex(currentPageIndex + 1);
             },
-            icon: const Icon(Icons.arrow_right_rounded, size: 32.0),
+            icon: const Icon(
+              Icons.arrow_right_rounded,
+              size: 32.0,
+              color: filledAccentButtonColor,
+            ),
           ),
         ],
       ),
