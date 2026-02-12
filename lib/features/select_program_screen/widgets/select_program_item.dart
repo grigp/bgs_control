@@ -1,15 +1,16 @@
 import 'package:bgs_control/repositories/methodic_programs/model/methodic_program.dart';
+import 'package:bgs_control/repositories/methodic_programs/model/select_item_info.dart';
 import 'package:flutter/material.dart';
 
 class SelectProgramItem extends StatefulWidget {
   const SelectProgramItem({
     super.key,
-    required this.program,
+    required this.itemInfo,
     required this.isLast,
     required this.onTap,
   });
 
-  final MethodicProgram program;
+  final SelectItemInfo itemInfo;
   final bool isLast;
   final VoidCallback? onTap;
 
@@ -41,30 +42,19 @@ class _SelectProgramItemState extends State<SelectProgramItem> {
         children: [
           Row(
             children: [
-              Image.asset(
-                'lib/assets/icons/programs/${widget.program.image}',
-                width: 36,
-                height: 36,
-              ),
-              const SizedBox(width: 10),
               Expanded(
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Text(
-                      widget.program.title,
-                      style: theme.textTheme.bodyLarge,
+                      widget.itemInfo.title,
+                      style: widget.itemInfo.nodeType ==
+                              SelectItemNodeType.simtTitle
+                          ? theme.textTheme.bodyLarge
+                          : theme.textTheme.titleLarge,
                       overflow: TextOverflow.fade, //ellipsis,
                       textScaler: const TextScaler.linear(1.0),
                     ),
-                    // Показывает описание методики. Закрыто потому, что так решили все, но я не согласен
-                    // Text(
-                    //   widget.program.description,
-                    //   style: theme.textTheme.labelSmall,
-                    //   overflow: TextOverflow.fade, //.ellipsis,
-                    //   textScaler: const TextScaler.linear(1.0),
-                    //   maxLines: 4,
-                    // ),
                   ],
                 ),
               ),

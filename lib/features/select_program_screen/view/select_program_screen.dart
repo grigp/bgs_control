@@ -4,6 +4,7 @@ import 'package:bgs_control/features/execute_screen/view/execute_screen.dart';
 import 'package:bgs_control/features/program_params_screen/view/program_params_screen.dart';
 import 'package:bgs_control/features/select_program_screen/widgets/direct_title.dart';
 import 'package:bgs_control/features/select_program_screen/widgets/program_title.dart';
+import 'package:bgs_control/features/select_program_screen/widgets/select_program_item.dart';
 import 'package:bgs_control/features/select_program_screen/widgets/togo_title.dart';
 import 'package:bgs_control/features/togo_params_screen/view/togo_params_screen.dart';
 import 'package:bgs_control/repositories/app_monitor/app_monitor.dart';
@@ -574,32 +575,34 @@ class _SelectProgramScreenState extends State<SelectProgramScreen>
 
   List<Widget> _buildSelectProgramMenu(BuildContext context) {
 
-    return _programs
+    return _selectItems
         .mapIndexed(
-          (program, index) => ProgramTitle(
-        program: program,
+          (itemInfo, index) => SelectProgramItem(
+        itemInfo: itemInfo,
         isLast: index == _programs.length - 1,
         onTap: () async {
           if (_chargeLevel <= Constants.chargeBreakBoundLevel) {
             await alertLowEnergy();
           }
 
-          /// Если запустили повторно незавершенную программу
-          if (program.uid == widget.driver.program.uid &&
-              widget.driver.playingTime() > 0) {
-            /// Спросим, надо ли ее продолжить
-            final bool? isCont = await _showContinueProgramDialog();
+          print('<><>><><<><><><><><><><> ---- pressed ${itemInfo.title}');
 
-            /// И, если не надо
-            if (!isCont!) {
-              /// Сбросить программу
-              widget.driver.resetProgram();
-            }
-          }
+          // /// Если запустили повторно незавершенную программу
+          // if (program.uid == widget.driver.program.uid &&
+          //     widget.driver.playingTime() > 0) {
+          //   /// Спросим, надо ли ее продолжить
+          //   final bool? isCont = await _showContinueProgramDialog();
+          //
+          //   /// И, если не надо
+          //   if (!isCont!) {
+          //     /// Сбросить программу
+          //     widget.driver.resetProgram();
+          //   }
+          // }
 
-          /// Ну и запустить экран выполнения
-          _curMethodic = int.parse(program.uid);
-          _runProgramWithParams(program);
+          // /// Ну и запустить экран выполнения
+          // _curMethodic = int.parse(program.uid);
+          // _runProgramWithParams(program);
         },
       ),
     )
