@@ -11,6 +11,7 @@ import 'package:bgs_control/repositories/app_monitor/app_monitor.dart';
 import 'package:bgs_control/repositories/methodic_programs/model/methodic_program.dart';
 import 'package:bgs_control/repositories/methodic_programs/storage/program_storage.dart';
 import 'package:bgs_control/repositories/methodic_programs/storage/select_program_manager.dart';
+import 'package:bgs_control/utils/stack_struct.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
@@ -52,6 +53,8 @@ class _SelectProgramScreenState extends State<SelectProgramScreen>
     with TickerProviderStateMixin {
   List<MethodicProgram> _programs = [];
   List<SelectItemInfo> _selectItems = [];
+  int _curSelectMenuParent = -1;
+  final _lastSelcted = StackStruct<int>();
 
   bool _isConnected = false;
   String _uuidGetData = '';
@@ -298,11 +301,11 @@ class _SelectProgramScreenState extends State<SelectProgramScreen>
                   onTap: () {
                     pushScreen(
                       context,
-                          (context, animation, secondaryAnimation) =>
+                      (context, animation, secondaryAnimation) =>
                           DeviceInfoScreen(
-                            title: 'Параметры стимулятора',
-                            dvcName: widget.driver.deviceName(),
-                          ),
+                        title: 'Параметры стимулятора',
+                        dvcName: widget.driver.deviceName(),
+                      ),
                       '/dvc_settings',
                       ShiftDirection.rightToLeft,
                     );
@@ -351,7 +354,12 @@ class _SelectProgramScreenState extends State<SelectProgramScreen>
               shrinkWrap: true,
               children: <Widget>[
                 ..._buildSelectProgramMenu(context),
-               ],
+                const SizedBox(height: 100),
+                GestureDetector(
+                  child: Text('<< Назад'),
+                  onTap: _pressBackMenu(),
+                 ),
+              ],
             ),
           ),
         ),
@@ -420,7 +428,9 @@ class _SelectProgramScreenState extends State<SelectProgramScreen>
   }
 
   void _readSelectProgramItems() async {
-    _selectItems = await GetIt.I<SelectProgramManager>().getItemsByParent(-1);
+    _selectItems = await GetIt.I<SelectProgramManager>()
+        .getItemsByParent(_curSelectMenuParent);
+    _lastSelcted.push(_curSelectMenuParent);
   }
 
   void _initConnect() async {
@@ -574,38 +584,44 @@ class _SelectProgramScreenState extends State<SelectProgramScreen>
   }
 
   List<Widget> _buildSelectProgramMenu(BuildContext context) {
-
     return _selectItems
         .mapIndexed(
           (itemInfo, index) => SelectProgramItem(
-        itemInfo: itemInfo,
-        isLast: index == _programs.length - 1,
-        onTap: () async {
-          if (_chargeLevel <= Constants.chargeBreakBoundLevel) {
-            await alertLowEnergy();
-          }
+            itemInfo: itemInfo,
+            isLast: index == _programs.length - 1,
+            onTap: () async {
+              if (_chargeLevel <= Constants.chargeBreakBoundLevel) {
+                await alertLowEnergy();
+              }
 
-          print('<><>><><<><><><><><><><> ---- pressed ${itemInfo.title}');
+              if (itemInfo.nodeType == SelectItemNodeType.simtNode) {
+                setState(() {
+                  _curSelectMenuParent = itemInfo.id;
+                  _selectItems = GetIt.I<SelectProgramManager>()
+                      .getItemsByParent(_curSelectMenuParent);
+                  _lastSelcted.push(_curSelectMenuParent);
+                });
+              }
 
-          // /// Если запустили повторно незавершенную программу
-          // if (program.uid == widget.driver.program.uid &&
-          //     widget.driver.playingTime() > 0) {
-          //   /// Спросим, надо ли ее продолжить
-          //   final bool? isCont = await _showContinueProgramDialog();
-          //
-          //   /// И, если не надо
-          //   if (!isCont!) {
-          //     /// Сбросить программу
-          //     widget.driver.resetProgram();
-          //   }
-          // }
+              // /// Если запустили повторно незавершенную программу
+              // if (program.uid == widget.driver.program.uid &&
+              //     widget.driver.playingTime() > 0) {
+              //   /// Спросим, надо ли ее продолжить
+              //   final bool? isCont = await _showContinueProgramDialog();
+              //
+              //   /// И, если не надо
+              //   if (!isCont!) {
+              //     /// Сбросить программу
+              //     widget.driver.resetProgram();
+              //   }
+              // }
 
-          // /// Ну и запустить экран выполнения
-          // _curMethodic = int.parse(program.uid);
-          // _runProgramWithParams(program);
-        },
-      ),
-    )
+              // /// Ну и запустить экран выполнения
+              // _curMethodic = int.parse(program.uid);
+              // _runProgramWithParams(program);
+            },
+          ),
+        )
         .toList();
   }
 
@@ -743,6 +759,17 @@ class _SelectProgramScreenState extends State<SelectProgramScreen>
   }
 
   bool get _isOnDesktopAndWeb => true;
+
+  GestureTapCallback? _pressBackMenu() {
+    SetState() {
+      if (!_lastSelcted.isEmpty()) {
+        _curSelectMenuParent = _lastSelcted.pop();
+        _selectItems = GetIt.I<SelectProgramManager>()
+            .getItemsByParent(_curSelectMenuParent);
+      }
+    }
+    return null;
+  }
 // bool get _isOnDesktopAndWeb =>
 //     kIsWeb ||
 //     switch (defaultTargetPlatform) {
@@ -823,6 +850,8 @@ class PageIndicator extends StatelessWidget {
       ),
     );
   }
+
+
 }
 
 extension ExtendedIterable<E> on Iterable<E> {

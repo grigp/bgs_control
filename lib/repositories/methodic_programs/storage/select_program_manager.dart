@@ -29,7 +29,7 @@ class SelectProgramManager {
   }
 
   /// Возвращает список итемов по заданному предку
-  Future<List<SelectItemInfo>> getItemsByParent(int parent) async {
+  List<SelectItemInfo> getItemsByParent(int parent)  {
     List<SelectItemInfo> retval = [];
     for (int i = 0; i < _listItems.length; ++i) {
       if (_listItems[i].parent == parent) {

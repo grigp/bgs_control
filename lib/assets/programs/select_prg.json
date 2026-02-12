@@ -42,7 +42,7 @@
     {
       "node_type": 2,
       "id": 5,
-      "parent": 0,
+      "parent": 1,
       "title": "Укажите время возникновения дискомфорта",
       "description": "Как долго испытываете дискомфорт",
       "methodic_id": -1
@@ -50,7 +50,7 @@
     {
       "node_type": 0,
       "id": 6,
-      "parent": 0,
+      "parent": 1,
       "title": "Давно/периодическое появление",
       "description": "Дискомфорт более недели",
       "methodic_id": -1
@@ -58,7 +58,7 @@
     {
       "node_type": 0,
       "id": 7,
-      "parent": 0,
+      "parent": 1,
       "title": "Недавно",
       "description": "Дискомфорт менее недели",
       "methodic_id": -1
