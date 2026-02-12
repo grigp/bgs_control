@@ -78,6 +78,7 @@ flutter:
      - lib/assets/icons/bluetooth.png
 
      - lib/assets/programs/prg_main.json
+     - lib/assets/programs/select_prg.json
      - lib/assets/icons/programs/togo.png
      - lib/assets/icons/programs/ankle_pain.png
      - lib/assets/icons/programs/elbow_pain.png

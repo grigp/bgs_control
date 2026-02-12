@@ -12,7 +12,7 @@ class SelectItemInfo {
   factory SelectItemInfo.fromJson(dynamic data) {
     ///Разбор итема в json
     var retval = SelectItemInfo(
-      nodeType: data['node_type'],
+      nodeType: selectItemNodeTypeFromJson[data['node_type']]!,
       id: data['id'],
       parent: data['parent'],
       title: data['title'],
@@ -32,6 +32,14 @@ class SelectItemInfo {
 
 // Тип узла 0 - узел, 1 - лист, 2 - заголовок
 enum SelectItemNodeType {simtNode, simtRun, simtTitle}
+
+/// Значения типа узла в json
+Map<int, SelectItemNodeType> selectItemNodeTypeFromJson = <int, SelectItemNodeType>{
+  0: SelectItemNodeType.simtNode,
+  1: SelectItemNodeType.simtRun,
+  2: SelectItemNodeType.simtTitle,
+};
+
 // {
 //   "tree": [
 //     {

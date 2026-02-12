@@ -573,6 +573,7 @@ class _SelectProgramScreenState extends State<SelectProgramScreen>
   }
 
   List<Widget> _buildSelectProgramMenu(BuildContext context) {
+
     return _programs
         .mapIndexed(
           (program, index) => ProgramTitle(
