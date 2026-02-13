@@ -357,8 +357,16 @@ class _SelectProgramScreenState extends State<SelectProgramScreen>
                 const SizedBox(height: 100),
                 GestureDetector(
                   child: Text('<< Назад'),
-                  onTap: _pressBackMenu(),
-                 ),
+                  onTap: () {
+                    setState(() {
+                      if (!_lastSelcted.isEmpty()) {
+                        _curSelectMenuParent = _lastSelcted.pop();
+                        _selectItems = GetIt.I<SelectProgramManager>()
+                            .getItemsByParent(_curSelectMenuParent);
+                      }
+                    });
+                  }
+                ),
               ],
             ),
           ),
@@ -599,7 +607,7 @@ class _SelectProgramScreenState extends State<SelectProgramScreen>
                   _curSelectMenuParent = itemInfo.id;
                   _selectItems = GetIt.I<SelectProgramManager>()
                       .getItemsByParent(_curSelectMenuParent);
-                  _lastSelcted.push(_curSelectMenuParent);
+                  _lastSelcted.push(itemInfo.parent);
                 });
               }
 
@@ -760,16 +768,7 @@ class _SelectProgramScreenState extends State<SelectProgramScreen>
 
   bool get _isOnDesktopAndWeb => true;
 
-  GestureTapCallback? _pressBackMenu() {
-    SetState() {
-      if (!_lastSelcted.isEmpty()) {
-        _curSelectMenuParent = _lastSelcted.pop();
-        _selectItems = GetIt.I<SelectProgramManager>()
-            .getItemsByParent(_curSelectMenuParent);
-      }
-    }
-    return null;
-  }
+
 // bool get _isOnDesktopAndWeb =>
 //     kIsWeb ||
 //     switch (defaultTargetPlatform) {
@@ -850,8 +849,6 @@ class PageIndicator extends StatelessWidget {
       ),
     );
   }
-
-
 }
 
 extension ExtendedIterable<E> on Iterable<E> {
