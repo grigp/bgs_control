@@ -1,6 +1,10 @@
 import 'package:bgs_control/repositories/methodic_programs/model/methodic_program.dart';
 import 'package:bgs_control/repositories/methodic_programs/model/select_item_info.dart';
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
+
+import '../../../assets/colors/colors.dart';
+import '../../../repositories/methodic_programs/storage/program_storage.dart';
 
 class SelectProgramItem extends StatefulWidget {
   const SelectProgramItem({
@@ -31,6 +35,8 @@ class _SelectProgramItemState extends State<SelectProgramItem> {
   }
 
   Widget _buildTitle(BuildContext context, ThemeData theme) {
+    var prg = GetIt.I<ProgramStorage>().getProgram("${widget.itemInfo.methodicId}");
+
     return Container(
       color: Colors.transparent,
       padding: const EdgeInsets.only(
@@ -42,6 +48,18 @@ class _SelectProgramItemState extends State<SelectProgramItem> {
         children: [
           Row(
             children: [
+              if (widget.itemInfo.nodeType == SelectItemNodeType.simtNode)
+                const Icon(
+                  Icons.folder,
+                  size: 32,
+                  color: filledAccentButtonColor,
+                ),
+              if (widget.itemInfo.nodeType == SelectItemNodeType.simtRun)
+                Image.asset(
+                  'lib/assets/icons/programs/${prg.image}',
+                  width: 36,
+                  height: 36,
+                ),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,

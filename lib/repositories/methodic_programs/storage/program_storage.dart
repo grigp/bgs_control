@@ -20,6 +20,20 @@ class ProgramStorage {
     return _listPrograms;
   }
 
+  /// Возвращает программу по ее id
+  MethodicProgram getProgram(String methId) {
+    for (int i = 0; i < _listPrograms.length; ++i) {
+      if (_listPrograms[i].uid == methId) return _listPrograms[i];
+    }
+    return MethodicProgram(
+        uid: '',
+        statsTitle: '',
+        title: '',
+        description: '',
+        image: '',
+        mpk: MethodicProgramKind.mpkNormal);
+  }
+
   /// Заполняет рабочий список программ, беря его из предустановленного файла json
   Future _fillWorkList() async {
     /// Список программ по умолчанию
@@ -32,6 +46,7 @@ class ProgramStorage {
     _listPrograms.clear();
     for (int i = 0; i < listPPDef!.length; ++i) {
       var program = MethodicProgram.fromJson(listPPDef[i]);
+
       /// Добавляем программы, имеющие аттрибут debug только в debug режиме
       if ((!kDebugMode && !program.attributes.contains('debug')) ||
           kDebugMode) {

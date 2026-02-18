@@ -291,7 +291,7 @@ class _SelectProgramScreenState extends State<SelectProgramScreen>
           child: Row(
             children: [
               Text(
-                'Выберите желаемый тип воздействия',
+                'Выбор программы',
                 style: theme.textTheme.titleMedium,
                 textScaler: const TextScaler.linear(1.0),
               ),
@@ -355,18 +355,26 @@ class _SelectProgramScreenState extends State<SelectProgramScreen>
               children: <Widget>[
                 ..._buildSelectProgramMenu(context),
                 const SizedBox(height: 100),
-                GestureDetector(
-                  child: Text('<< Назад'),
-                  onTap: () {
-                    setState(() {
-                      if (!_lastSelcted.isEmpty()) {
-                        _curSelectMenuParent = _lastSelcted.pop();
-                        _selectItems = GetIt.I<SelectProgramManager>()
-                            .getItemsByParent(_curSelectMenuParent);
-                      }
-                    });
-                  }
-                ),
+                if (_curSelectMenuParent > -1)
+                  GestureDetector(
+                      child: Container(
+                        alignment: AlignmentGeometry.center,
+                        width: double.infinity,
+                        height: 40,
+                        child: Text(
+                          '<< Назад',
+                          style: theme.textTheme.titleLarge,
+                        ),
+                      ),
+                      onTap: () {
+                        setState(() {
+                          if (!_lastSelcted.isEmpty()) {
+                            _curSelectMenuParent = _lastSelcted.pop();
+                            _selectItems = GetIt.I<SelectProgramManager>()
+                                .getItemsByParent(_curSelectMenuParent);
+                          }
+                        });
+                      }),
               ],
             ),
           ),
@@ -767,7 +775,6 @@ class _SelectProgramScreenState extends State<SelectProgramScreen>
   }
 
   bool get _isOnDesktopAndWeb => true;
-
 
 // bool get _isOnDesktopAndWeb =>
 //     kIsWeb ||
