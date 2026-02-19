@@ -617,26 +617,26 @@ class _SelectProgramScreenState extends State<SelectProgramScreen>
                       .getItemsByParent(_curSelectMenuParent);
                   _lastSelcted.push(itemInfo.parent);
                 });
-              } else
-                if (itemInfo.nodeType == SelectItemNodeType.simtRun) {
-                  var prg = GetIt.I<ProgramStorage>().getProgram("${itemInfo.methodicId}");
+              } else if (itemInfo.nodeType == SelectItemNodeType.simtRun) {
+                var prg = GetIt.I<ProgramStorage>()
+                    .getProgram("${itemInfo.methodicId}");
 
-                  /// Если запустили повторно незавершенную программу
-                  if (prg.uid == widget.driver.program.uid &&
-                      widget.driver.playingTime() > 0) {
-                    /// Спросим, надо ли ее продолжить
-                    final bool? isCont = await _showContinueProgramDialog();
+                /// Если запустили повторно незавершенную программу
+                if (prg.uid == widget.driver.program.uid &&
+                    widget.driver.playingTime() > 0) {
+                  /// Спросим, надо ли ее продолжить
+                  final bool? isCont = await _showContinueProgramDialog();
 
-                    /// И, если не надо
-                    if (!isCont!) {
-                      /// Сбросить программу
-                      widget.driver.resetProgram();
-                    }
+                  /// И, если не надо
+                  if (!isCont!) {
+                    /// Сбросить программу
+                    widget.driver.resetProgram();
                   }
-
-                  _curMethodic = int.parse(prg.uid);
-                  _runProgramWithParams(prg);
                 }
+
+                _curMethodic = int.parse(prg.uid);
+                _runProgramWithParams(prg);
+              }
             },
           ),
         )
