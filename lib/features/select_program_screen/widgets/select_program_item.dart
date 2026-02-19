@@ -60,6 +60,7 @@ class _SelectProgramItemState extends State<SelectProgramItem> {
                   width: 36,
                   height: 36,
                 ),
+              const SizedBox(width: 20),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
