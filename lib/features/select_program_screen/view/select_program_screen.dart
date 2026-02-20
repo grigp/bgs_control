@@ -353,17 +353,21 @@ class _SelectProgramScreenState extends State<SelectProgramScreen>
               padding: const EdgeInsets.only(bottom: 20),
               shrinkWrap: true,
               children: <Widget>[
-                ..._buildSelectProgramMenu(context),
-                const SizedBox(height: 100),
+                if (_curSelectMenuParent > -1) const SizedBox(height: 20),
                 if (_curSelectMenuParent > -1)
                   GestureDetector(
                       child: Container(
-                        alignment: AlignmentGeometry.center,
+                        alignment: AlignmentGeometry.topLeft,
                         width: double.infinity,
                         height: 40,
-                        child: Text(
-                          '<< Назад',
-                          style: theme.textTheme.titleLarge,
+                        child: Row(
+                          children: [
+                            const SizedBox(width: 10),
+                            Text(
+                              '< Назад',
+                              style: theme.textTheme.titleLarge,
+                            ),
+                          ],
                         ),
                       ),
                       onTap: () {
@@ -375,6 +379,7 @@ class _SelectProgramScreenState extends State<SelectProgramScreen>
                           }
                         });
                       }),
+                ..._buildSelectProgramMenu(context),
               ],
             ),
           ),
