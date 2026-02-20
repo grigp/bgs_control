@@ -82,9 +82,15 @@ class _SelectProgramScreenState extends State<SelectProgramScreen>
         if (didPop) {
           return;
         }
-        GetIt.I<RunningManager>()
-            .disconnectDevice(widget.driver.device.advName);
-        Navigator.pop(context);
+        var isQuit = true;
+        if (_tabController.index == 1) {
+          isQuit = !_gotoPreviousMenu();
+        }
+        if (isQuit){
+          GetIt.I<RunningManager>()
+              .disconnectDevice(widget.driver.device.advName);
+          Navigator.pop(context);
+        }
       },
       child: Scaffold(
         backgroundColor: backgroundTestColor,
@@ -371,13 +377,7 @@ class _SelectProgramScreenState extends State<SelectProgramScreen>
                         ),
                       ),
                       onTap: () {
-                        setState(() {
-                          if (!_lastSelcted.isEmpty()) {
-                            _curSelectMenuParent = _lastSelcted.pop();
-                            _selectItems = GetIt.I<SelectProgramManager>()
-                                .getItemsByParent(_curSelectMenuParent);
-                          }
-                        });
+                        _gotoPreviousMenu();
                       }),
                 ..._buildSelectProgramMenu(context),
               ],
@@ -386,6 +386,21 @@ class _SelectProgramScreenState extends State<SelectProgramScreen>
         ),
       ],
     );
+  }
+
+  /// Переходит к предыдущему разделу меню выбора программы
+  /// Возвращает true, если перешла и false, если переходить некуда, находимся в корне
+  bool _gotoPreviousMenu() {
+    bool retval = false;
+    setState(() {
+      if (!_lastSelcted.isEmpty()) {
+        _curSelectMenuParent = _lastSelcted.pop();
+        _selectItems = GetIt.I<SelectProgramManager>()
+            .getItemsByParent(_curSelectMenuParent);
+        retval =true;
+      }
+    });
+    return retval;
   }
 
   Future alertLowEnergy() async {
@@ -451,7 +466,6 @@ class _SelectProgramScreenState extends State<SelectProgramScreen>
   void _readSelectProgramItems() async {
     _selectItems = await GetIt.I<SelectProgramManager>()
         .getItemsByParent(_curSelectMenuParent);
-    _lastSelcted.push(_curSelectMenuParent);
   }
 
   void _initConnect() async {
