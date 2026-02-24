@@ -86,7 +86,7 @@ class _SelectProgramScreenState extends State<SelectProgramScreen>
         if (_tabController.index == 1) {
           isQuit = !_gotoPreviousMenu();
         }
-        if (isQuit){
+        if (isQuit) {
           GetIt.I<RunningManager>()
               .disconnectDevice(widget.driver.device.advName);
           Navigator.pop(context);
@@ -397,7 +397,7 @@ class _SelectProgramScreenState extends State<SelectProgramScreen>
         _curSelectMenuParent = _lastSelcted.pop();
         _selectItems = GetIt.I<SelectProgramManager>()
             .getItemsByParent(_curSelectMenuParent);
-        retval =true;
+        retval = true;
       }
     });
     return retval;
