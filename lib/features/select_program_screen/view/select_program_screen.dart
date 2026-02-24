@@ -137,14 +137,7 @@ class _SelectProgramScreenState extends State<SelectProgramScreen>
                         child: Stack(
                           alignment: Alignment.bottomCenter,
                           children: <Widget>[
-                            PageView(
-                              controller: _pageViewController,
-                              onPageChanged: _handlePageViewChanged,
-                              children: <Widget>[
-                                Center(child: _getAvaiableProgramWidget()),
-                                Center(child: _getSelectProgramWidget()),
-                              ],
-                            ),
+                            _getPageViewSelectProgramWidget(),
                             PageIndicator(
                               tabController: _tabController,
                               currentPageIndex: _currentPageIndex,
@@ -199,8 +192,7 @@ class _SelectProgramScreenState extends State<SelectProgramScreen>
     );
   }
 
-  /// Возвращает виджет со списком программ
-  Widget _getAvaiableProgramWidget() {
+  Widget _getPageViewSelectProgramWidget() {
     final theme = Theme.of(context);
     return Column(
       children: [
@@ -212,7 +204,9 @@ class _SelectProgramScreenState extends State<SelectProgramScreen>
           child: Row(
             children: [
               Text(
-                'Доступные программы',
+                _tabController.index == 0
+                    ? 'Доступные программы'
+                    : 'Выбор программы',
                 style: theme.textTheme.titleMedium,
                 textScaler: const TextScaler.linear(1.0),
               ),
@@ -269,6 +263,25 @@ class _SelectProgramScreenState extends State<SelectProgramScreen>
           thickness: 1,
         ),
         Expanded(
+          child: PageView(
+            controller: _pageViewController,
+            onPageChanged: _handlePageViewChanged,
+            children: <Widget>[
+              Center(child: _getAvaiableProgramWidget()),
+              Center(child: _getSelectProgramWidget()),
+            ],
+          ),
+        )
+      ],
+    );
+  }
+
+  /// Возвращает виджет со списком программ
+  Widget _getAvaiableProgramWidget() {
+    final theme = Theme.of(context);
+    return Column(
+      children: [
+        Expanded(
           child: SafeArea(
             child: ListView(
               padding: const EdgeInsets.only(bottom: 20),
@@ -289,70 +302,6 @@ class _SelectProgramScreenState extends State<SelectProgramScreen>
     final theme = Theme.of(context);
     return Column(
       children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 10,
-            vertical: 8,
-          ),
-          child: Row(
-            children: [
-              Text(
-                'Выбор программы',
-                style: theme.textTheme.titleMedium,
-                textScaler: const TextScaler.linear(1.0),
-              ),
-              const Spacer(),
-              if (_chargeValue > 0)
-                GestureDetector(
-                  onTap: () {
-                    pushScreen(
-                      context,
-                      (context, animation, secondaryAnimation) =>
-                          DeviceInfoScreen(
-                        title: 'Параметры стимулятора',
-                        dvcName: widget.driver.deviceName(),
-                      ),
-                      '/dvc_settings',
-                      ShiftDirection.rightToLeft,
-                    );
-                  },
-                  child: Row(
-                    children: [
-                      if (_chargeLevel <= Constants.chargeAlarmBoundLevel)
-                        Icon(
-                          Icons.warning,
-                          color: Colors.red.shade800,
-                        ),
-                      Icon(
-                        getChargeIconByLevel(_chargeLevel),
-                        size: 16,
-                        color: _chargeLevel > Constants.chargeAlarmBoundLevel
-                            ? Colors.black
-                            : Colors.red.shade800,
-                      ),
-                      Text(
-                        '${_chargeLevel.toInt()}%',
-                        style: TextStyle(
-                          fontSize: 14,
-                          color: _chargeLevel > Constants.chargeAlarmBoundLevel
-                              ? Colors.black
-                              : Colors.red.shade800,
-                        ),
-                        textScaler: const TextScaler.linear(1.0),
-                      ),
-                    ],
-                  ),
-                ),
-            ],
-          ),
-        ),
-        if (_chargeLevel <= Constants.chargeAlarmBoundLevel)
-          const ChargeMessageWidget(),
-        const Divider(
-          height: 0,
-          indent: 0,
-          thickness: 1,
-        ),
         Expanded(
           child: SafeArea(
             child: ListView(
