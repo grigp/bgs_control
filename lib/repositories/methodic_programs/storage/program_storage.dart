@@ -10,9 +10,11 @@ import '../model/methodic_program.dart';
 /// Класс, предоставляющий доступ к списку доступных программ
 class ProgramStorage {
   final List<MethodicProgram> _listPrograms = [];
+  late int _currentSelectProgramPage = 0;
 
   void init() async {
     await _fillWorkList();
+    _readCurrentPageFromFile();
   }
 
   /// Возвращает список доступных программ
@@ -111,5 +113,35 @@ class ProgramStorage {
       }
     }
     return false;
+  }
+
+  /// Записывает текущую страницу PageView в файл
+  void writeCurrentPageToFile(int idx) async {
+    final dir = Platform.isAndroid
+        ? await getExternalStorageDirectory()
+        : await getApplicationSupportDirectory();
+
+    /// Записать в файл
+    String sp = '${idx}';
+    await File('${dir?.path}/select_programs.ini').writeAsString(sp);
+  }
+
+  /// Читает текущую страницу PageView из файла
+  void _readCurrentPageFromFile() async {
+    final dir = Platform.isAndroid
+        ? await getExternalStorageDirectory()
+        : await getApplicationSupportDirectory();
+
+    var f = File('${dir?.path}/select_programs.ini');
+    if (await f.exists()) {
+      await f.readAsString().then((String sIdx) {
+        int idx = int.parse(sIdx);
+        _currentSelectProgramPage = idx;
+      });
+    }
+  }
+
+  int getCurrentSelectProgramPage() {
+    return _currentSelectProgramPage;
   }
 }

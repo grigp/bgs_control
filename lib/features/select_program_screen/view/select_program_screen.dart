@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:bgs_control/features/execute_screen/view/execute_screen.dart';
 import 'package:bgs_control/features/program_params_screen/view/program_params_screen.dart';
@@ -65,6 +66,7 @@ class _SelectProgramScreenState extends State<SelectProgramScreen>
   late PageController _pageViewController;
   late TabController _tabController;
   int _currentPageIndex = 0;
+  bool _isCurPageReaded = false;
 
   @override
   Widget build(BuildContext context) {
@@ -295,7 +297,7 @@ class _SelectProgramScreenState extends State<SelectProgramScreen>
     );
   }
 
-   Text _getSelectTypeTitle(String text, ProgramSelectType type) {
+  Text _getSelectTypeTitle(String text, ProgramSelectType type) {
     var idx = 0;
     if (type == ProgramSelectType.pstMenu) {
       idx = 1;
@@ -305,9 +307,8 @@ class _SelectProgramScreenState extends State<SelectProgramScreen>
       style: TextStyle(
         color: _tabController.index == idx ? black : Colors.black87,
         fontSize: 16,
-        fontWeight: _tabController.index == idx
-            ? FontWeight.bold
-            : FontWeight.normal,
+        fontWeight:
+            _tabController.index == idx ? FontWeight.bold : FontWeight.normal,
         letterSpacing: 0.5,
       ),
       textScaler: const TextScaler.linear(1.0),
@@ -421,7 +422,8 @@ class _SelectProgramScreenState extends State<SelectProgramScreen>
   @override
   void initState() {
     super.initState();
-    _pageViewController = PageController();
+    _pageViewController = PageController(
+        initialPage: GetIt.I<ProgramStorage>().getCurrentSelectProgramPage());
     _tabController = TabController(length: 2, vsync: this);
 
     GetIt.I<AppMonitor>().setWindowStatus(AppWindows.awSelectProgram, true);
@@ -780,6 +782,7 @@ class _SelectProgramScreenState extends State<SelectProgramScreen>
       duration: const Duration(milliseconds: 400),
       curve: Curves.easeInOut,
     );
+    GetIt.I<ProgramStorage>().writeCurrentPageToFile(_tabController.index);
   }
 
   bool get _isOnDesktopAndWeb => true;
@@ -873,4 +876,4 @@ extension ExtendedIterable<E> on Iterable<E> {
   }
 }
 
-enum ProgramSelectType {pstList, pstMenu}
+enum ProgramSelectType { pstList, pstMenu }
