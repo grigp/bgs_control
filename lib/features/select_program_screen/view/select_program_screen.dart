@@ -124,11 +124,11 @@ class _SelectProgramScreenState extends State<SelectProgramScreen>
                   mainAxisAlignment: MainAxisAlignment.start, //.center,
                   children: <Widget>[
                     Expanded(
-                      flex: 4,
+                      flex: 15,
                       child: Container(),
                     ),
                     Expanded(
-                      flex: 6,
+                      flex: 24,
                       child: Container(
                         decoration: BoxDecoration(
                           color: backgroundColor,
@@ -138,16 +138,14 @@ class _SelectProgramScreenState extends State<SelectProgramScreen>
                           alignment: Alignment.bottomCenter,
                           children: <Widget>[
                             _getPageViewSelectProgramWidget(),
-                            PageIndicator(
-                              tabController: _tabController,
-                              currentPageIndex: _currentPageIndex,
-                              onUpdateCurrentPageIndex: _updateCurrentPageIndex,
-                              isOnDesktopAndWeb: _isOnDesktopAndWeb,
-                            ),
+                            // PageIndicator(
+                            //   tabController: _tabController,
+                            //   currentPageIndex: _currentPageIndex,
+                            //   onUpdateCurrentPageIndex: _updateCurrentPageIndex,
+                            //   isOnDesktopAndWeb: _isOnDesktopAndWeb,
+                            // ),
                           ],
                         ),
-
-                        //                      child: _getSelectProgramWidget(),
                       ),
                     ),
                   ],
@@ -204,9 +202,7 @@ class _SelectProgramScreenState extends State<SelectProgramScreen>
           child: Row(
             children: [
               Text(
-                _tabController.index == 0
-                    ? 'Доступные программы'
-                    : 'Выбор программы',
+                'Доступные программы',
                 style: theme.textTheme.titleMedium,
                 textScaler: const TextScaler.linear(1.0),
               ),
@@ -255,6 +251,29 @@ class _SelectProgramScreenState extends State<SelectProgramScreen>
             ],
           ),
         ),
+        Row(
+          children: [
+            const Spacer(),
+            GestureDetector(
+              child: _getSelectTypeTitle('Список', ProgramSelectType.pstList),
+              onTap: () {
+                setState(() {
+                  _updateCurrentPageIndex(0);
+                });
+              },
+            ),
+            const Spacer(),
+            GestureDetector(
+              child: _getSelectTypeTitle('Выбор', ProgramSelectType.pstMenu),
+              onTap: () {
+                setState(() {
+                  _updateCurrentPageIndex(1);
+                });
+              },
+            ),
+            const Spacer(),
+          ],
+        ),
         if (_chargeLevel <= Constants.chargeAlarmBoundLevel)
           const ChargeMessageWidget(),
         const Divider(
@@ -273,6 +292,25 @@ class _SelectProgramScreenState extends State<SelectProgramScreen>
           ),
         )
       ],
+    );
+  }
+
+   Text _getSelectTypeTitle(String text, ProgramSelectType type) {
+    var idx = 0;
+    if (type == ProgramSelectType.pstMenu) {
+      idx = 1;
+    }
+    return Text(
+      text,
+      style: TextStyle(
+        color: _tabController.index == idx ? black : Colors.black87,
+        fontSize: 16,
+        fontWeight: _tabController.index == idx
+            ? FontWeight.bold
+            : FontWeight.normal,
+        letterSpacing: 0.5,
+      ),
+      textScaler: const TextScaler.linear(1.0),
     );
   }
 
@@ -834,3 +872,5 @@ extension ExtendedIterable<E> on Iterable<E> {
     return map((e) => f(e, i++));
   }
 }
+
+enum ProgramSelectType {pstList, pstMenu}
