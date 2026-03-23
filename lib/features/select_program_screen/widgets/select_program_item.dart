@@ -48,19 +48,19 @@ class _SelectProgramItemState extends State<SelectProgramItem> {
         children: [
           Row(
             children: [
-              // if (widget.itemInfo.nodeType == SelectItemNodeType.simtNode)
-              //   const Icon(
-              //     Icons.folder,
-              //     size: 32,
-              //     color: filledAccentButtonColor,
-              //   ),
               if (widget.itemInfo.nodeType == SelectItemNodeType.simtRun)
                 Image.asset(
                   'lib/assets/icons/programs/${prg.image}',
                   width: 36,
                   height: 36,
                 ),
- //             const SizedBox(width: 20),
+              if (widget.itemInfo.nodeType == SelectItemNodeType.simtNode)
+                const Icon(
+                  Icons.folder,
+                  size: 32,
+                  color: filledAccentButtonColor,
+                ),
+             const SizedBox(width: 20),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -69,7 +69,7 @@ class _SelectProgramItemState extends State<SelectProgramItem> {
                       widget.itemInfo.title,
                       style: widget.itemInfo.nodeType ==
                               SelectItemNodeType.simtTitle
-                          ? theme.textTheme.bodyLarge
+                          ? theme.textTheme.titleLarge
                           : theme.textTheme.titleLarge,
                       overflow: TextOverflow.fade, //ellipsis,
                       textScaler: const TextScaler.linear(1.0),
