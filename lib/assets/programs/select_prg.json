@@ -51,7 +51,7 @@
       "node_type": 0,
       "id": 6,
       "parent": 1,
-      "title": "Давно/периодическое появление",
+      "title": "Давно",
       "description": "Дискомфорт более недели",
       "methodic_id": -1
     },
@@ -65,8 +65,32 @@
     },
     {
       "node_type": 2,
-      "id": 8,
+      "id": 63,
       "parent": 6,
+      "title": "Укажите интенсивность дискомфорта",
+      "description": "",
+      "methodic_id": -1
+    },
+    {
+      "node_type": 0,
+      "id": 64,
+      "parent": 6,
+      "title": "Незначительный",
+      "description": "Дискомфорт малой интенсивности",
+      "methodic_id": -1
+    },
+    {
+      "node_type": 0,
+      "id": 65,
+      "parent": 6,
+      "title": "Хорошо ощутимый",
+      "description": "Дискомфорт большой интенсивности",
+      "methodic_id": -1
+    },
+    {
+      "node_type": 2,
+      "id": 8,
+      "parent": 64,
       "title": "Выберите область, в которой ощущается дискомфорт",
       "description": "",
       "methodic_id": -1
@@ -74,16 +98,16 @@
     {
       "node_type": 0,
       "id": 9,
-      "parent": 6,
-      "title": "Суставы",
+      "parent": 64,
+      "title": "Суставы рук, ног",
       "description": "",
       "methodic_id": -1
     },
     {
       "node_type": 0,
       "id": 10,
-      "parent": 6,
-      "title": "Мышцы",
+      "parent": 64,
+      "title": "Спина, ягодицы",
       "description": "",
       "methodic_id": -1
     },
@@ -99,7 +123,7 @@
       "node_type": 2,
       "id": 12,
       "parent": 10,
-      "title": "Область дискомфорта может быть закрыта площадками электрода",
+      "title": "Можно ли накрыть зону дискомфорта, разместив контакты электрода по обеим сторонам позвоночника?",
       "description": "",
       "methodic_id": -1
     },
@@ -147,7 +171,7 @@
       "node_type": 0,
       "id": 18,
       "parent": 7,
-      "title": "Суставы",
+      "title": "Суставы рук,ног",
       "description": "",
       "methodic_id": -1
     },
@@ -155,7 +179,7 @@
       "node_type": 0,
       "id": 19,
       "parent": 7,
-      "title": "Мышцы",
+      "title": "Спина, ягодицы",
       "description": "",
       "methodic_id": -1
     },
@@ -171,7 +195,7 @@
       "node_type": 2,
       "id": 21,
       "parent": 19,
-      "title": "Область дискомфорта может быть закрыта площадками электрода",
+      "title": "Можно ли накрыть зону дискомфорта, разместив контакты электрода по обеим сторонам позвоночника?",
       "description": "",
       "methodic_id": -1
     },
@@ -502,6 +526,78 @@
       "title": "Спорт. Мышцы. Расслабление",
       "description": "",
       "methodic_id": 16
+    },
+    {
+      "node_type": 2,
+      "id": 66,
+      "parent": 65,
+      "title": "Выберите область, в которой ощущается дискомфорт",
+      "description": "",
+      "methodic_id": -1
+    },
+    {
+      "node_type": 0,
+      "id": 67,
+      "parent": 65,
+      "title": "Суставы рук,ног",
+      "description": "",
+      "methodic_id": -1
+    },
+    {
+      "node_type": 0,
+      "id": 68,
+      "parent": 65,
+      "title": "Спина, ягодицы",
+      "description": "",
+      "methodic_id": -1
+    },
+    {
+      "node_type": 1,
+      "id": 69,
+      "parent": 67,
+      "title": "Суставы. Ощутимый дискомфорт",
+      "description": "",
+      "methodic_id": 2
+    },
+    {
+      "node_type": 2,
+      "id": 70,
+      "parent": 68,
+      "title": "Можно ли накрыть зону дискомфорта, разместив контакты электрода по обеим сторонам позвоночника?",
+      "description": "",
+      "methodic_id": -1
+    },
+    {
+      "node_type": 0,
+      "id": 71,
+      "parent": 68,
+      "title": "Да",
+      "description": "",
+      "methodic_id": -1
+    },
+    {
+      "node_type": 0,
+      "id": 72,
+      "parent": 68,
+      "title": "Нет",
+      "description": "",
+      "methodic_id": -1
+    },
+    {
+      "node_type": 1,
+      "id": 73,
+      "parent": 71,
+      "title": "Мышцы. Резкое напряжение (острое)",
+      "description": "",
+      "methodic_id": 5
+    },
+    {
+      "node_type": 1,
+      "id": 74,
+      "parent": 72,
+      "title": "Мышцы. Резкое напряжение (спец. режим)",
+      "description": "",
+      "methodic_id": 6
     }
   ]
 }
