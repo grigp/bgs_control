@@ -7,7 +7,7 @@
 	<key>BGTaskSchedulerPermittedIdentifiers</key>
 	<array>
 		<string>counter_texel</string>
-		<string>ru.amed.texel.iOSBackgroundAppRefresh</string>
+		<string>ru.texel.app.iOSBackgroundAppRefresh</string>
 	</array>
 	<key>CADisableMinimumFrameDurationOnPhone</key>
 	<true/>
@@ -34,9 +34,9 @@
 	<key>LSSupportsOpeningDocumentsInPlace</key>
 	<true/>
 	<key>NSBluetoothAlwaysUsageDescription</key>
-	<string>Bluetooth must be enabled to connect to your ORTEZ</string>
+	<string>Bluetooth must be enabled to connect to your texel</string>
 	<key>NSBluetoothPeripheralUsageDescription</key>
-	<string>Это нужно, чтобы подключаться к ортезу</string>
+	<string>Это нужно, чтобы подключаться к texel</string>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
 	<key>UIBackgroundModes</key>

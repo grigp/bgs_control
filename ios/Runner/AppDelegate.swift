@@ -15,7 +15,7 @@ import workmanager
     WorkmanagerPlugin.registerBGProcessingTask(withIdentifier: "counter_texel")
 
     // Register a periodic task in iOS 13+
-    WorkmanagerPlugin.registerPeriodicTask(withIdentifier: "com.example.bgsControl.iOSBackgroundAppRefresh", frequency: NSNumber(value: 20 * 60))
+    WorkmanagerPlugin.registerPeriodicTask(withIdentifier: "ru.texel.app.iOSBackgroundAppRefresh", frequency: NSNumber(value: 20 * 60))
 
     
     return super.application(application, didFinishLaunchingWithOptions: launchOptions)
