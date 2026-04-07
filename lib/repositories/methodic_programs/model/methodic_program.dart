@@ -31,6 +31,9 @@ class MethodicProgram {
       required this.statsTitle,
       required this.title,
       required this.description,
+      required this.electrods,
+      required this.areases,
+      required this.recomendations,
       required this.image,
       required this.mpk});
 
@@ -43,6 +46,9 @@ class MethodicProgram {
       statsTitle: 'program ${data['id']}',
       title: data['title'],
       description: data['description'],
+      electrods: data['electrods'],
+      areases: data['areases'],
+      recomendations: data['recomendations'],
       image: data['icon'],
       mpk: MethodicProgramKind.mpkNormal,
     );
@@ -89,6 +95,9 @@ class MethodicProgram {
       statsTitle: 'togo program',
       title: 'Индивидуальный режим',
       description: 'Работа с индивидуальными настройками',
+      electrods: '',
+      areases: '',
+      recomendations: '',
       image: 'togo.png',
       mpk: MethodicProgramKind.mpkPersonal,
     ).._addStage(
@@ -116,6 +125,9 @@ class MethodicProgram {
       statsTitle: 'togo program',
       title: 'Индивидуальный режим',
       description: 'Работа с индивидуальными настройками',
+      electrods: '',
+      areases: '',
+      recomendations: '',
       image: 'togo.png',
       mpk: MethodicProgramKind.mpkDirect,
     ).._addStage(
@@ -133,6 +145,9 @@ class MethodicProgram {
   String statsTitle;
   String title;
   String description;
+  String electrods;
+  String areases;
+  String recomendations;
   String image;
   MethodicProgramKind mpk;
   List<String> attributes = [];

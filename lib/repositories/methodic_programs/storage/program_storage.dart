@@ -32,6 +32,9 @@ class ProgramStorage {
         statsTitle: '',
         title: '',
         description: '',
+        electrods: "",
+        areases: "",
+        recomendations: "",
         image: '',
         mpk: MethodicProgramKind.mpkNormal);
   }

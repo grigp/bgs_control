@@ -109,12 +109,63 @@ class _ProgramParamsScreenState extends State<ProgramParamsScreen> {
                             ),
                             Padding(
                               padding: const EdgeInsets.symmetric(vertical: 10),
-                              child: Text(
-                                widget.program.description,
-                                style: theme.textTheme.titleSmall,
-                                textScaler: const TextScaler.linear(1.0),
+                              child: Text.rich(
+                                TextSpan(
+                                  text: '',
+                                  style: const TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 14,
+                                  ),
+                                  children: <TextSpan>[
+                                    TextSpan(
+                                      text: '${widget.program.description}\n\n',
+                                      style: const TextStyle(
+                                        color: black,
+                                      ),
+                                    ),
+                                    const TextSpan(
+                                      text: "Совместимые типы электродов: ",
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        color: black,
+                                      ),
+                                    ),
+                                    TextSpan(
+                                      text: '${widget.program.electrods}\n\n',
+                                      style: const TextStyle(
+                                        color: black,
+                                      ),
+                                    ),
+                                    const TextSpan(
+                                      text: "Области воздействия: ",
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        color: black,
+                                      ),
+                                    ),
+                                    TextSpan(
+                                      text: '${widget.program.areases}\n\n',
+                                      style: const TextStyle(
+                                        color: black,
+                                      ),
+                                    ),
+                                    const TextSpan(
+                                      text: "Рекомендации по проведению процедуры:\n",
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        color: black,
+                                      ),
+                                    ),
+                                    TextSpan(
+                                      text: widget.program.recomendations,
+                                      style: const TextStyle(
+                                        color: black,
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ),
-                            ),
+                            )
                           ]),
                         ),
                         const Divider(
