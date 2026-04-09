@@ -5,13 +5,16 @@
       "id": 0,
       "parent": -1,
       "title": "Выберите желаемый тип воздействия",
+      "icon": "",
       "description": "",
       "methodic_id": -1
-    },   {
+    },
+    {
       "node_type": 0,
       "id": 1,
       "parent": -1,
       "title": "Устранение дискомфорта",
+      "icon": "01_discomfort.png",
       "description": "Болевые ощущения",
       "methodic_id": -1
     },
@@ -20,6 +23,7 @@
       "id": 2,
       "parent": -1,
       "title": "Фитнес",
+      "icon": "02_fitness.png",
       "description": "Улучшение состояния",
       "methodic_id": -1
     },
@@ -28,6 +32,7 @@
       "id": 3,
       "parent": -1,
       "title": "Массаж",
+      "icon": "03_massage.png",
       "description": "Разминка",
       "methodic_id": -1
     },
@@ -36,6 +41,7 @@
       "id": 4,
       "parent": -1,
       "title": "Спорт",
+      "icon": "04_sport.png",
       "description": "Восстановление и релакс",
       "methodic_id": -1
     },
@@ -44,6 +50,7 @@
       "id": 5,
       "parent": 1,
       "title": "Укажите время возникновения дискомфорта",
+      "icon": "",
       "description": "Как долго испытываете дискомфорт",
       "methodic_id": -1
     },
@@ -52,6 +59,7 @@
       "id": 6,
       "parent": 1,
       "title": "Давно",
+      "icon": "08_longTime.png",
       "description": "Дискомфорт более недели",
       "methodic_id": -1
     },
@@ -60,6 +68,7 @@
       "id": 7,
       "parent": 1,
       "title": "Недавно",
+      "icon": "07_recent.png",
       "description": "Дискомфорт менее недели",
       "methodic_id": -1
     },
@@ -68,6 +77,7 @@
       "id": 63,
       "parent": 6,
       "title": "Укажите интенсивность дискомфорта",
+      "icon": "",
       "description": "",
       "methodic_id": -1
     },
@@ -76,6 +86,7 @@
       "id": 64,
       "parent": 6,
       "title": "Незначительный",
+      "icon": "05_easy.png",
       "description": "Дискомфорт малой интенсивности",
       "methodic_id": -1
     },
@@ -84,6 +95,7 @@
       "id": 65,
       "parent": 6,
       "title": "Хорошо ощутимый",
+      "icon": "06_hard.png",
       "description": "Дискомфорт большой интенсивности",
       "methodic_id": -1
     },
@@ -92,6 +104,7 @@
       "id": 8,
       "parent": 64,
       "title": "Выберите область, в которой ощущается дискомфорт",
+      "icon": "",
       "description": "",
       "methodic_id": -1
     },
@@ -100,6 +113,7 @@
       "id": 9,
       "parent": 64,
       "title": "Суставы рук, ног",
+      "icon": "10_knees.png",
       "description": "",
       "methodic_id": -1
     },
@@ -108,6 +122,7 @@
       "id": 10,
       "parent": 64,
       "title": "Спина, ягодицы",
+      "icon": "09_back.png",
       "description": "",
       "methodic_id": -1
     },
@@ -116,6 +131,7 @@
       "id": 11,
       "parent": 9,
       "title": "Суставы. Периодический незначительный дискомфорт",
+      "icon": "",
       "description": "",
       "methodic_id": 1
     },
@@ -124,6 +140,7 @@
       "id": 12,
       "parent": 10,
       "title": "Можно ли накрыть зону дискомфорта, разместив контакты электрода по обеим сторонам позвоночника?",
+      "icon": "",
       "description": "",
       "methodic_id": -1
     },
@@ -132,6 +149,7 @@
       "id": 13,
       "parent": 10,
       "title": "Да",
+      "icon": "",
       "description": "",
       "methodic_id": -1
     },
@@ -140,6 +158,7 @@
       "id": 14,
       "parent": 10,
       "title": "Нет",
+      "icon": "",
       "description": "",
       "methodic_id": -1
     },
@@ -148,6 +167,7 @@
       "id": 15,
       "parent": 13,
       "title": "Мышцы. Длительное напряжение",
+      "icon": "",
       "description": "",
       "methodic_id": 3
     },
@@ -156,6 +176,7 @@
       "id": 16,
       "parent": 14,
       "title": "Мышцы. Длительное напряжение (спец. режим)",
+      "icon": "",
       "description": "",
       "methodic_id": 4
     },
@@ -164,6 +185,7 @@
       "id": 17,
       "parent": 7,
       "title": "Выберите область, в которой ощущается дискомфорт",
+      "icon": "",
       "description": "",
       "methodic_id": -1
     },
@@ -172,6 +194,7 @@
       "id": 18,
       "parent": 7,
       "title": "Суставы рук,ног",
+      "icon": "10_knees.png",
       "description": "",
       "methodic_id": -1
     },
@@ -180,6 +203,7 @@
       "id": 19,
       "parent": 7,
       "title": "Спина, ягодицы",
+      "icon": "09_back.png",
       "description": "",
       "methodic_id": -1
     },
@@ -188,6 +212,7 @@
       "id": 20,
       "parent": 18,
       "title": "Суставы. Ощутимый дискомфорт",
+      "icon": "",
       "description": "",
       "methodic_id": 2
     },
@@ -196,6 +221,7 @@
       "id": 21,
       "parent": 19,
       "title": "Можно ли накрыть зону дискомфорта, разместив контакты электрода по обеим сторонам позвоночника?",
+      "icon": "",
       "description": "",
       "methodic_id": -1
     },
@@ -204,6 +230,7 @@
       "id": 22,
       "parent": 19,
       "title": "Да",
+      "icon": "",
       "description": "",
       "methodic_id": -1
     },
@@ -212,6 +239,7 @@
       "id": 23,
       "parent": 19,
       "title": "Нет",
+      "icon": "",
       "description": "",
       "methodic_id": -1
     },
@@ -220,6 +248,7 @@
       "id": 24,
       "parent": 22,
       "title": "Мышцы. Резкое напряжение (острое)",
+      "icon": "",
       "description": "",
       "methodic_id": 5
     },
@@ -228,6 +257,7 @@
       "id": 25,
       "parent": 23,
       "title": "Мышцы. Резкое напряжение (спец. режим)",
+      "icon": "",
       "description": "",
       "methodic_id": 6
     },
@@ -235,6 +265,7 @@
       "node_type": 2,
       "id": 26,
       "parent": 2,
+      "icon": "",
       "title": "Укажите область воздействия",
       "description": "",
       "methodic_id": -1
@@ -244,6 +275,7 @@
       "id": 27,
       "parent": 2,
       "title": "Суставы",
+      "icon": "10_knees.png",
       "description": "",
       "methodic_id": -1
     },
@@ -252,6 +284,7 @@
       "id": 28,
       "parent": 2,
       "title": "Мышцы",
+      "icon": "09_back.png",
       "description": "",
       "methodic_id": -1
     },
@@ -260,6 +293,7 @@
       "id": 29,
       "parent": 27,
       "title": "Фитнес. Суставы",
+      "icon": "10_knees.png",
       "description": "",
       "methodic_id": 17
     },
@@ -268,6 +302,7 @@
       "id": 30,
       "parent": 28,
       "title": "Фитнес. Мышцы",
+      "icon": "09_back.png",
       "description": "",
       "methodic_id": 18
     },
@@ -276,6 +311,7 @@
       "id": 31,
       "parent": 3,
       "title": "Укажите тип воздействия",
+      "icon": "",
       "description": "",
       "methodic_id": -1
     },
@@ -284,6 +320,7 @@
       "id": 32,
       "parent": 3,
       "title": "Расслабляющий массаж",
+      "icon": "",
       "description": "",
       "methodic_id": -1
     },
@@ -292,6 +329,7 @@
       "id": 33,
       "parent": 3,
       "title": "Оздоравливающий массаж",
+      "icon": "",
       "description": "",
       "methodic_id": -1
     },
@@ -300,6 +338,7 @@
       "id": 34,
       "parent": 32,
       "title": "Укажите область воздействия",
+      "icon": "",
       "description": "",
       "methodic_id": -1
     },
@@ -308,6 +347,7 @@
       "id": 35,
       "parent": 32,
       "title": "Суставы",
+      "icon": "10_knees.png",
       "description": "",
       "methodic_id": -1
     },
@@ -316,6 +356,7 @@
       "id": 36,
       "parent": 32,
       "title": "Мышцы",
+      "icon": "09_back.png",
       "description": "",
       "methodic_id": -1
     },
@@ -324,6 +365,7 @@
       "id": 37,
       "parent": 35,
       "title": "Расслабляющий массаж. Суставы",
+      "icon": "",
       "description": "",
       "methodic_id": 10
     },
@@ -332,6 +374,7 @@
       "id": 38,
       "parent": 36,
       "title": "Расслабляющий массаж. Мышцы",
+      "icon": "",
       "description": "",
       "methodic_id": 9
     },
@@ -340,6 +383,7 @@
       "id": 39,
       "parent": 33,
       "title": "Укажите область воздействия",
+      "icon": "",
       "description": "",
       "methodic_id": -1
     },
@@ -348,6 +392,7 @@
       "id": 40,
       "parent": 33,
       "title": "Суставы",
+      "icon": "10_knees.png",
       "description": "",
       "methodic_id": -1
     },
@@ -356,6 +401,7 @@
       "id": 41,
       "parent": 33,
       "title": "Мышцы",
+      "icon": "09_back.png",
       "description": "",
       "methodic_id": -1
     },
@@ -364,6 +410,7 @@
       "id": 42,
       "parent": 40,
       "title": "Оздоравливающий массаж. Суставы",
+      "icon": "",
       "description": "",
       "methodic_id": 8
     },
@@ -372,6 +419,7 @@
       "id": 43,
       "parent": 41,
       "title": "Оздоравливающий массаж. Мышцы",
+      "icon": "",
       "description": "",
       "methodic_id": 7
     },
@@ -380,6 +428,7 @@
       "id": 44,
       "parent": 4,
       "title": "Укажите тип воздействия",
+      "icon": "",
       "description": "",
       "methodic_id": -1
     },
@@ -388,6 +437,7 @@
       "id": 45,
       "parent": 4,
       "title": "Разминка",
+      "icon": "",
       "description": "",
       "methodic_id": -1
     },
@@ -396,6 +446,7 @@
       "id": 46,
       "parent": 4,
       "title": "Тренировка",
+      "icon": "",
       "description": "",
       "methodic_id": -1
     },
@@ -404,6 +455,7 @@
       "id": 47,
       "parent": 4,
       "title": "Расслабление",
+      "icon": "",
       "description": "",
       "methodic_id": -1
     },
@@ -412,6 +464,7 @@
       "id": 48,
       "parent": 45,
       "title": "Укажите область воздействия",
+      "icon": "",
       "description": "",
       "methodic_id": -1
     },
@@ -420,6 +473,7 @@
       "id": 49,
       "parent": 45,
       "title": "Суставы",
+      "icon": "10_knees.png",
       "description": "",
       "methodic_id": -1
     },
@@ -428,6 +482,7 @@
       "id": 50,
       "parent": 45,
       "title": "Мышцы",
+      "icon": "09_back.png",
       "description": "",
       "methodic_id": -1
     },
@@ -436,6 +491,7 @@
       "id": 51,
       "parent": 49,
       "title": "Спорт. Суставы. Разминка",
+      "icon": "",
       "description": "",
       "methodic_id": 11
     },
@@ -444,6 +500,7 @@
       "id": 52,
       "parent": 49,
       "title": "Спорт. Мышцы. Разминка",
+      "icon": "",
       "description": "",
       "methodic_id": 14
     },
@@ -452,6 +509,7 @@
       "id": 53,
       "parent": 46,
       "title": "Укажите область воздействия",
+      "icon": "",
       "description": "",
       "methodic_id": -1
     },
@@ -460,6 +518,7 @@
       "id": 54,
       "parent": 46,
       "title": "Суставы",
+      "icon": "10_knees.png",
       "description": "",
       "methodic_id": -1
     },
@@ -468,6 +527,7 @@
       "id": 55,
       "parent": 46,
       "title": "Мышцы",
+      "icon": "09_back.png",
       "description": "",
       "methodic_id": -1
     },
@@ -476,6 +536,7 @@
       "id": 56,
       "parent": 54,
       "title": "Спорт. Суставы. Тренировка",
+      "icon": "",
       "description": "",
       "methodic_id": 12
     },
@@ -484,6 +545,7 @@
       "id": 57,
       "parent": 55,
       "title": "Спорт. Мышцы. Тренировка",
+      "icon": "",
       "description": "",
       "methodic_id": 15
     },
@@ -492,6 +554,7 @@
       "id": 58,
       "parent": 47,
       "title": "Укажите область воздействия",
+      "icon": "",
       "description": "",
       "methodic_id": -1
     },
@@ -500,6 +563,7 @@
       "id": 59,
       "parent": 47,
       "title": "Суставы",
+      "icon": "10_knees.png",
       "description": "",
       "methodic_id": -1
     },
@@ -508,6 +572,7 @@
       "id": 60,
       "parent": 47,
       "title": "Мышцы",
+      "icon": "09_back.png",
       "description": "",
       "methodic_id": -1
     },
@@ -516,6 +581,7 @@
       "id": 61,
       "parent": 59,
       "title": "Спорт. Суставы. Расслабление",
+      "icon": "",
       "description": "",
       "methodic_id": 13
     },
@@ -524,6 +590,7 @@
       "id": 62,
       "parent": 60,
       "title": "Спорт. Мышцы. Расслабление",
+      "icon": "",
       "description": "",
       "methodic_id": 16
     },
@@ -532,6 +599,7 @@
       "id": 66,
       "parent": 65,
       "title": "Выберите область, в которой ощущается дискомфорт",
+      "icon": "",
       "description": "",
       "methodic_id": -1
     },
@@ -540,6 +608,7 @@
       "id": 67,
       "parent": 65,
       "title": "Суставы рук,ног",
+      "icon": "10_knees.png",
       "description": "",
       "methodic_id": -1
     },
@@ -548,6 +617,7 @@
       "id": 68,
       "parent": 65,
       "title": "Спина, ягодицы",
+      "icon": "09_back.png",
       "description": "",
       "methodic_id": -1
     },
@@ -556,6 +626,7 @@
       "id": 69,
       "parent": 67,
       "title": "Суставы. Ощутимый дискомфорт",
+      "icon": "",
       "description": "",
       "methodic_id": 2
     },
@@ -564,6 +635,7 @@
       "id": 70,
       "parent": 68,
       "title": "Можно ли накрыть зону дискомфорта, разместив контакты электрода по обеим сторонам позвоночника?",
+      "icon": "",
       "description": "",
       "methodic_id": -1
     },
@@ -572,6 +644,7 @@
       "id": 71,
       "parent": 68,
       "title": "Да",
+      "icon": "",
       "description": "",
       "methodic_id": -1
     },
@@ -580,6 +653,7 @@
       "id": 72,
       "parent": 68,
       "title": "Нет",
+      "icon": "",
       "description": "",
       "methodic_id": -1
     },
@@ -588,6 +662,7 @@
       "id": 73,
       "parent": 71,
       "title": "Мышцы. Резкое напряжение (острое)",
+      "icon": "",
       "description": "",
       "methodic_id": 5
     },
@@ -596,6 +671,7 @@
       "id": 74,
       "parent": 72,
       "title": "Мышцы. Резкое напряжение (спец. режим)",
+      "icon": "",
       "description": "",
       "methodic_id": 6
     }

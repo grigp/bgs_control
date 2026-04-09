@@ -5,6 +5,7 @@ class SelectItemInfo {
     required this.parent,
     required this.title,
     required this.description,
+    required this.icon,
     required this.methodicId,
   });
 
@@ -17,6 +18,7 @@ class SelectItemInfo {
       parent: data['parent'],
       title: data['title'],
       description: data['description'],
+      icon: data['icon'],
       methodicId:  data['methodic_id'],
     );
     return retval;
@@ -27,6 +29,7 @@ class SelectItemInfo {
   int parent;
   String title;
   String description;
+  String icon;
   int methodicId;
 }
 

@@ -114,6 +114,16 @@ flutter:
      - lib/assets/icons/programs/tunnel_syndrome_almost_round.png
      - lib/assets/icons/programs/tunnel_syndrome_round.png
      - lib/assets/icons/programs/tunnel_syndrome_round.psd
+     - lib/assets/icons/program_menu/01_discomfort.png
+     - lib/assets/icons/program_menu/02_fitness.png
+     - lib/assets/icons/program_menu/03_massage.png
+     - lib/assets/icons/program_menu/04_sport.png
+     - lib/assets/icons/program_menu/05_easy.png
+     - lib/assets/icons/program_menu/06_hard.png
+     - lib/assets/icons/program_menu/07_recent.png
+     - lib/assets/icons/program_menu/08_longTime.png
+     - lib/assets/icons/program_menu/09_back.png
+     - lib/assets/icons/program_menu/10_knees.png
 
      - lib/assets/bgs/BGS_128.png
      - lib/assets/bgs/BGS_128_c.png

@@ -55,10 +55,16 @@ class _SelectProgramItemState extends State<SelectProgramItem> {
                   height: 36,
                 ),
               if (widget.itemInfo.nodeType == SelectItemNodeType.simtNode)
+                widget.itemInfo.icon == ''?
                 const Icon(
                   Icons.folder,
                   size: 32,
                   color: filledAccentButtonColor,
+                ):
+                Image.asset(
+                  'lib/assets/icons/program_menu/${widget.itemInfo.icon}',
+                  width: 36,
+                  height: 36,
                 ),
              const SizedBox(width: 20),
               Expanded(

@@ -39,6 +39,7 @@ class SelectProgramManager {
           parent: _listItems[i].parent,
           title: _listItems[i].title,
           description: _listItems[i].description,
+          icon: _listItems[i].icon,
           methodicId: _listItems[i].methodicId,
         ));
       }
