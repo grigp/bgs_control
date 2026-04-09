@@ -107,77 +107,77 @@ class _ProgramParamsScreenState extends State<ProgramParamsScreen> {
                               indent: 0,
                               thickness: 1,
                             ),
-                            Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 10),
-                              child: Text.rich(
-                                TextSpan(
-                                  text: '',
-                                  style: const TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 14,
-                                  ),
-                                  children: <TextSpan>[
-                                    TextSpan(
-                                      text: '${widget.program.description}\n\n',
-                                      style: const TextStyle(
-                                        color: black,
-                                      ),
-                                    ),
-                                    const TextSpan(
-                                      text: "Совместимые типы электродов: ",
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        color: black,
-                                      ),
-                                    ),
-                                    TextSpan(
-                                      text: '${widget.program.electrods}\n\n',
-                                      style: const TextStyle(
-                                        color: black,
-                                      ),
-                                    ),
-                                    const TextSpan(
-                                      text: "Области воздействия: ",
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        color: black,
-                                      ),
-                                    ),
-                                    TextSpan(
-                                      text: '${widget.program.areases}\n\n',
-                                      style: const TextStyle(
-                                        color: black,
-                                      ),
-                                    ),
-                                    const TextSpan(
-                                      text: "Рекомендации по проведению процедуры:\n",
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        color: black,
-                                      ),
-                                    ),
-                                    TextSpan(
-                                      text: widget.program.recomendations,
-                                      style: const TextStyle(
-                                        color: black,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            )
                           ]),
-                        ),
-                        const Divider(
-                          height: 0,
-                          indent: 0,
-                          thickness: 1,
                         ),
                         Expanded(
                           child: ListView(
                             padding: const EdgeInsets.only(),
                             shrinkWrap: true,
                             children: <Widget>[
+                              Padding(
+                                padding: const EdgeInsets.symmetric(
+                                  vertical: 10,
+                                  horizontal: 10,
+                                ),
+                                child: Text.rich(
+                                  TextSpan(
+                                    text: '',
+                                    style: const TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 14,
+                                    ),
+                                    children: <TextSpan>[
+                                      TextSpan(
+                                        text:
+                                            '${widget.program.description}\n\n',
+                                        style: const TextStyle(
+                                          color: black,
+                                        ),
+                                      ),
+                                      const TextSpan(
+                                        text: "Совместимые типы электродов: ",
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          color: black,
+                                        ),
+                                      ),
+                                      TextSpan(
+                                        text: '${widget.program.electrods}\n\n',
+                                        style: const TextStyle(
+                                          color: black,
+                                        ),
+                                      ),
+                                      const TextSpan(
+                                        text: "Области воздействия: ",
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          color: black,
+                                        ),
+                                      ),
+                                      TextSpan(
+                                        text: '${widget.program.areases}\n\n',
+                                        style: const TextStyle(
+                                          color: black,
+                                        ),
+                                      ),
+                                      const TextSpan(
+                                        text:
+                                            "Рекомендации по проведению процедуры:\n",
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          color: black,
+                                        ),
+                                      ),
+                                      TextSpan(
+                                        text: widget.program.recomendations,
+                                        style: const TextStyle(
+                                          color: black,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
                               ..._buildStageTiles(context),
 //                            ..._buildTotalTimeTitle(),
                             ],
