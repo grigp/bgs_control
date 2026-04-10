@@ -124,6 +124,10 @@ flutter:
      - lib/assets/icons/program_menu/08_longTime.png
      - lib/assets/icons/program_menu/09_back.png
      - lib/assets/icons/program_menu/10_knees.png
+     - lib/assets/icons/program_menu/11_health_massage.png
+     - lib/assets/icons/program_menu/12_relax_massage.png
+     - lib/assets/icons/program_menu/13_single_area.png
+     - lib/assets/icons/program_menu/14_symmetric_area.png
 
      - lib/assets/bgs/BGS_128.png
      - lib/assets/bgs/BGS_128_c.png

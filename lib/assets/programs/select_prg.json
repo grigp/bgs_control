@@ -149,7 +149,7 @@
       "id": 13,
       "parent": 10,
       "title": "Да",
-      "icon": "",
+      "icon": "14_symmetric_area.png",
       "description": "",
       "methodic_id": -1
     },
@@ -158,7 +158,7 @@
       "id": 14,
       "parent": 10,
       "title": "Нет",
-      "icon": "",
+      "icon": "13_single_area.png",
       "description": "",
       "methodic_id": -1
     },
@@ -230,7 +230,7 @@
       "id": 22,
       "parent": 19,
       "title": "Да",
-      "icon": "",
+      "icon": "14_symmetric_area.png",
       "description": "",
       "methodic_id": -1
     },
@@ -239,7 +239,7 @@
       "id": 23,
       "parent": 19,
       "title": "Нет",
-      "icon": "",
+      "icon": "13_single_area.png",
       "description": "",
       "methodic_id": -1
     },
@@ -320,7 +320,7 @@
       "id": 32,
       "parent": 3,
       "title": "Расслабляющий массаж",
-      "icon": "",
+      "icon": "12_relax_massage.png",
       "description": "",
       "methodic_id": -1
     },
@@ -329,7 +329,7 @@
       "id": 33,
       "parent": 3,
       "title": "Оздоравливающий массаж",
-      "icon": "",
+      "icon": "11_health_massage.png",
       "description": "",
       "methodic_id": -1
     },
@@ -644,7 +644,7 @@
       "id": 71,
       "parent": 68,
       "title": "Да",
-      "icon": "",
+      "icon": "14_symmetric_area.png",
       "description": "",
       "methodic_id": -1
     },
@@ -653,7 +653,7 @@
       "id": 72,
       "parent": 68,
       "title": "Нет",
-      "icon": "",
+      "icon": "13_single_area.png",
       "description": "",
       "methodic_id": -1
     },
