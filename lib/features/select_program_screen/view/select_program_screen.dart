@@ -422,9 +422,10 @@ class _SelectProgramScreenState extends State<SelectProgramScreen>
   @override
   void initState() {
     super.initState();
-    _pageViewController = PageController(
-        initialPage: GetIt.I<ProgramStorage>().getCurrentSelectProgramPage());
+    var pageIdx = GetIt.I<ProgramStorage>().getCurrentSelectProgramPage();
+    _pageViewController = PageController(initialPage: pageIdx);
     _tabController = TabController(length: 2, vsync: this);
+    _tabController.index = pageIdx;
 
     GetIt.I<AppMonitor>().setWindowStatus(AppWindows.awSelectProgram, true);
     readPrograms();
