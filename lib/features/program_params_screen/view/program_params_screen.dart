@@ -134,46 +134,53 @@ class _ProgramParamsScreenState extends State<ProgramParamsScreen> {
                                           color: black,
                                         ),
                                       ),
-                                      const TextSpan(
-                                        text: "Совместимые типы электродов: ",
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          color: black,
+                                      if (widget.program.electrods != '')
+                                        const TextSpan(
+                                          text: "Совместимые типы электродов: ",
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            color: black,
+                                          ),
                                         ),
-                                      ),
-                                      TextSpan(
-                                        text: '${widget.program.electrods}\n\n',
-                                        style: const TextStyle(
-                                          color: black,
+                                      if (widget.program.electrods != '')
+                                        TextSpan(
+                                          text:
+                                              '${widget.program.electrods}\n\n',
+                                          style: const TextStyle(
+                                            color: black,
+                                          ),
                                         ),
-                                      ),
-                                      const TextSpan(
-                                        text: "Области воздействия: ",
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          color: black,
+                                      if (widget.program.areases != '')
+                                        const TextSpan(
+                                          text: "Области воздействия: ",
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            color: black,
+                                          ),
                                         ),
-                                      ),
-                                      TextSpan(
-                                        text: '${widget.program.areases}\n\n',
-                                        style: const TextStyle(
-                                          color: black,
+                                      if (widget.program.areases != '')
+                                        TextSpan(
+                                          text: '${widget.program.areases}\n\n',
+                                          style: const TextStyle(
+                                            color: black,
+                                          ),
                                         ),
-                                      ),
-                                      const TextSpan(
-                                        text:
-                                            "Рекомендации по проведению процедуры:\n",
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          color: black,
+                                      if (widget.program.recomendations != '')
+                                        const TextSpan(
+                                          text:
+                                              "Рекомендации по проведению процедуры:\n",
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            color: black,
+                                          ),
                                         ),
-                                      ),
-                                      TextSpan(
-                                        text: widget.program.recomendations,
-                                        style: const TextStyle(
-                                          color: black,
+                                      if (widget.program.recomendations != '')
+                                        TextSpan(
+                                          text: widget.program.recomendations,
+                                          style: const TextStyle(
+                                            color: black,
+                                          ),
                                         ),
-                                      ),
                                     ],
                                   ),
                                 ),
