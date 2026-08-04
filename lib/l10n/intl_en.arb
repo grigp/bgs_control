@@ -1,0 +1,5 @@
+{
+  "Connect": "Connect",
+  "appVersion": "Version {version}+{buildNumber}",
+  "beforeConnectDescription": "Turn the stimulator on, place it on the magnetic contacts of the electrode and press the button"
+}

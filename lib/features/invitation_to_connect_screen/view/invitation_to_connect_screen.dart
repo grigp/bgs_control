@@ -5,6 +5,7 @@ import 'package:package_info_plus/package_info_plus.dart';
 
 import '../../../assets/colors/colors.dart';
 import '../../../utils/baseutils.dart';
+import '../../../generated/l10n.dart';
 
 class InvitationToConnectScreen extends StatefulWidget {
   const InvitationToConnectScreen({
@@ -61,7 +62,9 @@ class _InvitationToConnectScreenState extends State<InvitationToConnectScreen> {
                       children: [
                         const Spacer(),
                         Text(
-                            'Версия ${_packageInfo.version}+${_packageInfo.buildNumber}'),
+                            S.of(context).appVersion(_packageInfo.version, _packageInfo.buildNumber)),
+                        // Text(
+                        //     'Версия ${_packageInfo.version}+${_packageInfo.buildNumber}'),
                         const SizedBox(width: 10),
                       ],
                     ),
@@ -74,7 +77,7 @@ class _InvitationToConnectScreenState extends State<InvitationToConnectScreen> {
                             children: [
                               const SizedBox(height: 16),
                               Text(
-                                'Включите стимулятор, установите его на магнитные контакты электрода и нажмите кнопку "Подключить" на экране',
+                                S.of(context).beforeConnectDescription,
                                 textAlign: TextAlign.center,
                                 style: theme.textTheme.bodyMedium,
                               ),
@@ -93,7 +96,7 @@ class _InvitationToConnectScreenState extends State<InvitationToConnectScreen> {
                                       ShiftDirection.rightToLeft,
                                     );
                                   },
-                                  text: 'Подключить',
+                                  text: S.of(context).Connect,
                                 ),
                               ),
                             ],

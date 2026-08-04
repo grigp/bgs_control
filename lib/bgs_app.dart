@@ -12,6 +12,9 @@ import 'package:get_it/get_it.dart';
 
 import 'features/bluetooth_off_screen/view/bluetooth_off_screen.dart';
 
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'generated/l10n.dart';
+
 class BgsApp extends StatefulWidget {
   const BgsApp({super.key});
 
@@ -63,6 +66,13 @@ class _BgsAppState extends State<BgsApp> {
         child: child!,
       ),
       title: 'bgs',
+      localizationsDelegates: const [
+        S.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: S.delegate.supportedLocales,
       theme: lightTheme,
       home: screen,
       debugShowCheckedModeBanner: kDebugMode ? true : false,

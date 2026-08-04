@@ -24,6 +24,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_localizations:
+    sdk: flutter
   flutter_blue_plus: ^1.32.8
   get_it: ^7.7.0
   cupertino_icons: ^1.0.6
@@ -50,6 +52,7 @@ dev_dependencies:
   flutter_launcher_icons: ^0.14.2
   flutter_lints: ^3.0.0
   rename: ^3.0.2
+  intl_utils: ^2.8.7
 
 flutter:
   uses-material-design: true
@@ -144,3 +147,5 @@ flutter_native_splash:
   android_12:
    image: "images/texel_splash.png"
    branding: "images/sk_member_splash.png"
+flutter_intl:
+  enabled: true
