@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../generated/l10n.dart';
 import '../../../utils/baseutils.dart';
 
 class MissingDeviceTitle extends StatelessWidget {
@@ -44,21 +45,21 @@ class MissingDeviceTitle extends StatelessWidget {
               },
               itemBuilder: (BuildContext context) =>
                   <PopupMenuEntry<DeviceActions>>[
-                const PopupMenuItem<DeviceActions>(
+                PopupMenuItem<DeviceActions>(
                   value: DeviceActions.delete,
                   child: ListTile(
-                    leading: Icon(Icons.delete),
+                    leading: const Icon(Icons.delete),
                     title: Text(
-                      'Удалить',
+                      S.of(context).delete,
                     ),
                   ),
                 ),
-                const PopupMenuItem<DeviceActions>(
+                PopupMenuItem<DeviceActions>(
                   value: DeviceActions.property,
                   child: ListTile(
-                    leading: Icon(Icons.settings),
+                    leading: const Icon(Icons.settings),
                     title: Text(
-                      'Свойства',
+                      S.of(context).settings,
                     ),
                   ),
                 ),

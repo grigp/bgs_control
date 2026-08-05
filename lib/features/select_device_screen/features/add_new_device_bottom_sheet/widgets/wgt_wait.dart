@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../../../assets/colors/colors.dart';
+import '../../../../../generated/l10n.dart';
 
 class WgtWait extends StatelessWidget {
   const WgtWait({super.key});
@@ -29,8 +30,7 @@ class WgtWait extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 20),
-            Text(
-              'Поиск стимуляторов',
+            Text(S.of(context).searchStimulators,
               style: theme.textTheme.headlineMedium,
               textScaler: const TextScaler.linear(1.0),
             ),

@@ -19,6 +19,7 @@ import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:get_it/get_it.dart';
 
 import '../../../dev/LogUtils.dart';
+import '../../../generated/l10n.dart';
 import '../../../repositories/logger/communication_logger.dart';
 import '../../../repositories/running_manager/device_program_executor.dart';
 import '../../../repositories/running_manager/running_manager.dart';
@@ -118,8 +119,8 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
                                         context,
                                         (context, animation,
                                                 secondaryAnimation) =>
-                                            const LogScreen(
-                                          title: 'Лог обмена данными',
+                                            LogScreen(
+                                          title: S.of(context).dataExchangeLog,
                                         ),
                                         '/log_comm',
                                         ShiftDirection.rightToLeft,
@@ -140,7 +141,7 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
                             if (_missingDevices.isNotEmpty)
                               ExpansionTile(
                                 title: Text(
-                                  'Подключенные ранее',
+                                  S.of(context).previousDevices,
                                   style: theme.textTheme.titleSmall,
                                   textScaler: const TextScaler.linear(1.0),
                                 ),
@@ -183,7 +184,7 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
                           ),
                           const Spacer(),
                           Text(
-                            'Поиск стимуляторов',
+                            S.of(context).searchStimulators,
                             style: theme.textTheme.headlineMedium,
                             textScaler: const TextScaler.linear(1.0),
                           ),
@@ -196,7 +197,7 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
                   right: 20,
                   left: 20,
                   child: TexelButton.secondary(
-                    text: 'Добавить стимулятор',
+                    text: S.of(context).addStimulator,
                     onPressed: () {
                       _addDeviceDialog(context);
                     },
@@ -369,14 +370,16 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
         GetIt.I<AppMonitor>().isWindowOpened(AppWindows.awSelectProgram);
     if (!isRunned) {
       final currentScreen = ModalRoute.of(context)?.settings.name;
-      LogUtils.i(tag: 'bug_connect', 'currentScreen = [$currentScreen], _isLoading = [$_isLoading]');
+      LogUtils.i(
+          tag: 'bug_connect',
+          'currentScreen = [$currentScreen], _isLoading = [$_isLoading]');
 
       if (_isLoading) {
         _isLoading = false;
         pushScreen(
           context,
           (context, animation, secondaryAnimation) => SelectProgramScreen(
-            title: 'Выбор программы',
+            title: S.of(context).selectMethodic,
             driver: driver,
             uidProgram: uidProgram,
           ),
@@ -396,21 +399,21 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
       context: context,
       barrierDismissible: false,
       builder: (BuildContext context) => AlertDialog(
-        title: const Text(
-          'Продолжить выполнение прерванной программы?',
+        title: Text(
+          S.of(context).askContinueInterrupted,
         ),
         actions: <Widget>[
           TexelButton.accent(
             onPressed: () => Navigator.pop(context, false),
-            text: 'Нет',
+            text: S.of(context).no,
             width: 120,
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 22),
             child: TextButton(
               onPressed: () => Navigator.pop(context, true),
-              child: const Text(
-                'Да',
+              child: Text(
+                S.of(context).yes,
               ),
             ),
           ),
@@ -424,8 +427,8 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
       context: context,
       barrierDismissible: false,
       builder: (BuildContext context) => AlertDialog(
-        title: const Text(
-          'Удалить стимулятор из списка?',
+        title: Text(
+          S.of(context).deleteStimulatorFromList,
         ),
         content: Text(
           getShortDeviceName(device.advName),
@@ -435,7 +438,7 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
         actions: <Widget>[
           TexelButton.accent(
             onPressed: () => Navigator.pop(context, 'Cancel'),
-            text: 'Отмена',
+            text: S.of(context).cancel,
             width: 120,
           ),
           Padding(
@@ -444,10 +447,10 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
               onPressed: () async {
                 await GetIt.I<BgsList>().delete(device.advName);
                 _onRefresh(false);
-                Navigator.pop(context, 'OK');
+                Navigator.pop(context, S.of(context).ok);
               },
-              child: const Text(
-                'Да',
+              child: Text(
+                S.of(context).yes,
               ),
             ),
           ),
@@ -460,7 +463,7 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
     pushScreen(
       context,
       (context, animation, secondaryAnimation) => DeviceInfoScreen(
-        title: 'Параметры стимулятора',
+        title: S.of(context).stimulatorSettings,
         dvcName: dvcName,
       ),
       '/dvc_settings',
@@ -473,9 +476,7 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
       context: context,
       barrierDismissible: false,
       builder: (BuildContext context) => AlertDialog(
-        title: const Text(
-          'Удалить стимулятор из списка?',
-        ),
+        title: Text(S.of(context).deleteStimulatorFromList),
         content: Text(
           getShortDeviceName(deviceName),
           style: const TextStyle(fontSize: 24),
@@ -484,7 +485,7 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
         actions: <Widget>[
           TexelButton.accent(
             onPressed: () => Navigator.pop(context, 'Cancel'),
-            text: 'Отмена',
+            text: S.of(context).cancel,
             width: 120,
           ),
           Padding(
@@ -495,9 +496,7 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
                 _onRefresh(false);
                 Navigator.pop(context, 'OK');
               },
-              child: const Text(
-                'Да',
-              ),
+              child: Text(S.of(context).ok),
             ),
           ),
         ],
@@ -595,21 +594,21 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
       context: context,
       barrierDismissible: false,
       builder: (BuildContext context) => AlertDialog(
-        title: const Text(
-          'Выйти из программы?',
+        title: Text(
+          S.of(context).askExitProgram,
         ),
         actions: <Widget>[
           TexelButton.accent(
             onPressed: () => Navigator.pop(context, false),
-            text: 'Нет',
+            text: S.of(context).no,
             width: 120,
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 22),
             child: TextButton(
               onPressed: () => Navigator.pop(context, true),
-              child: const Text(
-                'Да',
+              child: Text(
+                S.of(context).yes,
               ),
             ),
           ),
@@ -629,15 +628,14 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
       context: context,
       barrierDismissible: false,
       builder: (BuildContext context) => AlertDialog(
-        title: const Text('Предупреждение'),
+        title: Text(S.of(context).warning),
         titleTextStyle: const TextStyle(
           fontSize: 24,
           fontWeight: FontWeight.bold,
           color: Colors.black,
         ),
-        content: const Text(
-            'Произошло отключение от стимулятора из за проблем со связью.\n'
-            'Поднесите телефон ближе к стимулятору и подключите его заново'),
+        content: Text(
+            S.of(context).msgDisconnect),
         contentTextStyle: const TextStyle(
           fontSize: 20,
           color: Colors.black,
@@ -645,7 +643,7 @@ class _SelectDeviceScreenState extends State<SelectDeviceScreen> {
         actions: <Widget>[
           TexelButton.accent(
             onPressed: () => Navigator.pop(context, 'Ok'),
-            text: 'OK',
+            text: S.of(context).ok,
             width: 120,
           ),
         ],

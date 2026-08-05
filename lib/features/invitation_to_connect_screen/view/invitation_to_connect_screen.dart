@@ -89,8 +89,8 @@ class _InvitationToConnectScreenState extends State<InvitationToConnectScreen> {
                                       context,
                                       (context, animation,
                                               secondaryAnimation) =>
-                                          const SelectDeviceScreen(
-                                        title: 'Мои стимуляторы',
+                                          SelectDeviceScreen(
+                                        title: S.of(context).myStimulators,
                                       ),
                                       '/select',
                                       ShiftDirection.rightToLeft,

@@ -5,6 +5,8 @@ import 'package:bgs_control/features/uikit/texel_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 
+import '../../../generated/l10n.dart';
+
 class ScanResultTile extends StatefulWidget {
   const ScanResultTile({
     super.key,
@@ -88,7 +90,7 @@ class _ScanResultTileState extends State<ScanResultTile> {
           width: 200,
           child: TexelButton.secondary(
             onPressed: () => widget.onDelete?.call(),
-            text: 'Удалить',
+            text: S.of(context).delete,
             icon: const Icon(Icons.delete, color: filledAccentButtonColor),
             height: 40,
           ),
@@ -166,7 +168,7 @@ class _ScanResultTileState extends State<ScanResultTile> {
             onPressed: (widget.result.advertisementData.connectable)
                 ? widget.onSelect
                 : null,
-            text: 'Выбрать',
+            text: S.of(context).select,
             width: 115,
             height: 40,
           ),
@@ -190,7 +192,7 @@ class _ScanResultTileState extends State<ScanResultTile> {
             onPressed: (widget.result.advertisementData.connectable)
                 ? widget.onTap
                 : null,
-            text: 'Отключить',
+            text: S.of(context).disconnect,
             width: 150,
             height: 40,
           )
@@ -198,7 +200,7 @@ class _ScanResultTileState extends State<ScanResultTile> {
             onPressed: (widget.result.advertisementData.connectable)
                 ? widget.onTap
                 : null,
-            text: 'Подключить',
+            text: S.of(context).Connect,
             width: 150,
             height: 40,
           );

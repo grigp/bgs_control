@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 
+import '../../../generated/l10n.dart';
 import '../../../utils/baseutils.dart';
 
 class FoundDeviceTitle extends StatefulWidget {
@@ -81,21 +82,21 @@ class _FoundDeviceTitleState extends State<FoundDeviceTitle> {
                   },
                   itemBuilder: (BuildContext context) =>
                       <PopupMenuEntry<DeviceActions>>[
-                    const PopupMenuItem<DeviceActions>(
+                    PopupMenuItem<DeviceActions>(
                       value: DeviceActions.delete,
                       child: ListTile(
-                        leading: Icon(Icons.delete),
+                        leading: const Icon(Icons.delete),
                         title: Text(
-                          'Удалить',
+                          S.of(context).delete,
                         ),
                       ),
                     ),
-                    const PopupMenuItem<DeviceActions>(
+                    PopupMenuItem<DeviceActions>(
                       value: DeviceActions.property,
                       child: ListTile(
-                        leading: Icon(Icons.settings),
+                        leading: const Icon(Icons.settings),
                         title: Text(
-                          'Свойства',
+                          S.of(context).settings,
                         ),
                       ),
                     ),

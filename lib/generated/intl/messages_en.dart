@@ -25,8 +25,37 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "Connect": MessageLookupByLibrary.simpleMessage("Connect"),
+        "addStimulator": MessageLookupByLibrary.simpleMessage("Add stimulator"),
         "appVersion": m0,
+        "askContinueInterrupted": MessageLookupByLibrary.simpleMessage(
+            "Continue execution of the interrupted methodic?"),
+        "askExitProgram":
+            MessageLookupByLibrary.simpleMessage("Exit the program?"),
         "beforeConnectDescription": MessageLookupByLibrary.simpleMessage(
-            "Turn the stimulator on, place it on the magnetic contacts of the electrode and press the button")
+            "Turn the stimulator on, place it on the magnetic contacts of the electrode and press the button"),
+        "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
+        "dataExchangeLog":
+            MessageLookupByLibrary.simpleMessage("Data exchange log"),
+        "delete": MessageLookupByLibrary.simpleMessage("Delete"),
+        "deleteStimulatorFromList": MessageLookupByLibrary.simpleMessage(
+            "Remove stimulator from the list?"),
+        "disconnect": MessageLookupByLibrary.simpleMessage("Disconnect"),
+        "msgDisconnect": MessageLookupByLibrary.simpleMessage(
+            "The stimulator disconnected due to connection issues.\nBring your phone closer to the stimulator and reconnect"),
+        "myStimulators": MessageLookupByLibrary.simpleMessage("My stimulators"),
+        "no": MessageLookupByLibrary.simpleMessage("No"),
+        "ok": MessageLookupByLibrary.simpleMessage("OK"),
+        "previousDevices":
+            MessageLookupByLibrary.simpleMessage("Previous devices"),
+        "searchStimulators":
+            MessageLookupByLibrary.simpleMessage("Search for stimulators"),
+        "select": MessageLookupByLibrary.simpleMessage("Select"),
+        "selectMethodic":
+            MessageLookupByLibrary.simpleMessage("Select methodic"),
+        "settings": MessageLookupByLibrary.simpleMessage("Settings"),
+        "stimulatorSettings":
+            MessageLookupByLibrary.simpleMessage("Stimulator settings"),
+        "warning": MessageLookupByLibrary.simpleMessage("Warning"),
+        "yes": MessageLookupByLibrary.simpleMessage("Yes")
       };
 }

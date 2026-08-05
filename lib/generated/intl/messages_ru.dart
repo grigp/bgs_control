@@ -25,8 +25,39 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "Connect": MessageLookupByLibrary.simpleMessage("Подключить"),
+        "addStimulator":
+            MessageLookupByLibrary.simpleMessage("Добавить стимулятор"),
         "appVersion": m0,
+        "askContinueInterrupted": MessageLookupByLibrary.simpleMessage(
+            "Продолжить выполнение прерванной программы?"),
+        "askExitProgram":
+            MessageLookupByLibrary.simpleMessage("Выйти из программы?"),
         "beforeConnectDescription": MessageLookupByLibrary.simpleMessage(
-            "Включите стимулятор, установите его на магнитные контакты электрода и нажмите кнопку")
+            "Включите стимулятор, установите его на магнитные контакты электрода и нажмите кнопку"),
+        "cancel": MessageLookupByLibrary.simpleMessage("Отмена"),
+        "dataExchangeLog":
+            MessageLookupByLibrary.simpleMessage("Лог обмена данными"),
+        "delete": MessageLookupByLibrary.simpleMessage("Удалить"),
+        "deleteStimulatorFromList": MessageLookupByLibrary.simpleMessage(
+            "Удалить стимулятор из списка?"),
+        "disconnect": MessageLookupByLibrary.simpleMessage("Отключить"),
+        "msgDisconnect": MessageLookupByLibrary.simpleMessage(
+            "Произошло отключение от стимулятора из за проблем со связью.\nПоднесите телефон ближе к стимулятору и подключите его заново"),
+        "myStimulators":
+            MessageLookupByLibrary.simpleMessage("Мои стимуляторы"),
+        "no": MessageLookupByLibrary.simpleMessage("Нет"),
+        "ok": MessageLookupByLibrary.simpleMessage("OK"),
+        "previousDevices":
+            MessageLookupByLibrary.simpleMessage("Подключенные ранее"),
+        "searchStimulators":
+            MessageLookupByLibrary.simpleMessage("Поиск стимуляторов"),
+        "select": MessageLookupByLibrary.simpleMessage("Выбрать"),
+        "selectMethodic":
+            MessageLookupByLibrary.simpleMessage("Выбор программы"),
+        "settings": MessageLookupByLibrary.simpleMessage("Свойства"),
+        "stimulatorSettings":
+            MessageLookupByLibrary.simpleMessage("Параметры стимулятора"),
+        "warning": MessageLookupByLibrary.simpleMessage("Предупреждение"),
+        "yes": MessageLookupByLibrary.simpleMessage("Да")
       };
 }

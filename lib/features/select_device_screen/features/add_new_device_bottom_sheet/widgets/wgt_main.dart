@@ -3,6 +3,7 @@ import 'package:bgs_control/repositories/bgs_list/bgs_list.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 
+import '../../../../../generated/l10n.dart';
 import '../../../../../utils/baseutils.dart';
 import '../../../../attention_screen/view/attention_screen.dart';
 
@@ -32,7 +33,7 @@ class WgtMain extends StatelessWidget {
             child: Row(
               children: [
                 Text(
-                  'Добавить стимулятор',
+                  S.of(context).addStimulator,
                   style: theme.textTheme.titleMedium,
                   textScaler: const TextScaler.linear(1.0),
                 ),
@@ -80,8 +81,8 @@ class WgtMain extends StatelessWidget {
                       pushScreen(
                         context,
                         (context, animation, secondaryAnimation) =>
-                            const AttentionScreen(
-                          title: 'Предупреждение',
+                            AttentionScreen(
+                          title: S.of(context).warning,
                         ),
                         '/select',
                         ShiftDirection.rightToLeft,

@@ -1,5 +1,25 @@
 {
   "Connect": "Подключить",
   "appVersion": "Версия {version}+{buildNumber}",
-  "beforeConnectDescription": "Включите стимулятор, установите его на магнитные контакты электрода и нажмите кнопку"
+  "beforeConnectDescription": "Включите стимулятор, установите его на магнитные контакты электрода и нажмите кнопку",
+  "dataExchangeLog": "Лог обмена данными",
+  "previousDevices": "Подключенные ранее",
+  "searchStimulators": "Поиск стимуляторов",
+  "addStimulator": "Добавить стимулятор",
+  "selectMethodic": "Выбор программы",
+  "askContinueInterrupted": "Продолжить выполнение прерванной программы?",
+  "no": "Нет",
+  "yes": "Да",
+  "deleteStimulatorFromList": "Удалить стимулятор из списка?",
+  "cancel": "Отмена",
+  "ok": "OK",
+  "stimulatorSettings": "Параметры стимулятора",
+  "askExitProgram": "Выйти из программы?",
+  "warning": "Предупреждение",
+  "msgDisconnect": "Произошло отключение от стимулятора из за проблем со связью.\nПоднесите телефон ближе к стимулятору и подключите его заново",
+  "delete": "Удалить",
+  "settings": "Свойства",
+  "select": "Выбрать",
+  "disconnect": "Отключить",
+  "myStimulators": "Мои стимуляторы"
 }

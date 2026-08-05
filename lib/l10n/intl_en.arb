@@ -1,5 +1,25 @@
 {
   "Connect": "Connect",
   "appVersion": "Version {version}+{buildNumber}",
-  "beforeConnectDescription": "Turn the stimulator on, place it on the magnetic contacts of the electrode and press the button"
+  "beforeConnectDescription": "Turn the stimulator on, place it on the magnetic contacts of the electrode and press the button",
+  "dataExchangeLog": "Data exchange log",
+  "previousDevices": "Previous devices",
+  "searchStimulators": "Search for stimulators",
+  "addStimulator": "Add stimulator",
+  "selectMethodic": "Select methodic",
+  "askContinueInterrupted": "Continue execution of the interrupted methodic?",
+  "no": "No",
+  "yes": "Yes",
+  "deleteStimulatorFromList": "Remove stimulator from the list?",
+  "cancel": "Cancel",
+  "ok": "OK",
+  "stimulatorSettings": "Stimulator settings",
+  "askExitProgram": "Exit the program?",
+  "warning": "Warning",
+  "msgDisconnect": "The stimulator disconnected due to connection issues.\nBring your phone closer to the stimulator and reconnect",
+  "delete": "Delete",
+  "settings": "Settings",
+  "select": "Select",
+  "disconnect": "Disconnect",
+  "myStimulators": "My stimulators"
 }

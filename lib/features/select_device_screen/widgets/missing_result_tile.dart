@@ -1,6 +1,8 @@
 import 'package:bgs_control/features/uikit/texel_button.dart';
 import 'package:flutter/material.dart';
 
+import '../../../generated/l10n.dart';
+
 class MissingResultTile extends StatelessWidget {
   const MissingResultTile({
     super.key,
@@ -19,7 +21,7 @@ class MissingResultTile extends StatelessWidget {
         SizedBox(
           width: 200,
           child: TexelButton.secondary(
-            text: 'Удалить',
+            text: S.of(context).delete,
             onPressed: () => onDelete?.call(),
             icon: const Icon(Icons.delete),
           ),
