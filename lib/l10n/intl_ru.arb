@@ -21,5 +21,13 @@
   "settings": "Свойства",
   "select": "Выбрать",
   "disconnect": "Отключить",
-  "myStimulators": "Мои стимуляторы"
+  "myStimulators": "Мои стимуляторы",
+  "dvcName": "Стимулятор {dvcName}",
+  "firmwareNumber": "Номер прошивки: {sFN}",
+  "workDuration": "Время работы: {sTUD} {sTC}",
+  "appName": "Приложение: {appName}",
+  "appVersion1": "Версия: {appVersion}",
+  "buildNumber": "Сборка:{buildNumber}",
+  "mm_ss": "мм:сс",
+  "hh_mm_ss": "чч:мм:сс"
 }

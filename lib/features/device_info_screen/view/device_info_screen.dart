@@ -3,6 +3,7 @@ import 'package:get_it/get_it.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
 import '../../../assets/colors/colors.dart';
+import '../../../generated/l10n.dart';
 import '../../../repositories/bgs_property_storage/bgs_property_storage.dart';
 import '../../../utils/baseutils.dart';
 import '../../uikit/widgets/back_screen_button.dart';
@@ -63,7 +64,8 @@ class _DeviceInfoScreenState extends State<DeviceInfoScreen> {
                     ),
                     children: [
                       Text(
-                        'Стимулятор ${getShortDeviceName(widget.dvcName)}',
+                        S.of(context).dvcName(getShortDeviceName(widget.dvcName)),
+//                        'Стимулятор ${getShortDeviceName(widget.dvcName)}',
                         style: const TextStyle(fontSize: 24),
                         textScaler: const TextScaler.linear(1.0),
                       ),
@@ -76,32 +78,37 @@ class _DeviceInfoScreenState extends State<DeviceInfoScreen> {
                       // ),
                       // const Divider(),
                       Text(
-                        'Номер прошивки: $_sFN',
+                        S.of(context).firmwareNumber(_sFN),
+//                        'Номер прошивки: $_sFN',
                         style: const TextStyle(fontSize: 20),
                         textScaler: const TextScaler.linear(1.0),
                       ),
                       const Divider(),
                       Text(
-                        'Время работы: $_sTUD $_sTC',
+                        S.of(context).workDuration(_sTUD, _sTC),
+//                        'Время работы: $_sTUD $_sTC',
                         style: const TextStyle(fontSize: 20),
                         textScaler: const TextScaler.linear(1.0),
                       ),
                       const Divider(),
                       const SizedBox(height: 20),
                       Text(
-                        'Приложение: ${_packageInfo.appName}',
+                        S.of(context).appName(_packageInfo.appName),
+//                        'Приложение: ${_packageInfo.appName}',
                         style: const TextStyle(fontSize: 24),
                         textScaler: const TextScaler.linear(1.0),
                       ),
                       const Divider(),
                       Text(
-                        'Версия: ${_packageInfo.version}',
+                        S.of(context).appVersion1(_packageInfo.version),
+//                        'Версия: ${_packageInfo.version}',
                         style: const TextStyle(fontSize: 20),
                         textScaler: const TextScaler.linear(1.0),
                       ),
                       const Divider(),
                       Text(
-                        'Сборка: ${_packageInfo.buildNumber}',
+                        S.of(context).buildNumber(_packageInfo.buildNumber),
+//                        'Сборка: ${_packageInfo.buildNumber}',
                         style: const TextStyle(fontSize: 20),
                         textScaler: const TextScaler.linear(1.0),
                       ),
@@ -132,9 +139,9 @@ class _DeviceInfoScreenState extends State<DeviceInfoScreen> {
     var dp = await GetIt.I<BgsPropertyStorage>().getProperty(dvcName);
     setState(() {
       _sFN = '${dp.firmwareNumber}';
-      _sTC = 'мм:сс';
+      _sTC = S.of(context).mm_ss;
       if (dp.timeUseDevice > 3600) {
-        _sTC = 'чч:мм:сс';
+        _sTC = S.of(context).hh_mm_ss;
       }
       _sTUD = getTimeBySecCount(dp.timeUseDevice);
     });

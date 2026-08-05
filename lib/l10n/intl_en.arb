@@ -21,5 +21,13 @@
   "settings": "Settings",
   "select": "Select",
   "disconnect": "Disconnect",
-  "myStimulators": "My stimulators"
+  "myStimulators": "My stimulators",
+  "dvcName": "Stimulator {dvcName}",
+  "firmwareNumber": "Firmware number: {sFN}",
+  "workDuration": "Work duration: {sTUD} {sTC}",
+  "appName": "Application: {appName}",
+  "appVersion1": "Version: {appVersion}",
+  "buildNumber": "Build:{buildNumber}",
+  "mm_ss": "mm:ss",
+  "hh_mm_ss": "hh:mm:ss"
 }

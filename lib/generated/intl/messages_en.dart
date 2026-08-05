@@ -20,19 +20,34 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'en';
 
-  static String m0(version, buildNumber) => "Version ${version}+${buildNumber}";
+  static String m0(appName) => "Application: ${appName}";
+
+  static String m1(version, buildNumber) => "Version ${version}+${buildNumber}";
+
+  static String m2(appVersion) => "Version: ${appVersion}";
+
+  static String m3(buildNumber) => "Build:${buildNumber}";
+
+  static String m4(dvcName) => "Stimulator ${dvcName}";
+
+  static String m5(sFN) => "Firmware number: ${sFN}";
+
+  static String m6(sTUD, sTC) => "Work duration: ${sTUD} ${sTC}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "Connect": MessageLookupByLibrary.simpleMessage("Connect"),
         "addStimulator": MessageLookupByLibrary.simpleMessage("Add stimulator"),
-        "appVersion": m0,
+        "appName": m0,
+        "appVersion": m1,
+        "appVersion1": m2,
         "askContinueInterrupted": MessageLookupByLibrary.simpleMessage(
             "Continue execution of the interrupted methodic?"),
         "askExitProgram":
             MessageLookupByLibrary.simpleMessage("Exit the program?"),
         "beforeConnectDescription": MessageLookupByLibrary.simpleMessage(
             "Turn the stimulator on, place it on the magnetic contacts of the electrode and press the button"),
+        "buildNumber": m3,
         "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
         "dataExchangeLog":
             MessageLookupByLibrary.simpleMessage("Data exchange log"),
@@ -40,6 +55,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "deleteStimulatorFromList": MessageLookupByLibrary.simpleMessage(
             "Remove stimulator from the list?"),
         "disconnect": MessageLookupByLibrary.simpleMessage("Disconnect"),
+        "dvcName": m4,
+        "firmwareNumber": m5,
+        "hh_mm_ss": MessageLookupByLibrary.simpleMessage("hh:mm:ss"),
+        "mm_ss": MessageLookupByLibrary.simpleMessage("mm:ss"),
         "msgDisconnect": MessageLookupByLibrary.simpleMessage(
             "The stimulator disconnected due to connection issues.\nBring your phone closer to the stimulator and reconnect"),
         "myStimulators": MessageLookupByLibrary.simpleMessage("My stimulators"),
@@ -56,6 +75,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "stimulatorSettings":
             MessageLookupByLibrary.simpleMessage("Stimulator settings"),
         "warning": MessageLookupByLibrary.simpleMessage("Warning"),
+        "workDuration": m6,
         "yes": MessageLookupByLibrary.simpleMessage("Yes")
       };
 }

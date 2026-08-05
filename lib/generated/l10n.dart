@@ -279,6 +279,86 @@ class S {
       args: [],
     );
   }
+
+  /// `Stimulator {dvcName}`
+  String dvcName(Object dvcName) {
+    return Intl.message(
+      'Stimulator $dvcName',
+      name: 'dvcName',
+      desc: '',
+      args: [dvcName],
+    );
+  }
+
+  /// `Firmware number: {sFN}`
+  String firmwareNumber(Object sFN) {
+    return Intl.message(
+      'Firmware number: $sFN',
+      name: 'firmwareNumber',
+      desc: '',
+      args: [sFN],
+    );
+  }
+
+  /// `Work duration: {sTUD} {sTC}`
+  String workDuration(Object sTUD, Object sTC) {
+    return Intl.message(
+      'Work duration: $sTUD $sTC',
+      name: 'workDuration',
+      desc: '',
+      args: [sTUD, sTC],
+    );
+  }
+
+  /// `Application: {appName}`
+  String appName(Object appName) {
+    return Intl.message(
+      'Application: $appName',
+      name: 'appName',
+      desc: '',
+      args: [appName],
+    );
+  }
+
+  /// `Version: {appVersion}`
+  String appVersion1(Object appVersion) {
+    return Intl.message(
+      'Version: $appVersion',
+      name: 'appVersion1',
+      desc: '',
+      args: [appVersion],
+    );
+  }
+
+  /// `Build:{buildNumber}`
+  String buildNumber(Object buildNumber) {
+    return Intl.message(
+      'Build:$buildNumber',
+      name: 'buildNumber',
+      desc: '',
+      args: [buildNumber],
+    );
+  }
+
+  /// `mm:ss`
+  String get mm_ss {
+    return Intl.message(
+      'mm:ss',
+      name: 'mm_ss',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `hh:mm:ss`
+  String get hh_mm_ss {
+    return Intl.message(
+      'hh:mm:ss',
+      name: 'hh_mm_ss',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
