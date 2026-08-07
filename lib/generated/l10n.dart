@@ -359,6 +359,146 @@ class S {
       args: [],
     );
   }
+
+  /// `Connectiong to the stimulator {deviceName}`
+  String connectToStimulator(Object deviceName) {
+    return Intl.message(
+      'Connectiong to the stimulator $deviceName',
+      name: 'connectToStimulator',
+      desc: '',
+      args: [deviceName],
+    );
+  }
+
+  /// `Available methodics`
+  String get availableMethodics {
+    return Intl.message(
+      'Available methodics',
+      name: 'availableMethodics',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `All the list`
+  String get allList {
+    return Intl.message(
+      'All the list',
+      name: 'allList',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `By categories`
+  String get byCategories {
+    return Intl.message(
+      'By categories',
+      name: 'byCategories',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `< Back`
+  String get goBack {
+    return Intl.message(
+      '< Back',
+      name: 'goBack',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Low battery.\nThe stimulator may shut off at any time`
+  String get lowLevelBattery {
+    return Intl.message(
+      'Low battery.\nThe stimulator may shut off at any time',
+      name: 'lowLevelBattery',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Failed to connect to the stimulator`
+  String get failedToConnect {
+    return Intl.message(
+      'Failed to connect to the stimulator',
+      name: 'failedToConnect',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please try again`
+  String get tryAgain {
+    return Intl.message(
+      'Please try again',
+      name: 'tryAgain',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Personal mode`
+  String get personalMode {
+    return Intl.message(
+      'Personal mode',
+      name: 'personalMode',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Run a custom methodic?`
+  String get askRunCustomMethodic {
+    return Intl.message(
+      'Run a custom methodic?',
+      name: 'askRunCustomMethodic',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Программа {programTitle}`
+  String programTitle(Object programTitle) {
+    return Intl.message(
+      'Программа $programTitle',
+      name: 'programTitle',
+      desc: '',
+      args: [programTitle],
+    );
+  }
+
+  /// `Custom methodic`
+  String get freeMethodic {
+    return Intl.message(
+      'Custom methodic',
+      name: 'freeMethodic',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Manual control of the stimulation mode`
+  String get freeMethodicDescription {
+    return Intl.message(
+      'Manual control of the stimulation mode',
+      name: 'freeMethodicDescription',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Stimulator operating mode with individual settings`
+  String get personalModeDescription {
+    return Intl.message(
+      'Stimulator operating mode with individual settings',
+      name: 'personalModeDescription',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

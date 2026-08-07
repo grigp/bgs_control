@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../assets/colors/colors.dart';
+import '../../../generated/l10n.dart';
 
 class DirectTitle extends StatefulWidget {
   const DirectTitle({
@@ -52,13 +53,13 @@ class _DirectTitleState extends State<DirectTitle> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Произвольная программа',
+                  S.of(context).freeMethodic,
                   style: theme.textTheme.bodyLarge,
                   overflow: TextOverflow.ellipsis,
                   textScaler: const TextScaler.linear(1.0),
                 ),
                 Text(
-                  'Ручное управление режимом воздействия',
+                  S.of(context).freeMethodicDescription,
                   style: theme.textTheme.labelSmall,
                   overflow: TextOverflow.ellipsis,
                   textScaler: const TextScaler.linear(1.0),

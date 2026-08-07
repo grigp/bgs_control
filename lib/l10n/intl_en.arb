@@ -29,5 +29,19 @@
   "appVersion1": "Version: {appVersion}",
   "buildNumber": "Build:{buildNumber}",
   "mm_ss": "mm:ss",
-  "hh_mm_ss": "hh:mm:ss"
+  "hh_mm_ss": "hh:mm:ss",
+  "connectToStimulator": "Connectiong to the stimulator {deviceName}",
+  "availableMethodics": "Available methodics",
+  "allList": "All the list",
+  "byCategories": "By categories",
+  "goBack": "< Back",
+  "lowLevelBattery": "Low battery.\nThe stimulator may shut off at any time",
+  "failedToConnect": "Failed to connect to the stimulator",
+  "tryAgain": "Please try again",
+  "personalMode": "Personal mode",
+  "askRunCustomMethodic": "Run a custom methodic?",
+  "programTitle": "Программа {programTitle}",
+  "freeMethodic": "Custom methodic",
+  "freeMethodicDescription": "Manual control of the stimulation mode",
+  "personalModeDescription": "Stimulator operating mode with individual settings"
 }

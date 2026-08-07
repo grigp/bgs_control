@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../assets/colors/colors.dart';
+import '../../../generated/l10n.dart';
 
 class TogoTitle extends StatefulWidget {
   const TogoTitle({
@@ -48,13 +49,13 @@ class _TogoTitleState extends State<TogoTitle> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Индивидуальный режим',
+                  S.of(context).personalMode,
                   style: theme.textTheme.titleMedium,
                   overflow: TextOverflow.ellipsis,
                   textScaler: const TextScaler.linear(1.0),
                 ),
                 Text(
-                  'Режим работы стимулятора с индивидуальными настройками',
+                  S.of(context).personalModeDescription,
                   style: theme.textTheme.labelSmall,
                   overflow: TextOverflow.ellipsis,
                   textScaler: const TextScaler.linear(1.0),

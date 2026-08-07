@@ -29,5 +29,19 @@
   "appVersion1": "Версия: {appVersion}",
   "buildNumber": "Сборка:{buildNumber}",
   "mm_ss": "мм:сс",
-  "hh_mm_ss": "чч:мм:сс"
+  "hh_mm_ss": "чч:мм:сс",
+  "connectToStimulator": "Подключение к стимулятору {deviceName}",
+  "availableMethodics": "Доступные программы",
+  "allList": "Весь список",
+  "byCategories": "По категориям",
+  "goBack": "< Назад",
+  "lowLevelBattery": "Низкий заряд аккумулятора.\nСтимулятор может отключиться в любой момент",
+  "failedToConnect": "Не удалось подключиться к стимулятору",
+  "tryAgain": "Попробуйте повторить попытку",
+  "personalMode": "Индивидуальный режим",
+  "askRunCustomMethodic": "Запустить выполнение произвольной программы?",
+  "programTitle": "Программа {programTitle}",
+  "freeMethodic": "Произвольная программа",
+  "freeMethodicDescription": "Ручное управление режимом воздействия",
+  "personalModeDescription": "Режим работы стимулятора с индивидуальными настройками"
 }

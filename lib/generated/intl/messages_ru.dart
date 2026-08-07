@@ -28,17 +28,22 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m3(buildNumber) => "Сборка:${buildNumber}";
 
-  static String m4(dvcName) => "Стимулятор ${dvcName}";
+  static String m4(deviceName) => "Подключение к стимулятору ${deviceName}";
 
-  static String m5(sFN) => "Номер прошивки: ${sFN}";
+  static String m5(dvcName) => "Стимулятор ${dvcName}";
 
-  static String m6(sTUD, sTC) => "Время работы: ${sTUD} ${sTC}";
+  static String m6(sFN) => "Номер прошивки: ${sFN}";
+
+  static String m7(programTitle) => "Программа ${programTitle}";
+
+  static String m8(sTUD, sTC) => "Время работы: ${sTUD} ${sTC}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "Connect": MessageLookupByLibrary.simpleMessage("Подключить"),
         "addStimulator":
             MessageLookupByLibrary.simpleMessage("Добавить стимулятор"),
+        "allList": MessageLookupByLibrary.simpleMessage("Весь список"),
         "appName": m0,
         "appVersion": m1,
         "appVersion1": m2,
@@ -46,19 +51,34 @@ class MessageLookup extends MessageLookupByLibrary {
             "Продолжить выполнение прерванной программы?"),
         "askExitProgram":
             MessageLookupByLibrary.simpleMessage("Выйти из программы?"),
+        "askRunCustomMethodic": MessageLookupByLibrary.simpleMessage(
+            "Запустить выполнение произвольной программы?"),
+        "availableMethodics":
+            MessageLookupByLibrary.simpleMessage("Доступные программы"),
         "beforeConnectDescription": MessageLookupByLibrary.simpleMessage(
             "Включите стимулятор, установите его на магнитные контакты электрода и нажмите кнопку"),
         "buildNumber": m3,
+        "byCategories": MessageLookupByLibrary.simpleMessage("По категориям"),
         "cancel": MessageLookupByLibrary.simpleMessage("Отмена"),
+        "connectToStimulator": m4,
         "dataExchangeLog":
             MessageLookupByLibrary.simpleMessage("Лог обмена данными"),
         "delete": MessageLookupByLibrary.simpleMessage("Удалить"),
         "deleteStimulatorFromList": MessageLookupByLibrary.simpleMessage(
             "Удалить стимулятор из списка?"),
         "disconnect": MessageLookupByLibrary.simpleMessage("Отключить"),
-        "dvcName": m4,
-        "firmwareNumber": m5,
+        "dvcName": m5,
+        "failedToConnect": MessageLookupByLibrary.simpleMessage(
+            "Не удалось подключиться к стимулятору"),
+        "firmwareNumber": m6,
+        "freeMethodic":
+            MessageLookupByLibrary.simpleMessage("Произвольная программа"),
+        "freeMethodicDescription": MessageLookupByLibrary.simpleMessage(
+            "Ручное управление режимом воздействия"),
+        "goBack": MessageLookupByLibrary.simpleMessage("< Назад"),
         "hh_mm_ss": MessageLookupByLibrary.simpleMessage("чч:мм:сс"),
+        "lowLevelBattery": MessageLookupByLibrary.simpleMessage(
+            "Низкий заряд аккумулятора.\nСтимулятор может отключиться в любой момент"),
         "mm_ss": MessageLookupByLibrary.simpleMessage("мм:сс"),
         "msgDisconnect": MessageLookupByLibrary.simpleMessage(
             "Произошло отключение от стимулятора из за проблем со связью.\nПоднесите телефон ближе к стимулятору и подключите его заново"),
@@ -66,8 +86,13 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Мои стимуляторы"),
         "no": MessageLookupByLibrary.simpleMessage("Нет"),
         "ok": MessageLookupByLibrary.simpleMessage("OK"),
+        "personalMode":
+            MessageLookupByLibrary.simpleMessage("Индивидуальный режим"),
+        "personalModeDescription": MessageLookupByLibrary.simpleMessage(
+            "Режим работы стимулятора с индивидуальными настройками"),
         "previousDevices":
             MessageLookupByLibrary.simpleMessage("Подключенные ранее"),
+        "programTitle": m7,
         "searchStimulators":
             MessageLookupByLibrary.simpleMessage("Поиск стимуляторов"),
         "select": MessageLookupByLibrary.simpleMessage("Выбрать"),
@@ -76,8 +101,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "settings": MessageLookupByLibrary.simpleMessage("Свойства"),
         "stimulatorSettings":
             MessageLookupByLibrary.simpleMessage("Параметры стимулятора"),
+        "tryAgain": MessageLookupByLibrary.simpleMessage(
+            "Попробуйте повторить попытку"),
         "warning": MessageLookupByLibrary.simpleMessage("Предупреждение"),
-        "workDuration": m6,
+        "workDuration": m8,
         "yes": MessageLookupByLibrary.simpleMessage("Да")
       };
 }

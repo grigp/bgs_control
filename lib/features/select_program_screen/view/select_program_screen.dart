@@ -20,6 +20,7 @@ import 'package:uuid/uuid.dart';
 
 import '../../../assets/colors/colors.dart';
 import '../../../dev/LogUtils.dart';
+import '../../../generated/l10n.dart';
 import '../../../repositories/bgs_connect/bgs_connect.dart';
 import '../../../repositories/logger/communication_logger.dart';
 import '../../../repositories/methodic_programs/model/select_item_info.dart';
@@ -176,7 +177,8 @@ class _SelectProgramScreenState extends State<SelectProgramScreen>
                     ),
                     const Spacer(),
                     Text(
-                      'Подключение к стимулятору ${getShortDeviceName(widget.driver.deviceName())}',
+                      S.of(context).connectToStimulator(getShortDeviceName(widget.driver.deviceName())),
+//                      'Подключение к стимулятору ${getShortDeviceName(widget.driver.deviceName())}',
                       style: theme.textTheme.headlineMedium,
                       textAlign: TextAlign.center,
                       textScaler: const TextScaler.linear(1.0),
@@ -204,7 +206,7 @@ class _SelectProgramScreenState extends State<SelectProgramScreen>
           child: Row(
             children: [
               Text(
-                'Доступные программы',
+                S.of(context).availableMethodics,
                 style: theme.textTheme.titleMedium,
                 textScaler: const TextScaler.linear(1.0),
               ),
@@ -216,7 +218,7 @@ class _SelectProgramScreenState extends State<SelectProgramScreen>
                       context,
                       (context, animation, secondaryAnimation) =>
                           DeviceInfoScreen(
-                        title: 'Параметры стимулятора',
+                        title: S.of(context).stimulatorSettings,
                         dvcName: widget.driver.deviceName(),
                       ),
                       '/dvc_settings',
@@ -257,7 +259,7 @@ class _SelectProgramScreenState extends State<SelectProgramScreen>
           children: [
             const Spacer(),
             GestureDetector(
-              child: _getSelectTypeTitle('Список', ProgramSelectType.pstList),
+              child: _getSelectTypeTitle(S.of(context).allList, ProgramSelectType.pstList),
               onTap: () {
                 setState(() {
                   _updateCurrentPageIndex(0);
@@ -266,7 +268,7 @@ class _SelectProgramScreenState extends State<SelectProgramScreen>
             ),
             const Spacer(),
             GestureDetector(
-              child: _getSelectTypeTitle('Выбор', ProgramSelectType.pstMenu),
+              child: _getSelectTypeTitle(S.of(context).byCategories, ProgramSelectType.pstMenu),
               onTap: () {
                 setState(() {
                   _updateCurrentPageIndex(1);
@@ -358,7 +360,7 @@ class _SelectProgramScreenState extends State<SelectProgramScreen>
                           children: [
                             const SizedBox(width: 10),
                             Text(
-                              '< Назад',
+                              S.of(context).goBack,
                               style: theme.textTheme.titleLarge,
                             ),
                           ],
@@ -396,14 +398,14 @@ class _SelectProgramScreenState extends State<SelectProgramScreen>
       context: context,
       barrierDismissible: false,
       builder: (BuildContext context) => AlertDialog(
-        title: const Text('Предупреждение'),
+        title: Text(S.of(context).warning),
         titleTextStyle: const TextStyle(
           fontSize: 24,
           fontWeight: FontWeight.bold,
           color: Colors.black,
         ),
-        content: const Text(
-            'Низкий заряд аккумулятора.\nСтимулятор может отключиться в любой момент'),
+        content: Text(
+            S.of(context).lowLevelBattery),
         contentTextStyle: const TextStyle(
           fontSize: 20,
           color: Colors.black,
@@ -488,16 +490,16 @@ class _SelectProgramScreenState extends State<SelectProgramScreen>
       context: context,
       barrierDismissible: false,
       builder: (BuildContext context) => AlertDialog(
-        title: const Text(
-          'Не удалось подключиться к стимулятору',
+        title: Text(
+          S.of(context).failedToConnect,
         ),
-        content: const Text(
-          'Попробуйте повторить попытку',
+        content: Text(
+          S.of(context).tryAgain,
         ),
         actions: <Widget>[
           TexelButton.accent(
             onPressed: () => Navigator.pop(context, 'Cancel'),
-            text: 'Ок',
+            text: S.of(context).ok,
             width: 120,
           ),
         ],
@@ -660,7 +662,7 @@ class _SelectProgramScreenState extends State<SelectProgramScreen>
     pushScreen(
       context,
       (context, animation, secondaryAnimation) => TogoParamsScreen(
-        title: 'Индивидуальный режим',
+        title: S.of(context).personalMode,
         driver: widget.driver,
       ),
       '/togo_control',
@@ -690,19 +692,19 @@ class _SelectProgramScreenState extends State<SelectProgramScreen>
       context: context,
       barrierDismissible: false,
       builder: (BuildContext context) => AlertDialog(
-        title: const Text('Запустить выполнение произвольной программы?'),
+        title: Text(S.of(context).askRunCustomMethodic),
         actions: <Widget>[
           TexelButton.accent(
             onPressed: () => Navigator.pop(context, true),
-            text: 'Да',
+            text: S.of(context).yes,
             width: 120,
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 22),
             child: TextButton(
               onPressed: () => Navigator.pop(context, false),
-              child: const Text(
-                'Нет',
+              child: Text(
+                S.of(context).no,
               ),
             ),
           ),
@@ -716,19 +718,19 @@ class _SelectProgramScreenState extends State<SelectProgramScreen>
       context: context,
       barrierDismissible: false,
       builder: (BuildContext context) => AlertDialog(
-        title: const Text('Продолжить выполнение прерванной программы?'),
+        title: Text(S.of(context).askContinueInterrupted),
         actions: <Widget>[
           TexelButton.accent(
             onPressed: () => Navigator.pop(context, true),
-            text: 'Да',
+            text: S.of(context).yes,
             width: 120,
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 22),
             child: TextButton(
               onPressed: () => Navigator.pop(context, false),
-              child: const Text(
-                'Нет',
+              child: Text(
+                S.of(context).no,
               ),
             ),
           ),
@@ -742,7 +744,8 @@ class _SelectProgramScreenState extends State<SelectProgramScreen>
     pushScreen(
       context,
       (context, animation, secondaryAnimation) => ProgramParamsScreen(
-        title: 'Программа ${program.title}',
+        title: S.of(context).programTitle(program.title),
+//        title: 'Программа ${program.title}',
         driver: widget.driver,
         program: program,
       ),
