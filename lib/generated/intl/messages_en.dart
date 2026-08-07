@@ -36,7 +36,9 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m7(programTitle) => "Программа ${programTitle}";
 
-  static String m8(sTUD, sTC) => "Work duration: ${sTUD} ${sTC}";
+  static String m8(stageNum) => "Stage ${stageNum}";
+
+  static String m9(sTUD, sTC) => "Work duration: ${sTUD} ${sTC}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -46,6 +48,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "appName": m0,
         "appVersion": m1,
         "appVersion1": m2,
+        "areasStimulation":
+            MessageLookupByLibrary.simpleMessage("Areas of stimulation: "),
         "askContinueInterrupted": MessageLookupByLibrary.simpleMessage(
             "Continue execution of the interrupted methodic?"),
         "askExitProgram":
@@ -59,6 +63,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "buildNumber": m3,
         "byCategories": MessageLookupByLibrary.simpleMessage("By categories"),
         "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
+        "compatibleElectrodeTypes": MessageLookupByLibrary.simpleMessage(
+            "Compatible electrode types: "),
         "connectToStimulator": m4,
         "dataExchangeLog":
             MessageLookupByLibrary.simpleMessage("Data exchange log"),
@@ -88,18 +94,24 @@ class MessageLookup extends MessageLookupByLibrary {
             "Stimulator operating mode with individual settings"),
         "previousDevices":
             MessageLookupByLibrary.simpleMessage("Previous devices"),
+        "programExecutionTime":
+            MessageLookupByLibrary.simpleMessage("Program execution time"),
         "programTitle": m7,
+        "recommendationsForProcedure": MessageLookupByLibrary.simpleMessage(
+            "Recommendations for the procedure:\n"),
         "searchStimulators":
             MessageLookupByLibrary.simpleMessage("Search for stimulators"),
         "select": MessageLookupByLibrary.simpleMessage("Select"),
         "selectMethodic":
             MessageLookupByLibrary.simpleMessage("Select methodic"),
         "settings": MessageLookupByLibrary.simpleMessage("Settings"),
+        "stageNum": m8,
+        "start": MessageLookupByLibrary.simpleMessage("Start"),
         "stimulatorSettings":
             MessageLookupByLibrary.simpleMessage("Stimulator settings"),
         "tryAgain": MessageLookupByLibrary.simpleMessage("Please try again"),
         "warning": MessageLookupByLibrary.simpleMessage("Warning"),
-        "workDuration": m8,
+        "workDuration": m9,
         "yes": MessageLookupByLibrary.simpleMessage("Yes")
       };
 }

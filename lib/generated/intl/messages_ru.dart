@@ -36,7 +36,9 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m7(programTitle) => "Программа ${programTitle}";
 
-  static String m8(sTUD, sTC) => "Время работы: ${sTUD} ${sTC}";
+  static String m8(stageNum) => "Стадия ${stageNum}";
+
+  static String m9(sTUD, sTC) => "Время работы: ${sTUD} ${sTC}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -47,6 +49,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "appName": m0,
         "appVersion": m1,
         "appVersion1": m2,
+        "areasStimulation":
+            MessageLookupByLibrary.simpleMessage("Области воздействия: "),
         "askContinueInterrupted": MessageLookupByLibrary.simpleMessage(
             "Продолжить выполнение прерванной программы?"),
         "askExitProgram":
@@ -60,6 +64,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "buildNumber": m3,
         "byCategories": MessageLookupByLibrary.simpleMessage("По категориям"),
         "cancel": MessageLookupByLibrary.simpleMessage("Отмена"),
+        "compatibleElectrodeTypes": MessageLookupByLibrary.simpleMessage(
+            "Совместимые типы электродов: "),
         "connectToStimulator": m4,
         "dataExchangeLog":
             MessageLookupByLibrary.simpleMessage("Лог обмена данными"),
@@ -92,19 +98,25 @@ class MessageLookup extends MessageLookupByLibrary {
             "Режим работы стимулятора с индивидуальными настройками"),
         "previousDevices":
             MessageLookupByLibrary.simpleMessage("Подключенные ранее"),
+        "programExecutionTime":
+            MessageLookupByLibrary.simpleMessage("Время выполнения программы"),
         "programTitle": m7,
+        "recommendationsForProcedure": MessageLookupByLibrary.simpleMessage(
+            "Рекомендации по проведению процедуры:\n"),
         "searchStimulators":
             MessageLookupByLibrary.simpleMessage("Поиск стимуляторов"),
         "select": MessageLookupByLibrary.simpleMessage("Выбрать"),
         "selectMethodic":
             MessageLookupByLibrary.simpleMessage("Выбор программы"),
         "settings": MessageLookupByLibrary.simpleMessage("Свойства"),
+        "stageNum": m8,
+        "start": MessageLookupByLibrary.simpleMessage("Начать"),
         "stimulatorSettings":
             MessageLookupByLibrary.simpleMessage("Параметры стимулятора"),
         "tryAgain": MessageLookupByLibrary.simpleMessage(
             "Попробуйте повторить попытку"),
         "warning": MessageLookupByLibrary.simpleMessage("Предупреждение"),
-        "workDuration": m8,
+        "workDuration": m9,
         "yes": MessageLookupByLibrary.simpleMessage("Да")
       };
 }

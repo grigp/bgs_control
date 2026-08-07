@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 
+import '../../../generated/l10n.dart';
 import '../../../utils/baseutils.dart';
 
 class TimeTotalTitle extends StatefulWidget{
@@ -39,9 +40,9 @@ class _TimeTotalTitle extends State<TimeTotalTitle> {
           children: [
             Row(
               children: [
-                const Text(
-                  'Время выполнения программы',
-                  style: TextStyle(color: Colors.black, fontSize: 16),
+                Text(
+                  S.of(context).programExecutionTime,
+                  style: const TextStyle(color: Colors.black, fontSize: 16),
                   overflow: TextOverflow.ellipsis,
                 ),
                 const Spacer(),

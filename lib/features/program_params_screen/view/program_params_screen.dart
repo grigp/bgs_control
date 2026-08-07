@@ -3,6 +3,7 @@ import 'package:bgs_control/features/program_params_screen/widgets/time_total_ti
 import 'package:flutter/material.dart';
 
 import '../../../assets/colors/colors.dart';
+import '../../../generated/l10n.dart';
 import '../../../repositories/methodic_programs/model/methodic_program.dart';
 import '../../../repositories/running_manager/device_program_executor.dart';
 import '../../../utils/baseutils.dart';
@@ -135,9 +136,9 @@ class _ProgramParamsScreenState extends State<ProgramParamsScreen> {
                                         ),
                                       ),
                                       if (widget.program.electrods != '')
-                                        const TextSpan(
-                                          text: "Совместимые типы электродов: ",
-                                          style: TextStyle(
+                                        TextSpan(
+                                          text: S.of(context).compatibleElectrodeTypes,
+                                          style: const TextStyle(
                                             fontWeight: FontWeight.bold,
                                             color: black,
                                           ),
@@ -151,9 +152,9 @@ class _ProgramParamsScreenState extends State<ProgramParamsScreen> {
                                           ),
                                         ),
                                       if (widget.program.areases != '')
-                                        const TextSpan(
-                                          text: "Области воздействия: ",
-                                          style: TextStyle(
+                                        TextSpan(
+                                          text: S.of(context).areasStimulation,
+                                          style: const TextStyle(
                                             fontWeight: FontWeight.bold,
                                             color: black,
                                           ),
@@ -166,10 +167,10 @@ class _ProgramParamsScreenState extends State<ProgramParamsScreen> {
                                           ),
                                         ),
                                       if (widget.program.recomendations != '')
-                                        const TextSpan(
+                                        TextSpan(
                                           text:
-                                              "Рекомендации по проведению процедуры:\n",
-                                          style: TextStyle(
+                                              S.of(context).recommendationsForProcedure,
+                                          style: const TextStyle(
                                             fontWeight: FontWeight.bold,
                                             color: black,
                                           ),
@@ -214,7 +215,7 @@ class _ProgramParamsScreenState extends State<ProgramParamsScreen> {
                             ShiftDirection.rightToLeft,
                           );
                         },
-                        text: 'Начать',
+                        text: S.of(context).start,
                       ),
                     ),
                   ),

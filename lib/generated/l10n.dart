@@ -499,6 +499,66 @@ class S {
       args: [],
     );
   }
+
+  /// `Compatible electrode types: `
+  String get compatibleElectrodeTypes {
+    return Intl.message(
+      'Compatible electrode types: ',
+      name: 'compatibleElectrodeTypes',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Areas of stimulation: `
+  String get areasStimulation {
+    return Intl.message(
+      'Areas of stimulation: ',
+      name: 'areasStimulation',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Recommendations for the procedure:\n`
+  String get recommendationsForProcedure {
+    return Intl.message(
+      'Recommendations for the procedure:\n',
+      name: 'recommendationsForProcedure',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Start`
+  String get start {
+    return Intl.message(
+      'Start',
+      name: 'start',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Stage {stageNum}`
+  String stageNum(Object stageNum) {
+    return Intl.message(
+      'Stage $stageNum',
+      name: 'stageNum',
+      desc: '',
+      args: [stageNum],
+    );
+  }
+
+  /// `Program execution time`
+  String get programExecutionTime {
+    return Intl.message(
+      'Program execution time',
+      name: 'programExecutionTime',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

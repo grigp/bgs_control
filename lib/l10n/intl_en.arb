@@ -43,5 +43,11 @@
   "programTitle": "Программа {programTitle}",
   "freeMethodic": "Custom methodic",
   "freeMethodicDescription": "Manual control of the stimulation mode",
-  "personalModeDescription": "Stimulator operating mode with individual settings"
+  "personalModeDescription": "Stimulator operating mode with individual settings",
+  "compatibleElectrodeTypes": "Compatible electrode types: ",
+  "areasStimulation": "Areas of stimulation: ",
+  "recommendationsForProcedure": "Recommendations for the procedure:\n",
+  "start": "Start",
+  "stageNum": "Stage {stageNum}",
+  "programExecutionTime": "Program execution time"
 }

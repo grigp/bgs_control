@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../generated/l10n.dart';
 import '../../../repositories/methodic_programs/model/methodic_program.dart';
 import '../../../utils/baseutils.dart';
 
@@ -49,7 +50,8 @@ class _StageTitleState extends State<StageTitle> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Стадия ${widget.num}',
+                      S.of(context).stageNum(widget.num),
+//                      'Стадия ${widget.num}',
                       style: TextStyle(color: widget.textColor, fontSize: 16),
                       //theme.textTheme.titleMedium,
                       overflow: TextOverflow.ellipsis,

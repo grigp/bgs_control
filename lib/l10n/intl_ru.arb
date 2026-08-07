@@ -43,5 +43,11 @@
   "programTitle": "Программа {programTitle}",
   "freeMethodic": "Произвольная программа",
   "freeMethodicDescription": "Ручное управление режимом воздействия",
-  "personalModeDescription": "Режим работы стимулятора с индивидуальными настройками"
+  "personalModeDescription": "Режим работы стимулятора с индивидуальными настройками",
+  "compatibleElectrodeTypes": "Совместимые типы электродов: ",
+  "areasStimulation": "Области воздействия: ",
+  "recommendationsForProcedure": "Рекомендации по проведению процедуры:\n",
+  "start": "Начать",
+  "stageNum": "Стадия {stageNum}",
+  "programExecutionTime": "Время выполнения программы"
 }
