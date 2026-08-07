@@ -12,6 +12,7 @@ import 'package:flutter/material.dart';
 import 'package:uuid/uuid.dart';
 
 import '../../../assets/colors/colors.dart';
+import '../../../generated/l10n.dart';
 import '../../../repositories/bgs_connect/bgs_connect.dart';
 import '../../../repositories/bgs_connect/bgs_defines.dart';
 import '../../../repositories/methodic_programs/model/methodic_program.dart';
@@ -195,7 +196,8 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
                         children: [
                           /// Нвзвание этапа
                           Text(
-                            'Этап ${widget.driver.idxStage() + 1} : "${widget.driver.stage().comment}"',
+                            S.of(context).stageIdxComment(widget.driver.idxStage() + 1, widget.driver.stage().comment),
+//                            'Этап ${widget.driver.idxStage() + 1} : "${widget.driver.stage().comment}"',
                             style: theme.textTheme.bodyMedium,
                             textScaler: const TextScaler.linear(1.0),
                           ),
@@ -311,7 +313,8 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            'До завершения осталось ${getTimeBySecCount(widget.driver.programDuration() - widget.driver.playingTime())}',
+                            S.of(context).timeRemain(getTimeBySecCount(widget.driver.programDuration() - widget.driver.playingTime())),
+//                            'До завершения осталось ${getTimeBySecCount(widget.driver.programDuration() - widget.driver.playingTime())}',
                             style: theme.textTheme.titleSmall,
                             textScaler: const TextScaler.linear(1.0),
                           ),
@@ -346,7 +349,8 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
                                 textScaler: const TextScaler.linear(1.0),
                               )
                             : Text(
-                                'Прошло времени - ${getTimeBySecCount(widget.driver.playingTime())}',
+                                S.of(context).playingTime(getTimeBySecCount(widget.driver.playingTime())),
+//                          'Прошло времени - ${getTimeBySecCount(widget.driver.playingTime())}',
                                 style: theme.textTheme.titleSmall,
                                 textScaler: const TextScaler.linear(1.0),
                               ),
@@ -384,7 +388,7 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
                   bottom: 8,
                 ),
                 child: TexelButton.yellowDark(
-                  text: 'Работать автономно',
+                  text: S.of(context).toGoMode,
                   onPressed: () async {
                     bool? isGo = await isWorkToGo(context);
                     if (isGo!) {
@@ -409,24 +413,24 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
       barrierDismissible: false,
       builder: (BuildContext context) => AlertDialog(
         title: (widget.driver.stage().duration > 0)
-            ? const Text(
-                'Отменить выполнение программы?',
+            ? Text(
+                S.of(context).cancelProgramExecution,
               )
-            : const Text(
-                'Прервать воздействие?',
+            : Text(
+                S.of(context).interruptProgramExecution,
               ),
         actions: <Widget>[
           TexelButton.accent(
             onPressed: () => Navigator.pop(context, false),
-            text: 'Нет',
+            text: S.of(context).no,
             width: 120,
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 22),
             child: TextButton(
               onPressed: () => Navigator.pop(context, true),
-              child: const Text(
-                'Да',
+              child: Text(
+                S.of(context).yes,
               ),
               // width: 120,
             ),

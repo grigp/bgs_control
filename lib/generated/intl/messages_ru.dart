@@ -34,11 +34,24 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m6(sFN) => "Номер прошивки: ${sFN}";
 
-  static String m7(programTitle) => "Программа ${programTitle}";
+  static String m7(frequency) => "${frequency} Hz";
 
-  static String m8(stageNum) => "Стадия ${stageNum}";
+  static String m8(playingTime) => "Прошло времени - ${playingTime}";
 
-  static String m9(sTUD, sTC) => "Время работы: ${sTUD} ${sTC}";
+  static String m9(programTitle) => "Программа ${programTitle}";
+
+  static String m10(idxStage, stageComment) =>
+      "Этап ${idxStage} : ${stageComment}";
+
+  static String m11(idxStage, nameStage) => "Этап ${idxStage} : ${nameStage}";
+
+  static String m12(stageNum) => "Стадия ${stageNum}";
+
+  static String m13(stageTime, duration) => "${stageTime} из ${duration}";
+
+  static String m14(timeRemain) => "До завершения осталось ${timeRemain}";
+
+  static String m15(sTUD, sTC) => "Время работы: ${sTUD} ${sTC}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -46,6 +59,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "addStimulator":
             MessageLookupByLibrary.simpleMessage("Добавить стимулятор"),
         "allList": MessageLookupByLibrary.simpleMessage("Весь список"),
+        "amplitudeModulation":
+            MessageLookupByLibrary.simpleMessage("Амплитудная модуляция"),
         "appName": m0,
         "appVersion": m1,
         "appVersion1": m2,
@@ -64,6 +79,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "buildNumber": m3,
         "byCategories": MessageLookupByLibrary.simpleMessage("По категориям"),
         "cancel": MessageLookupByLibrary.simpleMessage("Отмена"),
+        "cancelProgramExecution": MessageLookupByLibrary.simpleMessage(
+            "Отменить выполнение программы?"),
         "compatibleElectrodeTypes": MessageLookupByLibrary.simpleMessage(
             "Совместимые типы электродов: "),
         "connectToStimulator": m4,
@@ -81,8 +98,15 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Произвольная программа"),
         "freeMethodicDescription": MessageLookupByLibrary.simpleMessage(
             "Ручное управление режимом воздействия"),
+        "frequency": MessageLookupByLibrary.simpleMessage("Частота"),
+        "frequencyModulation":
+            MessageLookupByLibrary.simpleMessage("Частотная модуляция"),
+        "frequencyValue": m7,
         "goBack": MessageLookupByLibrary.simpleMessage("< Назад"),
         "hh_mm_ss": MessageLookupByLibrary.simpleMessage("чч:мм:сс"),
+        "intensity": MessageLookupByLibrary.simpleMessage("Интенсивность"),
+        "interruptProgramExecution":
+            MessageLookupByLibrary.simpleMessage("Прервать воздействие?"),
         "lowLevelBattery": MessageLookupByLibrary.simpleMessage(
             "Низкий заряд аккумулятора.\nСтимулятор может отключиться в любой момент"),
         "mm_ss": MessageLookupByLibrary.simpleMessage("мм:сс"),
@@ -91,16 +115,18 @@ class MessageLookup extends MessageLookupByLibrary {
         "myStimulators":
             MessageLookupByLibrary.simpleMessage("Мои стимуляторы"),
         "no": MessageLookupByLibrary.simpleMessage("Нет"),
+        "notDefined": MessageLookupByLibrary.simpleMessage("Не задано"),
         "ok": MessageLookupByLibrary.simpleMessage("OK"),
         "personalMode":
             MessageLookupByLibrary.simpleMessage("Индивидуальный режим"),
         "personalModeDescription": MessageLookupByLibrary.simpleMessage(
             "Режим работы стимулятора с индивидуальными настройками"),
+        "playingTime": m8,
         "previousDevices":
             MessageLookupByLibrary.simpleMessage("Подключенные ранее"),
         "programExecutionTime":
             MessageLookupByLibrary.simpleMessage("Время выполнения программы"),
-        "programTitle": m7,
+        "programTitle": m9,
         "recommendationsForProcedure": MessageLookupByLibrary.simpleMessage(
             "Рекомендации по проведению процедуры:\n"),
         "searchStimulators":
@@ -109,14 +135,20 @@ class MessageLookup extends MessageLookupByLibrary {
         "selectMethodic":
             MessageLookupByLibrary.simpleMessage("Выбор программы"),
         "settings": MessageLookupByLibrary.simpleMessage("Свойства"),
-        "stageNum": m8,
+        "stageIdxComment": m10,
+        "stageIdxNamestage": m11,
+        "stageNum": m12,
+        "stageTmeDuration": m13,
         "start": MessageLookupByLibrary.simpleMessage("Начать"),
         "stimulatorSettings":
             MessageLookupByLibrary.simpleMessage("Параметры стимулятора"),
+        "time": MessageLookupByLibrary.simpleMessage("Time"),
+        "timeRemain": m14,
+        "toGoMode": MessageLookupByLibrary.simpleMessage("Работать автономно"),
         "tryAgain": MessageLookupByLibrary.simpleMessage(
             "Попробуйте повторить попытку"),
         "warning": MessageLookupByLibrary.simpleMessage("Предупреждение"),
-        "workDuration": m9,
+        "workDuration": m15,
         "yes": MessageLookupByLibrary.simpleMessage("Да")
       };
 }

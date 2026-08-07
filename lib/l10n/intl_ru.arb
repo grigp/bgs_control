@@ -49,5 +49,20 @@
   "recommendationsForProcedure": "Рекомендации по проведению процедуры:\n",
   "start": "Начать",
   "stageNum": "Стадия {stageNum}",
-  "programExecutionTime": "Время выполнения программы"
+  "programExecutionTime": "Время выполнения программы",
+  "stageIdxComment": "Этап {idxStage} : {stageComment}",
+  "timeRemain": "До завершения осталось {timeRemain}",
+  "playingTime": "Прошло времени - {playingTime}",
+  "toGoMode": "Работать автономно",
+  "cancelProgramExecution": "Отменить выполнение программы?",
+  "interruptProgramExecution": "Прервать воздействие?",
+  "stageIdxNamestage": "Этап {idxStage} : {nameStage}",
+  "time": "Time",
+  "amplitudeModulation": "Амплитудная модуляция",
+  "frequencyModulation": "Частотная модуляция",
+  "frequency": "Частота",
+  "frequencyValue": "{frequency} Hz",
+  "intensity": "Интенсивность",
+  "stageTmeDuration": "{stageTime} из {duration}",
+  "notDefined": "Не задано"
 }

@@ -49,5 +49,20 @@
   "recommendationsForProcedure": "Recommendations for the procedure:\n",
   "start": "Start",
   "stageNum": "Stage {stageNum}",
-  "programExecutionTime": "Program execution time"
+  "programExecutionTime": "Program execution time",
+  "stageIdxComment": "Stage {idxStage} : {stageComment}",
+  "timeRemain": "Time remaining {timeRemain}",
+  "playingTime": "Time passed - {playingTime}",
+  "toGoMode": "To go mode",
+  "cancelProgramExecution": "Cancel program execution?",
+  "interruptProgramExecution": "Interrupt program execution?",
+  "stageIdxNamestage": "Stage {idxStage} : {nameStage}",
+  "time": "Время",
+  "amplitudeModulation": "Amplitude modulation",
+  "frequencyModulation": "Frequency modulation",
+  "frequency": "Frequency",
+  "frequencyValue": "{frequency} Гц",
+  "intensity": "Intensity",
+  "stageTmeDuration": "{stageTime} out of {duration}",
+  "notDefined": "Not defined"
 }

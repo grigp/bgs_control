@@ -2,6 +2,7 @@ import 'package:bgs_control/repositories/methodic_programs/model/stage_info.dart
 import 'package:flutter/material.dart';
 
 import '../../../../assets/colors/colors.dart';
+import '../../../../generated/l10n.dart';
 import '../../../../repositories/bgs_connect/bgs_defines.dart';
 import '../../../../utils/baseutils.dart';
 
@@ -42,7 +43,8 @@ class _StageInfoDialog extends State<StageInfoDialog> {
               children: [
                 Expanded(
                   child: Text(
-                    'Этап ${widget.stageInfo.value.idxStage + 1} : ${widget.stageInfo.value.nameStage}',
+                    S.of(context).stageIdxNamestage(widget.stageInfo.value.idxStage + 1, widget.stageInfo.value.nameStage),
+//                    'Этап ${widget.stageInfo.value.idxStage + 1} : ${widget.stageInfo.value.nameStage}',
                     overflow: TextOverflow.ellipsis,
                     style: theme.textTheme.titleMedium,
                     textScaler: const TextScaler.linear(1.0),
@@ -83,7 +85,7 @@ class _StageInfoDialog extends State<StageInfoDialog> {
                   child: Row(
                     children: [
                       Text(
-                        'Время',
+                        S.of(context).time,
                         style: theme.textTheme.bodyLarge,
                         textScaler: const TextScaler.linear(1.0),
                       ),
@@ -102,7 +104,7 @@ class _StageInfoDialog extends State<StageInfoDialog> {
                 Row(
                   children: [
                     Text(
-                      'Амплитудная модуляция',
+                      S.of(context).amplitudeModulation,
                       style: theme.textTheme.bodyLarge,
                       textScaler: const TextScaler.linear(1.0),
                     ),
@@ -121,26 +123,27 @@ class _StageInfoDialog extends State<StageInfoDialog> {
                   children: [
                     if (widget.stageInfo.value.isFm)
                       Text(
-                        'Частотная модуляция',
+                        S.of(context).frequencyModulation,
                         style: theme.textTheme.bodyLarge,
                         textScaler: const TextScaler.linear(1.0),
                       ),
                     if (!widget.stageInfo.value.isFm)
                       Text(
-                        'Частота',
+                        S.of(context).frequency,
                         style: theme.textTheme.bodyLarge,
                         textScaler: const TextScaler.linear(1.0),
                       ),
                     const Spacer(),
                     if (widget.stageInfo.value.isFm)
                       Text(
-                        'Да',
+                        S.of(context).yes,
                         style: theme.textTheme.bodyLarge,
                         textScaler: const TextScaler.linear(1.0),
                       ),
                     if (!widget.stageInfo.value.isFm)
                       Text(
-                        '${widget.stageInfo.value.frequency.toInt()} Гц',
+                        S.of(context).frequencyValue(widget.stageInfo.value.frequency.toInt()),
+//                        '${widget.stageInfo.value.frequency.toInt()} Гц',
                         style: theme.textTheme.bodyLarge,
                         textScaler: const TextScaler.linear(1.0),
                       ),
@@ -152,7 +155,7 @@ class _StageInfoDialog extends State<StageInfoDialog> {
                 Row(
                   children: [
                     Text(
-                      'Интенсивность',
+                      S.of(context).intensity,
                       style: theme.textTheme.bodyLarge,
                       textScaler: const TextScaler.linear(1.0),
                     ),
@@ -185,9 +188,10 @@ class _StageInfoDialog extends State<StageInfoDialog> {
 
   String _stageTime() {
     if (widget.stageInfo.value.duration > 0) {
-      return '${getTimeBySecCount(widget.stageInfo.value.stageTime)} из ${getTimeBySecCount(widget.stageInfo.value.duration ~/ 1000)}';
+      return S.of(context).stageTmeDuration(getTimeBySecCount(widget.stageInfo.value.stageTime), getTimeBySecCount(widget.stageInfo.value.duration ~/ 1000));
+//      return '${getTimeBySecCount(widget.stageInfo.value.stageTime)} из ${getTimeBySecCount(widget.stageInfo.value.duration ~/ 1000)}';
     } else {
-      return 'Не задано';
+      return S.of(context).notDefined;
     }
   }
 
@@ -200,10 +204,10 @@ class _StageInfoDialog extends State<StageInfoDialog> {
       } else if (widget.stageInfo.value.amMode == AmMode.am_51) {
         return '5:1';
       } else {
-        return 'Нет';
+        return S.of(context).no;
       }
     } else {
-      return 'Нет';
+      return S.of(context).no;
     }
   }
 }

@@ -34,17 +34,32 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m6(sFN) => "Firmware number: ${sFN}";
 
-  static String m7(programTitle) => "Программа ${programTitle}";
+  static String m7(frequency) => "${frequency} Гц";
 
-  static String m8(stageNum) => "Stage ${stageNum}";
+  static String m8(playingTime) => "Time passed - ${playingTime}";
 
-  static String m9(sTUD, sTC) => "Work duration: ${sTUD} ${sTC}";
+  static String m9(programTitle) => "Программа ${programTitle}";
+
+  static String m10(idxStage, stageComment) =>
+      "Stage ${idxStage} : ${stageComment}";
+
+  static String m11(idxStage, nameStage) => "Stage ${idxStage} : ${nameStage}";
+
+  static String m12(stageNum) => "Stage ${stageNum}";
+
+  static String m13(stageTime, duration) => "${stageTime} out of ${duration}";
+
+  static String m14(timeRemain) => "Time remaining ${timeRemain}";
+
+  static String m15(sTUD, sTC) => "Work duration: ${sTUD} ${sTC}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "Connect": MessageLookupByLibrary.simpleMessage("Connect"),
         "addStimulator": MessageLookupByLibrary.simpleMessage("Add stimulator"),
         "allList": MessageLookupByLibrary.simpleMessage("All the list"),
+        "amplitudeModulation":
+            MessageLookupByLibrary.simpleMessage("Amplitude modulation"),
         "appName": m0,
         "appVersion": m1,
         "appVersion1": m2,
@@ -63,6 +78,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "buildNumber": m3,
         "byCategories": MessageLookupByLibrary.simpleMessage("By categories"),
         "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
+        "cancelProgramExecution":
+            MessageLookupByLibrary.simpleMessage("Cancel program execution?"),
         "compatibleElectrodeTypes": MessageLookupByLibrary.simpleMessage(
             "Compatible electrode types: "),
         "connectToStimulator": m4,
@@ -79,8 +96,15 @@ class MessageLookup extends MessageLookupByLibrary {
         "freeMethodic": MessageLookupByLibrary.simpleMessage("Custom methodic"),
         "freeMethodicDescription": MessageLookupByLibrary.simpleMessage(
             "Manual control of the stimulation mode"),
+        "frequency": MessageLookupByLibrary.simpleMessage("Frequency"),
+        "frequencyModulation":
+            MessageLookupByLibrary.simpleMessage("Frequency modulation"),
+        "frequencyValue": m7,
         "goBack": MessageLookupByLibrary.simpleMessage("< Back"),
         "hh_mm_ss": MessageLookupByLibrary.simpleMessage("hh:mm:ss"),
+        "intensity": MessageLookupByLibrary.simpleMessage("Intensity"),
+        "interruptProgramExecution": MessageLookupByLibrary.simpleMessage(
+            "Interrupt program execution?"),
         "lowLevelBattery": MessageLookupByLibrary.simpleMessage(
             "Low battery.\nThe stimulator may shut off at any time"),
         "mm_ss": MessageLookupByLibrary.simpleMessage("mm:ss"),
@@ -88,15 +112,17 @@ class MessageLookup extends MessageLookupByLibrary {
             "The stimulator disconnected due to connection issues.\nBring your phone closer to the stimulator and reconnect"),
         "myStimulators": MessageLookupByLibrary.simpleMessage("My stimulators"),
         "no": MessageLookupByLibrary.simpleMessage("No"),
+        "notDefined": MessageLookupByLibrary.simpleMessage("Not defined"),
         "ok": MessageLookupByLibrary.simpleMessage("OK"),
         "personalMode": MessageLookupByLibrary.simpleMessage("Personal mode"),
         "personalModeDescription": MessageLookupByLibrary.simpleMessage(
             "Stimulator operating mode with individual settings"),
+        "playingTime": m8,
         "previousDevices":
             MessageLookupByLibrary.simpleMessage("Previous devices"),
         "programExecutionTime":
             MessageLookupByLibrary.simpleMessage("Program execution time"),
-        "programTitle": m7,
+        "programTitle": m9,
         "recommendationsForProcedure": MessageLookupByLibrary.simpleMessage(
             "Recommendations for the procedure:\n"),
         "searchStimulators":
@@ -105,13 +131,19 @@ class MessageLookup extends MessageLookupByLibrary {
         "selectMethodic":
             MessageLookupByLibrary.simpleMessage("Select methodic"),
         "settings": MessageLookupByLibrary.simpleMessage("Settings"),
-        "stageNum": m8,
+        "stageIdxComment": m10,
+        "stageIdxNamestage": m11,
+        "stageNum": m12,
+        "stageTmeDuration": m13,
         "start": MessageLookupByLibrary.simpleMessage("Start"),
         "stimulatorSettings":
             MessageLookupByLibrary.simpleMessage("Stimulator settings"),
+        "time": MessageLookupByLibrary.simpleMessage("Время"),
+        "timeRemain": m14,
+        "toGoMode": MessageLookupByLibrary.simpleMessage("To go mode"),
         "tryAgain": MessageLookupByLibrary.simpleMessage("Please try again"),
         "warning": MessageLookupByLibrary.simpleMessage("Warning"),
-        "workDuration": m9,
+        "workDuration": m15,
         "yes": MessageLookupByLibrary.simpleMessage("Yes")
       };
 }

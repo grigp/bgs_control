@@ -559,6 +559,156 @@ class S {
       args: [],
     );
   }
+
+  /// `Stage {idxStage} : {stageComment}`
+  String stageIdxComment(Object idxStage, Object stageComment) {
+    return Intl.message(
+      'Stage $idxStage : $stageComment',
+      name: 'stageIdxComment',
+      desc: '',
+      args: [idxStage, stageComment],
+    );
+  }
+
+  /// `Time remaining {timeRemain}`
+  String timeRemain(Object timeRemain) {
+    return Intl.message(
+      'Time remaining $timeRemain',
+      name: 'timeRemain',
+      desc: '',
+      args: [timeRemain],
+    );
+  }
+
+  /// `Time passed - {playingTime}`
+  String playingTime(Object playingTime) {
+    return Intl.message(
+      'Time passed - $playingTime',
+      name: 'playingTime',
+      desc: '',
+      args: [playingTime],
+    );
+  }
+
+  /// `To go mode`
+  String get toGoMode {
+    return Intl.message(
+      'To go mode',
+      name: 'toGoMode',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Cancel program execution?`
+  String get cancelProgramExecution {
+    return Intl.message(
+      'Cancel program execution?',
+      name: 'cancelProgramExecution',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Interrupt program execution?`
+  String get interruptProgramExecution {
+    return Intl.message(
+      'Interrupt program execution?',
+      name: 'interruptProgramExecution',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Stage {idxStage} : {nameStage}`
+  String stageIdxNamestage(Object idxStage, Object nameStage) {
+    return Intl.message(
+      'Stage $idxStage : $nameStage',
+      name: 'stageIdxNamestage',
+      desc: '',
+      args: [idxStage, nameStage],
+    );
+  }
+
+  /// `Время`
+  String get time {
+    return Intl.message(
+      'Время',
+      name: 'time',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Amplitude modulation`
+  String get amplitudeModulation {
+    return Intl.message(
+      'Amplitude modulation',
+      name: 'amplitudeModulation',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Frequency modulation`
+  String get frequencyModulation {
+    return Intl.message(
+      'Frequency modulation',
+      name: 'frequencyModulation',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Frequency`
+  String get frequency {
+    return Intl.message(
+      'Frequency',
+      name: 'frequency',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `{frequency} Гц`
+  String frequencyValue(Object frequency) {
+    return Intl.message(
+      '$frequency Гц',
+      name: 'frequencyValue',
+      desc: '',
+      args: [frequency],
+    );
+  }
+
+  /// `Intensity`
+  String get intensity {
+    return Intl.message(
+      'Intensity',
+      name: 'intensity',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `{stageTime} out of {duration}`
+  String stageTmeDuration(Object stageTime, Object duration) {
+    return Intl.message(
+      '$stageTime out of $duration',
+      name: 'stageTmeDuration',
+      desc: '',
+      args: [stageTime, duration],
+    );
+  }
+
+  /// `Not defined`
+  String get notDefined {
+    return Intl.message(
+      'Not defined',
+      name: 'notDefined',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
