@@ -5,6 +5,8 @@ import 'package:bgs_control/features/uikit/texel_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 
+import '../../../generated/l10n.dart';
+
 class BluetoothOffScreen extends StatelessWidget {
   final BluetoothAdapterState adapterState;
 
@@ -32,7 +34,7 @@ class BluetoothOffScreen extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.all(14),
                   child: Text(
-                    'Включите Bluetooth, чтобы подключить стимулятор',
+                    S.of(context).turnObBluetooth,
                     style: Theme.of(context)
                         .primaryTextTheme
                         .titleMedium
@@ -47,7 +49,7 @@ class BluetoothOffScreen extends StatelessWidget {
                       vertical: 20,
                     ),
                     child: TexelButton.black(
-                      text: 'Включить',
+                      text: S.of(context).turnOn,
                       onPressed: () async {
                         try {
                           await FlutterBluePlus.turnOn();

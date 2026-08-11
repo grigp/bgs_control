@@ -170,6 +170,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "timeRemain": m16,
         "toGoMode": MessageLookupByLibrary.simpleMessage("Go to offline mode"),
         "tryAgain": MessageLookupByLibrary.simpleMessage("Please try again"),
+        "turnObBluetooth": MessageLookupByLibrary.simpleMessage(
+            "Turn on Bluetooth to connect the stimulator"),
+        "turnOn": MessageLookupByLibrary.simpleMessage("Turn On"),
         "warning": MessageLookupByLibrary.simpleMessage("Warning"),
         "workDuration": m17,
         "yes": MessageLookupByLibrary.simpleMessage("Yes")

@@ -839,6 +839,26 @@ class S {
       args: [shortDeviceName],
     );
   }
+
+  /// `Turn on Bluetooth to connect the stimulator`
+  String get turnObBluetooth {
+    return Intl.message(
+      'Turn on Bluetooth to connect the stimulator',
+      name: 'turnObBluetooth',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Turn On`
+  String get turnOn {
+    return Intl.message(
+      'Turn On',
+      name: 'turnOn',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

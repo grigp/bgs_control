@@ -174,6 +174,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "toGoMode": MessageLookupByLibrary.simpleMessage("Работать автономно"),
         "tryAgain": MessageLookupByLibrary.simpleMessage(
             "Попробуйте повторить попытку"),
+        "turnObBluetooth": MessageLookupByLibrary.simpleMessage(
+            "Включите Bluetooth, чтобы подключить стимулятор"),
+        "turnOn": MessageLookupByLibrary.simpleMessage("Включить"),
         "warning": MessageLookupByLibrary.simpleMessage("Предупреждение"),
         "workDuration": m17,
         "yes": MessageLookupByLibrary.simpleMessage("Да")
