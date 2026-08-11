@@ -60,6 +60,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "allList": MessageLookupByLibrary.simpleMessage("All the list"),
         "amplitudeModulation":
             MessageLookupByLibrary.simpleMessage("Amplitude modulation"),
+        "amplitudeModulationAM":
+            MessageLookupByLibrary.simpleMessage("Ampl. modulation (AM)"),
         "appName": m0,
         "appVersion": m1,
         "appVersion1": m2,
@@ -71,6 +73,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Exit the program?"),
         "askRunCustomMethodic":
             MessageLookupByLibrary.simpleMessage("Run a custom methodic?"),
+        "askSafeLevel": MessageLookupByLibrary.simpleMessage(
+            "Increasing the stimulation power may be unsafe.\nContinue increasing the stimulation power?"),
         "askSwitchToOfflineMode":
             MessageLookupByLibrary.simpleMessage("Switch to offline mode?"),
         "availableMethodics":
@@ -101,7 +105,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "frequency": MessageLookupByLibrary.simpleMessage("Frequency"),
         "frequencyModulation":
             MessageLookupByLibrary.simpleMessage("Frequency modulation"),
+        "frequencyModulationFM":
+            MessageLookupByLibrary.simpleMessage("Freq. modulation (FM)"),
         "frequencyValue": m7,
+        "frrequencyHZ": MessageLookupByLibrary.simpleMessage("frequency, Hz"),
         "goBack": MessageLookupByLibrary.simpleMessage("< Back"),
         "hh_mm_ss": MessageLookupByLibrary.simpleMessage("hh:mm:ss"),
         "intensity": MessageLookupByLibrary.simpleMessage("Intensity"),

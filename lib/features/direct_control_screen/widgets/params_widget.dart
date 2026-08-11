@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:wheel_picker/wheel_picker.dart';
 
 import '../../../assets/colors/colors.dart';
+import '../../../generated/l10n.dart';
 import '../../../repositories/bgs_connect/bgs_defines.dart';
 
 //ignore: must_be_immutable
@@ -78,7 +79,7 @@ class _ParamsWidgetState extends State<ParamsWidget> {
             /// Флажок "AM"
             children: [
               Text(
-                'Ампл. модуляция (AM)',
+                S.of(context).amplitudeModulationAM,
                 style: theme.textTheme.labelMedium,
                 textScaler: const TextScaler.linear(1.0),
               ),
@@ -147,7 +148,7 @@ class _ParamsWidgetState extends State<ParamsWidget> {
             /// Флажок "FM"
             children: [
               Text(
-                'Част. модуляция (FM)',
+                S.of(context).frequencyModulationFM,
                 style: theme.textTheme.labelMedium,
                 textScaler: const TextScaler.linear(1.0),
               ),
@@ -189,7 +190,7 @@ class _ParamsWidgetState extends State<ParamsWidget> {
                       Row(
                         children: [
                           Text(
-                            'Частота, Гц',
+                            S.of(context).frrequencyHZ,
                             style: theme.textTheme.labelMedium,
                             textScaler: const TextScaler.linear(1.0),
                             textAlign: TextAlign.left,
@@ -389,7 +390,7 @@ class _ParamsWidgetState extends State<ParamsWidget> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Интенсивность',
+                S.of(context).intensity,
                 style: theme.textTheme.labelMedium,
                 textScaler: const TextScaler.linear(1.0),
               ),

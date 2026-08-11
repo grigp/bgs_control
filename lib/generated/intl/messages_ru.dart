@@ -61,6 +61,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "allList": MessageLookupByLibrary.simpleMessage("Весь список"),
         "amplitudeModulation":
             MessageLookupByLibrary.simpleMessage("Амплитудная модуляция"),
+        "amplitudeModulationAM":
+            MessageLookupByLibrary.simpleMessage("Ампл. модуляция (AM)"),
         "appName": m0,
         "appVersion": m1,
         "appVersion1": m2,
@@ -72,6 +74,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Выйти из программы?"),
         "askRunCustomMethodic": MessageLookupByLibrary.simpleMessage(
             "Запустить выполнение произвольной программы?"),
+        "askSafeLevel": MessageLookupByLibrary.simpleMessage(
+            "Увеличение мощности воздействия может быть небезопасным.\nПродолжить увеличение мощности воздействия?"),
         "askSwitchToOfflineMode": MessageLookupByLibrary.simpleMessage(
             "Перейти в режим автономной работы?"),
         "availableMethodics":
@@ -103,7 +107,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "frequency": MessageLookupByLibrary.simpleMessage("Частота"),
         "frequencyModulation":
             MessageLookupByLibrary.simpleMessage("Частотная модуляция"),
+        "frequencyModulationFM":
+            MessageLookupByLibrary.simpleMessage("Част. модуляция (FM)"),
         "frequencyValue": m7,
+        "frrequencyHZ": MessageLookupByLibrary.simpleMessage("Частота, Гц"),
         "goBack": MessageLookupByLibrary.simpleMessage("< Назад"),
         "hh_mm_ss": MessageLookupByLibrary.simpleMessage("чч:мм:сс"),
         "intensity": MessageLookupByLibrary.simpleMessage("Интенсивность"),

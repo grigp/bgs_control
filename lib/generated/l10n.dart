@@ -729,6 +729,46 @@ class S {
       args: [],
     );
   }
+
+  /// `Ampl. modulation (AM)`
+  String get amplitudeModulationAM {
+    return Intl.message(
+      'Ampl. modulation (AM)',
+      name: 'amplitudeModulationAM',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Freq. modulation (FM)`
+  String get frequencyModulationFM {
+    return Intl.message(
+      'Freq. modulation (FM)',
+      name: 'frequencyModulationFM',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `frequency, Hz`
+  String get frrequencyHZ {
+    return Intl.message(
+      'frequency, Hz',
+      name: 'frrequencyHZ',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Increasing the stimulation power may be unsafe.\nContinue increasing the stimulation power?`
+  String get askSafeLevel {
+    return Intl.message(
+      'Increasing the stimulation power may be unsafe.\nContinue increasing the stimulation power?',
+      name: 'askSafeLevel',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

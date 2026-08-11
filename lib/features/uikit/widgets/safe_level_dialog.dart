@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../generated/l10n.dart';
 import '../texel_button.dart';
 
 Future<bool?> safeLevelDialog(BuildContext context) async {
@@ -7,28 +8,28 @@ Future<bool?> safeLevelDialog(BuildContext context) async {
     context: context,
     barrierDismissible: false,
     builder: (BuildContext context) => AlertDialog(
-      title: const Text(
-        'Предупреждение',
-        style: TextStyle(fontSize: 24),
-        textScaler:  TextScaler.linear(1.0),
+      title: Text(
+        S.of(context).warning,
+        style: const TextStyle(fontSize: 24),
+        textScaler:  const TextScaler.linear(1.0),
       ),
-      content: const Text(
-        'Увеличение мощности воздействия может быть небезопасным.\nПродолжить увеличение мощности воздействия?',
-        style: TextStyle(fontSize: 20),
-        textScaler:  TextScaler.linear(1.0),
+      content: Text(
+        S.of(context).askSafeLevel,
+        style: const TextStyle(fontSize: 20),
+        textScaler:  const TextScaler.linear(1.0),
       ),
       actions: <Widget>[
         TexelButton.accent(
           onPressed: () => Navigator.pop(context, false),
-          text: 'Нет',
+          text: S.of(context).no,
           width: 120,
         ),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 22),
           child: TextButton(
             onPressed: () => Navigator.pop(context, true),
-            child: const Text(
-              'Да',
+            child: Text(
+              S.of(context).yes,
             ),
             // width: 120,
           ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../assets/colors/colors.dart';
+import '../../../generated/l10n.dart';
 
 class StandardFrequencyDialog extends StatefulWidget{
   const StandardFrequencyDialog({
@@ -43,7 +44,7 @@ class _StandardFrequencyDialog extends State<StandardFrequencyDialog> {
               children: [
                 Expanded(
                   child: Text(
-                    'Частота, Гц',
+                    S.of(context).frrequencyHZ,
                     overflow: TextOverflow.ellipsis,
                     style: theme.textTheme.titleMedium,
                     textScaler: const TextScaler.linear(1.0),

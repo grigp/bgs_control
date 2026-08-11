@@ -66,5 +66,9 @@
   "stageTmeDuration": "{stageTime} из {duration}",
   "notDefined": "Не задано",
   "askSwitchToOfflineMode": "Перейти в режим автономной работы?",
-  "stimulationWillBeContinue": "При этом воздействие будет продолжено"
+  "stimulationWillBeContinue": "При этом воздействие будет продолжено",
+  "amplitudeModulationAM": "Ампл. модуляция (AM)",
+  "frequencyModulationFM": "Част. модуляция (FM)",
+  "frrequencyHZ": "Частота, Гц",
+  "askSafeLevel": "Увеличение мощности воздействия может быть небезопасным.\nПродолжить увеличение мощности воздействия?"
 }

@@ -66,5 +66,9 @@
   "stageTmeDuration": "{stageTime} out of {duration}",
   "notDefined": "Not defined",
   "askSwitchToOfflineMode": "Switch to offline mode?",
-  "stimulationWillBeContinue": "The stimulation will be continue"
+  "stimulationWillBeContinue": "The stimulation will be continue",
+  "amplitudeModulationAM": "Ampl. modulation (AM)",
+  "frequencyModulationFM": "Freq. modulation (FM)",
+  "frrequencyHZ": "frequency, Hz",
+  "askSafeLevel": "Increasing the stimulation power may be unsafe.\nContinue increasing the stimulation power?"
 }

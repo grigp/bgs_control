@@ -14,6 +14,7 @@ import 'package:get_it/get_it.dart';
 import 'package:uuid/uuid.dart';
 
 import '../../../assets/colors/colors.dart';
+import '../../../generated/l10n.dart';
 import '../../../repositories/bgs_connect/bgs_defines.dart';
 import '../../../repositories/logger/communication_logger.dart';
 import '../../../repositories/running_manager/device_program_executor.dart';
@@ -112,7 +113,7 @@ class _DirectControlScreenState extends State<DirectControlScreen> {
           hasBackground: false,
         ),
         title: Text(
-          'Прямое управление',
+          S.of(context).freeMethodic,
 //          '${widget.title}: ${widget.driver.device.advName}',
           style: theme.textTheme.titleMedium,
           textScaler: const TextScaler.linear(1.0),
@@ -211,7 +212,8 @@ class _DirectControlScreenState extends State<DirectControlScreen> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          'До завершения осталось ${getTimeBySecCount(widget.driver.programDuration() - widget.driver.playingTime())}',
+                          S.of(context).timeRemain(getTimeBySecCount(widget.driver.programDuration() - widget.driver.playingTime())),
+//                          'До завершения осталось ${getTimeBySecCount(widget.driver.programDuration() - widget.driver.playingTime())}',
                           style: theme.textTheme.titleSmall,
                           textScaler: const TextScaler.linear(1.0),
                         ),
@@ -276,7 +278,7 @@ class _DirectControlScreenState extends State<DirectControlScreen> {
                 bottom: 4,
               ),
               child: TexelButton.yellowDark(
-                text: 'Работать автономно',
+                text: S.of(context).toGoMode,
                 onPressed: () async {
                   bool? isGo = await isWorkToGo(context);
                   if (isGo!) {
