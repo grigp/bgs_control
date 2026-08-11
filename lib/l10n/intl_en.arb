@@ -53,16 +53,18 @@
   "stageIdxComment": "Stage {idxStage} : {stageComment}",
   "timeRemain": "Time remaining {timeRemain}",
   "playingTime": "Time passed - {playingTime}",
-  "toGoMode": "To go mode",
+  "toGoMode": "Go to offline mode",
   "cancelProgramExecution": "Cancel program execution?",
   "interruptProgramExecution": "Interrupt program execution?",
   "stageIdxNamestage": "Stage {idxStage} : {nameStage}",
-  "time": "Время",
+  "time": "Time",
   "amplitudeModulation": "Amplitude modulation",
   "frequencyModulation": "Frequency modulation",
   "frequency": "Frequency",
   "frequencyValue": "{frequency} Гц",
   "intensity": "Intensity",
   "stageTmeDuration": "{stageTime} out of {duration}",
-  "notDefined": "Not defined"
+  "notDefined": "Not defined",
+  "askSwitchToOfflineMode": "Switch to offline mode?",
+  "stimulationWillBeContinue": "The stimulation will be continue"
 }

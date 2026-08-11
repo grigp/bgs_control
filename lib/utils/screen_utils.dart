@@ -1,24 +1,25 @@
 import 'package:flutter/material.dart';
 
 import '../features/uikit/texel_button.dart';
+import '../generated/l10n.dart';
 
 Future<bool?> isWorkToGo(BuildContext context) async {
   return await showDialog<bool>(
     context: context,
     barrierDismissible: false,
     builder: (BuildContext context) => AlertDialog(
-      title: const Text(
-        'Перейти в режим автономной работы?',
+      title: Text(
+        S.of(context).askSwitchToOfflineMode,
       ),
-      content: const Text(
-        'При этом воздействие будет продолжено',
+      content: Text(
+        S.of(context).stimulationWillBeContinue,
       ),
       actions: <Widget>[
         TexelButton.accent(
           onPressed: () async {
             Navigator.pop(context, true);
           },
-          text: 'Да',
+          text: S.of(context).yes,
           width: 120,
         ),
         Padding(
@@ -27,8 +28,8 @@ Future<bool?> isWorkToGo(BuildContext context) async {
             onPressed: () {
               Navigator.pop(context, false);
             },
-            child: const Text(
-              'Нет',
+            child: Text(
+              S.of(context).no,
             ),
             // width: 120,
           ),

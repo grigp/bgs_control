@@ -590,10 +590,10 @@ class S {
     );
   }
 
-  /// `To go mode`
+  /// `Go to offline mode`
   String get toGoMode {
     return Intl.message(
-      'To go mode',
+      'Go to offline mode',
       name: 'toGoMode',
       desc: '',
       args: [],
@@ -630,10 +630,10 @@ class S {
     );
   }
 
-  /// `Время`
+  /// `Time`
   String get time {
     return Intl.message(
-      'Время',
+      'Time',
       name: 'time',
       desc: '',
       args: [],
@@ -705,6 +705,26 @@ class S {
     return Intl.message(
       'Not defined',
       name: 'notDefined',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Switch to offline mode?`
+  String get askSwitchToOfflineMode {
+    return Intl.message(
+      'Switch to offline mode?',
+      name: 'askSwitchToOfflineMode',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `The stimulation will be continue`
+  String get stimulationWillBeContinue {
+    return Intl.message(
+      'The stimulation will be continue',
+      name: 'stimulationWillBeContinue',
       desc: '',
       args: [],
     );

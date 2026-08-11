@@ -71,6 +71,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Exit the program?"),
         "askRunCustomMethodic":
             MessageLookupByLibrary.simpleMessage("Run a custom methodic?"),
+        "askSwitchToOfflineMode":
+            MessageLookupByLibrary.simpleMessage("Switch to offline mode?"),
         "availableMethodics":
             MessageLookupByLibrary.simpleMessage("Available methodics"),
         "beforeConnectDescription": MessageLookupByLibrary.simpleMessage(
@@ -136,11 +138,13 @@ class MessageLookup extends MessageLookupByLibrary {
         "stageNum": m12,
         "stageTmeDuration": m13,
         "start": MessageLookupByLibrary.simpleMessage("Start"),
+        "stimulationWillBeContinue": MessageLookupByLibrary.simpleMessage(
+            "The stimulation will be continue"),
         "stimulatorSettings":
             MessageLookupByLibrary.simpleMessage("Stimulator settings"),
-        "time": MessageLookupByLibrary.simpleMessage("Время"),
+        "time": MessageLookupByLibrary.simpleMessage("Time"),
         "timeRemain": m14,
-        "toGoMode": MessageLookupByLibrary.simpleMessage("To go mode"),
+        "toGoMode": MessageLookupByLibrary.simpleMessage("Go to offline mode"),
         "tryAgain": MessageLookupByLibrary.simpleMessage("Please try again"),
         "warning": MessageLookupByLibrary.simpleMessage("Warning"),
         "workDuration": m15,

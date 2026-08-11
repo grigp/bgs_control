@@ -72,6 +72,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Выйти из программы?"),
         "askRunCustomMethodic": MessageLookupByLibrary.simpleMessage(
             "Запустить выполнение произвольной программы?"),
+        "askSwitchToOfflineMode": MessageLookupByLibrary.simpleMessage(
+            "Перейти в режим автономной работы?"),
         "availableMethodics":
             MessageLookupByLibrary.simpleMessage("Доступные программы"),
         "beforeConnectDescription": MessageLookupByLibrary.simpleMessage(
@@ -140,6 +142,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "stageNum": m12,
         "stageTmeDuration": m13,
         "start": MessageLookupByLibrary.simpleMessage("Начать"),
+        "stimulationWillBeContinue": MessageLookupByLibrary.simpleMessage(
+            "При этом воздействие будет продолжено"),
         "stimulatorSettings":
             MessageLookupByLibrary.simpleMessage("Параметры стимулятора"),
         "time": MessageLookupByLibrary.simpleMessage("Time"),

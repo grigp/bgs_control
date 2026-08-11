@@ -64,5 +64,7 @@
   "frequencyValue": "{frequency} Hz",
   "intensity": "Интенсивность",
   "stageTmeDuration": "{stageTime} из {duration}",
-  "notDefined": "Не задано"
+  "notDefined": "Не задано",
+  "askSwitchToOfflineMode": "Перейти в режим автономной работы?",
+  "stimulationWillBeContinue": "При этом воздействие будет продолжено"
 }
