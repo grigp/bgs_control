@@ -103,7 +103,9 @@ class WgtMain extends StatelessWidget {
                             const SizedBox(width: 10),
                             Expanded(
                               child: Text(
-                                getFullDeviceName(list[index]),
+                                S.of(context).electrostimulatorTexelN(getShortDeviceName(list[index])),
+//                                'Электростимулятор ${getShortDeviceName(list[index])}',
+//                                getFullDeviceName(list[index]),
                                 overflow: TextOverflow.ellipsis,
                                 textScaler: const TextScaler.linear(1.0),
                                 style: listRegistred.contains(list[index])

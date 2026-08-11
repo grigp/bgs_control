@@ -70,5 +70,12 @@
   "amplitudeModulationAM": "Ampl. modulation (AM)",
   "frequencyModulationFM": "Freq. modulation (FM)",
   "frrequencyHZ": "frequency, Hz",
-  "askSafeLevel": "Increasing the stimulation power may be unsafe.\nContinue increasing the stimulation power?"
+  "askSafeLevel": "Increasing the stimulation power may be unsafe.\nContinue increasing the stimulation power?",
+  "attention": "Attention",
+  "havingContraindications": "there are contraindications",
+  "electrostimulationShouldNeverBeUsed": "Electrostimulation should never be used:",
+  "contraindications": "- For children;\n- During pregnancy;\n- On the head, heart, and major vessels; in cases of varicose veins, thrombosis, and thrombophlebitis; in cases of open and closed bleeding; injuries to bones, nerves, muscles, tendons, and soft tissue; hernias and tissue protrusions; in cases of skin lesions and diseases (including nevi (birthmarks));\n- Individuals with unstable mental health;\n- Individuals with epilepsy, pacemakers (artificial pacemakers), acute ischemic and hemorrhagic lesions of the brain and heart, and oncological diseases;\n- In case of allergic reactions;\n- When driving vehicles, operating machinery, or electrical equipment;\n- If the device is damaged.\n\nAfter the procedure, short-term redness in the treatment area is possible. Avoid pain and discomfort. Do not use the electrode on dry conductive surfaces.",
+  "itIsClear": "It's clear",
+  "texelStimulatorNumber": "Electrical stimulator texel №{stimulatorNumber}",
+  "electrostimulatorTexelN": "Electrical stimulator {shortDeviceName}"
 }

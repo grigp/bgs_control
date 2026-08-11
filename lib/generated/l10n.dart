@@ -769,6 +769,76 @@ class S {
       args: [],
     );
   }
+
+  /// `Attention`
+  String get attention {
+    return Intl.message(
+      'Attention',
+      name: 'attention',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `there are contraindications`
+  String get havingContraindications {
+    return Intl.message(
+      'there are contraindications',
+      name: 'havingContraindications',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Electrostimulation should never be used:`
+  String get electrostimulationShouldNeverBeUsed {
+    return Intl.message(
+      'Electrostimulation should never be used:',
+      name: 'electrostimulationShouldNeverBeUsed',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `- For children;\n- During pregnancy;\n- On the head, heart, and major vessels; in cases of varicose veins, thrombosis, and thrombophlebitis; in cases of open and closed bleeding; injuries to bones, nerves, muscles, tendons, and soft tissue; hernias and tissue protrusions; in cases of skin lesions and diseases (including nevi (birthmarks));\n- Individuals with unstable mental health;\n- Individuals with epilepsy, pacemakers (artificial pacemakers), acute ischemic and hemorrhagic lesions of the brain and heart, and oncological diseases;\n- In case of allergic reactions;\n- When driving vehicles, operating machinery, or electrical equipment;\n- If the device is damaged.\n\nAfter the procedure, short-term redness in the treatment area is possible. Avoid pain and discomfort. Do not use the electrode on dry conductive surfaces.`
+  String get contraindications {
+    return Intl.message(
+      '- For children;\n- During pregnancy;\n- On the head, heart, and major vessels; in cases of varicose veins, thrombosis, and thrombophlebitis; in cases of open and closed bleeding; injuries to bones, nerves, muscles, tendons, and soft tissue; hernias and tissue protrusions; in cases of skin lesions and diseases (including nevi (birthmarks));\n- Individuals with unstable mental health;\n- Individuals with epilepsy, pacemakers (artificial pacemakers), acute ischemic and hemorrhagic lesions of the brain and heart, and oncological diseases;\n- In case of allergic reactions;\n- When driving vehicles, operating machinery, or electrical equipment;\n- If the device is damaged.\n\nAfter the procedure, short-term redness in the treatment area is possible. Avoid pain and discomfort. Do not use the electrode on dry conductive surfaces.',
+      name: 'contraindications',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `It's clear`
+  String get itIsClear {
+    return Intl.message(
+      'It\'s clear',
+      name: 'itIsClear',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Electrical stimulator texel №{stimulatorNumber}`
+  String texelStimulatorNumber(Object stimulatorNumber) {
+    return Intl.message(
+      'Electrical stimulator texel №$stimulatorNumber',
+      name: 'texelStimulatorNumber',
+      desc: '',
+      args: [stimulatorNumber],
+    );
+  }
+
+  /// `Electrical stimulator {shortDeviceName}`
+  String electrostimulatorTexelN(Object shortDeviceName) {
+    return Intl.message(
+      'Electrical stimulator $shortDeviceName',
+      name: 'electrostimulatorTexelN',
+      desc: '',
+      args: [shortDeviceName],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
