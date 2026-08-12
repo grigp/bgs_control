@@ -859,6 +859,36 @@ class S {
       args: [],
     );
   }
+
+  /// `Clear the log data?`
+  String get askClearLog {
+    return Intl.message(
+      'Clear the log data?',
+      name: 'askClearLog',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Clear`
+  String get clear {
+    return Intl.message(
+      'Clear',
+      name: 'clear',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Share`
+  String get share {
+    return Intl.message(
+      'Share',
+      name: 'share',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

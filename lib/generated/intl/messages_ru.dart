@@ -73,6 +73,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "appVersion1": m2,
         "areasStimulation":
             MessageLookupByLibrary.simpleMessage("Области воздействия: "),
+        "askClearLog": MessageLookupByLibrary.simpleMessage("Очистить лог?"),
         "askContinueInterrupted": MessageLookupByLibrary.simpleMessage(
             "Продолжить выполнение прерванной программы?"),
         "askExitProgram":
@@ -93,6 +94,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "cancel": MessageLookupByLibrary.simpleMessage("Отмена"),
         "cancelProgramExecution": MessageLookupByLibrary.simpleMessage(
             "Отменить выполнение программы?"),
+        "clear": MessageLookupByLibrary.simpleMessage("Очистить"),
         "compatibleElectrodeTypes": MessageLookupByLibrary.simpleMessage(
             "Совместимые типы электродов: "),
         "connectToStimulator": m4,
@@ -159,6 +161,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "selectMethodic":
             MessageLookupByLibrary.simpleMessage("Выбор программы"),
         "settings": MessageLookupByLibrary.simpleMessage("Свойства"),
+        "share": MessageLookupByLibrary.simpleMessage("Поделиться"),
         "stageIdxComment": m11,
         "stageIdxNamestage": m12,
         "stageNum": m13,

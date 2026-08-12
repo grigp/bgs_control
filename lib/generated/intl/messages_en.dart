@@ -73,6 +73,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "appVersion1": m2,
         "areasStimulation":
             MessageLookupByLibrary.simpleMessage("Areas of stimulation: "),
+        "askClearLog":
+            MessageLookupByLibrary.simpleMessage("Clear the log data?"),
         "askContinueInterrupted": MessageLookupByLibrary.simpleMessage(
             "Continue execution of the interrupted methodic?"),
         "askExitProgram":
@@ -93,6 +95,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
         "cancelProgramExecution":
             MessageLookupByLibrary.simpleMessage("Cancel program execution?"),
+        "clear": MessageLookupByLibrary.simpleMessage("Clear"),
         "compatibleElectrodeTypes": MessageLookupByLibrary.simpleMessage(
             "Compatible electrode types: "),
         "connectToStimulator": m4,
@@ -156,6 +159,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "selectMethodic":
             MessageLookupByLibrary.simpleMessage("Select methodic"),
         "settings": MessageLookupByLibrary.simpleMessage("Settings"),
+        "share": MessageLookupByLibrary.simpleMessage("Share"),
         "stageIdxComment": m11,
         "stageIdxNamestage": m12,
         "stageNum": m13,

@@ -79,5 +79,8 @@
   "texelStimulatorNumber": "Электростимулятор texel №{stimulatorNumber}",
   "electrostimulatorTexelN": "Электростимулятор {shortDeviceName}",
   "turnObBluetooth": "Включите Bluetooth, чтобы подключить стимулятор",
-  "turnOn": "Включить"
+  "turnOn": "Включить",
+  "askClearLog": "Очистить лог?",
+  "clear": "Очистить",
+  "share": "Поделиться"
 }

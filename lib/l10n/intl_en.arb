@@ -79,5 +79,8 @@
   "texelStimulatorNumber": "Electrical stimulator texel №{stimulatorNumber}",
   "electrostimulatorTexelN": "Electrical stimulator {shortDeviceName}",
   "turnObBluetooth": "Turn on Bluetooth to connect the stimulator",
-  "turnOn": "Turn On"
+  "turnOn": "Turn On",
+  "askClearLog": "Clear the log data?",
+  "clear": "Clear",
+  "share": "Share"
 }

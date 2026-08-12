@@ -8,6 +8,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
 
 import '../../../assets/colors/colors.dart';
+import '../../../generated/l10n.dart';
 import '../../uikit/texel_button.dart';
 
 class LogScreen extends StatefulWidget {
@@ -57,11 +58,11 @@ class _LogScreenState extends State<LogScreen> {
                 context: context,
                 barrierDismissible: false,
                 builder: (BuildContext context) => AlertDialog(
-                  title: const Text('Очистить лог?'),
+                  title: Text(S.of(context).askClearLog),
                   actions: <Widget>[
                     TexelButton.accent(
                       onPressed: () => Navigator.pop(context, 'Cancel'),
-                      text: 'Нет',
+                      text: S.of(context).no,
                       width: 120,
                     ),
                     Padding(
@@ -73,8 +74,8 @@ class _LogScreenState extends State<LogScreen> {
                           });
                           Navigator.pop(context, 'Cancel');
                         },
-                        child: const Text(
-                          'Да',
+                        child: Text(
+                          S.of(context).yes,
                         ),
                       ),
                     ),
@@ -83,7 +84,7 @@ class _LogScreenState extends State<LogScreen> {
               );
             },
             heroTag: 'Clear',
-            tooltip: 'Очистить',
+            tooltip: S.of(context).clear,
             backgroundColor: filledAccentButtonColor,
             child: const Icon(
               Icons.delete_forever,
@@ -113,7 +114,7 @@ class _LogScreenState extends State<LogScreen> {
               //     text: 'Файл параметров БГС');
             },
             heroTag: 'Share',
-            tooltip: 'Поделиться',
+            tooltip: S.of(context).share,
             backgroundColor: filledAccentButtonColor,
             child: const Icon(
               Icons.share,
