@@ -88,6 +88,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "attention": MessageLookupByLibrary.simpleMessage("Attention"),
         "availableMethodics":
             MessageLookupByLibrary.simpleMessage("Available methodics"),
+        "averageStimulationPower":
+            MessageLookupByLibrary.simpleMessage("Average stimulation power"),
         "beforeConnectDescription": MessageLookupByLibrary.simpleMessage(
             "Turn the stimulator on, place it on the magnetic contacts of the electrode and press the button"),
         "buildNumber": m3,
@@ -107,11 +109,14 @@ class MessageLookup extends MessageLookupByLibrary {
         "deleteStimulatorFromList": MessageLookupByLibrary.simpleMessage(
             "Remove stimulator from the list?"),
         "disconnect": MessageLookupByLibrary.simpleMessage("Disconnect"),
+        "durationMmSs":
+            MessageLookupByLibrary.simpleMessage("Duration, min:sec"),
         "dvcName": m5,
         "electrostimulationShouldNeverBeUsed":
             MessageLookupByLibrary.simpleMessage(
                 "Electrostimulation should never be used:"),
         "electrostimulatorTexelN": m6,
+        "exit": MessageLookupByLibrary.simpleMessage("Done"),
         "failedToConnect": MessageLookupByLibrary.simpleMessage(
             "Failed to connect to the stimulator"),
         "firmwareNumber": m7,
@@ -135,6 +140,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "itIsClear": MessageLookupByLibrary.simpleMessage("It\'s clear"),
         "lowLevelBattery": MessageLookupByLibrary.simpleMessage(
             "Low battery.\nThe stimulator may shut off at any time"),
+        "maximumStimulationPower":
+            MessageLookupByLibrary.simpleMessage("Maximum stimulation power"),
         "mm_ss": MessageLookupByLibrary.simpleMessage("mm:ss"),
         "msgDisconnect": MessageLookupByLibrary.simpleMessage(
             "The stimulator disconnected due to connection issues.\nBring your phone closer to the stimulator and reconnect"),
@@ -158,6 +165,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "select": MessageLookupByLibrary.simpleMessage("Select"),
         "selectMethodic":
             MessageLookupByLibrary.simpleMessage("Select methodic"),
+        "sessionCompleted":
+            MessageLookupByLibrary.simpleMessage("The session has completed"),
         "settings": MessageLookupByLibrary.simpleMessage("Settings"),
         "share": MessageLookupByLibrary.simpleMessage("Share"),
         "stageIdxComment": m11,

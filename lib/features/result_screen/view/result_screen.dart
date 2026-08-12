@@ -2,6 +2,7 @@ import 'package:bgs_control/features/uikit/texel_button.dart';
 import 'package:bgs_control/features/uikit/widgets/circular_value_diag.dart';
 import 'package:flutter/material.dart';
 
+import '../../../generated/l10n.dart';
 import '../../../repositories/running_manager/device_program_executor.dart';
 import '../../../utils/baseutils.dart';
 
@@ -47,7 +48,7 @@ class _ResultScreenState extends State<ResultScreen> {
               children: [
                 const SizedBox(height: 60),
                 Text(
-                  'Сеанс завершен',
+                  S.of(context).sessionCompleted,
                   style: theme.textTheme.titleLarge,
                 ),
                 const SizedBox(height: 10),
@@ -68,14 +69,14 @@ class _ResultScreenState extends State<ResultScreen> {
                           child: CustomPaint(
                             painter: CircularValueDiag.text(
                               getTimeBySecCount(widget.driver.programTime()),
-                              'мин:сек',
+                              S.of(context).mm_ss,
                             ),
                           ),
                         ),
                         SizedBox(
                           width: 150,
                           child: Text(
-                            'Продолжительность, мин:сек',
+                            S.of(context).durationMmSs,
                             style: theme.textTheme.titleSmall,
                             textAlign: TextAlign.center,
                           ),
@@ -105,7 +106,7 @@ class _ResultScreenState extends State<ResultScreen> {
                         SizedBox(
                           width: 120,
                           child: Text(
-                            'Максимальный уровень воздействия',
+                            S.of(context).maximumStimulationPower,
                             style: theme.textTheme.titleSmall,
                             textAlign: TextAlign.center,
                           ),
@@ -129,7 +130,7 @@ class _ResultScreenState extends State<ResultScreen> {
                         SizedBox(
                           width: 120,
                           child: Text(
-                            'Средний уровень воздействия',
+                            S.of(context).averageStimulationPower,
                             style: theme.textTheme.titleSmall,
                             textAlign: TextAlign.center,
                           ),
@@ -152,7 +153,7 @@ class _ResultScreenState extends State<ResultScreen> {
                         ModalRoute.withName('/select_method'),
                       );
                     },
-                    text: 'Выйти',
+                    text: S.of(context).exit,
                   ),
                 ),
                 // TexelButton.accent(

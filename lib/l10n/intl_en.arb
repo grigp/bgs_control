@@ -82,5 +82,10 @@
   "turnOn": "Turn On",
   "askClearLog": "Clear the log data?",
   "clear": "Clear",
-  "share": "Share"
+  "share": "Share",
+  "sessionCompleted": "The session has completed",
+  "durationMmSs": "Duration, min:sec",
+  "maximumStimulationPower": "Maximum stimulation power",
+  "averageStimulationPower": "Average stimulation power",
+  "exit": "Done"
 }

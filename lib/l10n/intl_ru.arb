@@ -82,5 +82,10 @@
   "turnOn": "Включить",
   "askClearLog": "Очистить лог?",
   "clear": "Очистить",
-  "share": "Поделиться"
+  "share": "Поделиться",
+  "sessionCompleted": "Сеанс завершен",
+  "durationMmSs": "Продолжительность, мин:сек",
+  "maximumStimulationPower": "Максимальный уровень воздействия",
+  "averageStimulationPower": "Средний уровень воздействия",
+  "exit": "Выйти"
 }

@@ -87,6 +87,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "attention": MessageLookupByLibrary.simpleMessage("Внимание"),
         "availableMethodics":
             MessageLookupByLibrary.simpleMessage("Доступные программы"),
+        "averageStimulationPower":
+            MessageLookupByLibrary.simpleMessage("Средний уровень воздействия"),
         "beforeConnectDescription": MessageLookupByLibrary.simpleMessage(
             "Включите стимулятор, установите его на магнитные контакты электрода и нажмите кнопку"),
         "buildNumber": m3,
@@ -106,11 +108,14 @@ class MessageLookup extends MessageLookupByLibrary {
         "deleteStimulatorFromList": MessageLookupByLibrary.simpleMessage(
             "Удалить стимулятор из списка?"),
         "disconnect": MessageLookupByLibrary.simpleMessage("Отключить"),
+        "durationMmSs":
+            MessageLookupByLibrary.simpleMessage("Продолжительность, мин:сек"),
         "dvcName": m5,
         "electrostimulationShouldNeverBeUsed":
             MessageLookupByLibrary.simpleMessage(
                 "Элетростимуляция никогда не должна применяться:"),
         "electrostimulatorTexelN": m6,
+        "exit": MessageLookupByLibrary.simpleMessage("Выйти"),
         "failedToConnect": MessageLookupByLibrary.simpleMessage(
             "Не удалось подключиться к стимулятору"),
         "firmwareNumber": m7,
@@ -135,6 +140,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "itIsClear": MessageLookupByLibrary.simpleMessage("Понятно"),
         "lowLevelBattery": MessageLookupByLibrary.simpleMessage(
             "Низкий заряд аккумулятора.\nСтимулятор может отключиться в любой момент"),
+        "maximumStimulationPower": MessageLookupByLibrary.simpleMessage(
+            "Максимальный уровень воздействия"),
         "mm_ss": MessageLookupByLibrary.simpleMessage("мм:сс"),
         "msgDisconnect": MessageLookupByLibrary.simpleMessage(
             "Произошло отключение от стимулятора из за проблем со связью.\nПоднесите телефон ближе к стимулятору и подключите его заново"),
@@ -160,6 +167,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "select": MessageLookupByLibrary.simpleMessage("Выбрать"),
         "selectMethodic":
             MessageLookupByLibrary.simpleMessage("Выбор программы"),
+        "sessionCompleted":
+            MessageLookupByLibrary.simpleMessage("Сеанс завершен"),
         "settings": MessageLookupByLibrary.simpleMessage("Свойства"),
         "share": MessageLookupByLibrary.simpleMessage("Поделиться"),
         "stageIdxComment": m11,

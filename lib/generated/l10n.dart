@@ -889,6 +889,56 @@ class S {
       args: [],
     );
   }
+
+  /// `The session has completed`
+  String get sessionCompleted {
+    return Intl.message(
+      'The session has completed',
+      name: 'sessionCompleted',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Duration, min:sec`
+  String get durationMmSs {
+    return Intl.message(
+      'Duration, min:sec',
+      name: 'durationMmSs',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Maximum stimulation power`
+  String get maximumStimulationPower {
+    return Intl.message(
+      'Maximum stimulation power',
+      name: 'maximumStimulationPower',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Average stimulation power`
+  String get averageStimulationPower {
+    return Intl.message(
+      'Average stimulation power',
+      name: 'averageStimulationPower',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Done`
+  String get exit {
+    return Intl.message(
+      'Done',
+      name: 'exit',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
