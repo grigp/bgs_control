@@ -89,5 +89,9 @@
   "averageStimulationPower": "Средний уровень воздействия",
   "exit": "Выйти",
   "durationMin": "Длительность: {duration} мин",
-  "run": "Запустить"
+  "run": "Запустить",
+  "TheStimulatorNeedsToBeCharged": "Необходимо зарядить стимулятор",
+  "stimulatorTurnedOffLowBattery": "Стимулятор отключился из за низкого заряда аккумулятора.",
+  "close": "Закрыть",
+  "electrostimulatorsTexel": "Электростимуляторы texel"
 }

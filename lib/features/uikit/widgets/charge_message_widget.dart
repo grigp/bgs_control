@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../assets/colors/colors.dart';
+import '../../../generated/l10n.dart';
 
 class ChargeMessageWidget extends StatefulWidget {
   const ChargeMessageWidget({super.key});
@@ -19,10 +20,10 @@ class _ChargeMessageWidgetState extends State<ChargeMessageWidget> {
         color: Theme.of(context).colorScheme.error,
         borderRadius: BorderRadius.circular(5),
       ),
-      child: const Center(
+      child: Center(
         child: Text(
-          'Необходимо зарядить стимулятор',
-          style: TextStyle(
+          S.of(context).TheStimulatorNeedsToBeCharged,
+          style: const TextStyle(
             color: backgroundCarpetButtonTestColor,
             fontSize: 16,
             fontWeight: FontWeight.w900,

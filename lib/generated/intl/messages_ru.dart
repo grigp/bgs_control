@@ -63,6 +63,8 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "Connect": MessageLookupByLibrary.simpleMessage("Подключить"),
+        "TheStimulatorNeedsToBeCharged": MessageLookupByLibrary.simpleMessage(
+            "Необходимо зарядить стимулятор"),
         "addStimulator":
             MessageLookupByLibrary.simpleMessage("Добавить стимулятор"),
         "allList": MessageLookupByLibrary.simpleMessage("Весь список"),
@@ -99,6 +101,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "cancelProgramExecution": MessageLookupByLibrary.simpleMessage(
             "Отменить выполнение программы?"),
         "clear": MessageLookupByLibrary.simpleMessage("Очистить"),
+        "close": MessageLookupByLibrary.simpleMessage("Закрыть"),
         "compatibleElectrodeTypes": MessageLookupByLibrary.simpleMessage(
             "Совместимые типы электродов: "),
         "connectToStimulator": m4,
@@ -118,6 +121,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage(
                 "Элетростимуляция никогда не должна применяться:"),
         "electrostimulatorTexelN": m7,
+        "electrostimulatorsTexel":
+            MessageLookupByLibrary.simpleMessage("Электростимуляторы texel"),
         "exit": MessageLookupByLibrary.simpleMessage("Выйти"),
         "failedToConnect": MessageLookupByLibrary.simpleMessage(
             "Не удалось подключиться к стимулятору"),
@@ -184,6 +189,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "При этом воздействие будет продолжено"),
         "stimulatorSettings":
             MessageLookupByLibrary.simpleMessage("Параметры стимулятора"),
+        "stimulatorTurnedOffLowBattery": MessageLookupByLibrary.simpleMessage(
+            "Стимулятор отключился из за низкого заряда аккумулятора."),
         "texelStimulatorNumber": m16,
         "time": MessageLookupByLibrary.simpleMessage("Time"),
         "timeRemain": m17,

@@ -64,6 +64,8 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "Connect": MessageLookupByLibrary.simpleMessage("Connect"),
+        "TheStimulatorNeedsToBeCharged": MessageLookupByLibrary.simpleMessage(
+            "The stimulator needs to be charged"),
         "addStimulator": MessageLookupByLibrary.simpleMessage("Add stimulator"),
         "allList": MessageLookupByLibrary.simpleMessage("All the list"),
         "amplitudeModulation":
@@ -100,6 +102,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "cancelProgramExecution":
             MessageLookupByLibrary.simpleMessage("Cancel program execution?"),
         "clear": MessageLookupByLibrary.simpleMessage("Clear"),
+        "close": MessageLookupByLibrary.simpleMessage("Close"),
         "compatibleElectrodeTypes": MessageLookupByLibrary.simpleMessage(
             "Compatible electrode types: "),
         "connectToStimulator": m4,
@@ -119,6 +122,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage(
                 "Electrostimulation should never be used:"),
         "electrostimulatorTexelN": m7,
+        "electrostimulatorsTexel": MessageLookupByLibrary.simpleMessage(
+            "Electrical stimulators texel"),
         "exit": MessageLookupByLibrary.simpleMessage("Done"),
         "failedToConnect": MessageLookupByLibrary.simpleMessage(
             "Failed to connect to the stimulator"),
@@ -182,6 +187,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "The stimulation will be continue"),
         "stimulatorSettings":
             MessageLookupByLibrary.simpleMessage("Stimulator settings"),
+        "stimulatorTurnedOffLowBattery": MessageLookupByLibrary.simpleMessage(
+            "The stimulator turned off due to low battery."),
         "texelStimulatorNumber": m16,
         "time": MessageLookupByLibrary.simpleMessage("Time"),
         "timeRemain": m17,

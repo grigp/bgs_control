@@ -959,6 +959,46 @@ class S {
       args: [],
     );
   }
+
+  /// `The stimulator needs to be charged`
+  String get TheStimulatorNeedsToBeCharged {
+    return Intl.message(
+      'The stimulator needs to be charged',
+      name: 'TheStimulatorNeedsToBeCharged',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `The stimulator turned off due to low battery.`
+  String get stimulatorTurnedOffLowBattery {
+    return Intl.message(
+      'The stimulator turned off due to low battery.',
+      name: 'stimulatorTurnedOffLowBattery',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Close`
+  String get close {
+    return Intl.message(
+      'Close',
+      name: 'close',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Electrical stimulators texel`
+  String get electrostimulatorsTexel {
+    return Intl.message(
+      'Electrical stimulators texel',
+      name: 'electrostimulatorsTexel',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

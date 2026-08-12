@@ -89,5 +89,9 @@
   "averageStimulationPower": "Average stimulation power",
   "exit": "Done",
   "durationMin": "Длительность: {duration} мин",
-  "run": "Run"
+  "run": "Run",
+  "TheStimulatorNeedsToBeCharged": "The stimulator needs to be charged",
+  "stimulatorTurnedOffLowBattery": "The stimulator turned off due to low battery.",
+  "close": "Close",
+  "electrostimulatorsTexel": "Electrical stimulators texel"
 }
