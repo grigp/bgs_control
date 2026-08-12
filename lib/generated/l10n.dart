@@ -939,6 +939,26 @@ class S {
       args: [],
     );
   }
+
+  /// `Длительность: {duration} мин`
+  String durationMin(Object duration) {
+    return Intl.message(
+      'Длительность: $duration мин',
+      name: 'durationMin',
+      desc: '',
+      args: [duration],
+    );
+  }
+
+  /// `Run`
+  String get run {
+    return Intl.message(
+      'Run',
+      name: 'run',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

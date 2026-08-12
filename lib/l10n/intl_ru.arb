@@ -87,5 +87,7 @@
   "durationMmSs": "Продолжительность, мин:сек",
   "maximumStimulationPower": "Максимальный уровень воздействия",
   "averageStimulationPower": "Средний уровень воздействия",
-  "exit": "Выйти"
+  "exit": "Выйти",
+  "durationMin": "Длительность: {duration} мин",
+  "run": "Запустить"
 }

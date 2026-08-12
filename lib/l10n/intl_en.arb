@@ -87,5 +87,7 @@
   "durationMmSs": "Duration, min:sec",
   "maximumStimulationPower": "Maximum stimulation power",
   "averageStimulationPower": "Average stimulation power",
-  "exit": "Done"
+  "exit": "Done",
+  "durationMin": "Длительность: {duration} мин",
+  "run": "Run"
 }

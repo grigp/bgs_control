@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:uuid/uuid.dart';
 
 import '../../../assets/colors/colors.dart';
+import '../../../generated/l10n.dart';
 import '../../../repositories/bgs_connect/bgs_connect.dart';
 import '../../../repositories/bgs_connect/bgs_defines.dart';
 import '../../../repositories/running_manager/device_program_executor.dart';
@@ -81,7 +82,7 @@ class _TogoParamsScreenState extends State<TogoParamsScreen> {
                         child: Row(
                           children: [
                             Text(
-                              'Индивидуальный режим',
+                              S.of(context).personalMode,
                               style: theme.textTheme.titleMedium,
                               textScaler: const TextScaler.linear(1.0),
                             ),
@@ -116,7 +117,8 @@ class _TogoParamsScreenState extends State<TogoParamsScreen> {
                             ),
                             const Divider(height: 2),
                             Text(
-                              'Длительность: ${_duration.round()} мин',
+                              S.of(context).durationMin(_duration.round()),
+//                              'Длительность: ${_duration.round()} мин',
                               style: theme.textTheme.labelMedium,
                               textScaler: const TextScaler.linear(1.0),
                             ),
@@ -160,7 +162,7 @@ class _TogoParamsScreenState extends State<TogoParamsScreen> {
                   vertical: 10,
                 ),
                 child: TexelButton.accent(
-                  text: 'Запустить',
+                  text: S.of(context).run,
                   onPressed: () {
                     var program = MethodicProgram.togo(
                       _isAM,

@@ -30,33 +30,35 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m4(deviceName) => "Подключение к стимулятору ${deviceName}";
 
-  static String m5(dvcName) => "Стимулятор ${dvcName}";
+  static String m5(duration) => "Длительность: ${duration} мин";
 
-  static String m6(shortDeviceName) => "Электростимулятор ${shortDeviceName}";
+  static String m6(dvcName) => "Стимулятор ${dvcName}";
 
-  static String m7(sFN) => "Номер прошивки: ${sFN}";
+  static String m7(shortDeviceName) => "Электростимулятор ${shortDeviceName}";
 
-  static String m8(frequency) => "${frequency} Hz";
+  static String m8(sFN) => "Номер прошивки: ${sFN}";
 
-  static String m9(playingTime) => "Прошло времени - ${playingTime}";
+  static String m9(frequency) => "${frequency} Hz";
 
-  static String m10(programTitle) => "Программа ${programTitle}";
+  static String m10(playingTime) => "Прошло времени - ${playingTime}";
 
-  static String m11(idxStage, stageComment) =>
+  static String m11(programTitle) => "Программа ${programTitle}";
+
+  static String m12(idxStage, stageComment) =>
       "Этап ${idxStage} : ${stageComment}";
 
-  static String m12(idxStage, nameStage) => "Этап ${idxStage} : ${nameStage}";
+  static String m13(idxStage, nameStage) => "Этап ${idxStage} : ${nameStage}";
 
-  static String m13(stageNum) => "Стадия ${stageNum}";
+  static String m14(stageNum) => "Стадия ${stageNum}";
 
-  static String m14(stageTime, duration) => "${stageTime} из ${duration}";
+  static String m15(stageTime, duration) => "${stageTime} из ${duration}";
 
-  static String m15(stimulatorNumber) =>
+  static String m16(stimulatorNumber) =>
       "Электростимулятор texel №${stimulatorNumber}";
 
-  static String m16(timeRemain) => "До завершения осталось ${timeRemain}";
+  static String m17(timeRemain) => "До завершения осталось ${timeRemain}";
 
-  static String m17(sTUD, sTC) => "Время работы: ${sTUD} ${sTC}";
+  static String m18(sTUD, sTC) => "Время работы: ${sTUD} ${sTC}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -108,17 +110,18 @@ class MessageLookup extends MessageLookupByLibrary {
         "deleteStimulatorFromList": MessageLookupByLibrary.simpleMessage(
             "Удалить стимулятор из списка?"),
         "disconnect": MessageLookupByLibrary.simpleMessage("Отключить"),
+        "durationMin": m5,
         "durationMmSs":
             MessageLookupByLibrary.simpleMessage("Продолжительность, мин:сек"),
-        "dvcName": m5,
+        "dvcName": m6,
         "electrostimulationShouldNeverBeUsed":
             MessageLookupByLibrary.simpleMessage(
                 "Элетростимуляция никогда не должна применяться:"),
-        "electrostimulatorTexelN": m6,
+        "electrostimulatorTexelN": m7,
         "exit": MessageLookupByLibrary.simpleMessage("Выйти"),
         "failedToConnect": MessageLookupByLibrary.simpleMessage(
             "Не удалось подключиться к стимулятору"),
-        "firmwareNumber": m7,
+        "firmwareNumber": m8,
         "freeMethodic":
             MessageLookupByLibrary.simpleMessage("Произвольная программа"),
         "freeMethodicDescription": MessageLookupByLibrary.simpleMessage(
@@ -128,7 +131,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Частотная модуляция"),
         "frequencyModulationFM":
             MessageLookupByLibrary.simpleMessage("Част. модуляция (FM)"),
-        "frequencyValue": m8,
+        "frequencyValue": m9,
         "frrequencyHZ": MessageLookupByLibrary.simpleMessage("Частота, Гц"),
         "goBack": MessageLookupByLibrary.simpleMessage("< Назад"),
         "havingContraindications":
@@ -154,14 +157,15 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Индивидуальный режим"),
         "personalModeDescription": MessageLookupByLibrary.simpleMessage(
             "Режим работы стимулятора с индивидуальными настройками"),
-        "playingTime": m9,
+        "playingTime": m10,
         "previousDevices":
             MessageLookupByLibrary.simpleMessage("Подключенные ранее"),
         "programExecutionTime":
             MessageLookupByLibrary.simpleMessage("Время выполнения программы"),
-        "programTitle": m10,
+        "programTitle": m11,
         "recommendationsForProcedure": MessageLookupByLibrary.simpleMessage(
             "Рекомендации по проведению процедуры:\n"),
+        "run": MessageLookupByLibrary.simpleMessage("Запустить"),
         "searchStimulators":
             MessageLookupByLibrary.simpleMessage("Поиск стимуляторов"),
         "select": MessageLookupByLibrary.simpleMessage("Выбрать"),
@@ -171,18 +175,18 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Сеанс завершен"),
         "settings": MessageLookupByLibrary.simpleMessage("Свойства"),
         "share": MessageLookupByLibrary.simpleMessage("Поделиться"),
-        "stageIdxComment": m11,
-        "stageIdxNamestage": m12,
-        "stageNum": m13,
-        "stageTmeDuration": m14,
+        "stageIdxComment": m12,
+        "stageIdxNamestage": m13,
+        "stageNum": m14,
+        "stageTmeDuration": m15,
         "start": MessageLookupByLibrary.simpleMessage("Начать"),
         "stimulationWillBeContinue": MessageLookupByLibrary.simpleMessage(
             "При этом воздействие будет продолжено"),
         "stimulatorSettings":
             MessageLookupByLibrary.simpleMessage("Параметры стимулятора"),
-        "texelStimulatorNumber": m15,
+        "texelStimulatorNumber": m16,
         "time": MessageLookupByLibrary.simpleMessage("Time"),
-        "timeRemain": m16,
+        "timeRemain": m17,
         "toGoMode": MessageLookupByLibrary.simpleMessage("Работать автономно"),
         "tryAgain": MessageLookupByLibrary.simpleMessage(
             "Попробуйте повторить попытку"),
@@ -190,7 +194,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Включите Bluetooth, чтобы подключить стимулятор"),
         "turnOn": MessageLookupByLibrary.simpleMessage("Включить"),
         "warning": MessageLookupByLibrary.simpleMessage("Предупреждение"),
-        "workDuration": m17,
+        "workDuration": m18,
         "yes": MessageLookupByLibrary.simpleMessage("Да")
       };
 }
