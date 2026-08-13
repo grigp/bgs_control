@@ -1,6 +1,8 @@
 import 'package:bgs_control/repositories/methodic_programs/model/methodic_program.dart';
 import 'package:flutter/material.dart';
 
+import '../../../repositories/methodic_programs/Intl/methodic_intl.dart';
+
 class ProgramTitle extends StatefulWidget {
   const ProgramTitle({
     super.key,
@@ -52,6 +54,7 @@ class _ProgramTitleState extends State<ProgramTitle> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
+                      //getMetHeadStr(context, 1, 'title'),
                       widget.program.title,
                       style: theme.textTheme.bodyLarge,
                       overflow: TextOverflow.fade, //ellipsis,

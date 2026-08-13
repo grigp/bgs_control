@@ -999,6 +999,106 @@ class S {
       args: [],
     );
   }
+
+  /// `Joints. Periodic minor discomfort (chronic)`
+  String get met1_title {
+    return Intl.message(
+      'Joints. Periodic minor discomfort (chronic)',
+      name: 'met1_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `A state of long-lasting sensation of discomfort in the joint area, both during movement and at rest`
+  String get met1_description {
+    return Intl.message(
+      'A state of long-lasting sensation of discomfort in the joint area, both during movement and at rest',
+      name: 'met1_description',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Ankle, knee, shoulder, wrist`
+  String get met1_electrods {
+    return Intl.message(
+      'Ankle, knee, shoulder, wrist',
+      name: 'met1_electrods',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Joints of the arms and legs`
+  String get met1_areases {
+    return Intl.message(
+      'Joints of the arms and legs',
+      name: 'met1_areases',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Start with the joint symmetrical to the area of discomfort. If both joints are bothersome, treat the one with the least discomfort first. In the second stage, move the electrode to the other joint.`
+  String get met1_recomendations {
+    return Intl.message(
+      'Start with the joint symmetrical to the area of discomfort. If both joints are bothersome, treat the one with the least discomfort first. In the second stage, move the electrode to the other joint.',
+      name: 'met1_recomendations',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Joints`
+  String get met1_attr0 {
+    return Intl.message(
+      'Joints',
+      name: 'met1_attr0',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Preparing for processing`
+  String get met1_stage0 {
+    return Intl.message(
+      'Preparing for processing',
+      name: 'met1_stage0',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Warming up the muscles`
+  String get met1_stage1 {
+    return Intl.message(
+      'Warming up the muscles',
+      name: 'met1_stage1',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Muscle treatment`
+  String get met1_stage2 {
+    return Intl.message(
+      'Muscle treatment',
+      name: 'met1_stage2',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Consolidation of results`
+  String get met1_stage3 {
+    return Intl.message(
+      'Consolidation of results',
+      name: 'met1_stage3',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

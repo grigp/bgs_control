@@ -150,6 +150,24 @@ class MessageLookup extends MessageLookupByLibrary {
             "Low battery.\nThe stimulator may shut off at any time"),
         "maximumStimulationPower":
             MessageLookupByLibrary.simpleMessage("Maximum stimulation power"),
+        "met1_areases":
+            MessageLookupByLibrary.simpleMessage("Joints of the arms and legs"),
+        "met1_attr0": MessageLookupByLibrary.simpleMessage("Joints"),
+        "met1_description": MessageLookupByLibrary.simpleMessage(
+            "A state of long-lasting sensation of discomfort in the joint area, both during movement and at rest"),
+        "met1_electrods": MessageLookupByLibrary.simpleMessage(
+            "Ankle, knee, shoulder, wrist"),
+        "met1_recomendations": MessageLookupByLibrary.simpleMessage(
+            "Start with the joint symmetrical to the area of discomfort. If both joints are bothersome, treat the one with the least discomfort first. In the second stage, move the electrode to the other joint."),
+        "met1_stage0":
+            MessageLookupByLibrary.simpleMessage("Preparing for processing"),
+        "met1_stage1":
+            MessageLookupByLibrary.simpleMessage("Warming up the muscles"),
+        "met1_stage2": MessageLookupByLibrary.simpleMessage("Muscle treatment"),
+        "met1_stage3":
+            MessageLookupByLibrary.simpleMessage("Consolidation of results"),
+        "met1_title": MessageLookupByLibrary.simpleMessage(
+            "Joints. Periodic minor discomfort (chronic)"),
         "mm_ss": MessageLookupByLibrary.simpleMessage("mm:ss"),
         "msgDisconnect": MessageLookupByLibrary.simpleMessage(
             "The stimulator disconnected due to connection issues.\nBring your phone closer to the stimulator and reconnect"),

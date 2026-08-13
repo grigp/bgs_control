@@ -150,6 +150,22 @@ class MessageLookup extends MessageLookupByLibrary {
             "Низкий заряд аккумулятора.\nСтимулятор может отключиться в любой момент"),
         "maximumStimulationPower": MessageLookupByLibrary.simpleMessage(
             "Максимальный уровень воздействия"),
+        "met1_areases":
+            MessageLookupByLibrary.simpleMessage("Суставы рук и ног"),
+        "met1_attr0": MessageLookupByLibrary.simpleMessage("Суставы"),
+        "met1_description": MessageLookupByLibrary.simpleMessage(
+            "Состояние длительно присутствующего ощущения дискомфорта в области сустава, как в движении так и в покое"),
+        "met1_electrods": MessageLookupByLibrary.simpleMessage(
+            "Голеностопный, коленный, плечевой, кистевой"),
+        "met1_recomendations": MessageLookupByLibrary.simpleMessage(
+            "Начинайте с сустава, симметричного зоне дискомфорта. Если беспокоят оба сустава, сначала обработайте тот, где дискомфорт меньше. На второй стадии переставьте электрод на другой сустав."),
+        "met1_stage0":
+            MessageLookupByLibrary.simpleMessage("Подготовка к обработке"),
+        "met1_stage1": MessageLookupByLibrary.simpleMessage("Разогрев"),
+        "met1_stage2": MessageLookupByLibrary.simpleMessage("Обработка"),
+        "met1_stage3": MessageLookupByLibrary.simpleMessage("Закрепление"),
+        "met1_title": MessageLookupByLibrary.simpleMessage(
+            "Суставы. Периодический незначительный дискомфорт (хроника)"),
         "mm_ss": MessageLookupByLibrary.simpleMessage("мм:сс"),
         "msgDisconnect": MessageLookupByLibrary.simpleMessage(
             "Произошло отключение от стимулятора из за проблем со связью.\nПоднесите телефон ближе к стимулятору и подключите его заново"),

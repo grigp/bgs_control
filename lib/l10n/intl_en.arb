@@ -93,5 +93,15 @@
   "TheStimulatorNeedsToBeCharged": "The stimulator needs to be charged",
   "stimulatorTurnedOffLowBattery": "The stimulator turned off due to low battery.",
   "close": "Close",
-  "electrostimulatorsTexel": "Electrical stimulators texel"
+  "electrostimulatorsTexel": "Electrical stimulators texel",
+  "met1_title": "Joints. Periodic minor discomfort (chronic)",
+  "met1_description": "A state of long-lasting sensation of discomfort in the joint area, both during movement and at rest",
+  "met1_electrods": "Ankle, knee, shoulder, wrist",
+  "met1_areases": "Joints of the arms and legs",
+  "met1_recomendations": "Start with the joint symmetrical to the area of discomfort. If both joints are bothersome, treat the one with the least discomfort first. In the second stage, move the electrode to the other joint.",
+  "met1_attr0": "Joints",
+  "met1_stage0": "Preparing for processing",
+  "met1_stage1": "Warming up the muscles",
+  "met1_stage2": "Muscle treatment",
+  "met1_stage3": "Consolidation of results"
 }
