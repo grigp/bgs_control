@@ -36,6 +36,7 @@ dependencies:
   package_info_plus: ^8.1.3
   flutter_native_splash: ^2.3.10
   wheel_picker: ^0.2.1
+  intl: ^0.20.2
   workmanager:
     git:
       url: https://github.com/fluttercommunity/flutter_workmanager.git
@@ -81,6 +82,7 @@ flutter:
      - lib/assets/icons/bluetooth.png
 
      - lib/assets/programs/prg_main.json
+     - lib/assets/programs/prg_main_en.json
      - lib/assets/programs/select_prg.json
      - lib/assets/icons/programs/togo.png
      - lib/assets/icons/programs/ankle_pain.png
@@ -142,10 +144,13 @@ flutter_native_splash:
   color: "#FFFFFF"
   image: "images/texel_splash.png"
   branding: "images/sk_member_splash.png"
-  branding_mode: bottom
+  branding_mode: bottomD
   branding_bottom_padding: 24
   android_12:
    image: "images/texel_splash.png"
    branding: "images/sk_member_splash.png"
+
 flutter_intl:
   enabled: true
+  arb_dir: lib/l10n          # Папка, где лежат ваши .arb файлы
+  output_dir: lib/generated  # Папка для сгенерированного Dart-кода

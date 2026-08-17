@@ -1,8 +1,10 @@
 import 'dart:convert';
 import 'dart:io';
+import 'dart:ui';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
+import 'package:intl/intl.dart';
 import 'package:path_provider/path_provider.dart';
 
 import '../model/methodic_program.dart';
@@ -41,10 +43,22 @@ class ProgramStorage {
 
   /// Заполняет рабочий список программ, беря его из предустановленного файла json
   Future _fillWorkList() async {
+    Locale deviceLocale = PlatformDispatcher.instance.locale;
+    if (kDebugMode) {
+      print('<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>');
+      print('${deviceLocale.languageCode}_${deviceLocale.countryCode}');
+      print('<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>');
+    }
+
     /// Список программ по умолчанию
-    String dataDef = await rootBundle.loadString(
-      'lib/assets/programs/prg_main.json',
-    );
+    String methodicFilePath = 'lib/assets/programs/prg_main.json';
+    if (deviceLocale.languageCode == 'ru') {
+      methodicFilePath = 'lib/assets/programs/prg_main.json';
+    } else if (deviceLocale.languageCode == 'en') {
+      methodicFilePath = 'lib/assets/programs/prg_main_en.json';
+    }
+    String dataDef = await rootBundle.loadString(methodicFilePath);
+
     var dd = json.decode(dataDef);
     final listPPDef = dd['programs'] as List<dynamic>?;
 

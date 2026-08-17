@@ -1,0 +1,1273 @@
+{
+  "programs": [
+    {
+      "id": 1,
+      "title": "Joints. Periodic minor discomfort (chronic)",
+      "description": "A state of long-lasting sensation of discomfort in the joint area, both during movement and at rest",
+      "electrods": "Ankle, knee, shoulder, wrist",
+      "areases": "Joints of the arms and legs",
+      "recomendations": "Start with the joint symmetrical to the area of discomfort. If both joints are bothersome, treat the one with the least discomfort first. In the second stage, move the electrode to the other joint.",
+      "file": "ortez1.png",
+      "icon": "joints_discomfort_1.png",
+      "attributes": [
+        {
+          "id": "Joints"
+        }
+      ],
+      "electrode": 6,
+      "stage": [
+        {
+          "num": 1,
+          "duration": 300000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 100,
+          "am": true,
+          "am_mode": 31,
+          "intensivity": 1,
+          "fm": true,
+          "comment": "Preparing for processing"
+        },
+        {
+          "num": 2,
+          "duration": 600000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 60,
+          "am": true,
+          "am_mode": 31,
+          "intensivity": 3,
+          "fm": false,
+          "comment": "Warming up the muscles"
+        },
+        {
+          "num": 3,
+          "duration": 600000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 90,
+          "am": true,
+          "am_mode": 31,
+          "intensivity": 2,
+          "fm": false,
+          "comment": "Muscle treatment"
+        },
+        {
+          "num": 4,
+          "duration": 300000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 90,
+          "am": true,
+          "am_mode": 31,
+          "intensivity": 1,
+          "fm": true,
+          "comment": "Consolidation of results"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "title": "Суставы. Ощутимый дискомфорт (острое)",
+      "description": "Состояние резко возникшего ощущения дискомфорта в области сустава, как в движении так и в покое",
+      "electrods": "Голеностопный, коленный, плечевой, кистевой",
+      "areases": "Суставы рук и ног",
+      "recomendations": "Начинайте с сустава, с максимальным дискомфорта. Если беспокоят оба сустава, сначала обработайте тот, где дискомфорт больше. После 3-й стадии переставьте электрод на другой сустав.",
+      "file": "ortez1.png",
+      "icon": "joints_discomfort_2.png",
+      "attributes": [
+        {
+          "id": "Суставы"
+        }
+      ],
+      "electrode": 6,
+      "stage": [
+        {
+          "num": 1,
+          "duration": 600000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 120,
+          "am": true,
+          "am_mode": 31,
+          "intensivity": 3,
+          "fm": false,
+          "comment": "Интенсивная обработка"
+        },
+        {
+          "num": 2,
+          "duration": 600000,
+          "start_power": 1,
+          "power": 10,
+          "frequency": 60,
+          "am": true,
+          "am_mode": 11,
+          "intensivity": 2,
+          "fm": true,
+          "comment": "Адаптивная обработка"
+        },
+        {
+          "num": 3,
+          "duration": 300000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 90,
+          "am": true,
+          "am_mode": 11,
+          "intensivity": 2,
+          "fm": false,
+          "comment": "Нормализация функций"
+        },
+        {
+          "num": 4,
+          "duration": 300000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 120,
+          "am": true,
+          "am_mode": 31,
+          "intensivity": 3,
+          "fm": false,
+          "comment": "Закрепление"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "title": "Мышцы. Длительное напряжение (хроника)",
+      "description": "Состояние длительно присутствующего ощущения мышечного напряжения или дискомфорта в области спины (грудная область, область поясницы) и ягодиц, как в движении так и в покое.",
+      "electrods": "Пояс широкий, пояс узкий",
+      "areases": "Мышцы спины и ягодиц",
+      "recomendations": "Наложите электрод на зону дискомфорта и проведите процедуру не перемещая электрод на другие участки.",
+      "file": "ortez1.png",
+      "icon": "muscles_longterm_voltage_1.png",
+      "attributes": [
+        {
+          "id": "Мышцы"
+        }
+      ],
+      "electrode": 6,
+      "stage": [
+        {
+          "num": 1,
+          "duration": 600000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 15,
+          "am": true,
+          "am_mode": 11,
+          "intensivity": 3,
+          "fm": false,
+          "comment": "Разогрев"
+        },
+        {
+          "num": 2,
+          "duration": 600000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 90,
+          "am": true,
+          "am_mode": 31,
+          "intensivity": 2,
+          "fm": true,
+          "comment": "Обработка"
+        },
+        {
+          "num": 3,
+          "duration": 300000,
+          " start_power": 1,
+          "power": 1,
+          "frequency": 60,
+          "am": true,
+          "am_mode": 31,
+          "intensivity": 1,
+          "fm": false,
+          "comment": "Закрепление"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "title": "Мышцы. Длительное напряжение (хроника) Спец.режим",
+      "description": "Если область мышечного напряжения или дискомфорта не может быть закрыта площадками электрода то вначале необходимо разместить пояс на ту область позвоночника, которая будет связана с зоной мышечного дискомфорта по горизонтали",
+      "electrods": "Пояс широкий, пояс узкий",
+      "areases": "Мышцы спины и ягодиц",
+      "recomendations": "Сначала наложите электрод так, чтобы его контакты оказались по обе стороны от позвоночника — на той же высоте, что и проблемная область. На 2-й стадии переставьте электрод непосредственно на область дискомфорта.",
+      "file": "ortez1.png",
+      "icon": "muscles_longterm_voltage_2.png",
+      "attributes": [
+        {
+          "id": "Мышцы"
+        }
+      ],
+      "electrode": 6,
+      "stage": [
+        {
+          "num": 1,
+          "duration": 300000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 15,
+          "am": true,
+          "am_mode": 31,
+          "intensivity": 1,
+          "fm": true,
+          "comment": "Подготовка"
+        },
+        {
+          "num": 2,
+          "duration": 600000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 15,
+          "am": true,
+          "am_mode": 31,
+          "intensivity": 3,
+          "fm": false,
+          "comment": "Разогрев"
+        },
+        {
+          "num": 3,
+          "duration": 600000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 60,
+          "am": true,
+          "am_mode": 31,
+          "intensivity": 2,
+          "fm": false,
+          "comment": "Обработка"
+        },
+        {
+          "num": 4,
+          "duration": 300000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 60,
+          "am": true,
+          "am_mode": 31,
+          "intensivity": 1,
+          "fm": true,
+          "comment": "Закрепление"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "title": "Мышцы. Резкое напряжение (острое)",
+      "description": "Если область мышечного напряжения расположена максимально близко к позвоночнику и может быть закрыта площадками электрода.",
+      "electrods": "Пояс широкий, пояс узкий",
+      "areases": "Мышцы спины и ягодиц",
+      "recomendations": "Наложите электрод на зону дискомфорта и проведите процедуру не перемещая электрод на другие участки.",
+      "file": "ortez1.png",
+      "icon": "muscles_sharp_voltage_1.png",
+      "attributes": [
+        {
+          "id": "Мышцы"
+        }
+      ],
+      "electrode": 6,
+      "stage": [
+        {
+          "num": 1,
+          "duration": 600000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 120,
+          "am": true,
+          "am_mode": 31,
+          "intensivity": 3,
+          "fm": false,
+          "comment": "Интенсивная обработка"
+        },
+        {
+          "num": 2,
+          "duration": 600000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 90,
+          "am": true,
+          "am_mode": 11,
+          "intensivity": 3,
+          "fm": true,
+          "comment": "Адаптивная обработка"
+        },
+        {
+          "num": 3,
+          "duration": 600000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 90,
+          "am": true,
+          "am_mode": 11,
+          "intensivity": 1,
+          "fm": false,
+          "comment": "Нормализация функций"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "title": "Мышцы. Резкое напряжение (острое) Спец.режим",
+      "description": "Если область мышечного напряжения расположена удалённо от позвоночника и не может быть закрыта площадками электрода, то вначале необходимо разместить пояс на прямую проекцию области мышечного дискомфорта.",
+      "electrods": "Пояс широкий, пояс узкий",
+      "areases": "Мышцы спины и ягодиц",
+      "recomendations": "Сначала наложите электрод на зону дискомфорта. После завершения 3-й стадии переставьте электрод так, чтобы его контакты оказались по обе стороны от позвоночника — на той же высоте, что и проблемная область.",
+      "file": "ortez1.png",
+      "icon": "muscles_sharp_voltage_2.png",
+      "attributes": [
+        {
+          "id": "Мышцы"
+        }
+      ],
+      "electrode": 6,
+      "stage": [
+        {
+          "num": 1,
+          "duration": 600000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 120,
+          "am": true,
+          "am_mode": 31,
+          "intensivity": 3,
+          "fm": false,
+          "comment": "Интенсивная обработка"
+        },
+        {
+          "num": 2,
+          "duration": 600000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 14,
+          "am": true,
+          "am_mode": 11,
+          "intensivity": 2,
+          "fm": true,
+          "comment": "Адаптивная обработка"
+        },
+        {
+          "num": 3,
+          "duration": 300000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 90,
+          "am": true,
+          "am_mode": 11,
+          "intensivity": 1,
+          "fm": false,
+          "comment": "Нормализация функций"
+        },
+        {
+          "num": 4,
+          "duration": 300000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 120,
+          "am": true,
+          "am_mode": 31,
+          "intensivity": 3,
+          "fm": false,
+          "comment": "Закрепление"
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "title": "Оздоравливающий массаж. Мышцы",
+      "description": "Оздоравливающий массаж (бытовое применение), а также для пользователей ведущих активный образ жизни (спорт и фитнес).",
+      "electrods": "",
+      "areases": "",
+      "recomendations": "Методика ориентирована на пользователей, которым нужен ровный, поддерживающий режим для мышечных зон без акцента на выраженный дискомфорт.\nОна подходит как оздоровительная процедура после рабочего дня, физической активности или при потребности в регулярном мышечном уходе.\nМожет использоваться как один из наиболее универсальных режимов для повторяющегося домашнего применения.",
+      "file": "ortez1.png",
+      "icon": "revitalizing_muscle_massage.png",
+      "attributes": [
+        {
+          "id": "Мышцы"
+        },
+        {
+          "id": "Массаж"
+        }
+      ],
+      "electrode": 6,
+      "stage": [
+        {
+          "num": 1,
+          "duration": 300000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 60,
+          "am": true,
+          "am_mode": 31,
+          "intensivity": 2,
+          "fm": false,
+          "comment": "Разогрев"
+        },
+        {
+          "num": 2,
+          "duration": 300000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 90,
+          "am": true,
+          "am_mode": 31,
+          "intensivity": 2,
+          "fm": true,
+          "comment": "Разминание"
+        },
+        {
+          "num": 3,
+          "duration": 600000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 90,
+          "am": true,
+          "am_mode": 31,
+          "intensivity": 1,
+          "fm": false,
+          "comment": "Нормализация функций"
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "title": "Оздоравливающий массаж. Суставы",
+      "description": "Оздоравливающий массаж (бытовое применение), а также для пользователей ведущих активный образ жизни (спорт и фитнес).",
+      "electrods": "",
+      "areases": "",
+      "recomendations": "Методика предназначена для спокойного и последовательного воздействия на суставную область в рамках регулярных оздоровительных процедур.\nОна уместна, когда пользователь хочет поддерживать субъективный комфорт в суставной зоне после нагрузки или в повседневном режиме.\nЭто хороший вариант для повторяющихся домашних сеансов без акцента на острое состояние.",
+      "file": "ortez1.png",
+      "icon": "healing_massage_joints.png",
+      "attributes": [
+        {
+          "id": "Суставы"
+        },
+        {
+          "id": "Массаж"
+        }
+      ],
+      "electrode": 6,
+      "stage": [
+        {
+          "num": 1,
+          "duration": 300000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 90,
+          "am": true,
+          "am_mode": 31,
+          "intensivity": 2,
+          "fm": false,
+          "comment": "Разогрев"
+        },
+        {
+          "num": 2,
+          "duration": 300000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 90,
+          "am": false,
+          "am_mode": 11,
+          "intensivity": 2,
+          "fm": true,
+          "comment": "Разминание"
+        },
+        {
+          "num": 3,
+          "duration": 300000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 90,
+          "am": true,
+          "am_mode": 31,
+          "intensivity": 1,
+          "fm": false,
+          "comment": "Нормализация функций"
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "title": "Расслабляющий массаж. Мышцы",
+      "description": "Расслабляющий массаж (бытовое применение), а также  для пользователей ведущих активный образ жизни (спорт и фитнес).",
+      "electrods": "",
+      "areases": "",
+      "recomendations": "Эта методика предназначена для ситуаций, когда на первый план выходит не выраженный дискомфорт, а желание расслабить мышцы и снизить ощущение накопленного напряжения.\nОна хорошо подходит после сидячей работы, поездки, бытовой активности или тренировки.\nПрограмма может использоваться как комфортный вечерний режим и как часть регулярного домашнего ухода.",
+      "file": "ortez1.png",
+      "icon": "relaxing_muscle_massage.png",
+      "attributes": [
+        {
+          "id": "Мышцы"
+        },
+        {
+          "id": "Массаж"
+        }
+      ],
+      "electrode": 6,
+      "stage": [
+        {
+          "num": 1,
+          "duration": 300000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 60,
+          "am": true,
+          "am_mode": 31,
+          "intensivity": 3,
+          "fm": false,
+          "comment": "Подготовка"
+        },
+        {
+          "num": 2,
+          "duration": 300000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 15,
+          "am": true,
+          "am_mode": 11,
+          "intensivity": 2,
+          "fm": false,
+          "comment": "Релаксация"
+        },
+        {
+          "num": 3,
+          "duration": 600000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 15,
+          "am": true,
+          "am_mode": 11,
+          "intensivity": 2,
+          "fm": false,
+          "comment": "Нормализация функций"
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "title": "Расслабляющий массаж. Суставы",
+      "description": "Расслабляющий массаж (бытовое применение), а также  для пользователей ведущих активный образ жизни (спорт и фитнес).",
+      "electrods": "",
+      "areases": "",
+      "recomendations": "Методика используется как спокойный режим для суставной зоны, когда требуется мягкое, комфортное воздействие.\nОна уместна после повседневной бытовой активности нагрузки, активного движения или тренировки в конце дня при ощущении скованности.\nПодходит для пользователей, которым нужен простой и понятный суставной режим на регулярной основе.",
+      "file": "ortez1.png",
+      "icon": "relaxing_massage_joints.png",
+      "attributes": [
+        {
+          "id": "Мышцы"
+        },
+        {
+          "id": "Суставы"
+        }
+      ],
+      "electrode": 6,
+      "stage": [
+        {
+          "num": 1,
+          "duration": 300000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 90,
+          "am": true,
+          "am_mode": 31,
+          "intensivity": 3,
+          "fm": false,
+          "comment": "Подготовка"
+        },
+        {
+          "num": 2,
+          "duration": 300000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 15,
+          "am": true,
+          "am_mode": 11,
+          "intensivity": 2,
+          "fm": false,
+          "comment": "Релаксация"
+        },
+        {
+          "num": 3,
+          "duration": 300000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 15,
+          "am": true,
+          "am_mode": 11,
+          "intensivity": 1,
+          "fm": false,
+          "comment": "Нормализация функций"
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "title": "Спорт. Суставы. Разминка",
+      "description": "Локальный электроимпульсный  массаж для пользователей ведущих активный образ жизни (спорт и фитнес).",
+      "electrods": "",
+      "areases": "",
+      "recomendations": "Методика предназначена для применения до спортивной активности и используется как предварительный этап перед нагрузкой на суставную зону.\nОна помогает организовать более последовательный вход в движение и может быть полезна перед тренировкой, занятиями спортом или активной разминкой.\nПрограмма особенно уместна для пользователей, которые хотят выстроить спортивную процедуру поэтапно.",
+      "file": "ortez1.png",
+      "icon": "sport_joints_warmup.png",
+      "attributes": [
+        {
+          "id": "Суставы"
+        },
+        {
+          "id": "Спорт"
+        }
+      ],
+      "electrode": 6,
+      "stage": [
+        {
+          "num": 1,
+          "duration": 300000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 90,
+          "am": true,
+          "am_mode": 31,
+          "intensivity": 2,
+          "fm": false,
+          "comment": "Подготовка"
+        },
+        {
+          "num": 2,
+          "duration": 300000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 60,
+          "am": true,
+          "am_mode": 31,
+          "intensivity": 3,
+          "fm": false,
+          "comment": "Разогрев"
+        }
+      ]
+    },
+    {
+      "id": 12,
+      "title": "Спорт. Суставы. Тренировка",
+      "description": "Локальный электроимпульсный  массаж для пользователей ведущих активный образ жизни (спорт и фитнес).",
+      "electrods": "",
+      "areases": "",
+      "recomendations": "Методика ориентирована на пользователей с регулярной физической активностью и используется как основной суставной режим в спортивном сценарии.\nОна может применяться как центральная часть комплексной процедуры.\nЛучше всего воспринимается в связке с подготовительным и завершающим этапами.",
+      "file": "ortez1.png",
+      "icon": "sport_joints_workout.png",
+      "attributes": [
+        {
+          "id": "Суставы"
+        },
+        {
+          "id": "Спорт"
+        }
+      ],
+      "electrode": 6,
+      "stage": [
+        {
+          "num": 1,
+          "duration": 600000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 90,
+          "am": true,
+          "am_mode": 31,
+          "intensivity": 4,
+          "fm": true,
+          "comment": "Адаптация к нагрузке"
+        },
+        {
+          "num": 2,
+          "duration": 300000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 60,
+          "am": true,
+          "am_mode": 31,
+          "intensivity": 4,
+          "fm": false,
+          "comment": "Интенсивная обработка"
+        }
+      ]
+    },
+    {
+      "id": 13,
+      "title": "Спорт. Суставы. Расслабление",
+      "description": "Локальный электроимпульсный  массаж для пользователей ведущих активный образ жизни (спорт и фитнес).",
+      "electrods": "",
+      "areases": "",
+      "recomendations": "Методика предназначена для завершения спортивной процедуры в области сустава после основной нагрузки.\nОна помогает сделать переход от активного этапа к более спокойному состоянию и может использоваться после тренировки, занятия или интенсивной двигательной активности.\nПодходит как финальная часть спортивного комплекса.",
+      "file": "ortez1.png",
+      "icon": "sport_joints_relaxation.png",
+      "attributes": [
+        {
+          "id": "Суставы"
+        },
+        {
+          "id": "Спорт"
+        }
+      ],
+      "electrode": 6,
+      "stage": [
+        {
+          "num": 1,
+          "duration": 300000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 15,
+          "am": true,
+          "am_mode": 11,
+          "intensivity": 2,
+          "fm": false,
+          "comment": "Релаксация"
+        },
+        {
+          "num": 2,
+          "duration": 300000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 15,
+          "am": true,
+          "am_mode": 11,
+          "intensivity": 3,
+          "fm": false,
+          "comment": "Нормализация функций"
+        }
+      ]
+    },
+    {
+      "id": 14,
+      "title": "Спорт. Мышцы. Разминка",
+      "description": "Локальный электроимпульсный  массаж для пользователей ведущих активный образ жизни (спорт и фитнес).",
+      "electrods": "",
+      "areases": "",
+      "recomendations": "Методика применяется до основной нагрузки на мышцы и предназначена для более мягкого включения зоны в работу.\nОна может использоваться перед тренировкой, физической активностью или активным восстановительным занятием.\nОсобенно удобна как первый этап спортивной процедуры для мышц спины и ягодиц.",
+      "file": "ortez1.png",
+      "icon": "sport_muscles_warmup.png",
+      "attributes": [
+        {
+          "id": "Мышцы"
+        },
+        {
+          "id": "Спорт"
+        }
+      ],
+      "electrode": 6,
+      "stage": [
+        {
+          "num": 1,
+          "duration": 300000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 60,
+          "am": true,
+          "am_mode": 31,
+          "intensivity": 2,
+          "fm": false,
+          "comment": "Подготовка"
+        },
+        {
+          "num": 2,
+          "duration": 300000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 60,
+          "am": true,
+          "am_mode": 31,
+          "intensivity": 3,
+          "fm": false,
+          "comment": "Разогрев"
+        }
+      ]
+    },
+    {
+      "id": 15,
+      "title": "Спорт. Мышцы. Тренировка",
+      "description": "Локальный электроимпульсный  массаж для пользователей ведущих активный образ жизни (спорт и фитнес).",
+      "electrods": "",
+      "areases": "",
+      "recomendations": "Методика ориентирована на пользователей, которые регулярно занимаются спортом или фитнесом и хотят использовать электроимпульсное воздействие как часть спортивного сценария.\nОна применяется как основной этап мышечного комплекса и лучше всего воспринимается в логике разминка — основная работа — расслабление.\nПодходит ля пользователей с хорошей переносимостью воздействия.",
+      "file": "ortez1.png",
+      "icon": "sport_muscles_workout.png",
+      "attributes": [
+        {
+          "id": "Мышцы"
+        },
+        {
+          "id": "Спорт"
+        }
+      ],
+      "electrode": 6,
+      "stage": [
+        {
+          "num": 1,
+          "duration": 600000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 90,
+          "am": true,
+          "am_mode": 31,
+          "intensivity": 4,
+          "fm": true,
+          "comment": "Адаптация к нагрузке"
+        },
+        {
+          "num": 2,
+          "duration": 600000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 60,
+          "am": true,
+          "am_mode": 31,
+          "intensivity": 4,
+          "fm": false,
+          "comment": "Интенсивная обработка"
+        }
+      ]
+    },
+    {
+      "id": 16,
+      "title": "Спорт. Мышцы. Расслабление",
+      "description": "Локальный электроимпульсный  массаж для пользователей ведущих активный образ жизни (спорт и фитнес).",
+      "electrods": "",
+      "areases": "",
+      "recomendations": "Методика применяется как финальный этап спортивной схемы для мышц после нагрузки или активной работы.\nОна подходит для ситуаций, когда требуется мягкий выход из интенсивного режима и переход к более спокойным субъективным ощущениям.\nМожет спользоваться самостоятельно как короткая процедура после тренировки.",
+      "file": "ortez1.png",
+      "icon": "sport_muscles_relaxation.png",
+      "attributes": [
+        {
+          "id": "Мышцы"
+        },
+        {
+          "id": "Спорт"
+        }
+      ],
+      "electrode": 6,
+      "stage": [
+        {
+          "num": 1,
+          "duration": 300000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 15,
+          "am": true,
+          "am_mode": 11,
+          "intensivity": 2,
+          "fm": false,
+          "comment": "Релаксация"
+        },
+        {
+          "num": 2,
+          "duration": 300000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 15,
+          "am": true,
+          "am_mode": 11,
+          "intensivity": 3,
+          "fm": false,
+          "comment": "Нормализация функций"
+        }
+      ]
+    },
+    {
+      "id": 17,
+      "title": "Фитнес. Суставы.",
+      "description": "Локальный электроимпульсный  массаж для пользователей ведущих активный образ жизни (спорт и фитнес).",
+      "electrods": "",
+      "areases": "",
+      "recomendations": "Методика предназначена для пользователей, которые занимаются фитнесом, общеукрепляющей физической активностью или тренировками умеренной интенсивности.\nОна подходит как более универсальный суставной режим между бытовым и спортивным сценарием.\nМожет использоваться  в зависимости от индивидуальной привычки и поставленной задачи.",
+      "file": "ortez1.png",
+      "icon": "sport_joints.png",
+      "attributes": [
+        {
+          "id": "Суставы"
+        },
+        {
+          "id": "Фитнес"
+        }
+      ],
+      "electrode": 6,
+      "stage": [
+        {
+          "num": 1,
+          "duration": 300000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 90,
+          "am": true,
+          "am_mode": 31,
+          "intensivity": 2,
+          "fm": false,
+          "comment": "Подготовка"
+        },
+        {
+          "num": 2,
+          "duration": 300000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 60,
+          "am": true,
+          "am_mode": 31,
+          "intensivity": 3,
+          "fm": false,
+          "comment": "Разогрев"
+        },
+        {
+          "num": 3,
+          "duration": 600000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 90,
+          "am": true,
+          "am_mode": 31,
+          "intensivity": 4,
+          "fm": true,
+          "comment": "Адаптация к нагрузке"
+        },
+        {
+          "num": 4,
+          "duration": 300000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 60,
+          "am": true,
+          "am_mode": 31,
+          "intensivity": 4,
+          "fm": false,
+          "comment": "Интенсивная обработка"
+        },
+        {
+          "num": 5,
+          "duration": 300000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 15,
+          "am": true,
+          "am_mode": 11,
+          "intensivity": 2,
+          "fm": false,
+          "comment": "Релаксация"
+        },
+        {
+          "num": 6,
+          "duration": 300000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 15,
+          "am": true,
+          "am_mode": 11,
+          "intensivity": 3,
+          "fm": false,
+          "comment": "Нормализация функций"
+        }
+      ]
+    },
+    {
+      "id": 18,
+      "title": "Фитнес. Мышцы.",
+      "description": "Локальный электроимпульсный  массаж для пользователей ведущих активный образ жизни (спорт и фитнес).",
+      "electrods": "",
+      "areases": "",
+      "recomendations": "Методика ориентирована на пользователей фитнеса и тех, кто сочетает повседневную активность с регулярными тренировками.\nОна воспринимается как универсальный мышечный режим: не слишком узко спортивный, но более активный, чем стандартные бытовые программы.\nПодходит для регулярного применения в рамках привычного тренировочного ритма.",
+      "file": "ortez1.png",
+      "icon": "sport_muscles.png",
+      "attributes": [
+        {
+          "id": "Мышцы"
+        },
+        {
+          "id": "Фитнес"
+        }
+      ],
+      "electrode": 6,
+      "stage": [
+        {
+          "num": 1,
+          "duration": 300000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 60,
+          "am": true,
+          "am_mode": 31,
+          "intensivity": 2,
+          "fm": false,
+          "comment": "Подготовка"
+        },
+        {
+          "num": 2,
+          "duration": 300000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 60,
+          "am": true,
+          "am_mode": 31,
+          "intensivity": 3,
+          "fm": false,
+          "comment": "Разогрев"
+        },
+        {
+          "num": 3,
+          "duration": 600000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 90,
+          "am": true,
+          "am_mode": 31,
+          "intensivity": 4,
+          "fm": true,
+          "comment": "Адаптация к нагрузке"
+        },
+        {
+          "num": 4,
+          "duration": 600000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 60,
+          "am": true,
+          "am_mode": 31,
+          "intensivity": 4,
+          "fm": false,
+          "comment": "Интенсивная обработка"
+        },
+        {
+          "num": 5,
+          "duration": 300000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 15,
+          "am": true,
+          "am_mode": 11,
+          "intensivity": 2,
+          "fm": false,
+          "comment": "Релаксация"
+        },
+        {
+          "num": 6,
+          "duration": 300000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 15,
+          "am": true,
+          "am_mode": 11,
+          "intensivity": 3,
+          "fm": false,
+          "comment": "Нормализация функций"
+        }
+      ]
+    },
+    {
+      "id": 118,
+      "title": "Пробный короткий 1 (6 этапов)",
+      "description": "Программа для отладки",
+      "electrods": "",
+      "areases": "",
+      "recomendations": "",
+      "file": "ortez1.png",
+      "icon": "tunnel_syndrome_round.png",
+      "attributes": [
+        {
+          "id": "Мышцы"
+        },
+        {
+          "id": "Фитнес"
+        },
+        {
+          "id": "debug"
+        }
+      ],
+      "electrode": 6,
+      "stage": [
+        {
+          "num": 1,
+          "duration": 10000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 60,
+          "am": true,
+          "am_mode": 31,
+          "intensivity": 2,
+          "fm": false,
+          "comment": "Подготовка"
+        },
+        {
+          "num": 2,
+          "duration": 10000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 60,
+          "am": true,
+          "am_mode": 31,
+          "intensivity": 3,
+          "fm": false,
+          "comment": "Разогрев"
+        },
+        {
+          "num": 3,
+          "duration": 20000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 90,
+          "am": true,
+          "am_mode": 31,
+          "intensivity": 4,
+          "fm": true,
+          "comment": "Адаптация к нагрузке"
+        },
+        {
+          "num": 4,
+          "duration": 20000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 60,
+          "am": true,
+          "am_mode": 31,
+          "intensivity": 4,
+          "fm": false,
+          "comment": "Интенсивная обработка"
+        },
+        {
+          "num": 5,
+          "duration": 10000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 15,
+          "am": true,
+          "am_mode": 11,
+          "intensivity": 2,
+          "fm": false,
+          "comment": "Релаксация"
+        },
+        {
+          "num": 6,
+          "duration": 10000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 15,
+          "am": true,
+          "am_mode": 11,
+          "intensivity": 3,
+          "fm": false,
+          "comment": "Нормализация функций"
+        }
+      ]
+    },
+    {
+      "id": 119,
+      "title": "Пробный короткий 2 (4 этапа)",
+      "description": "Программа для отладки",
+      "electrods": "",
+      "areases": "",
+      "recomendations": "",
+      "file": "ortez1.png",
+      "icon": "tunnel_syndrome_round.png",
+      "attributes": [
+        {
+          "id": "Суставы"
+        },
+        {
+          "id": "debug"
+        }
+      ],
+      "electrode": 6,
+      "stage": [
+        {
+          "num": 1,
+          "duration": 60000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 100,
+          "am": true,
+          "am_mode": 31,
+          "intensivity": 1,
+          "fm": true,
+          "comment": "Подготовка к обработке"
+        },
+        {
+          "num": 2,
+          "duration": 120000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 60,
+          "am": true,
+          "am_mode": 31,
+          "intensivity": 3,
+          "fm": false,
+          "comment": "Разогрев"
+        },
+        {
+          "num": 3,
+          "duration": 60000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 90,
+          "am": true,
+          "am_mode": 31,
+          "intensivity": 2,
+          "fm": false,
+          "comment": "Обработка"
+        },
+        {
+          "num": 4,
+          "duration": 60000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 90,
+          "am": true,
+          "am_mode": 31,
+          "intensivity": 1,
+          "fm": true,
+          "comment": "Закрепление"
+        }
+      ]
+    },
+    {
+      "id": 120,
+      "title": "Пробный короткий 2 (2 этапа)",
+      "description": "Программа для отладки",
+      "electrods": "",
+      "areases": "",
+      "recomendations": "",
+      "file": "ortez1.png",
+      "icon": "tunnel_syndrome_round.png",
+      "attributes": [
+        {
+          "id": "Мышцы"
+        },
+        {
+          "id": "Спорт"
+        },
+        {
+          "id": "debug"
+        }
+      ],
+      "electrode": 6,
+      "stage": [
+        {
+          "num": 1,
+          "duration": 10000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 15,
+          "am": true,
+          "am_mode": 11,
+          "intensivity": 2,
+          "fm": false,
+          "comment": "Релаксация"
+        },
+        {
+          "num": 2,
+          "duration": 10000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 15,
+          "am": true,
+          "am_mode": 11,
+          "intensivity": 3,
+          "fm": false,
+          "comment": "Нормализация функций"
+        }
+      ]
+    }
+  ]
+}

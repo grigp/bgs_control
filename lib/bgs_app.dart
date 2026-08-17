@@ -54,7 +54,7 @@ class _BgsAppState extends State<BgsApp> {
   @override
   Widget build(BuildContext context) {
     Widget screen = _adapterState == BluetoothAdapterState.on
-        ? InvitationToConnectScreen(title: S.of(context).electrostimulatorsTexel)
+        ? const InvitationToConnectScreen(title: "Electrical stimulators texel")
         : BluetoothOffScreen(adapterState: _adapterState);
 
     return MaterialApp(

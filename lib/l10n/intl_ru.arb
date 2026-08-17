@@ -1,4 +1,5 @@
 {
+  "@@locale": "ru",
   "Connect": "Подключить",
   "appVersion": "Версия {version}+{buildNumber}",
   "beforeConnectDescription": "Включите стимулятор, установите его на магнитные контакты электрода и нажмите кнопку",
