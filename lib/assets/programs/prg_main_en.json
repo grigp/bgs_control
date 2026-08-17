@@ -68,16 +68,16 @@
     },
     {
       "id": 2,
-      "title": "Суставы. Ощутимый дискомфорт (острое)",
-      "description": "Состояние резко возникшего ощущения дискомфорта в области сустава, как в движении так и в покое",
-      "electrods": "Голеностопный, коленный, плечевой, кистевой",
-      "areases": "Суставы рук и ног",
-      "recomendations": "Начинайте с сустава, с максимальным дискомфорта. Если беспокоят оба сустава, сначала обработайте тот, где дискомфорт больше. После 3-й стадии переставьте электрод на другой сустав.",
+      "title": "Joints. Noticeable discomfort (acute)",
+      "description": "A state of sudden discomfort in the joint area, both during movement and at rest",
+      "electrods": "Ankle, knee, shoulder, wrist",
+      "areases": "Joints of the arms and legs",
+      "recomendations": "Start with the joint that causes the most discomfort. If both joints are bothersome, treat the one with the most discomfort first. After stage 3, move the electrode to the other joint.",
       "file": "ortez1.png",
       "icon": "joints_discomfort_2.png",
       "attributes": [
         {
-          "id": "Суставы"
+          "id": "Joints"
         }
       ],
       "electrode": 6,
@@ -92,7 +92,7 @@
           "am_mode": 31,
           "intensivity": 3,
           "fm": false,
-          "comment": "Интенсивная обработка"
+          "comment": "Intensive processing"
         },
         {
           "num": 2,
@@ -104,7 +104,7 @@
           "am_mode": 11,
           "intensivity": 2,
           "fm": true,
-          "comment": "Адаптивная обработка"
+          "comment": "Adaptive processing"
         },
         {
           "num": 3,
@@ -116,7 +116,7 @@
           "am_mode": 11,
           "intensivity": 2,
           "fm": false,
-          "comment": "Нормализация функций"
+          "comment": "Normalization of functions"
         },
         {
           "num": 4,
@@ -128,22 +128,22 @@
           "am_mode": 31,
           "intensivity": 3,
           "fm": false,
-          "comment": "Закрепление"
+          "comment": "Consolidation of results"
         }
       ]
     },
     {
       "id": 3,
-      "title": "Мышцы. Длительное напряжение (хроника)",
-      "description": "Состояние длительно присутствующего ощущения мышечного напряжения или дискомфорта в области спины (грудная область, область поясницы) и ягодиц, как в движении так и в покое.",
-      "electrods": "Пояс широкий, пояс узкий",
-      "areases": "Мышцы спины и ягодиц",
-      "recomendations": "Наложите электрод на зону дискомфорта и проведите процедуру не перемещая электрод на другие участки.",
+      "title": "Muscles. Long-term tension (chronic)",
+      "description": "A condition of long-term sensation of muscle tension or discomfort in the back (chest, lumbar region) and buttocks, both during movement and at rest.",
+      "electrods": "The wide belt, the narrow belt",
+      "areases": "Back and buttock muscles",
+      "recomendations": "Place the electrode on the area of discomfort and perform the procedure without moving the electrode to other areas.",
       "file": "ortez1.png",
       "icon": "muscles_longterm_voltage_1.png",
       "attributes": [
         {
-          "id": "Мышцы"
+          "id": "Muscles"
         }
       ],
       "electrode": 6,
@@ -158,7 +158,7 @@
           "am_mode": 11,
           "intensivity": 3,
           "fm": false,
-          "comment": "Разогрев"
+          "comment": "Warming up the muscles"
         },
         {
           "num": 2,
@@ -170,7 +170,7 @@
           "am_mode": 31,
           "intensivity": 2,
           "fm": true,
-          "comment": "Обработка"
+          "comment": "Processing"
         },
         {
           "num": 3,
@@ -182,22 +182,22 @@
           "am_mode": 31,
           "intensivity": 1,
           "fm": false,
-          "comment": "Закрепление"
+          "comment": "Consolidation of results"
         }
       ]
     },
     {
       "id": 4,
-      "title": "Мышцы. Длительное напряжение (хроника) Спец.режим",
-      "description": "Если область мышечного напряжения или дискомфорта не может быть закрыта площадками электрода то вначале необходимо разместить пояс на ту область позвоночника, которая будет связана с зоной мышечного дискомфорта по горизонтали",
-      "electrods": "Пояс широкий, пояс узкий",
-      "areases": "Мышцы спины и ягодиц",
-      "recomendations": "Сначала наложите электрод так, чтобы его контакты оказались по обе стороны от позвоночника — на той же высоте, что и проблемная область. На 2-й стадии переставьте электрод непосредственно на область дискомфорта.",
+      "title": "Muscles. Long-term tension (chronic). Special mode",
+      "description": "If the area of muscle tension or discomfort cannot be covered by the electrode pads, then it is first necessary to place the belt on the area of the spine that will be connected horizontally to the area of muscle discomfort.",
+      "electrods": "The wide belt, the narrow belt",
+      "areases": "Back and buttock muscles",
+      "recomendations": "First, place the electrode so that its contacts are on either side of the spine, at the same height as the problem area. In the second stage, move the electrode directly to the area of discomfort.",
       "file": "ortez1.png",
       "icon": "muscles_longterm_voltage_2.png",
       "attributes": [
         {
-          "id": "Мышцы"
+          "id": "Muscles"
         }
       ],
       "electrode": 6,
@@ -212,7 +212,7 @@
           "am_mode": 31,
           "intensivity": 1,
           "fm": true,
-          "comment": "Подготовка"
+          "comment": "Preparing"
         },
         {
           "num": 2,
@@ -224,7 +224,7 @@
           "am_mode": 31,
           "intensivity": 3,
           "fm": false,
-          "comment": "Разогрев"
+          "comment": "Warming up the muscles"
         },
         {
           "num": 3,
@@ -236,7 +236,7 @@
           "am_mode": 31,
           "intensivity": 2,
           "fm": false,
-          "comment": "Обработка"
+          "comment": "Processing"
         },
         {
           "num": 4,
@@ -248,22 +248,22 @@
           "am_mode": 31,
           "intensivity": 1,
           "fm": true,
-          "comment": "Закрепление"
+          "comment": "Consolidation of results"
         }
       ]
     },
     {
       "id": 5,
-      "title": "Мышцы. Резкое напряжение (острое)",
-      "description": "Если область мышечного напряжения расположена максимально близко к позвоночнику и может быть закрыта площадками электрода.",
-      "electrods": "Пояс широкий, пояс узкий",
-      "areases": "Мышцы спины и ягодиц",
-      "recomendations": "Наложите электрод на зону дискомфорта и проведите процедуру не перемещая электрод на другие участки.",
+      "title": "Muscles. Sharp tension (acute)",
+      "description": "If the area of muscle tension is located as close as possible to the spine and can be covered by the electrode pads.",
+      "electrods": "The wide belt, the narrow belt",
+      "areases": "Back and buttock muscles",
+      "recomendations": "Place the electrode on the area of discomfort and perform the procedure without moving the electrode to other areas.",
       "file": "ortez1.png",
       "icon": "muscles_sharp_voltage_1.png",
       "attributes": [
         {
-          "id": "Мышцы"
+          "id": "Muscle"
         }
       ],
       "electrode": 6,
@@ -278,7 +278,7 @@
           "am_mode": 31,
           "intensivity": 3,
           "fm": false,
-          "comment": "Интенсивная обработка"
+          "comment": "Intensive processing"
         },
         {
           "num": 2,
@@ -290,7 +290,7 @@
           "am_mode": 11,
           "intensivity": 3,
           "fm": true,
-          "comment": "Адаптивная обработка"
+          "comment": "Adaptive processing"
         },
         {
           "num": 3,
@@ -302,22 +302,22 @@
           "am_mode": 11,
           "intensivity": 1,
           "fm": false,
-          "comment": "Нормализация функций"
+          "comment": "Normalization of functions"
         }
       ]
     },
     {
       "id": 6,
-      "title": "Мышцы. Резкое напряжение (острое) Спец.режим",
-      "description": "Если область мышечного напряжения расположена удалённо от позвоночника и не может быть закрыта площадками электрода, то вначале необходимо разместить пояс на прямую проекцию области мышечного дискомфорта.",
-      "electrods": "Пояс широкий, пояс узкий",
-      "areases": "Мышцы спины и ягодиц",
-      "recomendations": "Сначала наложите электрод на зону дискомфорта. После завершения 3-й стадии переставьте электрод так, чтобы его контакты оказались по обе стороны от позвоночника — на той же высоте, что и проблемная область.",
+      "title": "Muscles. Sharp tension (acute). Special mode",
+      "description": "If the area of muscle tension is located far from the spine and cannot be covered by the electrode pads, then it is first necessary to place the belt on the direct projection of the area of muscle discomfort.",
+      "electrods": "The wide belt, the narrow belt",
+      "areases": "Back and buttock muscles",
+      "recomendations": "First, apply the electrode to the area of discomfort. After completing stage 3, reposition the electrode so that its contacts are on either side of the spine—at the same height as the problem area.",
       "file": "ortez1.png",
       "icon": "muscles_sharp_voltage_2.png",
       "attributes": [
         {
-          "id": "Мышцы"
+          "id": "Muscles"
         }
       ],
       "electrode": 6,
@@ -332,7 +332,7 @@
           "am_mode": 31,
           "intensivity": 3,
           "fm": false,
-          "comment": "Интенсивная обработка"
+          "comment": "Intensive processing"
         },
         {
           "num": 2,
@@ -344,7 +344,7 @@
           "am_mode": 11,
           "intensivity": 2,
           "fm": true,
-          "comment": "Адаптивная обработка"
+          "comment": "Adaptive processing"
         },
         {
           "num": 3,
@@ -356,7 +356,7 @@
           "am_mode": 11,
           "intensivity": 1,
           "fm": false,
-          "comment": "Нормализация функций"
+          "comment": "Normalization of functions"
         },
         {
           "num": 4,
@@ -368,25 +368,25 @@
           "am_mode": 31,
           "intensivity": 3,
           "fm": false,
-          "comment": "Закрепление"
+          "comment": "Consolidation of results"
         }
       ]
     },
     {
       "id": 7,
-      "title": "Оздоравливающий массаж. Мышцы",
-      "description": "Оздоравливающий массаж (бытовое применение), а также для пользователей ведущих активный образ жизни (спорт и фитнес).",
+      "title": "Wellness massage. Muscles",
+      "description": "Wellness massage (home use), as well as for users leading an active lifestyle (sports and fitness).",
       "electrods": "",
       "areases": "",
-      "recomendations": "Методика ориентирована на пользователей, которым нужен ровный, поддерживающий режим для мышечных зон без акцента на выраженный дискомфорт.\nОна подходит как оздоровительная процедура после рабочего дня, физической активности или при потребности в регулярном мышечном уходе.\nМожет использоваться как один из наиболее универсальных режимов для повторяющегося домашнего применения.",
+      "recomendations": "This methodic is designed for users who need a smooth, supportive regimen for muscle areas without causing significant discomfort.\nIt is suitable as a wellness treatment after a day of work, physical activity, or when regular muscle care is needed.\nIt can be used as one of the most versatile regimens for recurring home use.",
       "file": "ortez1.png",
       "icon": "revitalizing_muscle_massage.png",
       "attributes": [
         {
-          "id": "Мышцы"
+          "id": "Muscles"
         },
         {
-          "id": "Массаж"
+          "id": "Massage"
         }
       ],
       "electrode": 6,
@@ -401,7 +401,7 @@
           "am_mode": 31,
           "intensivity": 2,
           "fm": false,
-          "comment": "Разогрев"
+          "comment": "Warming up the muscles"
         },
         {
           "num": 2,
@@ -413,7 +413,7 @@
           "am_mode": 31,
           "intensivity": 2,
           "fm": true,
-          "comment": "Разминание"
+          "comment": "Muscle warm-up"
         },
         {
           "num": 3,
@@ -425,25 +425,25 @@
           "am_mode": 31,
           "intensivity": 1,
           "fm": false,
-          "comment": "Нормализация функций"
+          "comment": "Normalization of functions"
         }
       ]
     },
     {
       "id": 8,
-      "title": "Оздоравливающий массаж. Суставы",
-      "description": "Оздоравливающий массаж (бытовое применение), а также для пользователей ведущих активный образ жизни (спорт и фитнес).",
+      "title": "Wellness massage. Joints",
+      "description": "Wellness massage (home use), as well as for users leading an active lifestyle (sports and fitness).",
       "electrods": "",
       "areases": "",
-      "recomendations": "Методика предназначена для спокойного и последовательного воздействия на суставную область в рамках регулярных оздоровительных процедур.\nОна уместна, когда пользователь хочет поддерживать субъективный комфорт в суставной зоне после нагрузки или в повседневном режиме.\nЭто хороший вариант для повторяющихся домашних сеансов без акцента на острое состояние.",
+      "recomendations": "This methodic is designed for gentle and consistent application to the joint area as part of regular wellness treatments.\nIt is appropriate when the user wants to maintain subjective comfort in the joint area after exercise or during daily activities.\nIt is a good option for recurring home sessions without focusing on acute conditions.",
       "file": "ortez1.png",
       "icon": "healing_massage_joints.png",
       "attributes": [
         {
-          "id": "Суставы"
+          "id": "Joints"
         },
         {
-          "id": "Массаж"
+          "id": "Massage"
         }
       ],
       "electrode": 6,
@@ -458,7 +458,7 @@
           "am_mode": 31,
           "intensivity": 2,
           "fm": false,
-          "comment": "Разогрев"
+          "comment": "Warming up the muscles"
         },
         {
           "num": 2,
@@ -470,7 +470,7 @@
           "am_mode": 11,
           "intensivity": 2,
           "fm": true,
-          "comment": "Разминание"
+          "comment": "Muscle warm-up"
         },
         {
           "num": 3,
@@ -482,25 +482,25 @@
           "am_mode": 31,
           "intensivity": 1,
           "fm": false,
-          "comment": "Нормализация функций"
+          "comment": "Normalization of functions"
         }
       ]
     },
     {
       "id": 9,
-      "title": "Расслабляющий массаж. Мышцы",
-      "description": "Расслабляющий массаж (бытовое применение), а также  для пользователей ведущих активный образ жизни (спорт и фитнес).",
+      "title": "Relaxing massage. Muscles",
+      "description": "Relaxing massage (home use), as well as for users leading an active lifestyle (sports and fitness).",
       "electrods": "",
       "areases": "",
-      "recomendations": "Эта методика предназначена для ситуаций, когда на первый план выходит не выраженный дискомфорт, а желание расслабить мышцы и снизить ощущение накопленного напряжения.\nОна хорошо подходит после сидячей работы, поездки, бытовой активности или тренировки.\nПрограмма может использоваться как комфортный вечерний режим и как часть регулярного домашнего ухода.",
+      "recomendations": "This methodic is designed for situations where severe discomfort is not the primary concern, but rather the desire to relax muscles and reduce pent-up tension.\nIt is well suited after sedentary work, travel, household activities, or exercise.\nThe program can be used as a comfortable evening routine or as part of a regular home care routine.",
       "file": "ortez1.png",
       "icon": "relaxing_muscle_massage.png",
       "attributes": [
         {
-          "id": "Мышцы"
+          "id": "Muscles"
         },
         {
-          "id": "Массаж"
+          "id": "Massage"
         }
       ],
       "electrode": 6,
@@ -515,7 +515,7 @@
           "am_mode": 31,
           "intensivity": 3,
           "fm": false,
-          "comment": "Подготовка"
+          "comment": "Preparing"
         },
         {
           "num": 2,
@@ -527,7 +527,7 @@
           "am_mode": 11,
           "intensivity": 2,
           "fm": false,
-          "comment": "Релаксация"
+          "comment": "Relaxtion"
         },
         {
           "num": 3,
@@ -539,25 +539,25 @@
           "am_mode": 11,
           "intensivity": 2,
           "fm": false,
-          "comment": "Нормализация функций"
+          "comment": "Normalization of functions"
         }
       ]
     },
     {
       "id": 10,
-      "title": "Расслабляющий массаж. Суставы",
-      "description": "Расслабляющий массаж (бытовое применение), а также  для пользователей ведущих активный образ жизни (спорт и фитнес).",
+      "title": "Relaxing massage. Joints",
+      "description": "Relaxing massage (home use), as well as for users leading an active lifestyle (sports and fitness).",
       "electrods": "",
       "areases": "",
-      "recomendations": "Методика используется как спокойный режим для суставной зоны, когда требуется мягкое, комфортное воздействие.\nОна уместна после повседневной бытовой активности нагрузки, активного движения или тренировки в конце дня при ощущении скованности.\nПодходит для пользователей, которым нужен простой и понятный суставной режим на регулярной основе.",
+      "recomendations": "This methodic is used as a gentle, comfortable treatment for the joint area when gentle, comfortable stimulation is required.\nIt is appropriate after everyday activities, vigorous movement, or exercise at the end of the day when stiffness is felt.\nSuitable for users who need a simple and straightforward joint regimen on a regular basis.",
       "file": "ortez1.png",
       "icon": "relaxing_massage_joints.png",
       "attributes": [
         {
-          "id": "Мышцы"
+          "id": "Joints"
         },
         {
-          "id": "Суставы"
+          "id": "Massage"
         }
       ],
       "electrode": 6,
@@ -572,7 +572,7 @@
           "am_mode": 31,
           "intensivity": 3,
           "fm": false,
-          "comment": "Подготовка"
+          "comment": "Preparing"
         },
         {
           "num": 2,
@@ -584,7 +584,7 @@
           "am_mode": 11,
           "intensivity": 2,
           "fm": false,
-          "comment": "Релаксация"
+          "comment": "Relaxtion"
         },
         {
           "num": 3,
@@ -596,25 +596,25 @@
           "am_mode": 11,
           "intensivity": 1,
           "fm": false,
-          "comment": "Нормализация функций"
+          "comment": "Normalization of functions"
         }
       ]
     },
     {
       "id": 11,
-      "title": "Спорт. Суставы. Разминка",
-      "description": "Локальный электроимпульсный  массаж для пользователей ведущих активный образ жизни (спорт и фитнес).",
+      "title": "Fitness. Joints. Warm-up",
+      "description": "Local electropulse massage for users leading an active lifestyle (sports and fitness).",
       "electrods": "",
       "areases": "",
-      "recomendations": "Методика предназначена для применения до спортивной активности и используется как предварительный этап перед нагрузкой на суставную зону.\nОна помогает организовать более последовательный вход в движение и может быть полезна перед тренировкой, занятиями спортом или активной разминкой.\nПрограмма особенно уместна для пользователей, которые хотят выстроить спортивную процедуру поэтапно.",
+      "recomendations": "This methodic is designed for use before sports activity and serves as a preliminary step before placing stress on the joint area.\nIt helps organize a more consistent entry into movement and can be useful before training, sports, or active warm-ups.\nThe program is especially suitable for users who want to build a gradual exercise routine.",
       "file": "ortez1.png",
       "icon": "sport_joints_warmup.png",
       "attributes": [
         {
-          "id": "Суставы"
+          "id": "Joints"
         },
         {
-          "id": "Спорт"
+          "id": "Fitness"
         }
       ],
       "electrode": 6,
@@ -629,7 +629,7 @@
           "am_mode": 31,
           "intensivity": 2,
           "fm": false,
-          "comment": "Подготовка"
+          "comment": "Prepating"
         },
         {
           "num": 2,
@@ -641,25 +641,25 @@
           "am_mode": 31,
           "intensivity": 3,
           "fm": false,
-          "comment": "Разогрев"
+          "comment": "Warming up the muscles"
         }
       ]
     },
     {
       "id": 12,
-      "title": "Спорт. Суставы. Тренировка",
-      "description": "Локальный электроимпульсный  массаж для пользователей ведущих активный образ жизни (спорт и фитнес).",
+      "title": "Fitness. Joints. Workout",
+      "description": "Local electropulse massage for users leading an active lifestyle (sports and fitness).",
       "electrods": "",
       "areases": "",
-      "recomendations": "Методика ориентирована на пользователей с регулярной физической активностью и используется как основной суставной режим в спортивном сценарии.\nОна может применяться как центральная часть комплексной процедуры.\nЛучше всего воспринимается в связке с подготовительным и завершающим этапами.",
+      "recomendations": "This methodic is designed for users with regular physical activity and is used as the primary joint regimen in sports scenarios.\nIt can be used as the central part of a comprehensive procedure.\nIt is best understood in conjunction with the preparatory and final stages.",
       "file": "ortez1.png",
       "icon": "sport_joints_workout.png",
       "attributes": [
         {
-          "id": "Суставы"
+          "id": "Joints"
         },
         {
-          "id": "Спорт"
+          "id": "Fitness"
         }
       ],
       "electrode": 6,
@@ -674,7 +674,7 @@
           "am_mode": 31,
           "intensivity": 4,
           "fm": true,
-          "comment": "Адаптация к нагрузке"
+          "comment": "Adaptation to the load"
         },
         {
           "num": 2,
@@ -686,25 +686,25 @@
           "am_mode": 31,
           "intensivity": 4,
           "fm": false,
-          "comment": "Интенсивная обработка"
+          "comment": "Intensive processing"
         }
       ]
     },
     {
       "id": 13,
-      "title": "Спорт. Суставы. Расслабление",
-      "description": "Локальный электроимпульсный  массаж для пользователей ведущих активный образ жизни (спорт и фитнес).",
+      "title": "Fitness. Joints. Relaxation",
+      "description": "Local electropulse massage for users leading an active lifestyle (sports and fitness).",
       "electrods": "",
       "areases": "",
-      "recomendations": "Методика предназначена для завершения спортивной процедуры в области сустава после основной нагрузки.\nОна помогает сделать переход от активного этапа к более спокойному состоянию и может использоваться после тренировки, занятия или интенсивной двигательной активности.\nПодходит как финальная часть спортивного комплекса.",
+      "recomendations": "This methodic is designed to complete a sports-related procedure in the joint area after the main load.\nIt helps transition from an active phase to a more relaxed state and can be used after a workout, a class, or intense physical activity.\nSuitable as the final part of a sports routine.",
       "file": "ortez1.png",
       "icon": "sport_joints_relaxation.png",
       "attributes": [
         {
-          "id": "Суставы"
+          "id": "Joints"
         },
         {
-          "id": "Спорт"
+          "id": "Fitness"
         }
       ],
       "electrode": 6,
@@ -719,7 +719,7 @@
           "am_mode": 11,
           "intensivity": 2,
           "fm": false,
-          "comment": "Релаксация"
+          "comment": "Relaxing"
         },
         {
           "num": 2,
@@ -731,25 +731,25 @@
           "am_mode": 11,
           "intensivity": 3,
           "fm": false,
-          "comment": "Нормализация функций"
+          "comment": "Normalization of functions"
         }
       ]
     },
     {
       "id": 14,
-      "title": "Спорт. Мышцы. Разминка",
-      "description": "Локальный электроимпульсный  массаж для пользователей ведущих активный образ жизни (спорт и фитнес).",
+      "title": "Sports. Muscles. Warm-up",
+      "description": "Local electropulse massage for users leading an active lifestyle (sports and fitness).",
       "electrods": "",
       "areases": "",
-      "recomendations": "Методика применяется до основной нагрузки на мышцы и предназначена для более мягкого включения зоны в работу.\nОна может использоваться перед тренировкой, физической активностью или активным восстановительным занятием.\nОсобенно удобна как первый этап спортивной процедуры для мышц спины и ягодиц.",
+      "recomendations": "This methodic is applied before the main muscle load and is designed to more gently engage the area.\nIt can be used before training, physical activity, or active recovery sessions.\nIt is especially useful as the first stage of a sports routine for the back and gluteal muscles.",
       "file": "ortez1.png",
       "icon": "sport_muscles_warmup.png",
       "attributes": [
         {
-          "id": "Мышцы"
+          "id": "Muscles"
         },
         {
-          "id": "Спорт"
+          "id": "Sports"
         }
       ],
       "electrode": 6,
@@ -764,7 +764,7 @@
           "am_mode": 31,
           "intensivity": 2,
           "fm": false,
-          "comment": "Подготовка"
+          "comment": "Preparing"
         },
         {
           "num": 2,
@@ -776,25 +776,25 @@
           "am_mode": 31,
           "intensivity": 3,
           "fm": false,
-          "comment": "Разогрев"
+          "comment": "Warming up the muscles"
         }
       ]
     },
     {
       "id": 15,
-      "title": "Спорт. Мышцы. Тренировка",
-      "description": "Локальный электроимпульсный  массаж для пользователей ведущих активный образ жизни (спорт и фитнес).",
+      "title": "Sports. Muscles. Workout",
+      "description": "Local electropulse massage for users leading an active lifestyle (sports and fitness).",
       "electrods": "",
       "areases": "",
-      "recomendations": "Методика ориентирована на пользователей, которые регулярно занимаются спортом или фитнесом и хотят использовать электроимпульсное воздействие как часть спортивного сценария.\nОна применяется как основной этап мышечного комплекса и лучше всего воспринимается в логике разминка — основная работа — расслабление.\nПодходит ля пользователей с хорошей переносимостью воздействия.",
+      "recomendations": "The methodic is aimed at users who regularly engage in sports or fitness and want to use electrical impulses as part of a sports scenario.\nIt is used as the main stage of the muscle complex and is best perceived in the logic of warm-up - main work - relaxation.\nSuitable for users with good exposure tolerance.",
       "file": "ortez1.png",
       "icon": "sport_muscles_workout.png",
       "attributes": [
         {
-          "id": "Мышцы"
+          "id": "Muscles"
         },
         {
-          "id": "Спорт"
+          "id": "Sports"
         }
       ],
       "electrode": 6,
@@ -809,7 +809,7 @@
           "am_mode": 31,
           "intensivity": 4,
           "fm": true,
-          "comment": "Адаптация к нагрузке"
+          "comment": "Adaptation to the load"
         },
         {
           "num": 2,
@@ -821,25 +821,25 @@
           "am_mode": 31,
           "intensivity": 4,
           "fm": false,
-          "comment": "Интенсивная обработка"
+          "comment": "Intensive processing"
         }
       ]
     },
     {
       "id": 16,
-      "title": "Спорт. Мышцы. Расслабление",
-      "description": "Локальный электроимпульсный  массаж для пользователей ведущих активный образ жизни (спорт и фитнес).",
+      "title": "Sports. Muscles. Relaxation",
+      "description": "Local electropulse massage for users leading an active lifestyle (sports and fitness).",
       "electrods": "",
       "areases": "",
-      "recomendations": "Методика применяется как финальный этап спортивной схемы для мышц после нагрузки или активной работы.\nОна подходит для ситуаций, когда требуется мягкий выход из интенсивного режима и переход к более спокойным субъективным ощущениям.\nМожет спользоваться самостоятельно как короткая процедура после тренировки.",
+      "recomendations": "The methodic is used as the final stage of a muscle training regimen after intense exercise or strenuous work.\nIt is suitable for situations requiring a gentle transition from an intense regimen to a more relaxed subjective sensation.\nIt can also be used independently as a short post-workout treatment.",
       "file": "ortez1.png",
       "icon": "sport_muscles_relaxation.png",
       "attributes": [
         {
-          "id": "Мышцы"
+          "id": "Muscles"
         },
         {
-          "id": "Спорт"
+          "id": "Sports"
         }
       ],
       "electrode": 6,
@@ -854,7 +854,7 @@
           "am_mode": 11,
           "intensivity": 2,
           "fm": false,
-          "comment": "Релаксация"
+          "comment": "Relaxing"
         },
         {
           "num": 2,
@@ -866,25 +866,25 @@
           "am_mode": 11,
           "intensivity": 3,
           "fm": false,
-          "comment": "Нормализация функций"
+          "comment": "Normalization of functions"
         }
       ]
     },
     {
       "id": 17,
-      "title": "Фитнес. Суставы.",
-      "description": "Локальный электроимпульсный  массаж для пользователей ведущих активный образ жизни (спорт и фитнес).",
+      "title": "Fitness. Joints.",
+      "description": "Local electropulse massage for users leading an active lifestyle (sports and fitness).",
       "electrods": "",
       "areases": "",
-      "recomendations": "Методика предназначена для пользователей, которые занимаются фитнесом, общеукрепляющей физической активностью или тренировками умеренной интенсивности.\nОна подходит как более универсальный суставной режим между бытовым и спортивным сценарием.\nМожет использоваться  в зависимости от индивидуальной привычки и поставленной задачи.",
+      "recomendations": "This methodic is designed for users who engage in fitness, general strengthening physical activity, or moderate-intensity training.\nIt is suitable as a more universal joint regimen between everyday and sports scenarios.\nIt can be used depending on individual habits and the desired goal.",
       "file": "ortez1.png",
       "icon": "sport_joints.png",
       "attributes": [
         {
-          "id": "Суставы"
+          "id": "Joints"
         },
         {
-          "id": "Фитнес"
+          "id": "Fitness"
         }
       ],
       "electrode": 6,
@@ -899,7 +899,7 @@
           "am_mode": 31,
           "intensivity": 2,
           "fm": false,
-          "comment": "Подготовка"
+          "comment": "Preparing"
         },
         {
           "num": 2,
@@ -911,7 +911,7 @@
           "am_mode": 31,
           "intensivity": 3,
           "fm": false,
-          "comment": "Разогрев"
+          "comment": "Warming up the muscles"
         },
         {
           "num": 3,
@@ -923,7 +923,7 @@
           "am_mode": 31,
           "intensivity": 4,
           "fm": true,
-          "comment": "Адаптация к нагрузке"
+          "comment": "Adaptation to the load"
         },
         {
           "num": 4,
@@ -935,7 +935,7 @@
           "am_mode": 31,
           "intensivity": 4,
           "fm": false,
-          "comment": "Интенсивная обработка"
+          "comment": "Intensive processing"
         },
         {
           "num": 5,
@@ -947,7 +947,7 @@
           "am_mode": 11,
           "intensivity": 2,
           "fm": false,
-          "comment": "Релаксация"
+          "comment": "Relaxing"
         },
         {
           "num": 6,
@@ -959,25 +959,25 @@
           "am_mode": 11,
           "intensivity": 3,
           "fm": false,
-          "comment": "Нормализация функций"
+          "comment": "Normalization of functions"
         }
       ]
     },
     {
       "id": 18,
-      "title": "Фитнес. Мышцы.",
-      "description": "Локальный электроимпульсный  массаж для пользователей ведущих активный образ жизни (спорт и фитнес).",
+      "title": "Fitnees. Muscles.",
+      "description": "Local electropulse massage for users leading an active lifestyle (sports and fitness).",
       "electrods": "",
       "areases": "",
-      "recomendations": "Методика ориентирована на пользователей фитнеса и тех, кто сочетает повседневную активность с регулярными тренировками.\nОна воспринимается как универсальный мышечный режим: не слишком узко спортивный, но более активный, чем стандартные бытовые программы.\nПодходит для регулярного применения в рамках привычного тренировочного ритма.",
+      "recomendations": "The methodic is aimed at fitness enthusiasts and those who combine daily activity with regular training.\nIt is perceived as a universal muscle-building regimen: not too narrowly focused on sports, but more active than standard everyday programs.\nSuitable for regular use within a familiar training routine.",
       "file": "ortez1.png",
       "icon": "sport_muscles.png",
       "attributes": [
         {
-          "id": "Мышцы"
+          "id": "Muscles"
         },
         {
-          "id": "Фитнес"
+          "id": "Fitnees"
         }
       ],
       "electrode": 6,
@@ -992,7 +992,7 @@
           "am_mode": 31,
           "intensivity": 2,
           "fm": false,
-          "comment": "Подготовка"
+          "comment": "Preparing"
         },
         {
           "num": 2,
@@ -1004,7 +1004,7 @@
           "am_mode": 31,
           "intensivity": 3,
           "fm": false,
-          "comment": "Разогрев"
+          "comment": "Warming up the muscles"
         },
         {
           "num": 3,
@@ -1016,7 +1016,7 @@
           "am_mode": 31,
           "intensivity": 4,
           "fm": true,
-          "comment": "Адаптация к нагрузке"
+          "comment": "Adaptation to the load"
         },
         {
           "num": 4,
@@ -1028,7 +1028,7 @@
           "am_mode": 31,
           "intensivity": 4,
           "fm": false,
-          "comment": "Интенсивная обработка"
+          "comment": "Intensive processing"
         },
         {
           "num": 5,
@@ -1040,7 +1040,7 @@
           "am_mode": 11,
           "intensivity": 2,
           "fm": false,
-          "comment": "Релаксация"
+          "comment": "Relaxing"
         },
         {
           "num": 6,
@@ -1052,14 +1052,14 @@
           "am_mode": 11,
           "intensivity": 3,
           "fm": false,
-          "comment": "Нормализация функций"
+          "comment": "Normalization of functions"
         }
       ]
     },
     {
       "id": 118,
-      "title": "Пробный короткий 1 (6 этапов)",
-      "description": "Программа для отладки",
+      "title": "Probe short 1 (6 stages)",
+      "description": "Debugging",
       "electrods": "",
       "areases": "",
       "recomendations": "",
@@ -1067,10 +1067,10 @@
       "icon": "tunnel_syndrome_round.png",
       "attributes": [
         {
-          "id": "Мышцы"
+          "id": "Muscles"
         },
         {
-          "id": "Фитнес"
+          "id": "Fitnees"
         },
         {
           "id": "debug"
@@ -1088,7 +1088,7 @@
           "am_mode": 31,
           "intensivity": 2,
           "fm": false,
-          "comment": "Подготовка"
+          "comment": "Preparing"
         },
         {
           "num": 2,
@@ -1100,7 +1100,7 @@
           "am_mode": 31,
           "intensivity": 3,
           "fm": false,
-          "comment": "Разогрев"
+          "comment": "Warming"
         },
         {
           "num": 3,
@@ -1112,7 +1112,7 @@
           "am_mode": 31,
           "intensivity": 4,
           "fm": true,
-          "comment": "Адаптация к нагрузке"
+          "comment": "Adaptation"
         },
         {
           "num": 4,
@@ -1124,7 +1124,7 @@
           "am_mode": 31,
           "intensivity": 4,
           "fm": false,
-          "comment": "Интенсивная обработка"
+          "comment": "Intensive"
         },
         {
           "num": 5,
@@ -1136,7 +1136,7 @@
           "am_mode": 11,
           "intensivity": 2,
           "fm": false,
-          "comment": "Релаксация"
+          "comment": "Relaxing"
         },
         {
           "num": 6,
@@ -1148,14 +1148,14 @@
           "am_mode": 11,
           "intensivity": 3,
           "fm": false,
-          "comment": "Нормализация функций"
+          "comment": "Normal"
         }
       ]
     },
     {
       "id": 119,
-      "title": "Пробный короткий 2 (4 этапа)",
-      "description": "Программа для отладки",
+      "title": "Probe short 2 (4 stages)",
+      "description": "Debugging",
       "electrods": "",
       "areases": "",
       "recomendations": "",
@@ -1163,7 +1163,7 @@
       "icon": "tunnel_syndrome_round.png",
       "attributes": [
         {
-          "id": "Суставы"
+          "id": "Joints"
         },
         {
           "id": "debug"
@@ -1181,7 +1181,7 @@
           "am_mode": 31,
           "intensivity": 1,
           "fm": true,
-          "comment": "Подготовка к обработке"
+          "comment": "Preparing"
         },
         {
           "num": 2,
@@ -1193,7 +1193,7 @@
           "am_mode": 31,
           "intensivity": 3,
           "fm": false,
-          "comment": "Разогрев"
+          "comment": "Heating"
         },
         {
           "num": 3,
@@ -1205,7 +1205,7 @@
           "am_mode": 31,
           "intensivity": 2,
           "fm": false,
-          "comment": "Обработка"
+          "comment": "Stimulation"
         },
         {
           "num": 4,
@@ -1217,14 +1217,14 @@
           "am_mode": 31,
           "intensivity": 1,
           "fm": true,
-          "comment": "Закрепление"
+          "comment": "Relaxing"
         }
       ]
     },
     {
       "id": 120,
-      "title": "Пробный короткий 2 (2 этапа)",
-      "description": "Программа для отладки",
+      "title": "Probe short 2 (2 stages)",
+      "description": "Debugging",
       "electrods": "",
       "areases": "",
       "recomendations": "",
@@ -1232,10 +1232,10 @@
       "icon": "tunnel_syndrome_round.png",
       "attributes": [
         {
-          "id": "Мышцы"
+          "id": "Muscles"
         },
         {
-          "id": "Спорт"
+          "id": "Sports"
         },
         {
           "id": "debug"
@@ -1253,7 +1253,7 @@
           "am_mode": 11,
           "intensivity": 2,
           "fm": false,
-          "comment": "Релаксация"
+          "comment": "Relaxing"
         },
         {
           "num": 2,
@@ -1265,7 +1265,7 @@
           "am_mode": 11,
           "intensivity": 3,
           "fm": false,
-          "comment": "Нормализация функций"
+          "comment": "Rest"
         }
       ]
     }
