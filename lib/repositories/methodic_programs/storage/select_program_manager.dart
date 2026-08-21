@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:ui';
 
 import 'package:flutter/services.dart';
 
@@ -14,10 +15,17 @@ class SelectProgramManager {
 
   /// Заполняет рабочий список программ, беря его из предустановленного файла json
   Future _fillWorkList() async {
+    Locale deviceLocale = PlatformDispatcher.instance.locale;
+
+    String selPrgMenuFilePath = 'lib/assets/programs/select_prg.json';
+    if (deviceLocale.languageCode == 'ru') {
+      selPrgMenuFilePath = 'lib/assets/programs/select_prg.json';
+    } else if (deviceLocale.languageCode == 'en') {
+      selPrgMenuFilePath = 'lib/assets/programs/select_prg_en.json';
+    }
+
     /// Список программ по умолчанию
-    String dataDef = await rootBundle.loadString(
-      'lib/assets/programs/select_prg.json',
-    );
+    String dataDef = await rootBundle.loadString(selPrgMenuFilePath);
     var dd = json.decode(dataDef);
     final listItemsDef = dd['items'] as List<dynamic>?;
 
