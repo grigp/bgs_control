@@ -527,7 +527,7 @@
           "am_mode": 11,
           "intensivity": 2,
           "fm": false,
-          "comment": "Relaxtion"
+          "comment": "Relaxation"
         },
         {
           "num": 3,
@@ -584,7 +584,7 @@
           "am_mode": 11,
           "intensivity": 2,
           "fm": false,
-          "comment": "Relaxtion"
+          "comment": "Relaxation"
         },
         {
           "num": 3,
@@ -603,7 +603,7 @@
     {
       "id": 11,
       "title": "Fitness. Joints. Warm-up",
-      "description": "Local electropulse massage for users leading an active lifestyle (sports and fitness).",
+      "description": "Local electro pulse massage for users leading an active lifestyle (sports and fitness).",
       "electrods": "",
       "areases": "",
       "recomendations": "This methodic is designed for use before sports activity and serves as a preliminary step before placing stress on the joint area.\nIt helps organize a more consistent entry into movement and can be useful before training, sports, or active warm-ups.\nThe program is especially suitable for users who want to build a gradual exercise routine.",
@@ -629,7 +629,7 @@
           "am_mode": 31,
           "intensivity": 2,
           "fm": false,
-          "comment": "Prepating"
+          "comment": "Preparing"
         },
         {
           "num": 2,
@@ -648,7 +648,7 @@
     {
       "id": 12,
       "title": "Fitness. Joints. Workout",
-      "description": "Local electropulse massage for users leading an active lifestyle (sports and fitness).",
+      "description": "Local electro pulse massage for users leading an active lifestyle (sports and fitness).",
       "electrods": "",
       "areases": "",
       "recomendations": "This methodic is designed for users with regular physical activity and is used as the primary joint regimen in sports scenarios.\nIt can be used as the central part of a comprehensive procedure.\nIt is best understood in conjunction with the preparatory and final stages.",
@@ -693,7 +693,7 @@
     {
       "id": 13,
       "title": "Fitness. Joints. Relaxation",
-      "description": "Local electropulse massage for users leading an active lifestyle (sports and fitness).",
+      "description": "Local electro pulse massage for users leading an active lifestyle (sports and fitness).",
       "electrods": "",
       "areases": "",
       "recomendations": "This methodic is designed to complete a sports-related procedure in the joint area after the main load.\nIt helps transition from an active phase to a more relaxed state and can be used after a workout, a class, or intense physical activity.\nSuitable as the final part of a sports routine.",
@@ -738,7 +738,7 @@
     {
       "id": 14,
       "title": "Sports. Muscles. Warm-up",
-      "description": "Local electropulse massage for users leading an active lifestyle (sports and fitness).",
+      "description": "Local electro pulse massage for users leading an active lifestyle (sports and fitness).",
       "electrods": "",
       "areases": "",
       "recomendations": "This methodic is applied before the main muscle load and is designed to more gently engage the area.\nIt can be used before training, physical activity, or active recovery sessions.\nIt is especially useful as the first stage of a sports routine for the back and gluteal muscles.",
@@ -783,7 +783,7 @@
     {
       "id": 15,
       "title": "Sports. Muscles. Workout",
-      "description": "Local electropulse massage for users leading an active lifestyle (sports and fitness).",
+      "description": "Local electro pulse massage for users leading an active lifestyle (sports and fitness).",
       "electrods": "",
       "areases": "",
       "recomendations": "The methodic is aimed at users who regularly engage in sports or fitness and want to use electrical impulses as part of a sports scenario.\nIt is used as the main stage of the muscle complex and is best perceived in the logic of warm-up - main work - relaxation.\nSuitable for users with good exposure tolerance.",
@@ -828,7 +828,7 @@
     {
       "id": 16,
       "title": "Sports. Muscles. Relaxation",
-      "description": "Local electropulse massage for users leading an active lifestyle (sports and fitness).",
+      "description": "Local electro pulse massage for users leading an active lifestyle (sports and fitness).",
       "electrods": "",
       "areases": "",
       "recomendations": "The methodic is used as the final stage of a muscle training regimen after intense exercise or strenuous work.\nIt is suitable for situations requiring a gentle transition from an intense regimen to a more relaxed subjective sensation.\nIt can also be used independently as a short post-workout treatment.",
@@ -873,7 +873,7 @@
     {
       "id": 17,
       "title": "Fitness. Joints.",
-      "description": "Local electropulse massage for users leading an active lifestyle (sports and fitness).",
+      "description": "Local electro pulse massage for users leading an active lifestyle (sports and fitness).",
       "electrods": "",
       "areases": "",
       "recomendations": "This methodic is designed for users who engage in fitness, general strengthening physical activity, or moderate-intensity training.\nIt is suitable as a more universal joint regimen between everyday and sports scenarios.\nIt can be used depending on individual habits and the desired goal.",
@@ -965,8 +965,8 @@
     },
     {
       "id": 18,
-      "title": "Fitnees. Muscles.",
-      "description": "Local electropulse massage for users leading an active lifestyle (sports and fitness).",
+      "title": "Fitness. Muscles.",
+      "description": "Local electro pulse massage for users leading an active lifestyle (sports and fitness).",
       "electrods": "",
       "areases": "",
       "recomendations": "The methodic is aimed at fitness enthusiasts and those who combine daily activity with regular training.\nIt is perceived as a universal muscle-building regimen: not too narrowly focused on sports, but more active than standard everyday programs.\nSuitable for regular use within a familiar training routine.",
@@ -977,7 +977,7 @@
           "id": "Muscles"
         },
         {
-          "id": "Fitnees"
+          "id": "Fitness"
         }
       ],
       "electrode": 6,
