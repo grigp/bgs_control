@@ -85,6 +85,9 @@ flutter:
      - lib/assets/programs/prg_main_en.json
      - lib/assets/programs/select_prg.json
      - lib/assets/programs/select_prg_en.json
+     - lib/assets/programs/prg_active_longevity.json
+
+
      - lib/assets/icons/programs/togo.png
      - lib/assets/icons/programs/ankle_pain.png
      - lib/assets/icons/programs/elbow_pain.png

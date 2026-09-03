@@ -7,6 +7,7 @@ import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:path_provider/path_provider.dart';
 
+import '../../defines.dart';
 import '../model/methodic_program.dart';
 
 /// Класс, предоставляющий доступ к списку доступных программ
@@ -52,8 +53,11 @@ class ProgramStorage {
 
     /// Список программ по умолчанию
     String methodicFilePath = 'lib/assets/programs/prg_main.json';
+//    String methodicFilePath = 'lib/assets/programs/prg_active_longevity.json';
+
     if (deviceLocale.languageCode == 'ru') {
       methodicFilePath = 'lib/assets/programs/prg_main.json';
+//      methodicFilePath = 'lib/assets/programs/prg_active_longevity.json';
     } else if (deviceLocale.languageCode == 'en') {
       methodicFilePath = 'lib/assets/programs/prg_main_en.json';
     }
@@ -66,10 +70,15 @@ class ProgramStorage {
     for (int i = 0; i < listPPDef!.length; ++i) {
       var program = MethodicProgram.fromJson(listPPDef[i]);
 
+      // if (kDebugMode)
+
       /// Добавляем программы, имеющие аттрибут debug только в debug режиме
       if ((!kDebugMode && !program.attributes.contains('debug')) ||
           kDebugMode) {
-        _listPrograms.add(program);
+        if ((!isActiveLongevity && !program.attributes.contains('act_lv')) ||
+            isActiveLongevity) {
+          _listPrograms.add(program);
+        }
       }
     }
   }

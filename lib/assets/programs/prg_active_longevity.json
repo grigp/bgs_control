@@ -1,0 +1,61 @@
+{
+  "programs": [
+    {
+      "id": 100,
+      "title": "Острый артрит/артроз коленного сустава",
+      "description": "",
+      "electrods": "",
+      "areases": "",
+      "recomendations": "",
+      "file": "ortez1.png",
+      "icon": "joints_discomfort_1.png",
+      "attributes": [
+        {
+          "id": "Суставы"
+        },
+        {
+          "id": "act_lv"
+        }
+      ],
+      "electrode": 6,
+      "stage": [
+        {
+          "num": 1,
+          "duration": 600000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 100,
+          "am": true,
+          "am_mode": 51,
+          "intensivity": 4,
+          "fm": true,
+          "comment": "Блокировка боли"
+        },
+        {
+          "num": 2,
+          "duration": 600000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 5,
+          "am": true,
+          "am_mode": 31,
+          "intensivity": 2,
+          "fm": false,
+          "comment": "Эндорфиновая стимуляция"
+        },
+        {
+          "num": 3,
+          "duration": 600000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 30,
+          "am": true,
+          "am_mode": 11,
+          "intensivity": 2,
+          "fm": false,
+          "comment": "Трофическая помпа"
+        }
+      ]
+    }
+  ]
+}
