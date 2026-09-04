@@ -1064,7 +1064,7 @@
       "areases": "",
       "recomendations": "",
       "file": "ortez1.png",
-      "icon": "joints_discomfort_1.png",
+      "icon": "knee_pain.png",
       "attributes": [
         {
           "id": "Суставы"
@@ -1121,7 +1121,7 @@
       "areases": "",
       "recomendations": "",
       "file": "ortez1.png",
-      "icon": "joints_discomfort_1.png",
+      "icon": "elbow_pain.png",
       "attributes": [
         {
           "id": "Суставы"
@@ -1178,7 +1178,7 @@
       "areases": "",
       "recomendations": "",
       "file": "ortez1.png",
-      "icon": "joints_discomfort_1.png",
+      "icon": "hip_pain.png",
       "attributes": [
         {
           "id": "Суставы"
@@ -1194,11 +1194,11 @@
           "duration": 600000,
           "start_power": 1,
           "power": 1,
-          "frequency": 100,
-          "am": true,
+          "frequency": 120,
+          "am": false,
           "am_mode": 51,
-          "intensivity": 4,
-          "fm": true,
+          "intensivity": 1,
+          "fm": false,
           "comment": "Сенсорная ТЭНС"
         },
         {
@@ -1206,22 +1206,22 @@
           "duration": 600000,
           "start_power": 1,
           "power": 1,
-          "frequency": 5,
+          "frequency": 30,
           "am": true,
-          "am_mode": 31,
-          "intensivity": 2,
+          "am_mode": 11,
+          "intensivity": 4,
           "fm": false,
           "comment": "Трофическая помпа"
         },
         {
           "num": 3,
-          "duration": 600000,
+          "duration": 300000,
           "start_power": 1,
           "power": 1,
-          "frequency": 30,
+          "frequency": 60,
           "am": true,
-          "am_mode": 11,
-          "intensivity": 2,
+          "am_mode": 31,
+          "intensivity": 1,
           "fm": false,
           "comment": "Фоновое успокоение"
         }
@@ -1229,13 +1229,13 @@
     },
     {
       "id": 103,
-      "title": "",
-      "description": "Острый пояснично-крестцовый радикулит (Люмбаго)",
+      "title": "Острый пояснично-крестцовый радикулит (Люмбаго)",
+      "description": "",
       "electrods": "",
       "areases": "",
       "recomendations": "",
       "file": "ortez1.png",
-      "icon": "joints_discomfort_1.png",
+      "icon": "lower_back_pain.png",
       "attributes": [
         {
           "id": "Суставы"
@@ -1260,19 +1260,19 @@
         },
         {
           "num": 2,
-          "duration": 600000,
+          "duration": 300000,
           "start_power": 1,
           "power": 1,
-          "frequency": 5,
-          "am": true,
+          "frequency": 120,
+          "am": false,
           "am_mode": 31,
-          "intensivity": 2,
+          "intensivity": 3,
           "fm": false,
           "comment": "Мягкий субсенсорный блок"
         },
         {
           "num": 3,
-          "duration": 600000,
+          "duration": 900000,
           "start_power": 1,
           "power": 1,
           "frequency": 30,
@@ -1292,7 +1292,7 @@
       "areases": "",
       "recomendations": "",
       "file": "ortez1.png",
-      "icon": "joints_discomfort_1.png",
+      "icon": "tunnel_syndrome.png",
       "attributes": [
         {
           "id": "Суставы"
@@ -1305,10 +1305,10 @@
       "stage": [
         {
           "num": 1,
-          "duration": 600000,
+          "duration": 900000,
           "start_power": 1,
           "power": 1,
-          "frequency": 100,
+          "frequency": 3,
           "am": true,
           "am_mode": 51,
           "intensivity": 4,
@@ -1320,23 +1320,23 @@
           "duration": 600000,
           "start_power": 1,
           "power": 1,
-          "frequency": 5,
+          "frequency": 30,
           "am": true,
-          "am_mode": 31,
+          "am_mode": 11,
           "intensivity": 2,
-          "fm": false,
+          "fm": true,
           "comment": "Снятие спазма"
         },
         {
           "num": 3,
-          "duration": 600000,
+          "duration": 900000,
           "start_power": 1,
           "power": 1,
           "frequency": 30,
           "am": true,
           "am_mode": 11,
           "intensivity": 2,
-          "fm": false,
+          "fm": true,
           "comment": "Декомпрессия"
         }
       ]
@@ -1349,7 +1349,7 @@
       "areases": "",
       "recomendations": "",
       "file": "ortez1.png",
-      "icon": "joints_discomfort_1.png",
+      "icon": "ankle_pain.png",
       "attributes": [
         {
           "id": "Суставы"
@@ -1365,34 +1365,34 @@
           "duration": 600000,
           "start_power": 1,
           "power": 1,
-          "frequency": 100,
+          "frequency": 90,
           "am": true,
-          "am_mode": 51,
-          "intensivity": 4,
-          "fm": true,
+          "am_mode": 31,
+          "intensivity": 1,
+          "fm": false,
           "comment": "Мягкая анальгезия"
         },
         {
           "num": 2,
-          "duration": 600000,
+          "duration": 900000,
           "start_power": 1,
           "power": 1,
-          "frequency": 5,
+          "frequency": 15,
           "am": true,
-          "am_mode": 31,
-          "intensivity": 2,
+          "am_mode": 11,
+          "intensivity": 1,
           "fm": false,
           "comment": "Улучшение микроциркуляции"
         },
         {
           "num": 3,
-          "duration": 600000,
+          "duration": 300000,
           "start_power": 1,
           "power": 1,
-          "frequency": 30,
+          "frequency": 90,
           "am": true,
-          "am_mode": 11,
-          "intensivity": 2,
+          "am_mode": 51,
+          "intensivity": 3,
           "fm": false,
           "comment": "Профилактика спазма"
         }
@@ -1406,7 +1406,7 @@
       "areases": "",
       "recomendations": "",
       "file": "ortez1.png",
-      "icon": "joints_discomfort_1.png",
+      "icon": "tunnel_syndrome_almost_round.png",
       "attributes": [
         {
           "id": "Суставы"
@@ -1431,12 +1431,12 @@
         },
         {
           "num": 2,
-          "duration": 600000,
+          "duration": 900000,
           "start_power": 1,
           "power": 1,
-          "frequency": 5,
+          "frequency": 2,
           "am": true,
-          "am_mode": 31,
+          "am_mode": 11,
           "intensivity": 2,
           "fm": false,
           "comment": "Эндогенный релакс"
@@ -1451,7 +1451,7 @@
       "areases": "",
       "recomendations": "",
       "file": "ortez1.png",
-      "icon": "joints_discomfort_1.png",
+      "icon": "shoulder_pain.png",
       "attributes": [
         {
           "id": "Суставы"
@@ -1467,34 +1467,34 @@
           "duration": 600000,
           "start_power": 1,
           "power": 1,
-          "frequency": 100,
-          "am": true,
+          "frequency": 90,
+          "am": false,
           "am_mode": 51,
-          "intensivity": 4,
-          "fm": true,
+          "intensivity": 1,
+          "fm": false,
           "comment": "Блок по ходу нерва"
         },
         {
           "num": 2,
-          "duration": 600000,
+          "duration": 900000,
           "start_power": 1,
           "power": 1,
-          "frequency": 5,
+          "frequency": 15,
           "am": true,
-          "am_mode": 31,
-          "intensivity": 2,
+          "am_mode": 51,
+          "intensivity": 1,
           "fm": false,
           "comment": "Регенеративная стимуляция"
         },
         {
           "num": 3,
-          "duration": 600000,
+          "duration": 300000,
           "start_power": 1,
           "power": 1,
           "frequency": 30,
           "am": true,
-          "am_mode": 11,
-          "intensivity": 2,
+          "am_mode": 31,
+          "intensivity": 4,
           "fm": false,
           "comment": "Дренаж карпального канала"
         }
@@ -1508,7 +1508,7 @@
       "areases": "",
       "recomendations": "",
       "file": "ortez1.png",
-      "icon": "joints_discomfort_1.png",
+      "icon": "phantom_pains_lower_limb.png",
       "attributes": [
         {
           "id": "Суставы"
@@ -1533,23 +1533,23 @@
         },
         {
           "num": 2,
-          "duration": 600000,
+          "duration": 900000,
           "start_power": 1,
           "power": 1,
-          "frequency": 5,
+          "frequency": 15,
           "am": true,
-          "am_mode": 31,
+          "am_mode": 51,
           "intensivity": 2,
           "fm": false,
           "comment": "Регенеративная стимуляция"
         },
         {
           "num": 3,
-          "duration": 600000,
+          "duration": 300000,
           "start_power": 1,
           "power": 1,
-          "frequency": 30,
-          "am": true,
+          "frequency": 60,
+          "am": false,
           "am_mode": 11,
           "intensivity": 2,
           "fm": false,
@@ -1565,7 +1565,7 @@
       "areases": "",
       "recomendations": "",
       "file": "ortez1.png",
-      "icon": "joints_discomfort_1.png",
+      "icon": "tunnel_syndrome_round.png",
       "attributes": [
         {
           "id": "Суставы"
@@ -1581,22 +1581,22 @@
           "duration": 600000,
           "start_power": 1,
           "power": 1,
-          "frequency": 100,
+          "frequency": 60,
           "am": true,
-          "am_mode": 51,
-          "intensivity": 4,
-          "fm": true,
+          "am_mode": 31,
+          "intensivity": 2,
+          "fm": false,
           "comment": "Разогрев путей"
         },
         {
           "num": 2,
-          "duration": 600000,
+          "duration": 900000,
           "start_power": 1,
           "power": 1,
-          "frequency": 5,
+          "frequency": 15,
           "am": true,
-          "am_mode": 31,
-          "intensivity": 2,
+          "am_mode": 51,
+          "intensivity": 4,
           "fm": false,
           "comment": "Активная поддержка"
         },
@@ -1606,68 +1606,11 @@
           "start_power": 1,
           "power": 1,
           "frequency": 30,
-          "am": true,
+          "am": false,
           "am_mode": 11,
-          "intensivity": 2,
+          "intensivity": 1,
           "fm": false,
           "comment": "Восстановление"
-        }
-      ]
-    },
-    {
-      "id": 110,
-      "title": "",
-      "description": "",
-      "electrods": "",
-      "areases": "",
-      "recomendations": "",
-      "file": "ortez1.png",
-      "icon": "joints_discomfort_1.png",
-      "attributes": [
-        {
-          "id": "Суставы"
-        },
-        {
-          "id": "act_lv"
-        }
-      ],
-      "electrode": 6,
-      "stage": [
-        {
-          "num": 1,
-          "duration": 600000,
-          "start_power": 1,
-          "power": 1,
-          "frequency": 100,
-          "am": true,
-          "am_mode": 51,
-          "intensivity": 4,
-          "fm": true,
-          "comment": ""
-        },
-        {
-          "num": 2,
-          "duration": 600000,
-          "start_power": 1,
-          "power": 1,
-          "frequency": 5,
-          "am": true,
-          "am_mode": 31,
-          "intensivity": 2,
-          "fm": false,
-          "comment": ""
-        },
-        {
-          "num": 3,
-          "duration": 600000,
-          "start_power": 1,
-          "power": 1,
-          "frequency": 30,
-          "am": true,
-          "am_mode": 11,
-          "intensivity": 2,
-          "fm": false,
-          "comment": ""
         }
       ]
     },
