@@ -4,6 +4,7 @@ import 'package:bgs_control/repositories/app_monitor/app_monitor.dart';
 import 'package:bgs_control/repositories/bgs_connect/ble_service.dart';
 import 'package:bgs_control/repositories/bgs_list/bgs_list.dart';
 import 'package:bgs_control/repositories/bgs_property_storage/bgs_property_storage.dart';
+import 'package:bgs_control/repositories/database/db_provider.dart';
 import 'package:bgs_control/repositories/logger/communication_logger.dart';
 import 'package:bgs_control/repositories/methodic_programs/storage/program_storage.dart';
 import 'package:bgs_control/repositories/methodic_programs/storage/select_program_manager.dart';
@@ -74,6 +75,8 @@ void main() {
     () => CommunicationLogger(),
   );
   GetIt.I.registerLazySingleton<AppMonitor>(() => AppMonitor());
+  GetIt.I.registerLazySingleton<DbProvider>(() => DbProvider());
+
 
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations(

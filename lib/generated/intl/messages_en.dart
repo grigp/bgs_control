@@ -26,40 +26,43 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m2(appVersion) => "Version: ${appVersion}";
 
-  static String m3(buildNumber) => "Build:${buildNumber}";
+  static String m3(cnt) =>
+      "There are ${cnt} records in Database. Save results to Database?";
 
-  static String m4(deviceName) => "Connectiong to the stimulator ${deviceName}";
+  static String m4(buildNumber) => "Build:${buildNumber}";
 
-  static String m5(duration) => "Длительность: ${duration} мин";
+  static String m5(deviceName) => "Connectiong to the stimulator ${deviceName}";
 
-  static String m6(dvcName) => "Stimulator ${dvcName}";
+  static String m6(duration) => "Длительность: ${duration} мин";
 
-  static String m7(shortDeviceName) =>
+  static String m7(dvcName) => "Stimulator ${dvcName}";
+
+  static String m8(shortDeviceName) =>
       "Electrical stimulator ${shortDeviceName}";
 
-  static String m8(sFN) => "Firmware number: ${sFN}";
+  static String m9(sFN) => "Firmware number: ${sFN}";
 
-  static String m9(frequency) => "${frequency} Гц";
+  static String m10(frequency) => "${frequency} Гц";
 
-  static String m10(playingTime) => "Time passed - ${playingTime}";
+  static String m11(playingTime) => "Time passed - ${playingTime}";
 
-  static String m11(programTitle) => "Программа ${programTitle}";
+  static String m12(programTitle) => "Программа ${programTitle}";
 
-  static String m12(idxStage, stageComment) =>
+  static String m13(idxStage, stageComment) =>
       "Stage ${idxStage} : ${stageComment}";
 
-  static String m13(idxStage, nameStage) => "Stage ${idxStage} : ${nameStage}";
+  static String m14(idxStage, nameStage) => "Stage ${idxStage} : ${nameStage}";
 
-  static String m14(stageNum) => "Stage ${stageNum}";
+  static String m15(stageNum) => "Stage ${stageNum}";
 
-  static String m15(stageTime, duration) => "${stageTime} out of ${duration}";
+  static String m16(stageTime, duration) => "${stageTime} out of ${duration}";
 
-  static String m16(stimulatorNumber) =>
+  static String m17(stimulatorNumber) =>
       "Electrical stimulator texel №${stimulatorNumber}";
 
-  static String m17(timeRemain) => "Time remaining ${timeRemain}";
+  static String m18(timeRemain) => "Time remaining ${timeRemain}";
 
-  static String m18(sTUD, sTC) => "Work duration: ${sTUD} ${sTC}";
+  static String m19(sTUD, sTC) => "Work duration: ${sTUD} ${sTC}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -89,6 +92,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Increasing the stimulation power may be unsafe.\nContinue increasing the stimulation power?"),
         "askSwitchToOfflineMode":
             MessageLookupByLibrary.simpleMessage("Switch to offline mode?"),
+        "askToSaveResults": m3,
         "attention": MessageLookupByLibrary.simpleMessage("Attention"),
         "availableMethodics":
             MessageLookupByLibrary.simpleMessage("Available methodics"),
@@ -96,7 +100,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Average stimulation power"),
         "beforeConnectDescription": MessageLookupByLibrary.simpleMessage(
             "Turn the stimulator on, place it on the magnetic contacts of the electrode and press the button"),
-        "buildNumber": m3,
+        "buildNumber": m4,
         "byCategories": MessageLookupByLibrary.simpleMessage("By categories"),
         "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
         "cancelProgramExecution":
@@ -105,7 +109,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "close": MessageLookupByLibrary.simpleMessage("Close"),
         "compatibleElectrodeTypes": MessageLookupByLibrary.simpleMessage(
             "Compatible electrode types: "),
-        "connectToStimulator": m4,
+        "connectToStimulator": m5,
         "contraindications": MessageLookupByLibrary.simpleMessage(
             "- For children;\n- During pregnancy;\n- On the head, heart, and major vessels; in cases of varicose veins, thrombosis, and thrombophlebitis; in cases of open and closed bleeding; injuries to bones, nerves, muscles, tendons, and soft tissue; hernias and tissue protrusions; in cases of skin lesions and diseases (including nevi (birthmarks));\n- Individuals with unstable mental health;\n- Individuals with epilepsy, pacemakers (artificial pacemakers), acute ischemic and hemorrhagic lesions of the brain and heart, and oncological diseases;\n- In case of allergic reactions;\n- When driving vehicles, operating machinery, or electrical equipment;\n- If the device is damaged.\n\nAfter the procedure, short-term redness in the treatment area is possible. Avoid pain and discomfort. Do not use the electrode on dry conductive surfaces."),
         "dataExchangeLog":
@@ -114,20 +118,20 @@ class MessageLookup extends MessageLookupByLibrary {
         "deleteStimulatorFromList": MessageLookupByLibrary.simpleMessage(
             "Remove stimulator from the list?"),
         "disconnect": MessageLookupByLibrary.simpleMessage("Disconnect"),
-        "durationMin": m5,
+        "durationMin": m6,
         "durationMmSs":
             MessageLookupByLibrary.simpleMessage("Duration, min:sec"),
-        "dvcName": m6,
+        "dvcName": m7,
         "electrostimulationShouldNeverBeUsed":
             MessageLookupByLibrary.simpleMessage(
                 "Electrostimulation should never be used:"),
-        "electrostimulatorTexelN": m7,
+        "electrostimulatorTexelN": m8,
         "electrostimulatorsTexel": MessageLookupByLibrary.simpleMessage(
             "Electrical stimulators texel"),
         "exit": MessageLookupByLibrary.simpleMessage("Done"),
         "failedToConnect": MessageLookupByLibrary.simpleMessage(
             "Failed to connect to the stimulator"),
-        "firmwareNumber": m8,
+        "firmwareNumber": m9,
         "freeMethodic": MessageLookupByLibrary.simpleMessage("Custom methodic"),
         "freeMethodicDescription": MessageLookupByLibrary.simpleMessage(
             "Manual control of the stimulation mode"),
@@ -136,7 +140,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Frequency modulation"),
         "frequencyModulationFM":
             MessageLookupByLibrary.simpleMessage("Freq. modulation (FM)"),
-        "frequencyValue": m9,
+        "frequencyValue": m10,
         "frrequencyHZ": MessageLookupByLibrary.simpleMessage("frequency, Hz"),
         "goBack": MessageLookupByLibrary.simpleMessage("< Back"),
         "havingContraindications":
@@ -178,15 +182,16 @@ class MessageLookup extends MessageLookupByLibrary {
         "personalMode": MessageLookupByLibrary.simpleMessage("Personal mode"),
         "personalModeDescription": MessageLookupByLibrary.simpleMessage(
             "Stimulator operating mode with individual settings"),
-        "playingTime": m10,
+        "playingTime": m11,
         "previousDevices":
             MessageLookupByLibrary.simpleMessage("Previous devices"),
         "programExecutionTime":
             MessageLookupByLibrary.simpleMessage("Program execution time"),
-        "programTitle": m11,
+        "programTitle": m12,
         "recommendationsForProcedure": MessageLookupByLibrary.simpleMessage(
             "Recommendations for the procedure:\n"),
         "run": MessageLookupByLibrary.simpleMessage("Run"),
+        "save": MessageLookupByLibrary.simpleMessage("Save results"),
         "searchStimulators":
             MessageLookupByLibrary.simpleMessage("Search for stimulators"),
         "select": MessageLookupByLibrary.simpleMessage("Select"),
@@ -196,10 +201,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("The session has completed"),
         "settings": MessageLookupByLibrary.simpleMessage("Settings"),
         "share": MessageLookupByLibrary.simpleMessage("Share"),
-        "stageIdxComment": m12,
-        "stageIdxNamestage": m13,
-        "stageNum": m14,
-        "stageTmeDuration": m15,
+        "stageIdxComment": m13,
+        "stageIdxNamestage": m14,
+        "stageNum": m15,
+        "stageTmeDuration": m16,
         "start": MessageLookupByLibrary.simpleMessage("Start"),
         "stimulationWillBeContinue": MessageLookupByLibrary.simpleMessage(
             "The stimulation will be continue"),
@@ -207,16 +212,16 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Stimulator settings"),
         "stimulatorTurnedOffLowBattery": MessageLookupByLibrary.simpleMessage(
             "The stimulator turned off due to low battery."),
-        "texelStimulatorNumber": m16,
+        "texelStimulatorNumber": m17,
         "time": MessageLookupByLibrary.simpleMessage("Time"),
-        "timeRemain": m17,
+        "timeRemain": m18,
         "toGoMode": MessageLookupByLibrary.simpleMessage("Go to offline mode"),
         "tryAgain": MessageLookupByLibrary.simpleMessage("Please try again"),
         "turnObBluetooth": MessageLookupByLibrary.simpleMessage(
             "Turn on Bluetooth to connect the stimulator"),
         "turnOn": MessageLookupByLibrary.simpleMessage("Turn On"),
         "warning": MessageLookupByLibrary.simpleMessage("Warning"),
-        "workDuration": m18,
+        "workDuration": m19,
         "yes": MessageLookupByLibrary.simpleMessage("Yes")
       };
 }

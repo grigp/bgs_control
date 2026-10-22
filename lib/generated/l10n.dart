@@ -1099,6 +1099,26 @@ class S {
       args: [],
     );
   }
+
+  /// `Save results`
+  String get save {
+    return Intl.message(
+      'Save results',
+      name: 'save',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `There are {cnt} records in Database. Save results to Database?`
+  String askToSaveResults(Object cnt) {
+    return Intl.message(
+      'There are $cnt records in Database. Save results to Database?',
+      name: 'askToSaveResults',
+      desc: '',
+      args: [cnt],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
