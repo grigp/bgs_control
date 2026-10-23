@@ -42,7 +42,7 @@ class DbProvider {
     await _openDB();
     await _db.insert('Seances', {
       'uid': rec.uid,
-      'dt': rec.dt,
+      'dt': rec.dt.toString(),
       'duration': rec.duration,
       'max': rec.max,
       'average': rec.average,
