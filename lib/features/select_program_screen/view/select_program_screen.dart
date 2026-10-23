@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:bgs_control/features/execute_screen/view/execute_screen.dart';
+import 'package:bgs_control/features/hist_seances_screen/view/hist_seances_screen.dart';
 import 'package:bgs_control/features/program_params_screen/view/program_params_screen.dart';
 import 'package:bgs_control/features/select_program_screen/widgets/direct_title.dart';
 import 'package:bgs_control/features/select_program_screen/widgets/program_title.dart';
@@ -34,6 +35,7 @@ import '../../direct_control_screen/view/direct_control_screen.dart';
 import '../../uikit/texel_button.dart';
 import '../../uikit/widgets/back_screen_button.dart';
 import '../../uikit/widgets/charge_message_widget.dart';
+import '../../uikit/widgets/circular_button.dart';
 
 class SelectProgramScreen extends StatefulWidget {
   const SelectProgramScreen({
@@ -120,6 +122,27 @@ class _SelectProgramScreenState extends State<SelectProgramScreen>
                     Navigator.pop(context);
                   },
                   hasBackground: true,
+                ),
+              ),
+              Positioned(
+                top: 10,
+                right: 10,
+                child: CircularButton(
+                  onBack: () {
+                    pushScreen(
+                      context,
+                          (context, animation,
+                          secondaryAnimation) =>
+                          HistSeancesScreen(
+                            title: S.of(context).myStimulators,
+                          ),
+                      '/history',
+                      ShiftDirection.rightToLeft,
+                    );
+                  },
+                  hasBackground: true,
+                  icon: Icons.storage,
+                  backgroundColor: backgroundCarpetButtonTestColor,
                 ),
               ),
               if (_chargeValue > 0)
