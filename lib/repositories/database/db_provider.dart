@@ -69,15 +69,14 @@ class DbProvider {
     await _db.rawQuery(
         'SELECT uid, dt, duration, max, average, comment FROM Seances');
     List<RecordSeance> retval = [];
-    print(list);
     for (int i = 0; i < list.length; ++i) {
       retval.add(
         RecordSeance(
           uid: list[i]['uid'].toString(),
-          dt: DateTime.parse(list[i]['born']),
+          dt: DateTime.parse(list[i]['dt']),
           duration: list[i]['duration'].toInt(),
-          max: list[i]['max'].toint(),
-          average: list[i]['average'].toint(),
+          max: list[i]['max'].toInt(),
+          average: list[i]['average'].toInt(),
           comment: list[i]['comment'].toString(),
         ),
       );

@@ -106,5 +106,10 @@
   "met1_stage2": "Обработка",
   "met1_stage3": "Закрепление",
   "save": "Сохранить",
-  "askToSaveResults": "Записей в БД: {cnt}. Сохранить результаты сеанса тренинга?"
+  "askToSaveResults": "Записей в БД: {cnt}. Сохранить результаты сеанса тренинга?",
+  "delSeance": "Удалить запись о сеансе",
+  "History": "История",
+  "histDuration": "Длит. = {duration}",
+  "histMax": "Максимум = {max}",
+  "histAverage": "Среднее = {average}"
 }

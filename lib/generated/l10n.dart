@@ -1119,6 +1119,56 @@ class S {
       args: [cnt],
     );
   }
+
+  /// `Delete seance`
+  String get delSeance {
+    return Intl.message(
+      'Delete seance',
+      name: 'delSeance',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `History`
+  String get History {
+    return Intl.message(
+      'History',
+      name: 'History',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Durat. = {duration}`
+  String histDuration(Object duration) {
+    return Intl.message(
+      'Durat. = $duration',
+      name: 'histDuration',
+      desc: '',
+      args: [duration],
+    );
+  }
+
+  /// `Maximum = {max}`
+  String histMax(Object max) {
+    return Intl.message(
+      'Maximum = $max',
+      name: 'histMax',
+      desc: '',
+      args: [max],
+    );
+  }
+
+  /// `Average = {average}`
+  String histAverage(Object average) {
+    return Intl.message(
+      'Average = $average',
+      name: 'histAverage',
+      desc: '',
+      args: [average],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

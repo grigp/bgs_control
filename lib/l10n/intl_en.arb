@@ -106,5 +106,10 @@
   "met1_stage2": "Muscle treatment",
   "met1_stage3": "Consolidation of results",
   "save": "Save results",
-  "askToSaveResults": "There are {cnt} records in Database. Save results to Database?"
+  "askToSaveResults": "There are {cnt} records in Database. Save results to Database?",
+  "delSeance": "Delete seance",
+  "History": "History",
+  "histDuration": "Durat. = {duration}",
+  "histMax": "Maximum = {max}",
+  "histAverage": "Average = {average}"
 }

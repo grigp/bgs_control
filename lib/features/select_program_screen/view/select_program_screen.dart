@@ -134,7 +134,7 @@ class _SelectProgramScreenState extends State<SelectProgramScreen>
                           (context, animation,
                           secondaryAnimation) =>
                           HistSeancesScreen(
-                            title: S.of(context).myStimulators,
+                            title: S.of(context).History,
                           ),
                       '/history',
                       ShiftDirection.rightToLeft,

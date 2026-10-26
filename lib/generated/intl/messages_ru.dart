@@ -43,29 +43,36 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m10(frequency) => "${frequency} Hz";
 
-  static String m11(playingTime) => "Прошло времени - ${playingTime}";
+  static String m11(average) => "Среднее = ${average}";
 
-  static String m12(programTitle) => "Программа ${programTitle}";
+  static String m12(duration) => "Длит. = ${duration}";
 
-  static String m13(idxStage, stageComment) =>
+  static String m13(max) => "Максимум = ${max}";
+
+  static String m14(playingTime) => "Прошло времени - ${playingTime}";
+
+  static String m15(programTitle) => "Программа ${programTitle}";
+
+  static String m16(idxStage, stageComment) =>
       "Этап ${idxStage} : ${stageComment}";
 
-  static String m14(idxStage, nameStage) => "Этап ${idxStage} : ${nameStage}";
+  static String m17(idxStage, nameStage) => "Этап ${idxStage} : ${nameStage}";
 
-  static String m15(stageNum) => "Стадия ${stageNum}";
+  static String m18(stageNum) => "Стадия ${stageNum}";
 
-  static String m16(stageTime, duration) => "${stageTime} из ${duration}";
+  static String m19(stageTime, duration) => "${stageTime} из ${duration}";
 
-  static String m17(stimulatorNumber) =>
+  static String m20(stimulatorNumber) =>
       "Электростимулятор texel №${stimulatorNumber}";
 
-  static String m18(timeRemain) => "До завершения осталось ${timeRemain}";
+  static String m21(timeRemain) => "До завершения осталось ${timeRemain}";
 
-  static String m19(sTUD, sTC) => "Время работы: ${sTUD} ${sTC}";
+  static String m22(sTUD, sTC) => "Время работы: ${sTUD} ${sTC}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "Connect": MessageLookupByLibrary.simpleMessage("Подключить"),
+        "History": MessageLookupByLibrary.simpleMessage("История"),
         "TheStimulatorNeedsToBeCharged": MessageLookupByLibrary.simpleMessage(
             "Необходимо зарядить стимулятор"),
         "addStimulator":
@@ -113,6 +120,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "- Для детей;\n- Во время беременности;\n- На область головы, сердца, крупных сосудов, при варикозном расширении вен, тромбозе, тромбофлебите; при открытых и закрытых кровотечениях, травмах костей, нервов, мышц, сухожилий и мягких тканей, грыжах и выпячиваниях тканей; при поражениях и заболеваниях кожи (включая невусы (родимые пятна));\n- Лицам с нестабильным психическим состоянием;\n- Лицам с эпилепсией, кардиостимуляторами (искусственными кардиостимуляторами), острыми ишемическими и геморрагическими поражениями тканей головного и сердца, а также онкологическими заболеваниями;\n- При аллергических реакциях;\n- При управлении транспортными средствами, работе с механизмами или электрооборудованием;\n- При нарушении целостности устройства.\n\nПосле процедуры возможно кратковременное покраснение в области обработки. Избегайте боли и дискомфорта. Не используйте электрод на сухих проводящих поверхностях."),
         "dataExchangeLog":
             MessageLookupByLibrary.simpleMessage("Лог обмена данными"),
+        "delSeance":
+            MessageLookupByLibrary.simpleMessage("Удалить запись о сеансе"),
         "delete": MessageLookupByLibrary.simpleMessage("Удалить"),
         "deleteStimulatorFromList": MessageLookupByLibrary.simpleMessage(
             "Удалить стимулятор из списка?"),
@@ -146,6 +155,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "havingContraindications":
             MessageLookupByLibrary.simpleMessage("имеются противопоказания"),
         "hh_mm_ss": MessageLookupByLibrary.simpleMessage("чч:мм:сс"),
+        "histAverage": m11,
+        "histDuration": m12,
+        "histMax": m13,
         "intensity": MessageLookupByLibrary.simpleMessage("Интенсивность"),
         "interruptProgramExecution":
             MessageLookupByLibrary.simpleMessage("Прервать воздействие?"),
@@ -182,12 +194,12 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Индивидуальный режим"),
         "personalModeDescription": MessageLookupByLibrary.simpleMessage(
             "Режим работы стимулятора с индивидуальными настройками"),
-        "playingTime": m11,
+        "playingTime": m14,
         "previousDevices":
             MessageLookupByLibrary.simpleMessage("Подключенные ранее"),
         "programExecutionTime":
             MessageLookupByLibrary.simpleMessage("Время выполнения программы"),
-        "programTitle": m12,
+        "programTitle": m15,
         "recommendationsForProcedure": MessageLookupByLibrary.simpleMessage(
             "Рекомендации по проведению процедуры:\n"),
         "run": MessageLookupByLibrary.simpleMessage("Запустить"),
@@ -201,10 +213,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Сеанс завершен"),
         "settings": MessageLookupByLibrary.simpleMessage("Свойства"),
         "share": MessageLookupByLibrary.simpleMessage("Поделиться"),
-        "stageIdxComment": m13,
-        "stageIdxNamestage": m14,
-        "stageNum": m15,
-        "stageTmeDuration": m16,
+        "stageIdxComment": m16,
+        "stageIdxNamestage": m17,
+        "stageNum": m18,
+        "stageTmeDuration": m19,
         "start": MessageLookupByLibrary.simpleMessage("Начать"),
         "stimulationWillBeContinue": MessageLookupByLibrary.simpleMessage(
             "При этом воздействие будет продолжено"),
@@ -212,9 +224,9 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Параметры стимулятора"),
         "stimulatorTurnedOffLowBattery": MessageLookupByLibrary.simpleMessage(
             "Стимулятор отключился из за низкого заряда аккумулятора."),
-        "texelStimulatorNumber": m17,
+        "texelStimulatorNumber": m20,
         "time": MessageLookupByLibrary.simpleMessage("Time"),
-        "timeRemain": m18,
+        "timeRemain": m21,
         "toGoMode": MessageLookupByLibrary.simpleMessage("Работать автономно"),
         "tryAgain": MessageLookupByLibrary.simpleMessage(
             "Попробуйте повторить попытку"),
@@ -222,7 +234,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Включите Bluetooth, чтобы подключить стимулятор"),
         "turnOn": MessageLookupByLibrary.simpleMessage("Включить"),
         "warning": MessageLookupByLibrary.simpleMessage("Предупреждение"),
-        "workDuration": m19,
+        "workDuration": m22,
         "yes": MessageLookupByLibrary.simpleMessage("Да")
       };
 }
