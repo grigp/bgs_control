@@ -73,8 +73,14 @@ class MessageLookup extends MessageLookupByLibrary {
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "Connect": MessageLookupByLibrary.simpleMessage("Подключить"),
         "History": MessageLookupByLibrary.simpleMessage("История"),
+        "MethodDescription": MessageLookupByLibrary.simpleMessage("Описание"),
+        "MethodName":
+            MessageLookupByLibrary.simpleMessage("Название программы"),
+        "PersonalMethods":
+            MessageLookupByLibrary.simpleMessage("Персональные программы"),
         "TheStimulatorNeedsToBeCharged": MessageLookupByLibrary.simpleMessage(
             "Необходимо зарядить стимулятор"),
+        "addMethod": MessageLookupByLibrary.simpleMessage("Добавить программу"),
         "addStimulator":
             MessageLookupByLibrary.simpleMessage("Добавить стимулятор"),
         "allList": MessageLookupByLibrary.simpleMessage("Весь список"),
@@ -123,6 +129,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "delSeance":
             MessageLookupByLibrary.simpleMessage("Удалить запись о сеансе"),
         "delete": MessageLookupByLibrary.simpleMessage("Удалить"),
+        "deleteMethod":
+            MessageLookupByLibrary.simpleMessage("Удалить программу"),
         "deleteStimulatorFromList": MessageLookupByLibrary.simpleMessage(
             "Удалить стимулятор из списка?"),
         "disconnect": MessageLookupByLibrary.simpleMessage("Отключить"),
@@ -130,6 +138,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "durationMmSs":
             MessageLookupByLibrary.simpleMessage("Продолжительность, мин:сек"),
         "dvcName": m7,
+        "editMethod":
+            MessageLookupByLibrary.simpleMessage("Редактировать программу"),
         "electrostimulationShouldNeverBeUsed":
             MessageLookupByLibrary.simpleMessage(
                 "Элетростимуляция никогда не должна применяться:"),

@@ -102,3 +102,5 @@ String pdt(int part) {
 }
 
 enum ShiftDirection { leftToRight, rightToLeft, bottomToUp, upToBottom }
+enum EditMode { emAdd, emEdit }
+

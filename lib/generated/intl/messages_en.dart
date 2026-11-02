@@ -74,8 +74,14 @@ class MessageLookup extends MessageLookupByLibrary {
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "Connect": MessageLookupByLibrary.simpleMessage("Connect"),
         "History": MessageLookupByLibrary.simpleMessage("History"),
+        "MethodDescription":
+            MessageLookupByLibrary.simpleMessage("Description"),
+        "MethodName": MessageLookupByLibrary.simpleMessage("Method\'s name"),
+        "PersonalMethods":
+            MessageLookupByLibrary.simpleMessage("Personal methods"),
         "TheStimulatorNeedsToBeCharged": MessageLookupByLibrary.simpleMessage(
             "The stimulator needs to be charged"),
+        "addMethod": MessageLookupByLibrary.simpleMessage("Add method"),
         "addStimulator": MessageLookupByLibrary.simpleMessage("Add stimulator"),
         "allList": MessageLookupByLibrary.simpleMessage("All the list"),
         "amplitudeModulation":
@@ -123,6 +129,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Data exchange log"),
         "delSeance": MessageLookupByLibrary.simpleMessage("Delete seance"),
         "delete": MessageLookupByLibrary.simpleMessage("Delete"),
+        "deleteMethod": MessageLookupByLibrary.simpleMessage("Delete method"),
         "deleteStimulatorFromList": MessageLookupByLibrary.simpleMessage(
             "Remove stimulator from the list?"),
         "disconnect": MessageLookupByLibrary.simpleMessage("Disconnect"),
@@ -130,6 +137,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "durationMmSs":
             MessageLookupByLibrary.simpleMessage("Duration, min:sec"),
         "dvcName": m7,
+        "editMethod": MessageLookupByLibrary.simpleMessage("Edit method"),
         "electrostimulationShouldNeverBeUsed":
             MessageLookupByLibrary.simpleMessage(
                 "Electrostimulation should never be used:"),

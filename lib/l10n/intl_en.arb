@@ -111,5 +111,11 @@
   "History": "History",
   "histDuration": "Durat. = {duration}",
   "histMax": "Maximum = {max}",
-  "histAverage": "Average = {average}"
+  "histAverage": "Average = {average}",
+  "PersonalMethods": "Personal methods",
+  "addMethod": "Add method",
+  "editMethod": "Edit method",
+  "deleteMethod": "Delete method",
+  "MethodName": "Method's name",
+  "MethodDescription": "Description"
 }

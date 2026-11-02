@@ -32,6 +32,7 @@ import '../../../utils/baseutils.dart';
 import '../../../utils/charge_values.dart';
 import '../../device_info_screen/view/device_info_screen.dart';
 import '../../direct_control_screen/view/direct_control_screen.dart';
+import '../../personal_programs_screen/view/personal_programs_screen.dart';
 import '../../uikit/texel_button.dart';
 import '../../uikit/widgets/back_screen_button.dart';
 import '../../uikit/widgets/charge_message_widget.dart';
@@ -126,16 +127,35 @@ class _SelectProgramScreenState extends State<SelectProgramScreen>
               ),
               Positioned(
                 top: 10,
+                right: 70,
+                child: CircularButton(
+                  onBack: () {
+                    pushScreen(
+                      context,
+                      (context, animation, secondaryAnimation) =>
+                          PersonalProgramsScreen(
+                        title: S.of(context).PersonalMethods,
+                      ),
+                      '/personalPrograms',
+                      ShiftDirection.rightToLeft,
+                    );
+                  },
+                  hasBackground: true,
+                  icon: Icons.edit_calendar_outlined,
+                  backgroundColor: backgroundCarpetButtonTestColor,
+                ),
+              ),
+              Positioned(
+                top: 10,
                 right: 10,
                 child: CircularButton(
                   onBack: () {
                     pushScreen(
                       context,
-                          (context, animation,
-                          secondaryAnimation) =>
+                      (context, animation, secondaryAnimation) =>
                           HistSeancesScreen(
-                            title: S.of(context).History,
-                          ),
+                        title: S.of(context).History,
+                      ),
                       '/history',
                       ShiftDirection.rightToLeft,
                     );
@@ -200,7 +220,8 @@ class _SelectProgramScreenState extends State<SelectProgramScreen>
                     ),
                     const Spacer(),
                     Text(
-                      S.of(context).connectToStimulator(getShortDeviceName(widget.driver.deviceName())),
+                      S.of(context).connectToStimulator(
+                          getShortDeviceName(widget.driver.deviceName())),
 //                      'Подключение к стимулятору ${getShortDeviceName(widget.driver.deviceName())}',
                       style: theme.textTheme.headlineMedium,
                       textAlign: TextAlign.center,
@@ -282,7 +303,8 @@ class _SelectProgramScreenState extends State<SelectProgramScreen>
           children: [
             const Spacer(),
             GestureDetector(
-              child: _getSelectTypeTitle(S.of(context).allList, ProgramSelectType.pstList),
+              child: _getSelectTypeTitle(
+                  S.of(context).allList, ProgramSelectType.pstList),
               onTap: () {
                 setState(() {
                   _updateCurrentPageIndex(0);
@@ -291,7 +313,8 @@ class _SelectProgramScreenState extends State<SelectProgramScreen>
             ),
             const Spacer(),
             GestureDetector(
-              child: _getSelectTypeTitle(S.of(context).byCategories, ProgramSelectType.pstMenu),
+              child: _getSelectTypeTitle(
+                  S.of(context).byCategories, ProgramSelectType.pstMenu),
               onTap: () {
                 setState(() {
                   _updateCurrentPageIndex(1);
@@ -427,8 +450,7 @@ class _SelectProgramScreenState extends State<SelectProgramScreen>
           fontWeight: FontWeight.bold,
           color: Colors.black,
         ),
-        content: Text(
-            S.of(context).lowLevelBattery),
+        content: Text(S.of(context).lowLevelBattery),
         contentTextStyle: const TextStyle(
           fontSize: 20,
           color: Colors.black,

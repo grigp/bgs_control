@@ -111,5 +111,11 @@
   "History": "История",
   "histDuration": "Длит. = {duration}",
   "histMax": "Максимум = {max}",
-  "histAverage": "Среднее = {average}"
+  "histAverage": "Среднее = {average}",
+  "PersonalMethods": "Персональные программы",
+  "addMethod": "Добавить программу",
+  "editMethod": "Редактировать программу",
+  "deleteMethod": "Удалить программу",
+  "MethodName": "Название программы",
+  "MethodDescription": "Описание"
 }

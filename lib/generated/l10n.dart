@@ -1169,6 +1169,66 @@ class S {
       args: [average],
     );
   }
+
+  /// `Personal methods`
+  String get PersonalMethods {
+    return Intl.message(
+      'Personal methods',
+      name: 'PersonalMethods',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Add method`
+  String get addMethod {
+    return Intl.message(
+      'Add method',
+      name: 'addMethod',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Edit method`
+  String get editMethod {
+    return Intl.message(
+      'Edit method',
+      name: 'editMethod',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Delete method`
+  String get deleteMethod {
+    return Intl.message(
+      'Delete method',
+      name: 'deleteMethod',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Method's name`
+  String get MethodName {
+    return Intl.message(
+      'Method\'s name',
+      name: 'MethodName',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Description`
+  String get MethodDescription {
+    return Intl.message(
+      'Description',
+      name: 'MethodDescription',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
