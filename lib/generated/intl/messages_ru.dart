@@ -78,6 +78,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Название программы"),
         "PersonalMethods":
             MessageLookupByLibrary.simpleMessage("Персональные программы"),
+        "Stages": MessageLookupByLibrary.simpleMessage("Этапы"),
         "TheStimulatorNeedsToBeCharged": MessageLookupByLibrary.simpleMessage(
             "Необходимо зарядить стимулятор"),
         "addMethod": MessageLookupByLibrary.simpleMessage("Добавить программу"),

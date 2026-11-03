@@ -79,6 +79,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "MethodName": MessageLookupByLibrary.simpleMessage("Method\'s name"),
         "PersonalMethods":
             MessageLookupByLibrary.simpleMessage("Personal methods"),
+        "Stages": MessageLookupByLibrary.simpleMessage("Stages"),
         "TheStimulatorNeedsToBeCharged": MessageLookupByLibrary.simpleMessage(
             "The stimulator needs to be charged"),
         "addMethod": MessageLookupByLibrary.simpleMessage("Add method"),

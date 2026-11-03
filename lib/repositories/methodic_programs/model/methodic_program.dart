@@ -26,16 +26,18 @@ class ProgramStage {
 /// Класс, содержащий данные о программе.
 /// Заголовок и этапы
 class MethodicProgram {
-  MethodicProgram(
-      {required this.uid,
-      required this.statsTitle,
-      required this.title,
-      required this.description,
-      required this.electrods,
-      required this.areases,
-      required this.recomendations,
-      required this.image,
-      required this.mpk});
+  MethodicProgram({
+    required this.uid,
+    required this.statsTitle,
+    required this.title,
+    required this.description,
+    required this.electrods,
+    required this.areases,
+    required this.recomendations,
+    required this.image,
+    required this.mpk,
+    required this.isDefault,
+  });
 
   /// Конструктор из json
   factory MethodicProgram.fromJson(dynamic data) {
@@ -51,6 +53,7 @@ class MethodicProgram {
       recomendations: data['recomendations'],
       image: data['icon'],
       mpk: MethodicProgramKind.mpkNormal,
+      isDefault: data['default'],
     );
 
     /// Затем атрибуты из массива
@@ -100,6 +103,7 @@ class MethodicProgram {
       recomendations: '',
       image: 'togo.png',
       mpk: MethodicProgramKind.mpkPersonal,
+      isDefault: false,
     ).._addStage(
         'индивидуальные настройки',
         duration,
@@ -130,6 +134,7 @@ class MethodicProgram {
       recomendations: '',
       image: 'togo.png',
       mpk: MethodicProgramKind.mpkDirect,
+      isDefault: false,
     ).._addStage(
         'индивидуальные настройки',
         duration,
@@ -150,6 +155,7 @@ class MethodicProgram {
   String recomendations;
   String image;
   MethodicProgramKind mpk;
+  bool isDefault;
   List<String> attributes = [];
 
   final List<ProgramStage> _stages = [];

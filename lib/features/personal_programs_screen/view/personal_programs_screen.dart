@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 
 import '../../../assets/colors/colors.dart';
 import '../../../generated/l10n.dart';
+import '../../../repositories/methodic_programs/model/methodic_program.dart';
+import '../../../repositories/methodic_programs/storage/program_storage.dart';
 import '../../../utils/baseutils.dart';
 import '../../personal_program_edit_screen/view/personal_program_edit_screen.dart';
+import '../../select_program_screen/widgets/program_title.dart';
 import '../../uikit/widgets/back_screen_button.dart';
 
 /// Экран списка методик, созданных пользователем
@@ -20,6 +24,9 @@ class PersonalProgramsScreen extends StatefulWidget {
 }
 
 class _PersonalProgramsScreenState extends State<PersonalProgramsScreen> {
+  bool _isReady = false;
+  List<MethodicProgram> _programs = [];
+
   @override
   Widget build(BuildContext context) {
     return PopScope(
@@ -77,20 +84,18 @@ class _PersonalProgramsScreenState extends State<PersonalProgramsScreen> {
               indent: 0,
               thickness: 1,
             ),
-            // if (_readed)
-            //   Expanded(
-            //     child: CustomScrollView(
-            //       slivers: [
-            //         SliverList.builder(
-            //           itemCount: _seances.length,
-            //           itemBuilder: (context, index) {
-            //             return _buildTestTitle(
-            //                 context, _seances.length - index - 1);
-            //           },
-            //         ),
-            //       ],
-            //     ),
-            //   ),
+            if (_isReady)
+              Expanded(
+                child: SafeArea(
+                  child: ListView(
+                    padding: const EdgeInsets.only(bottom: 20),
+                    shrinkWrap: true,
+                    children: <Widget>[
+                      ..._buildProgramTiles(context),
+                    ],
+                  ),
+                ),
+              ),
             const SizedBox(height: 100),
           ],
         ),
@@ -140,14 +145,45 @@ class _PersonalProgramsScreenState extends State<PersonalProgramsScreen> {
     );
   }
 
+  @override
+  void initState() {
+    super.initState();
+    _fillListPrograms();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
+  void _fillListPrograms() async {
+    _programs = GetIt.I<ProgramStorage>().getPrograms();
+
+    setState(() {
+      _isReady = true;
+    });
+  }
+
+  List<Widget> _buildProgramTiles(BuildContext context) {
+    return _programs
+        .mapIndexed(
+          (program, index) => ProgramTitle(
+            program: program,
+            isLast: index == _programs.length - 1,
+            onTap: () async {},
+          ),
+        )
+        .where((ProgramTitle test) => !test.program.isDefault)  /// Только не дефолтные методики
+        .toList();
+  }
+
   void _addMethod() async {
     pushScreen(
       context,
-          (context, animation, secondaryAnimation) =>
-          PersonalProgramEditScreen(
-            title: S.of(context).addMethod,
-            editMode: EditMode.emAdd,
-          ),
+      (context, animation, secondaryAnimation) => PersonalProgramEditScreen(
+        title: S.of(context).addMethod,
+        editMode: EditMode.emAdd,
+      ),
       '/EditMethod',
       ShiftDirection.rightToLeft,
     );
@@ -156,17 +192,14 @@ class _PersonalProgramsScreenState extends State<PersonalProgramsScreen> {
   void _editMethod() async {
     pushScreen(
       context,
-          (context, animation, secondaryAnimation) =>
-          PersonalProgramEditScreen(
-            title: S.of(context).editMethod,
-            editMode: EditMode.emEdit,
-          ),
+      (context, animation, secondaryAnimation) => PersonalProgramEditScreen(
+        title: S.of(context).editMethod,
+        editMode: EditMode.emEdit,
+      ),
       '/EditMethod',
       ShiftDirection.rightToLeft,
     );
   }
 
-  void _delMethod() async {
-
-  }
+  void _delMethod() async {}
 }

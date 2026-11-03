@@ -117,5 +117,6 @@
   "editMethod": "Редактировать программу",
   "deleteMethod": "Удалить программу",
   "MethodName": "Название программы",
-  "MethodDescription": "Описание"
+  "MethodDescription": "Описание",
+  "Stages": "Этапы"
 }

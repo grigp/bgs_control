@@ -117,5 +117,6 @@
   "editMethod": "Edit method",
   "deleteMethod": "Delete method",
   "MethodName": "Method's name",
-  "MethodDescription": "Description"
+  "MethodDescription": "Description",
+  "Stages": "Stages"
 }

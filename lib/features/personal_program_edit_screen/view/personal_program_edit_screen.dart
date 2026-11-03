@@ -177,6 +177,15 @@ class _PersonalProgramEditScreenState extends State<PersonalProgramEditScreen> {
                             onChanged: _onNameChanged,
                             keyboardType: TextInputType.name,
                           ),
+                          Text(
+                            S.of(context).Stages,
+                            textAlign: TextAlign.left,
+                            textScaler: const TextScaler.linear(1.0),
+                            style: const TextStyle(
+                              color: black,
+                              fontSize: 20,
+                            ),
+                          ),
                         ],
                       ),
                     ),

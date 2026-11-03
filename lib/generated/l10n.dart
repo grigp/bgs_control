@@ -1229,6 +1229,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Stages`
+  String get Stages {
+    return Intl.message(
+      'Stages',
+      name: 'Stages',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

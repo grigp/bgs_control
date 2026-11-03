@@ -30,15 +30,17 @@ class ProgramStorage {
       if (_listPrograms[i].uid == methId) return _listPrograms[i];
     }
     return MethodicProgram(
-        uid: '',
-        statsTitle: '',
-        title: '',
-        description: '',
-        electrods: "",
-        areases: "",
-        recomendations: "",
-        image: '',
-        mpk: MethodicProgramKind.mpkNormal);
+      uid: '',
+      statsTitle: '',
+      title: '',
+      description: '',
+      electrods: "",
+      areases: "",
+      recomendations: "",
+      image: '',
+      mpk: MethodicProgramKind.mpkNormal,
+      isDefault: true,
+    );
   }
 
   /// Заполняет рабочий список программ, беря его из предустановленного файла json
