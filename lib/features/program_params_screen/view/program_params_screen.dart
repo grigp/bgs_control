@@ -169,7 +169,7 @@ class _ProgramParamsScreenState extends State<ProgramParamsScreen> {
                                       if (widget.program.recomendations != '')
                                         TextSpan(
                                           text:
-                                              S.of(context).recommendationsForProcedure,
+                                              '${S.of(context).recommendationsForProcedure}\n',
                                           style: const TextStyle(
                                             fontWeight: FontWeight.bold,
                                             color: black,

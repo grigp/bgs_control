@@ -47,7 +47,7 @@
   "personalModeDescription": "Режим работы стимулятора с индивидуальными настройками",
   "compatibleElectrodeTypes": "Совместимые типы электродов: ",
   "areasStimulation": "Области воздействия: ",
-  "recommendationsForProcedure": "Рекомендации по проведению процедуры:\n",
+  "recommendationsForProcedure": "Рекомендации по проведению процедуры:",
   "start": "Начать",
   "stageNum": "Стадия {stageNum}",
   "programExecutionTime": "Время выполнения программы",

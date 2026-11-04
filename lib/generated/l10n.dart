@@ -520,10 +520,10 @@ class S {
     );
   }
 
-  /// `Recommendations for the procedure:\n`
+  /// `Recommendations for the procedure:`
   String get recommendationsForProcedure {
     return Intl.message(
-      'Recommendations for the procedure:\n',
+      'Recommendations for the procedure:',
       name: 'recommendationsForProcedure',
       desc: '',
       args: [],

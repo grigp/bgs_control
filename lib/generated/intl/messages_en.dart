@@ -209,7 +209,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Program execution time"),
         "programTitle": m15,
         "recommendationsForProcedure": MessageLookupByLibrary.simpleMessage(
-            "Recommendations for the procedure:\n"),
+            "Recommendations for the procedure:"),
         "run": MessageLookupByLibrary.simpleMessage("Run"),
         "save": MessageLookupByLibrary.simpleMessage("Save results"),
         "searchStimulators":

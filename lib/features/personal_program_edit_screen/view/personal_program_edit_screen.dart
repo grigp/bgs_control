@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 
 import '../../../assets/colors/colors.dart';
 import '../../../generated/l10n.dart';
+import '../../../utils/text_fields_decoration/edit_program_decoration.dart';
 import '../../uikit/widgets/back_screen_button.dart';
 
 /// Экран редактирования методики, созданной пользователем
@@ -106,77 +107,72 @@ class _PersonalProgramEditScreenState extends State<PersonalProgramEditScreen> {
                             S.of(context).MethodName,
                             textAlign: TextAlign.left,
                             textScaler: const TextScaler.linear(1.0),
-                            style: const TextStyle(
-                              color: black,
-                              fontSize: 20,
-                            ),
+                            style: nameParamStyle(),
                           ),
                           TextField(
                             controller: _textMethodName,
-                            style: Theme.of(context).textTheme.headlineSmall,
+                            style: const TextStyle(color: Colors.black, fontSize: 20),
+                            decoration: editProgramDecoration('Введите название программы'),
                             onChanged: _onNameChanged,
                             keyboardType: TextInputType.name,
                           ),
+                          const SizedBox(height: 10),
                           Text(
                             S.of(context).MethodDescription,
                             textAlign: TextAlign.left,
                             textScaler: const TextScaler.linear(1.0),
-                            style: const TextStyle(
-                              color: black,
-                              fontSize: 20,
-                            ),
+                            style: nameParamStyle(),
                           ),
                           TextField(
                             controller: _textDescription,
-                            style: Theme.of(context).textTheme.headlineSmall,
+                            style: const TextStyle(color: Colors.black, fontSize: 20),
+                            decoration: editProgramDecoration('Введите описание программы'),
                             onChanged: _onNameChanged,
                             keyboardType: TextInputType.name,
                           ),
+                          const SizedBox(height: 10),
                           Text(
                             S.of(context).compatibleElectrodeTypes,
                             textAlign: TextAlign.left,
                             textScaler: const TextScaler.linear(1.0),
-                            style: const TextStyle(
-                              color: black,
-                              fontSize: 20,
-                            ),
+                            style: nameParamStyle(),
                           ),
                           TextField(
                             controller: _textElectrods,
-                            style: Theme.of(context).textTheme.headlineSmall,
+                            style: const TextStyle(color: Colors.black, fontSize: 20),
+                            decoration: editProgramDecoration('Введите типы электродов'),
                             onChanged: _onNameChanged,
                             keyboardType: TextInputType.name,
                           ),
+                          const SizedBox(height: 10),
                           Text(
                             S.of(context).areasStimulation,
                             textAlign: TextAlign.left,
                             textScaler: const TextScaler.linear(1.0),
-                            style: const TextStyle(
-                              color: black,
-                              fontSize: 20,
-                            ),
+                            style: nameParamStyle(),
                           ),
                           TextField(
                             controller: _textAreases,
-                            style: Theme.of(context).textTheme.headlineSmall,
+                            style: const TextStyle(color: Colors.black, fontSize: 20),
+                            decoration: editProgramDecoration('Введите типы электродов'),
                             onChanged: _onNameChanged,
                             keyboardType: TextInputType.name,
                           ),
+                          const SizedBox(height: 10),
                           Text(
                             S.of(context).recommendationsForProcedure,
                             textAlign: TextAlign.left,
                             textScaler: const TextScaler.linear(1.0),
-                            style: const TextStyle(
-                              color: black,
-                              fontSize: 20,
-                            ),
+                            style: nameParamStyle(),
                           ),
                           TextField(
                             controller: _textRecomend,
-                            style: Theme.of(context).textTheme.headlineSmall,
+                            style: const TextStyle(color: Colors.black, fontSize: 20),
+                            decoration: editProgramDecoration('Введите рекомендации'),
                             onChanged: _onNameChanged,
                             keyboardType: TextInputType.name,
                           ),
+                          const SizedBox(height: 20),
                           Text(
                             S.of(context).Stages,
                             textAlign: TextAlign.left,
