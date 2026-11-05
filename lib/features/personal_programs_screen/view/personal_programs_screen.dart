@@ -26,6 +26,7 @@ class PersonalProgramsScreen extends StatefulWidget {
 class _PersonalProgramsScreenState extends State<PersonalProgramsScreen> {
   bool _isReady = false;
   List<MethodicProgram> _programs = [];
+  int _idxSelected = -1;
 
   @override
   Widget build(BuildContext context) {
@@ -170,7 +171,12 @@ class _PersonalProgramsScreenState extends State<PersonalProgramsScreen> {
           (program, index) => ProgramTitle(
             program: program,
             isLast: index == _programs.length - 1,
-            onTap: () async {},
+            isSelected: (index == _idxSelected)? true : false,
+            onTap: () async {
+              setState(() {
+                _idxSelected = index;
+              });
+            },
           ),
         )
         .where((ProgramTitle test) => !test.program.isDefault)  /// Только не дефолтные методики

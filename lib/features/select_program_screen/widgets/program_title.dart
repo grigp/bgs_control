@@ -1,6 +1,7 @@
 import 'package:bgs_control/repositories/methodic_programs/model/methodic_program.dart';
 import 'package:flutter/material.dart';
 
+import '../../../assets/colors/colors.dart';
 import '../../../repositories/methodic_programs/Intl/methodic_intl.dart';
 
 class ProgramTitle extends StatefulWidget {
@@ -9,11 +10,14 @@ class ProgramTitle extends StatefulWidget {
     required this.program,
     required this.isLast,
     required this.onTap,
+    required this.isSelected,
   });
 
   final MethodicProgram program;
   final bool isLast;
   final VoidCallback? onTap;
+
+  final bool isSelected;
 
   @override
   State<ProgramTitle> createState() => _ProgramTitleState();
@@ -33,7 +37,7 @@ class _ProgramTitleState extends State<ProgramTitle> {
 
   Widget _buildTitle(BuildContext context, ThemeData theme) {
     return Container(
-      color: Colors.transparent,
+      color: (widget.isSelected)? filledSecondaryButtonColor : Colors.transparent,
       padding: const EdgeInsets.only(
         left: 6,
         right: 6,

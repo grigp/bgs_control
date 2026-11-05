@@ -612,6 +612,7 @@ class _SelectProgramScreenState extends State<SelectProgramScreen>
           (program, index) => ProgramTitle(
             program: program,
             isLast: index == _programs.length - 1,
+            isSelected: false,
             onTap: () async {
               if (_chargeLevel <= Constants.chargeBreakBoundLevel) {
                 await alertLowEnergy();
