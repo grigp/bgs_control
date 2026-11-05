@@ -39,7 +39,7 @@ class ProgramStorage {
       recomendations: "",
       image: '',
       mpk: MethodicProgramKind.mpkNormal,
-      isDefault: true,
+      isDefault: false,
     );
   }
 

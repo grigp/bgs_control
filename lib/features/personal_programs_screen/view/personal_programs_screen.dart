@@ -171,7 +171,7 @@ class _PersonalProgramsScreenState extends State<PersonalProgramsScreen> {
           (program, index) => ProgramTitle(
             program: program,
             isLast: index == _programs.length - 1,
-            isSelected: (index == _idxSelected)? true : false,
+            isSelected: (index == _idxSelected) ? true : false,
             onTap: () async {
               setState(() {
                 _idxSelected = index;
@@ -179,7 +179,9 @@ class _PersonalProgramsScreenState extends State<PersonalProgramsScreen> {
             },
           ),
         )
-        .where((ProgramTitle test) => !test.program.isDefault)  /// Только не дефолтные методики
+        .where((ProgramTitle test) => !test.program.isDefault)
+
+        /// Только не дефолтные методики
         .toList();
   }
 
@@ -197,16 +199,18 @@ class _PersonalProgramsScreenState extends State<PersonalProgramsScreen> {
   }
 
   void _editMethod() async {
-    pushScreen(
-      context,
-      (context, animation, secondaryAnimation) => PersonalProgramEditScreen(
-        title: S.of(context).editMethod,
-        editMode: EditMode.emEdit,
-        progId: _programs[_idxSelected].uid,
-      ),
-      '/EditMethod',
-      ShiftDirection.rightToLeft,
-    );
+    if (_idxSelected >= 0) {
+      pushScreen(
+        context,
+        (context, animation, secondaryAnimation) => PersonalProgramEditScreen(
+          title: S.of(context).editMethod,
+          editMode: EditMode.emEdit,
+          progId: _programs[_idxSelected].uid,
+        ),
+        '/EditMethod',
+        ShiftDirection.rightToLeft,
+      );
+    }
   }
 
   void _delMethod() async {}

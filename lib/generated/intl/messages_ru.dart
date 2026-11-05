@@ -73,6 +73,12 @@ class MessageLookup extends MessageLookupByLibrary {
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "Connect": MessageLookupByLibrary.simpleMessage("Подключить"),
         "History": MessageLookupByLibrary.simpleMessage("История"),
+        "InputElectrodeType":
+            MessageLookupByLibrary.simpleMessage("Введите типы электродов"),
+        "InputRecomendations":
+            MessageLookupByLibrary.simpleMessage("Введите рекомендации"),
+        "InputStimulAreases":
+            MessageLookupByLibrary.simpleMessage("Введите зоны стимуляции"),
         "MethodDescription": MessageLookupByLibrary.simpleMessage("Описание"),
         "MethodName":
             MessageLookupByLibrary.simpleMessage("Название программы"),
@@ -169,6 +175,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "histAverage": m11,
         "histDuration": m12,
         "histMax": m13,
+        "inputMethodDescription":
+            MessageLookupByLibrary.simpleMessage("Введите описание программы"),
+        "inputMethodName":
+            MessageLookupByLibrary.simpleMessage("Введите название программы"),
         "intensity": MessageLookupByLibrary.simpleMessage("Интенсивность"),
         "interruptProgramExecution":
             MessageLookupByLibrary.simpleMessage("Прервать воздействие?"),

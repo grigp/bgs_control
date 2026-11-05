@@ -118,5 +118,10 @@
   "deleteMethod": "Delete method",
   "MethodName": "Method's name",
   "MethodDescription": "Description",
-  "Stages": "Stages"
+  "Stages": "Stages",
+  "inputMethodName": "Input method's name",
+  "inputMethodDescription": "Input method's description",
+  "InputElectrodeType": "Input electrode type",
+  "InputStimulAreases": "Input stimul areases",
+  "InputRecomendations": "Input recomendations"
 }

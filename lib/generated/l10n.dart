@@ -1239,6 +1239,56 @@ class S {
       args: [],
     );
   }
+
+  /// `Input method's name`
+  String get inputMethodName {
+    return Intl.message(
+      'Input method\'s name',
+      name: 'inputMethodName',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Input method's description`
+  String get inputMethodDescription {
+    return Intl.message(
+      'Input method\'s description',
+      name: 'inputMethodDescription',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Input electrode type`
+  String get InputElectrodeType {
+    return Intl.message(
+      'Input electrode type',
+      name: 'InputElectrodeType',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Input stimul areases`
+  String get InputStimulAreases {
+    return Intl.message(
+      'Input stimul areases',
+      name: 'InputStimulAreases',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Input recomendations`
+  String get InputRecomendations {
+    return Intl.message(
+      'Input recomendations',
+      name: 'InputRecomendations',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

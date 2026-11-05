@@ -118,5 +118,10 @@
   "deleteMethod": "Удалить программу",
   "MethodName": "Название программы",
   "MethodDescription": "Описание",
-  "Stages": "Этапы"
+  "Stages": "Этапы",
+  "inputMethodName": "Введите название программы",
+  "inputMethodDescription": "Введите описание программы",
+  "InputElectrodeType": "Введите типы электродов",
+  "InputStimulAreases": "Введите зоны стимуляции",
+  "InputRecomendations": "Введите рекомендации"
 }

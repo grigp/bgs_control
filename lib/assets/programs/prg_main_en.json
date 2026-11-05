@@ -9,6 +9,7 @@
       "recomendations": "Start with the joint symmetrical to the area of discomfort. If both joints are bothersome, treat the one with the least discomfort first. In the second stage, move the electrode to the other joint.",
       "file": "ortez1.png",
       "icon": "joints_discomfort_1.png",
+      "default": false,
       "attributes": [
         {
           "id": "Joints"
@@ -75,6 +76,7 @@
       "recomendations": "Start with the joint that causes the most discomfort. If both joints are bothersome, treat the one with the most discomfort first. After stage 3, move the electrode to the other joint.",
       "file": "ortez1.png",
       "icon": "joints_discomfort_2.png",
+      "default": false,
       "attributes": [
         {
           "id": "Joints"
@@ -141,6 +143,7 @@
       "recomendations": "Place the electrode on the area of discomfort and perform the procedure without moving the electrode to other areas.",
       "file": "ortez1.png",
       "icon": "muscles_longterm_voltage_1.png",
+      "default": true,
       "attributes": [
         {
           "id": "Muscles"
@@ -195,6 +198,7 @@
       "recomendations": "First, place the electrode so that its contacts are on either side of the spine, at the same height as the problem area. In the second stage, move the electrode directly to the area of discomfort.",
       "file": "ortez1.png",
       "icon": "muscles_longterm_voltage_2.png",
+      "default": true,
       "attributes": [
         {
           "id": "Muscles"
@@ -261,6 +265,7 @@
       "recomendations": "Place the electrode on the area of discomfort and perform the procedure without moving the electrode to other areas.",
       "file": "ortez1.png",
       "icon": "muscles_sharp_voltage_1.png",
+      "default": true,
       "attributes": [
         {
           "id": "Muscle"
@@ -315,6 +320,7 @@
       "recomendations": "First, apply the electrode to the area of discomfort. After completing stage 3, reposition the electrode so that its contacts are on either side of the spine—at the same height as the problem area.",
       "file": "ortez1.png",
       "icon": "muscles_sharp_voltage_2.png",
+      "default": true,
       "attributes": [
         {
           "id": "Muscles"
@@ -381,6 +387,7 @@
       "recomendations": "This methodic is designed for users who need a smooth, supportive regimen for muscle areas without causing significant discomfort.\nIt is suitable as a wellness treatment after a day of work, physical activity, or when regular muscle care is needed.\nIt can be used as one of the most versatile regimens for recurring home use.",
       "file": "ortez1.png",
       "icon": "revitalizing_muscle_massage.png",
+      "default": true,
       "attributes": [
         {
           "id": "Muscles"
@@ -438,6 +445,7 @@
       "recomendations": "This methodic is designed for gentle and consistent application to the joint area as part of regular wellness treatments.\nIt is appropriate when the user wants to maintain subjective comfort in the joint area after exercise or during daily activities.\nIt is a good option for recurring home sessions without focusing on acute conditions.",
       "file": "ortez1.png",
       "icon": "healing_massage_joints.png",
+      "default": true,
       "attributes": [
         {
           "id": "Joints"
@@ -495,6 +503,7 @@
       "recomendations": "This methodic is designed for situations where severe discomfort is not the primary concern, but rather the desire to relax muscles and reduce pent-up tension.\nIt is well suited after sedentary work, travel, household activities, or exercise.\nThe program can be used as a comfortable evening routine or as part of a regular home care routine.",
       "file": "ortez1.png",
       "icon": "relaxing_muscle_massage.png",
+      "default": true,
       "attributes": [
         {
           "id": "Muscles"
@@ -552,6 +561,7 @@
       "recomendations": "This methodic is used as a gentle, comfortable treatment for the joint area when gentle, comfortable stimulation is required.\nIt is appropriate after everyday activities, vigorous movement, or exercise at the end of the day when stiffness is felt.\nSuitable for users who need a simple and straightforward joint regimen on a regular basis.",
       "file": "ortez1.png",
       "icon": "relaxing_massage_joints.png",
+      "default": true,
       "attributes": [
         {
           "id": "Joints"
@@ -609,6 +619,7 @@
       "recomendations": "This methodic is designed for use before sports activity and serves as a preliminary step before placing stress on the joint area.\nIt helps organize a more consistent entry into movement and can be useful before training, sports, or active warm-ups.\nThe program is especially suitable for users who want to build a gradual exercise routine.",
       "file": "ortez1.png",
       "icon": "sport_joints_warmup.png",
+      "default": true,
       "attributes": [
         {
           "id": "Joints"
@@ -654,6 +665,7 @@
       "recomendations": "This methodic is designed for users with regular physical activity and is used as the primary joint regimen in sports scenarios.\nIt can be used as the central part of a comprehensive procedure.\nIt is best understood in conjunction with the preparatory and final stages.",
       "file": "ortez1.png",
       "icon": "sport_joints_workout.png",
+      "default": true,
       "attributes": [
         {
           "id": "Joints"
@@ -699,6 +711,7 @@
       "recomendations": "This methodic is designed to complete a sports-related procedure in the joint area after the main load.\nIt helps transition from an active phase to a more relaxed state and can be used after a workout, a class, or intense physical activity.\nSuitable as the final part of a sports routine.",
       "file": "ortez1.png",
       "icon": "sport_joints_relaxation.png",
+      "default": true,
       "attributes": [
         {
           "id": "Joints"
@@ -744,6 +757,7 @@
       "recomendations": "This methodic is applied before the main muscle load and is designed to more gently engage the area.\nIt can be used before training, physical activity, or active recovery sessions.\nIt is especially useful as the first stage of a sports routine for the back and gluteal muscles.",
       "file": "ortez1.png",
       "icon": "sport_muscles_warmup.png",
+      "default": true,
       "attributes": [
         {
           "id": "Muscles"
@@ -789,6 +803,7 @@
       "recomendations": "The methodic is aimed at users who regularly engage in sports or fitness and want to use electrical impulses as part of a sports scenario.\nIt is used as the main stage of the muscle complex and is best perceived in the logic of warm-up - main work - relaxation.\nSuitable for users with good exposure tolerance.",
       "file": "ortez1.png",
       "icon": "sport_muscles_workout.png",
+      "default": true,
       "attributes": [
         {
           "id": "Muscles"
@@ -834,6 +849,7 @@
       "recomendations": "The methodic is used as the final stage of a muscle training regimen after intense exercise or strenuous work.\nIt is suitable for situations requiring a gentle transition from an intense regimen to a more relaxed subjective sensation.\nIt can also be used independently as a short post-workout treatment.",
       "file": "ortez1.png",
       "icon": "sport_muscles_relaxation.png",
+      "default": true,
       "attributes": [
         {
           "id": "Muscles"
@@ -879,6 +895,7 @@
       "recomendations": "This methodic is designed for users who engage in fitness, general strengthening physical activity, or moderate-intensity training.\nIt is suitable as a more universal joint regimen between everyday and sports scenarios.\nIt can be used depending on individual habits and the desired goal.",
       "file": "ortez1.png",
       "icon": "sport_joints.png",
+      "default": true,
       "attributes": [
         {
           "id": "Joints"
@@ -972,6 +989,7 @@
       "recomendations": "The methodic is aimed at fitness enthusiasts and those who combine daily activity with regular training.\nIt is perceived as a universal muscle-building regimen: not too narrowly focused on sports, but more active than standard everyday programs.\nSuitable for regular use within a familiar training routine.",
       "file": "ortez1.png",
       "icon": "sport_muscles.png",
+      "default": true,
       "attributes": [
         {
           "id": "Muscles"
@@ -1065,6 +1083,7 @@
       "recomendations": "",
       "file": "ortez1.png",
       "icon": "tunnel_syndrome_round.png",
+      "default": true,
       "attributes": [
         {
           "id": "Muscles"
@@ -1161,6 +1180,7 @@
       "recomendations": "",
       "file": "ortez1.png",
       "icon": "tunnel_syndrome_round.png",
+      "default": true,
       "attributes": [
         {
           "id": "Joints"
@@ -1230,6 +1250,7 @@
       "recomendations": "",
       "file": "ortez1.png",
       "icon": "tunnel_syndrome_round.png",
+      "default": false,
       "attributes": [
         {
           "id": "Muscles"

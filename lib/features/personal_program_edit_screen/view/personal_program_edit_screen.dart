@@ -10,6 +10,7 @@ import '../../../repositories/methodic_programs/model/methodic_program.dart';
 import '../../../repositories/methodic_programs/storage/program_storage.dart';
 import '../../../utils/text_fields_decoration/edit_program_decoration.dart';
 import '../../uikit/widgets/back_screen_button.dart';
+import '../widgets/edit_stage_title.dart';
 
 /// Экран редактирования методики, созданной пользователем
 class PersonalProgramEditScreen extends StatefulWidget {
@@ -38,6 +39,7 @@ class _PersonalProgramEditScreenState extends State<PersonalProgramEditScreen> {
   late TextEditingController _textRecomend;
 
   bool _isReady = false;
+  int _idxSelStage = -1;
 
   @override
   Widget build(BuildContext context) {
@@ -108,84 +110,17 @@ class _PersonalProgramEditScreenState extends State<PersonalProgramEditScreen> {
                         horizontal: 12,
                       ),
                       child: Column(
-                        children: [
-                          Text(
-                            S.of(context).MethodName,
-                            textAlign: TextAlign.left,
-                            textScaler: const TextScaler.linear(1.0),
-                            style: nameParamStyle(),
-                          ),
-                          TextField(
-                            controller: _textMethodName,
-                            style: const TextStyle(color: Colors.black, fontSize: 20),
-                            decoration: editProgramDecoration('Введите название программы'),
-                            onChanged: _onNameChanged,
-                            keyboardType: TextInputType.name,
-                          ),
-                          const SizedBox(height: 10),
-                          Text(
-                            S.of(context).MethodDescription,
-                            textAlign: TextAlign.left,
-                            textScaler: const TextScaler.linear(1.0),
-                            style: nameParamStyle(),
-                          ),
-                          TextField(
-                            controller: _textDescription,
-                            style: const TextStyle(color: Colors.black, fontSize: 20),
-                            decoration: editProgramDecoration('Введите описание программы'),
-                            onChanged: _onNameChanged,
-                            keyboardType: TextInputType.name,
-                          ),
-                          const SizedBox(height: 10),
-                          Text(
-                            S.of(context).compatibleElectrodeTypes,
-                            textAlign: TextAlign.left,
-                            textScaler: const TextScaler.linear(1.0),
-                            style: nameParamStyle(),
-                          ),
-                          TextField(
-                            controller: _textElectrods,
-                            style: const TextStyle(color: Colors.black, fontSize: 20),
-                            decoration: editProgramDecoration('Введите типы электродов'),
-                            onChanged: _onNameChanged,
-                            keyboardType: TextInputType.name,
-                          ),
-                          const SizedBox(height: 10),
-                          Text(
-                            S.of(context).areasStimulation,
-                            textAlign: TextAlign.left,
-                            textScaler: const TextScaler.linear(1.0),
-                            style: nameParamStyle(),
-                          ),
-                          TextField(
-                            controller: _textAreases,
-                            style: const TextStyle(color: Colors.black, fontSize: 20),
-                            decoration: editProgramDecoration('Введите типы электродов'),
-                            onChanged: _onNameChanged,
-                            keyboardType: TextInputType.name,
-                          ),
-                          const SizedBox(height: 10),
-                          Text(
-                            S.of(context).recommendationsForProcedure,
-                            textAlign: TextAlign.left,
-                            textScaler: const TextScaler.linear(1.0),
-                            style: nameParamStyle(),
-                          ),
-                          TextField(
-                            controller: _textRecomend,
-                            style: const TextStyle(color: Colors.black, fontSize: 20),
-                            decoration: editProgramDecoration('Введите рекомендации'),
-                            onChanged: _onNameChanged,
-                            keyboardType: TextInputType.name,
-                          ),
-                          const SizedBox(height: 20),
-                          Text(
-                            S.of(context).Stages,
-                            textAlign: TextAlign.left,
-                            textScaler: const TextScaler.linear(1.0),
-                            style: const TextStyle(
-                              color: black,
-                              fontSize: 20,
+                        children: <Widget>[
+                          ..._buildHeader(context),
+                          ..._buildStagesTiles(context),
+                          TextButton(
+                            onPressed: () {},
+                            child: const Text(
+                              'Добавить этап',
+                              style: TextStyle(
+                                color: Colors.black38,
+                                fontSize: 20,
+                              ),
                             ),
                           ),
                         ],
@@ -268,5 +203,82 @@ class _PersonalProgramEditScreenState extends State<PersonalProgramEditScreen> {
 
   void _cancel() async {
     Navigator.pop(context, 0);
+  }
+
+  Text _buildTextLabel(String text) {
+    return Text(
+      text,
+      textAlign: TextAlign.left,
+      textScaler: const TextScaler.linear(1.0),
+      style: nameParamStyle(),
+    );
+  }
+
+  TextField _buildTextField(TextEditingController contrroller, String hintText,
+      ValueChanged<String> onChanged) {
+    return TextField(
+      controller: contrroller,
+      style: const TextStyle(color: Colors.black, fontSize: 20),
+      decoration: editProgramDecoration(hintText),
+      onChanged: onChanged,
+      keyboardType: TextInputType.name,
+    );
+  }
+
+  List<Widget> _buildHeader(BuildContext context) {
+    List<Widget> retval = [];
+
+    /// Название программы
+    retval.add(_buildTextLabel(S.of(context).MethodName));
+    retval.add(_buildTextField(
+        _textMethodName, S.of(context).inputMethodName, _onNameChanged));
+    retval.add(const SizedBox(height: 10));
+
+    /// Описание программы
+    retval.add(_buildTextLabel(S.of(context).MethodDescription));
+    retval.add(_buildTextField(_textDescription,
+        S.of(context).inputMethodDescription, _onNameChanged));
+    retval.add(const SizedBox(height: 10));
+
+    /// Тип электродов
+    retval.add(_buildTextLabel(S.of(context).compatibleElectrodeTypes));
+    retval.add(_buildTextField(
+        _textElectrods, S.of(context).InputElectrodeType, _onNameChanged));
+    retval.add(const SizedBox(height: 10));
+
+    /// Зоны стимуляции
+    retval.add(_buildTextLabel(S.of(context).areasStimulation));
+    retval.add(_buildTextField(
+        _textAreases, S.of(context).InputStimulAreases, _onNameChanged));
+    retval.add(const SizedBox(height: 10));
+
+    /// Рекомендации
+    retval.add(_buildTextLabel(S.of(context).recommendationsForProcedure));
+    retval.add(_buildTextField(
+        _textRecomend, S.of(context).InputRecomendations, _onNameChanged));
+    retval.add(const SizedBox(height: 20));
+
+    retval.add(_buildTextLabel(S.of(context).Stages));
+
+    return retval;
+  }
+
+  List<Widget> _buildStagesTiles(BuildContext context) {
+    List<Widget> retval = [];
+    for (int i = 0; i < _program.stagesCount(); ++i) {
+      retval.add(EditStageTitle(
+        stage: _program.stage(i),
+        onTap: () async {
+          setState(() {
+            _idxSelStage = i;
+          });
+        },
+        isSelected: i == _idxSelStage,
+      ));
+      if (i < _program.stagesCount() - 1) {
+        retval.add(const SizedBox(height: 6));
+      }
+    }
+    return retval;
   }
 }
