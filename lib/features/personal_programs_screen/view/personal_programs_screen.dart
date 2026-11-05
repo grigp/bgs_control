@@ -189,6 +189,7 @@ class _PersonalProgramsScreenState extends State<PersonalProgramsScreen> {
       (context, animation, secondaryAnimation) => PersonalProgramEditScreen(
         title: S.of(context).addMethod,
         editMode: EditMode.emAdd,
+        progId: '',
       ),
       '/EditMethod',
       ShiftDirection.rightToLeft,
@@ -201,6 +202,7 @@ class _PersonalProgramsScreenState extends State<PersonalProgramsScreen> {
       (context, animation, secondaryAnimation) => PersonalProgramEditScreen(
         title: S.of(context).editMethod,
         editMode: EditMode.emEdit,
+        progId: _programs[_idxSelected].uid,
       ),
       '/EditMethod',
       ShiftDirection.rightToLeft,

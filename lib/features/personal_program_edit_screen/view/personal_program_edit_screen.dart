@@ -1,10 +1,13 @@
 import 'package:bgs_control/utils/baseutils.dart';
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 
 //class PersonalProgramEditScreen extends StatefulWidget {
 
 import '../../../assets/colors/colors.dart';
 import '../../../generated/l10n.dart';
+import '../../../repositories/methodic_programs/model/methodic_program.dart';
+import '../../../repositories/methodic_programs/storage/program_storage.dart';
 import '../../../utils/text_fields_decoration/edit_program_decoration.dart';
 import '../../uikit/widgets/back_screen_button.dart';
 
@@ -14,10 +17,12 @@ class PersonalProgramEditScreen extends StatefulWidget {
     super.key,
     required this.title,
     required this.editMode,
+    required this.progId,
   });
 
   final String title;
   final EditMode editMode;
+  final String progId;
 
   @override
   State<PersonalProgramEditScreen> createState() =>
@@ -25,6 +30,7 @@ class PersonalProgramEditScreen extends StatefulWidget {
 }
 
 class _PersonalProgramEditScreenState extends State<PersonalProgramEditScreen> {
+  late MethodicProgram _program;
   late TextEditingController _textMethodName;
   late TextEditingController _textDescription;
   late TextEditingController _textElectrods;
@@ -229,11 +235,13 @@ class _PersonalProgramEditScreenState extends State<PersonalProgramEditScreen> {
   void initState() {
     super.initState();
 
-    _textMethodName = TextEditingController(text: '');
-    _textDescription = TextEditingController(text: '');
-    _textElectrods = TextEditingController(text: '');
-    _textAreases = TextEditingController(text: '');
-    _textRecomend = TextEditingController(text: '');
+    _program = GetIt.I<ProgramStorage>().getProgram(widget.progId);
+
+    _textMethodName = TextEditingController(text: _program.title);
+    _textDescription = TextEditingController(text: _program.description);
+    _textElectrods = TextEditingController(text: _program.electrods);
+    _textAreases = TextEditingController(text: _program.areases);
+    _textRecomend = TextEditingController(text: _program.recomendations);
     _isReady = true;
   }
 
