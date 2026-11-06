@@ -30,6 +30,25 @@ String getTimeBySecCount(int secCnt) {
   return '$sm:$ss';
 }
 
+int getSecCountByString(String sTime) {
+  // Разбиваем строку по символу ':'
+  List<String> parts = sTime.split(':');
+
+  // Переводим строковые значения в числа (int)
+  if (parts.length == 2) {
+    int minutes = int.parse(parts[0]);
+    int seconds = int.parse(parts[1]);
+    return (minutes * 60) + seconds;
+  } else
+  if (parts.length == 3) {
+    int hours = int.parse(parts[0]);
+    int minutes = int.parse(parts[1]);
+    int seconds = int.parse(parts[2]);
+    return (hours * 3600) * (minutes * 60) + seconds;
+  }
+  return 0;
+}
+
 int getStimulatorNumber(String deviceName) {
   var list = deviceName.split('_');
   if (list.length == 2) {

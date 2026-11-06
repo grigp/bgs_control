@@ -123,5 +123,15 @@
   "inputMethodDescription": "Input method's description",
   "InputElectrodeType": "Input electrode type",
   "InputStimulAreases": "Input stimul areases",
-  "InputRecomendations": "Input recomendations"
+  "InputRecomendations": "Input recomendations",
+  "askDeleteStageFromProgram": "Delete stage '{stage}' from methodic?",
+  "stageName": "Stage name",
+  "InputStageName": "Input stage name",
+  "stageDuration": "Stage duration",
+  "addStage": "Add stage",
+  "InputTime": "Input time",
+  "InputTimeTotal_min_sec": "Enter the full time (mm:ss)",
+  "SecondsOutOfBounds": "There aren't time above 59 seconds",
+  "MinutesOutOfBound": "Maximum 99 minutes",
+  "Time_mm_ss": "Time (mm:ss)"
 }

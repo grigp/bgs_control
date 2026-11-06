@@ -12,6 +12,7 @@ import '../../../repositories/methodic_programs/model/methodic_program.dart';
 import '../../../repositories/methodic_programs/storage/program_storage.dart';
 import '../../../utils/text_fields_decoration/edit_program_decoration.dart';
 import '../../direct_control_screen/widgets/params_widget.dart';
+import '../../uikit/texel_button.dart';
 import '../../uikit/widgets/back_screen_button.dart';
 import '../widgets/edit_stage_title.dart';
 
@@ -119,10 +120,10 @@ class _PersonalProgramEditScreenState extends State<PersonalProgramEditScreen> {
                           ..._buildHeader(context),
                           ..._buildStagesTiles(context),
                           TextButton(
-                            onPressed: () {},
-                            child: const Text(
-                              'Добавить этап',
-                              style: TextStyle(
+                            onPressed: _addStage,
+                            child: Text(
+                              S.of(context).addStage,
+                              style: const TextStyle(
                                 color: Colors.black38,
                                 fontSize: 20,
                               ),
@@ -201,24 +202,6 @@ class _PersonalProgramEditScreenState extends State<PersonalProgramEditScreen> {
     super.dispose();
   }
 
-  void _onNameChanged(String value) {
-    // if (value != '') {
-    //   _timeWait = int.tryParse(value)!;
-    // }
-  }
-
-  void _onDescriptionChanged(String value) {}
-
-  void _onElectrodeChanged(String value) {}
-
-  void _onAreasesChanged(String value) {}
-
-  void _onRecomendationChanged(String value) {}
-
-  void _onStageNameChanged(String value) {}
-
-  void _onStageDurationChanged(String value) {}
-
   void _save() async {
     Navigator.pop(context, 0);
   }
@@ -247,6 +230,17 @@ class _PersonalProgramEditScreenState extends State<PersonalProgramEditScreen> {
     );
   }
 
+  TextField _buildTextFieldSubmit(TextEditingController contrroller, String hintText,
+      ValueChanged<String> onSubmited) {
+    return TextField(
+      controller: contrroller,
+      style: const TextStyle(color: Colors.black, fontSize: 20),
+      decoration: editProgramDecoration(hintText),
+      onSubmitted: onSubmited,
+      keyboardType: TextInputType.name,
+    );
+  }
+
   TextFormField _buildTextTimeField(TextEditingController contrroller,
       String hintText, ValueChanged<String> onChanged) {
     // Настраиваем маску: # означает любую цифру
@@ -260,16 +254,16 @@ class _PersonalProgramEditScreenState extends State<PersonalProgramEditScreen> {
       controller: contrroller,
       inputFormatters: [timeMaskFormatter],
       style: const TextStyle(color: Colors.black, fontSize: 20),
-      decoration: editProgramDecorationTime(),
+      decoration: editProgramDecorationTime(context),
       onChanged: onChanged,
       keyboardType: TextInputType.number,
       // Валидация введенных данных
       validator: (value) {
         if (value == null || value.isEmpty) {
-          return 'Введите время';
+          return S.of(context).InputTime;
         }
         if (value.length < 5) {
-          return 'Введите время полностью (ММ:СС)';
+          return S.of(context).InputTimeTotal_min_sec;
         }
 
         // Разделяем строку на минуты и секунды
@@ -279,11 +273,11 @@ class _PersonalProgramEditScreenState extends State<PersonalProgramEditScreen> {
 
         // Секунд не может быть больше 59
         if (seconds >= 60) {
-          return 'Секунды не могут быть больше 59';
+          return S.of(context).SecondsOutOfBounds;
         }
         // Опционально: ограничение на минуты, если нужно
         if (minutes > 99) {
-          return 'Максимум 99 минут';
+          return S.of(context).MinutesOutOfBound;
         }
 
         return null;
@@ -339,6 +333,7 @@ class _PersonalProgramEditScreenState extends State<PersonalProgramEditScreen> {
             _idxSelStage = i;
           });
         },
+        onDelete: _deleteStage,
         isSelected: i == _idxSelStage,
       ));
       if (i < _program.stagesCount() - 1) {
@@ -353,13 +348,13 @@ class _PersonalProgramEditScreenState extends State<PersonalProgramEditScreen> {
 
     if (_idxSelStage >= 0 && _idxSelStage < _program.stagesCount()) {
       /// Комментарий к этапу
-      retval.add(_buildTextLabel('Название этапа'));
-      retval.add(_buildTextField(
-          _textStageName, 'Введите название этапа', _onStageNameChanged));
+      retval.add(_buildTextLabel(S.of(context).stageName));
+      retval.add(_buildTextFieldSubmit(
+          _textStageName, S.of(context).InputStageName, _onStageNameSubmited));
       retval.add(const SizedBox(height: 10));
 
       /// Длительность этапа
-      retval.add(_buildTextLabel('Длительность этапа'));
+      retval.add(_buildTextLabel(S.of(context).stageDuration));
       retval.add(const SizedBox(height: 10));
       retval.add(
           _buildTextTimeField(_textStageDuration, '', _onStageDurationChanged));
@@ -391,23 +386,107 @@ class _PersonalProgramEditScreenState extends State<PersonalProgramEditScreen> {
     return retval;
   }
 
-  void _onAmChanged(bool isAm) {
+  void _addStage() {
+    setState(() {
+      _program.newStage();
+      _idxSelStage = _program.stagesCount() - 1;
+    });
+  }
 
+  void _deleteStage() {
+    showDialog<bool>(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) => AlertDialog(
+        title: Text(
+          S.of(context).askDeleteStageFromProgram(_program.stage(_idxSelStage).comment),
+        ),
+        actions: <Widget>[
+          TexelButton.accent(
+            onPressed: () => Navigator.pop(context, false),
+            text: S.of(context).no,
+            width: 120,
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 22),
+            child: TextButton(
+              onPressed: () {
+                setState(() {
+                  _program.deleteStage(_idxSelStage);
+                });
+                Navigator.pop(context, true);
+              },
+              child: Text(
+                S.of(context).yes,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  void _onNameChanged(String value) {
+    _program.title = value;
+  }
+
+  void _onDescriptionChanged(String value) {
+    _program.description = value;
+  }
+
+  void _onElectrodeChanged(String value) {
+    _program.electrods = value;
+  }
+
+  void _onAreasesChanged(String value) {
+    _program.areases = value;
+  }
+
+  void _onRecomendationChanged(String value) {
+    _program.recomendations = value;
+  }
+
+  void _onStageNameSubmited(String value) {
+    if (_idxSelStage >= 0) {
+      setState(() {
+        _program.stage(_idxSelStage).comment = value;
+      });
+    }
+  }
+
+  void _onStageDurationChanged(String value) {
+    if (_idxSelStage >= 0) {
+      _program.stage(_idxSelStage).duration = getSecCountByString(value);
+    }
+  }
+
+  void _onAmChanged(bool isAm) {
+    if (_idxSelStage >= 0) {
+      _program.stage(_idxSelStage).isAm = isAm;
+    }
   }
 
   void _onAmModeChanged(AmMode amMode) {
-
+    if (_idxSelStage >= 0) {
+      _program.stage(_idxSelStage).amMode = amMode;
+    }
   }
 
   void _onFmChanged(bool isFm) {
-
+    if (_idxSelStage >= 0) {
+      _program.stage(_idxSelStage).isFm = isFm;
+    }
   }
 
   void _onFreqChanged(double freq) {
-
+    if (_idxSelStage >= 0) {
+      _program.stage(_idxSelStage).frequency = freq;
+    }
   }
 
   void _onIntensivityChanged(Intensivity intensivity) {
-
+    if (_idxSelStage >= 0) {
+      _program.stage(_idxSelStage).intensivity = intensivity;
+    }
   }
 }

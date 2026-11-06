@@ -1289,6 +1289,106 @@ class S {
       args: [],
     );
   }
+
+  /// `Delete stage '{stage}' from methodic?`
+  String askDeleteStageFromProgram(Object stage) {
+    return Intl.message(
+      'Delete stage \'$stage\' from methodic?',
+      name: 'askDeleteStageFromProgram',
+      desc: '',
+      args: [stage],
+    );
+  }
+
+  /// `Stage name`
+  String get stageName {
+    return Intl.message(
+      'Stage name',
+      name: 'stageName',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Input stage name`
+  String get InputStageName {
+    return Intl.message(
+      'Input stage name',
+      name: 'InputStageName',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Stage duration`
+  String get stageDuration {
+    return Intl.message(
+      'Stage duration',
+      name: 'stageDuration',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Add stage`
+  String get addStage {
+    return Intl.message(
+      'Add stage',
+      name: 'addStage',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Input time`
+  String get InputTime {
+    return Intl.message(
+      'Input time',
+      name: 'InputTime',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter the full time (mm:ss)`
+  String get InputTimeTotal_min_sec {
+    return Intl.message(
+      'Enter the full time (mm:ss)',
+      name: 'InputTimeTotal_min_sec',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `There aren't time above 59 seconds`
+  String get SecondsOutOfBounds {
+    return Intl.message(
+      'There aren\'t time above 59 seconds',
+      name: 'SecondsOutOfBounds',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Maximum 99 minutes`
+  String get MinutesOutOfBound {
+    return Intl.message(
+      'Maximum 99 minutes',
+      name: 'MinutesOutOfBound',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Time (mm:ss)`
+  String get Time_mm_ss {
+    return Intl.message(
+      'Time (mm:ss)',
+      name: 'Time_mm_ss',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

@@ -123,5 +123,15 @@
   "inputMethodDescription": "Введите описание программы",
   "InputElectrodeType": "Введите типы электродов",
   "InputStimulAreases": "Введите зоны стимуляции",
-  "InputRecomendations": "Введите рекомендации"
+  "InputRecomendations": "Введите рекомендации",
+  "askDeleteStageFromProgram": "Удалить этап '{stage}' из программы?",
+  "stageName": "Название этапа",
+  "InputStageName": "Введите название этапа",
+  "stageDuration": "Длительность этапа",
+  "addStage": "Добавить этап",
+  "InputTime": "Введите время",
+  "InputTimeTotal_min_sec": "Введите время полностью (ММ:СС)",
+  "SecondsOutOfBounds": "Не может быть больше 59 секунд",
+  "MinutesOutOfBound": "Максимум 99 минут",
+  "Time_mm_ss": "Время (ММ:СС)"
 }

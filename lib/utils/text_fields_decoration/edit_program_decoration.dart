@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 
 import '../../assets/colors/colors.dart';
+import '../../generated/l10n.dart';
 
 InputDecoration editProgramDecoration(String hintText){
   return InputDecoration(
@@ -40,9 +41,9 @@ InputDecoration editProgramDecoration(String hintText){
   );
 }
 
-InputDecoration editProgramDecorationTime(){
+InputDecoration editProgramDecorationTime(BuildContext context){
   return InputDecoration(
-    labelText: 'Время (ММ:СС)',
+    labelText: S.of(context).Time_mm_ss,
     hintText: '00:00',
     border: const OutlineInputBorder(),
     prefixIcon: const Icon(Icons.timer),

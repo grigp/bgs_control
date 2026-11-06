@@ -8,11 +8,13 @@ class EditStageTitle extends StatefulWidget {
     super.key,
     required this.stage,
     required this.onTap,
+    required this.onDelete,
     required this.isSelected,
   });
 
   final ProgramStage stage;
   final VoidCallback? onTap;
+  final VoidCallback? onDelete;
 
   final bool isSelected;
 
@@ -64,7 +66,7 @@ class _EditStageTitleState extends State<EditStageTitle> {
           ),
           GestureDetector(
               onTap: () {
-//                widget.onDelete(widget.patient);
+                widget.onDelete?.call();
               },
               child: const SizedBox(
                 width: 20,

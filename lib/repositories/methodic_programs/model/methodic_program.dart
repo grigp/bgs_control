@@ -197,6 +197,16 @@ class MethodicProgram {
         'idx == $idx, length = ${_stages.length}');
     _stages[idx].duration = duration;
   }
+
+  void newStage() {
+    _addStage('', 60000, false, false, AmMode.am_11, Intensivity.one, 60);
+  }
+
+  void deleteStage(int idx) {
+    if (idx >= 0 && idx < _stages.length) {
+      _stages.removeAt(idx);
+    }
+  }
 }
 
 /// Типы программ
