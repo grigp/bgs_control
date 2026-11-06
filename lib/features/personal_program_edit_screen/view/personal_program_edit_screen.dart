@@ -1,14 +1,17 @@
 import 'package:bgs_control/utils/baseutils.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
 //class PersonalProgramEditScreen extends StatefulWidget {
 
 import '../../../assets/colors/colors.dart';
 import '../../../generated/l10n.dart';
+import '../../../repositories/bgs_connect/bgs_defines.dart';
 import '../../../repositories/methodic_programs/model/methodic_program.dart';
 import '../../../repositories/methodic_programs/storage/program_storage.dart';
 import '../../../utils/text_fields_decoration/edit_program_decoration.dart';
+import '../../direct_control_screen/widgets/params_widget.dart';
 import '../../uikit/widgets/back_screen_button.dart';
 import '../widgets/edit_stage_title.dart';
 
@@ -37,6 +40,8 @@ class _PersonalProgramEditScreenState extends State<PersonalProgramEditScreen> {
   late TextEditingController _textElectrods;
   late TextEditingController _textAreases;
   late TextEditingController _textRecomend;
+  late TextEditingController _textStageName;
+  late TextEditingController _textStageDuration;
 
   bool _isReady = false;
   int _idxSelStage = -1;
@@ -123,6 +128,7 @@ class _PersonalProgramEditScreenState extends State<PersonalProgramEditScreen> {
                               ),
                             ),
                           ),
+                          ..._buildStage(context),
                         ],
                       ),
                     ),
@@ -177,6 +183,8 @@ class _PersonalProgramEditScreenState extends State<PersonalProgramEditScreen> {
     _textElectrods = TextEditingController(text: _program.electrods);
     _textAreases = TextEditingController(text: _program.areases);
     _textRecomend = TextEditingController(text: _program.recomendations);
+    _textStageName = TextEditingController(text: '');
+    _textStageDuration = TextEditingController(text: '');
     _isReady = true;
   }
 
@@ -187,6 +195,8 @@ class _PersonalProgramEditScreenState extends State<PersonalProgramEditScreen> {
     _textElectrods.dispose();
     _textAreases.dispose();
     _textRecomend.dispose();
+    _textStageName.dispose();
+    _textStageDuration.dispose();
 
     super.dispose();
   }
@@ -196,6 +206,18 @@ class _PersonalProgramEditScreenState extends State<PersonalProgramEditScreen> {
     //   _timeWait = int.tryParse(value)!;
     // }
   }
+
+  void _onDescriptionChanged(String value) {}
+
+  void _onElectrodeChanged(String value) {}
+
+  void _onAreasesChanged(String value) {}
+
+  void _onRecomendationChanged(String value) {}
+
+  void _onStageNameChanged(String value) {}
+
+  void _onStageDurationChanged(String value) {}
 
   void _save() async {
     Navigator.pop(context, 0);
@@ -225,6 +247,50 @@ class _PersonalProgramEditScreenState extends State<PersonalProgramEditScreen> {
     );
   }
 
+  TextFormField _buildTextTimeField(TextEditingController contrroller,
+      String hintText, ValueChanged<String> onChanged) {
+    // Настраиваем маску: # означает любую цифру
+    final timeMaskFormatter = MaskTextInputFormatter(
+      mask: '##:##',
+      filter: {"#": RegExp(r'[0-9]')},
+      type: MaskAutoCompletionType.lazy,
+    );
+
+    return TextFormField(
+      controller: contrroller,
+      inputFormatters: [timeMaskFormatter],
+      style: const TextStyle(color: Colors.black, fontSize: 20),
+      decoration: editProgramDecorationTime(),
+      onChanged: onChanged,
+      keyboardType: TextInputType.number,
+      // Валидация введенных данных
+      validator: (value) {
+        if (value == null || value.isEmpty) {
+          return 'Введите время';
+        }
+        if (value.length < 5) {
+          return 'Введите время полностью (ММ:СС)';
+        }
+
+        // Разделяем строку на минуты и секунды
+        final parts = value.split(':');
+        final minutes = int.tryParse(parts[0]) ?? 0;
+        final seconds = int.tryParse(parts[1]) ?? 0;
+
+        // Секунд не может быть больше 59
+        if (seconds >= 60) {
+          return 'Секунды не могут быть больше 59';
+        }
+        // Опционально: ограничение на минуты, если нужно
+        if (minutes > 99) {
+          return 'Максимум 99 минут';
+        }
+
+        return null;
+      },
+    );
+  }
+
   List<Widget> _buildHeader(BuildContext context) {
     List<Widget> retval = [];
 
@@ -237,25 +303,25 @@ class _PersonalProgramEditScreenState extends State<PersonalProgramEditScreen> {
     /// Описание программы
     retval.add(_buildTextLabel(S.of(context).MethodDescription));
     retval.add(_buildTextField(_textDescription,
-        S.of(context).inputMethodDescription, _onNameChanged));
+        S.of(context).inputMethodDescription, _onDescriptionChanged));
     retval.add(const SizedBox(height: 10));
 
     /// Тип электродов
     retval.add(_buildTextLabel(S.of(context).compatibleElectrodeTypes));
     retval.add(_buildTextField(
-        _textElectrods, S.of(context).InputElectrodeType, _onNameChanged));
+        _textElectrods, S.of(context).InputElectrodeType, _onElectrodeChanged));
     retval.add(const SizedBox(height: 10));
 
     /// Зоны стимуляции
     retval.add(_buildTextLabel(S.of(context).areasStimulation));
     retval.add(_buildTextField(
-        _textAreases, S.of(context).InputStimulAreases, _onNameChanged));
+        _textAreases, S.of(context).InputStimulAreases, _onAreasesChanged));
     retval.add(const SizedBox(height: 10));
 
     /// Рекомендации
     retval.add(_buildTextLabel(S.of(context).recommendationsForProcedure));
-    retval.add(_buildTextField(
-        _textRecomend, S.of(context).InputRecomendations, _onNameChanged));
+    retval.add(_buildTextField(_textRecomend, S.of(context).InputRecomendations,
+        _onRecomendationChanged));
     retval.add(const SizedBox(height: 20));
 
     retval.add(_buildTextLabel(S.of(context).Stages));
@@ -280,5 +346,68 @@ class _PersonalProgramEditScreenState extends State<PersonalProgramEditScreen> {
       }
     }
     return retval;
+  }
+
+  List<Widget> _buildStage(BuildContext context) {
+    List<Widget> retval = [];
+
+    if (_idxSelStage >= 0 && _idxSelStage < _program.stagesCount()) {
+      /// Комментарий к этапу
+      retval.add(_buildTextLabel('Название этапа'));
+      retval.add(_buildTextField(
+          _textStageName, 'Введите название этапа', _onStageNameChanged));
+      retval.add(const SizedBox(height: 10));
+
+      /// Длительность этапа
+      retval.add(_buildTextLabel('Длительность этапа'));
+      retval.add(const SizedBox(height: 10));
+      retval.add(
+          _buildTextTimeField(_textStageDuration, '', _onStageDurationChanged));
+      retval.add(const SizedBox(height: 10));
+
+      /// Заполнение полей
+      _textStageName.text = _program.stage(_idxSelStage).comment;
+      _textStageDuration.text =
+          getTimeBySecCount(_program.stage(_idxSelStage).duration ~/ 1000);
+
+      /// Поля ввода параметров воздействия
+      retval.add(
+        ParamsWidget(
+          isAm: _program.stage(_idxSelStage).isAm,
+          onAmChanged: _onAmChanged,
+          amMode: _program.stage(_idxSelStage).amMode,
+          onAmModeChanged: _onAmModeChanged,
+          isFm: _program.stage(_idxSelStage).isFm,
+          onFmChanged: _onFmChanged,
+          freq: _program.stage(_idxSelStage).frequency,
+          onFreqChanged: _onFreqChanged,
+          intensivity: _program.stage(_idxSelStage).intensivity,
+          onIntensivityChanged: _onIntensivityChanged,
+          colorsStyle: ParamsColorsStyle.pcsYellow,
+        ),
+      );
+    }
+
+    return retval;
+  }
+
+  void _onAmChanged(bool isAm) {
+
+  }
+
+  void _onAmModeChanged(AmMode amMode) {
+
+  }
+
+  void _onFmChanged(bool isFm) {
+
+  }
+
+  void _onFreqChanged(double freq) {
+
+  }
+
+  void _onIntensivityChanged(Intensivity intensivity) {
+
   }
 }
