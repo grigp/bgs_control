@@ -9,7 +9,7 @@
       "recomendations": "Начинайте с сустава, симметричного зоне дискомфорта. Если беспокоят оба сустава, сначала обработайте тот, где дискомфорт меньше. На второй стадии переставьте электрод на другой сустав.",
       "file": "ortez1.png",
       "icon": "joints_discomfort_1.png",
-      "default": false,
+      "default": true,
       "attributes": [
         {
           "id": "Суставы"
@@ -76,7 +76,7 @@
       "recomendations": "Начинайте с сустава, с максимальным дискомфорта. Если беспокоят оба сустава, сначала обработайте тот, где дискомфорт больше. После 3-й стадии переставьте электрод на другой сустав.",
       "file": "ortez1.png",
       "icon": "joints_discomfort_2.png",
-      "default": false,
+      "default": true,
       "attributes": [
         {
           "id": "Суставы"
@@ -1250,7 +1250,7 @@
       "recomendations": "",
       "file": "ortez1.png",
       "icon": "tunnel_syndrome_round.png",
-      "default": false,
+      "default": true,
       "attributes": [
         {
           "id": "Мышцы"

@@ -9,7 +9,7 @@
       "recomendations": "Start with the joint symmetrical to the area of discomfort. If both joints are bothersome, treat the one with the least discomfort first. In the second stage, move the electrode to the other joint.",
       "file": "ortez1.png",
       "icon": "joints_discomfort_1.png",
-      "default": false,
+      "default": true,
       "attributes": [
         {
           "id": "Joints"
@@ -76,7 +76,7 @@
       "recomendations": "Start with the joint that causes the most discomfort. If both joints are bothersome, treat the one with the most discomfort first. After stage 3, move the electrode to the other joint.",
       "file": "ortez1.png",
       "icon": "joints_discomfort_2.png",
-      "default": false,
+      "default": true,
       "attributes": [
         {
           "id": "Joints"
@@ -1250,7 +1250,7 @@
       "recomendations": "",
       "file": "ortez1.png",
       "icon": "tunnel_syndrome_round.png",
-      "default": false,
+      "default": true,
       "attributes": [
         {
           "id": "Muscles"

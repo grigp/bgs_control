@@ -192,6 +192,7 @@ class _PersonalProgramsScreenState extends State<PersonalProgramsScreen> {
         title: S.of(context).addMethod,
         editMode: EditMode.emAdd,
         progId: '',
+        onUpdate: _onUpdate,
       ),
       '/EditMethod',
       ShiftDirection.rightToLeft,
@@ -206,11 +207,18 @@ class _PersonalProgramsScreenState extends State<PersonalProgramsScreen> {
           title: S.of(context).editMethod,
           editMode: EditMode.emEdit,
           progId: _programs[_idxSelected].uid,
+          onUpdate: _onUpdate,
         ),
         '/EditMethod',
         ShiftDirection.rightToLeft,
       );
     }
+  }
+
+  void _onUpdate() {
+    setState(() {
+
+    });
   }
 
   void _delMethod() async {}

@@ -23,11 +23,13 @@ class PersonalProgramEditScreen extends StatefulWidget {
     required this.title,
     required this.editMode,
     required this.progId,
+    required this.onUpdate,
   });
 
   final String title;
   final EditMode editMode;
   final String progId;
+  final Function onUpdate;
 
   @override
   State<PersonalProgramEditScreen> createState() =>
@@ -203,6 +205,13 @@ class _PersonalProgramEditScreenState extends State<PersonalProgramEditScreen> {
   }
 
   void _save() async {
+    if (widget.editMode == EditMode.emAdd) {
+      GetIt.I<ProgramStorage>().addUserProgram(_program);
+    } else
+      if  (widget.editMode == EditMode.emEdit) {
+      }
+
+    widget.onUpdate();
     Navigator.pop(context, 0);
   }
 
@@ -457,7 +466,7 @@ class _PersonalProgramEditScreenState extends State<PersonalProgramEditScreen> {
 
   void _onStageDurationChanged(String value) {
     if (_idxSelStage >= 0) {
-      _program.stage(_idxSelStage).duration = getSecCountByString(value);
+      _program.setStageDuration(_idxSelStage, getSecCountByString(value) * 1000);
     }
   }
 

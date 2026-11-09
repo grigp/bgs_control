@@ -43,6 +43,12 @@ class ProgramStorage {
     );
   }
 
+  void addUserProgram(MethodicProgram program) {
+    program.uid = _getNextProgramUid();
+    program.image = 'man.png';
+    _listPrograms.add(program);
+  }
+
   /// Заполняет рабочий список программ, беря его из предустановленного файла json
   Future _fillWorkList() async {
     Locale deviceLocale = PlatformDispatcher.instance.locale;
@@ -74,6 +80,26 @@ class ProgramStorage {
         _listPrograms.add(program);
       }
     }
+  }
+
+  /// Возвращает следующий свободный uid в списке методик
+  String _getNextProgramUid() {
+    /// Ищем максимальный занятый
+    int iu = -1;
+    for (int i = 0; i < _listPrograms.length; ++i) {
+      String suid = _listPrograms[i].uid;
+      int? uid = int.tryParse(suid);
+      if (uid! > iu) {
+        iu = uid;
+      }
+    }
+
+    /// Если он допустим, то возратим его + 1
+    if (iu < 256) {
+      return '${iu + 1}';
+    }
+    /// А если нет, то 255 - макс. для байта
+    return '255';
   }
 
   ///// Заполняет рабочий список программ в файле
