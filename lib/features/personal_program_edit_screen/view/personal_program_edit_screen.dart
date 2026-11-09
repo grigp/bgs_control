@@ -209,6 +209,7 @@ class _PersonalProgramEditScreenState extends State<PersonalProgramEditScreen> {
       GetIt.I<ProgramStorage>().addUserProgram(_program);
     } else
       if  (widget.editMode == EditMode.emEdit) {
+        GetIt.I<ProgramStorage>().editUserProgram(_program);
       }
 
     widget.onUpdate();

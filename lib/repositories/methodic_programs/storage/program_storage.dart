@@ -43,10 +43,37 @@ class ProgramStorage {
     );
   }
 
+  /// Добавить пользовательскую программу
   void addUserProgram(MethodicProgram program) {
     program.uid = _getNextProgramUid();
     program.image = 'man.png';
     _listPrograms.add(program);
+  }
+
+  /// Изменить пользовательскую программу
+  void editUserProgram(MethodicProgram program) {
+    for (int i = 0; i < _listPrograms.length; ++i) {
+      if (_listPrograms[i].uid == program.uid) {
+        _listPrograms[i].title = program.title;
+        _listPrograms[i].description = program.description;
+        _listPrograms[i].electrods = program.electrods;
+        _listPrograms[i].areases = program.areases;
+        _listPrograms[i].recomendations = program.recomendations;
+
+        _listPrograms[i].clearStages();
+        for (int j = 0; j < program.stagesCount(); ++j) {
+          _listPrograms[i].newStage();
+          var stage = program.stage(j);
+          _listPrograms[i].setStageComment(j, stage.comment);
+          _listPrograms[i].setStageDuration(j, stage.duration);
+          _listPrograms[i].setStageIsAm(j, stage.isAm);
+          _listPrograms[i].setStageAmMode(j, stage.amMode);
+          _listPrograms[i].setStageIsFm(j, stage.isFm);
+          _listPrograms[i].setStageFrequency(j, stage.frequency);
+          _listPrograms[i].setStageIntensivity(j, stage.intensivity);
+        }
+      }
+    }
   }
 
   /// Заполняет рабочий список программ, беря его из предустановленного файла json

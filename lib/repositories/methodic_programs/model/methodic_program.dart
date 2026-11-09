@@ -249,6 +249,10 @@ class MethodicProgram {
       _stages.removeAt(idx);
     }
   }
+
+  void clearStages() {
+    _stages.clear();
+  }
 }
 
 /// Типы программ
