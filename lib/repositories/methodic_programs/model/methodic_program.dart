@@ -191,11 +191,53 @@ class MethodicProgram {
     );
   }
 
+  /// Меняет снаружи название этапа
+  void setStageComment(int idx, String comment) {
+    assert(idx >= 0 && idx < _stages.length,
+        'idx == $idx, length = ${_stages.length}');
+    _stages[idx].comment = comment;
+  }
+
   /// Меняет снаружи длительность этапа idx
-  void setDuration(int idx, int duration) {
+  void setStageDuration(int idx, int duration) {
     assert(idx >= 0 && idx < _stages.length,
         'idx == $idx, length = ${_stages.length}');
     _stages[idx].duration = duration;
+  }
+
+  /// Меняет снаружи признак амплитудной модуляции
+  void setStageIsAm(int idx, bool isAm) {
+    assert(idx >= 0 && idx < _stages.length,
+    'idx == $idx, length = ${_stages.length}');
+    _stages[idx].isAm = isAm;
+  }
+
+  /// Меняет снаружи значение амплитудной модуляции
+  void setStageAmMode(int idx, AmMode amMode) {
+    assert(idx >= 0 && idx < _stages.length,
+    'idx == $idx, length = ${_stages.length}');
+    _stages[idx].amMode = amMode;
+  }
+
+  /// Меняет снаружи признак частотной модуляции
+  void setStageIsFm(int idx, bool isFm) {
+    assert(idx >= 0 && idx < _stages.length,
+    'idx == $idx, length = ${_stages.length}');
+    _stages[idx].isFm = isFm;
+  }
+
+  /// Меняет снаружи значение частоты
+  void setStageFrequency(int idx, double frequency) {
+    assert(idx >= 0 && idx < _stages.length,
+    'idx == $idx, length = ${_stages.length}');
+    _stages[idx].frequency = frequency;
+  }
+
+  /// Меняет снаружи значение интенсивности
+  void setStageIntensivity(int idx, Intensivity intensivity) {
+    assert(idx >= 0 && idx < _stages.length,
+    'idx == $idx, length = ${_stages.length}');
+    _stages[idx].intensivity = intensivity;
   }
 
   void newStage() {

@@ -318,7 +318,7 @@ class DeviceProgramExecutor {
 
     if (program.stage(_idxStage).duration == 0 &&
         _connect.stageDuration(_idxStage) > 0) {
-      program.setDuration(_idxStage, _connect.stageDuration(_idxStage).toInt());
+      program.setStageDuration(_idxStage, _connect.stageDuration(_idxStage).toInt());
       _progDuration = _programDuration();
     }
 

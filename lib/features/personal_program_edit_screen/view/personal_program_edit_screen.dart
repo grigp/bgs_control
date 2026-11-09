@@ -413,6 +413,7 @@ class _PersonalProgramEditScreenState extends State<PersonalProgramEditScreen> {
               onPressed: () {
                 setState(() {
                   _program.deleteStage(_idxSelStage);
+                  _idxSelStage = -1;
                 });
                 Navigator.pop(context, true);
               },
@@ -449,7 +450,7 @@ class _PersonalProgramEditScreenState extends State<PersonalProgramEditScreen> {
   void _onStageNameSubmited(String value) {
     if (_idxSelStage >= 0) {
       setState(() {
-        _program.stage(_idxSelStage).comment = value;
+        _program.setStageComment(_idxSelStage, value);
       });
     }
   }
@@ -462,31 +463,31 @@ class _PersonalProgramEditScreenState extends State<PersonalProgramEditScreen> {
 
   void _onAmChanged(bool isAm) {
     if (_idxSelStage >= 0) {
-      _program.stage(_idxSelStage).isAm = isAm;
+      _program.setStageIsAm(_idxSelStage, isAm);
     }
   }
 
   void _onAmModeChanged(AmMode amMode) {
     if (_idxSelStage >= 0) {
-      _program.stage(_idxSelStage).amMode = amMode;
+      _program.setStageAmMode(_idxSelStage, amMode);
     }
   }
 
   void _onFmChanged(bool isFm) {
     if (_idxSelStage >= 0) {
-      _program.stage(_idxSelStage).isFm = isFm;
+      _program.setStageIsFm(_idxSelStage, isFm);
     }
   }
 
   void _onFreqChanged(double freq) {
     if (_idxSelStage >= 0) {
-      _program.stage(_idxSelStage).frequency = freq;
+      _program.setStageFrequency(_idxSelStage, freq);
     }
   }
 
   void _onIntensivityChanged(Intensivity intensivity) {
     if (_idxSelStage >= 0) {
-      _program.stage(_idxSelStage).intensivity = intensivity;
+      _program.setStageIntensivity(_idxSelStage, intensivity);
     }
   }
 }
