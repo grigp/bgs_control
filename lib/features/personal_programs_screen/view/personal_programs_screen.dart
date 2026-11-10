@@ -8,6 +8,7 @@ import '../../../repositories/methodic_programs/storage/program_storage.dart';
 import '../../../utils/baseutils.dart';
 import '../../personal_program_edit_screen/view/personal_program_edit_screen.dart';
 import '../../select_program_screen/widgets/program_title.dart';
+import '../../uikit/texel_button.dart';
 import '../../uikit/widgets/back_screen_button.dart';
 
 /// Экран списка методик, созданных пользователем
@@ -221,5 +222,42 @@ class _PersonalProgramsScreenState extends State<PersonalProgramsScreen> {
     });
   }
 
-  void _delMethod() async {}
+  void _delMethod() async {
+    var progName = _programs[_idxSelected].title;
+    final bool? isDelete = await _showDeleteUserProgramDialog(progName);
+    if (isDelete!) {
+      setState(() {
+        GetIt.I<ProgramStorage>().delUserProgram(_programs[_idxSelected].uid);
+      });
+    }
+  }
+
+  Future<bool?> _showDeleteUserProgramDialog(String progName) async {
+    return await showDialog<bool>(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) => AlertDialog(
+        title: Text(
+          'Удалить программу стимуляции $progName?',
+        ),
+        actions: <Widget>[
+          TexelButton.accent(
+            onPressed: () => Navigator.pop(context, false),
+            text: S.of(context).no,
+            width: 120,
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 22),
+            child: TextButton(
+              onPressed: () => Navigator.pop(context, true),
+              child: Text(
+                S.of(context).yes,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
 }

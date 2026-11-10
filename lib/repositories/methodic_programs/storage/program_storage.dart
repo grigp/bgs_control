@@ -78,6 +78,15 @@ class ProgramStorage {
     }
   }
 
+  /// Удалить пользовательскую программу
+  void delUserProgram(String prgUid) {
+    for (int i = 0; i < _listPrograms.length; ++i) {
+      if (_listPrograms[i].uid == prgUid) {
+        _listPrograms.removeAt(i);
+      }
+    }
+  }
+
   /// Заполняет рабочий список программ, беря его из предустановленного файла json
   Future _fillWorkList() async {
     Locale deviceLocale = PlatformDispatcher.instance.locale;
