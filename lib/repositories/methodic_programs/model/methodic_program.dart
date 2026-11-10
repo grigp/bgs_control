@@ -146,6 +146,49 @@ class MethodicProgram {
       );
   }
 
+  /// Конструктор из json
+  factory MethodicProgram.copy(MethodicProgram other) {
+    ///Разбор методики в json
+    /// Сначала сам объект с заголовочными полями
+    var retval = MethodicProgram(
+      uid: other.uid,
+      statsTitle: 'program ${other.statsTitle}',
+      title: other.title,
+      description: other.description,
+      electrods: other.electrods,
+      areases: other.areases,
+      recomendations: other.recomendations,
+      image: other.image,
+      mpk: MethodicProgramKind.mpkNormal,
+      isDefault: other.isDefault,
+    );
+
+    /// Затем атрибуты из массива
+    var attr = other.attributes;
+    retval.attributes.clear();
+    for (int i = 0; i < attr.length; ++i) {
+      retval.attributes.add(attr[i]);
+    }
+
+    /// Ну и в конце - этапы
+    retval._stages.clear();
+    for (int i = 0; i < other.stagesCount(); ++i) {
+      var stage = ProgramStage(
+        comment: other.stage(i).comment,
+        duration: other.stage(i).duration,
+        isAm: other.stage(i).isAm,
+        isFm: other.stage(i).isFm,
+        amMode: other.stage(i).amMode,
+        intensivity: other.stage(i).intensivity,
+        frequency: other.stage(i).frequency,
+      );
+      retval._stages.add(stage);
+    }
+
+    /// И на сладкое - возвращаем программу
+    return retval;
+  }
+
   String uid;
   String statsTitle;
   String title;

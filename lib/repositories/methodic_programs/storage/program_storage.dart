@@ -27,7 +27,9 @@ class ProgramStorage {
   /// Возвращает программу по ее id
   MethodicProgram getProgram(String methId) {
     for (int i = 0; i < _listPrograms.length; ++i) {
-      if (_listPrograms[i].uid == methId) return _listPrograms[i];
+      if (_listPrograms[i].uid == methId) {
+        return MethodicProgram.copy(_listPrograms[i]);
+      }
     }
     return MethodicProgram(
       uid: '',
