@@ -241,13 +241,13 @@ class _PersonalProgramEditScreenState extends State<PersonalProgramEditScreen> {
     );
   }
 
-  TextField _buildTextFieldSubmit(TextEditingController contrroller, String hintText,
-      ValueChanged<String> onSubmited) {
+  TextField _buildTextFieldChanged(TextEditingController contrroller, String hintText,
+      ValueChanged<String> onChanged) {
     return TextField(
       controller: contrroller,
       style: const TextStyle(color: Colors.black, fontSize: 20),
       decoration: editProgramDecoration(hintText),
-      onSubmitted: onSubmited,
+      onChanged: onChanged,
       keyboardType: TextInputType.name,
     );
   }
@@ -360,8 +360,8 @@ class _PersonalProgramEditScreenState extends State<PersonalProgramEditScreen> {
     if (_idxSelStage >= 0 && _idxSelStage < _program.stagesCount()) {
       /// Комментарий к этапу
       retval.add(_buildTextLabel(S.of(context).stageName));
-      retval.add(_buildTextFieldSubmit(
-          _textStageName, S.of(context).InputStageName, _onStageNameSubmited));
+      retval.add(_buildTextFieldChanged(
+          _textStageName, S.of(context).InputStageName, _onStageNameChanged));
       retval.add(const SizedBox(height: 10));
 
       /// Длительность этапа
@@ -458,7 +458,7 @@ class _PersonalProgramEditScreenState extends State<PersonalProgramEditScreen> {
     _program.recomendations = value;
   }
 
-  void _onStageNameSubmited(String value) {
+  void _onStageNameChanged(String value) {
     if (_idxSelStage >= 0) {
       setState(() {
         _program.setStageComment(_idxSelStage, value);
