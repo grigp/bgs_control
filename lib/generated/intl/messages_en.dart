@@ -20,57 +20,61 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'en';
 
-  static String m0(appName) => "Application: ${appName}";
+  static String m0(numStage) => "У этапа ${numStage} не введено название";
 
-  static String m1(version, buildNumber) => "Version ${version}+${buildNumber}";
+  static String m1(appName) => "Application: ${appName}";
 
-  static String m2(appVersion) => "Version: ${appVersion}";
+  static String m2(version, buildNumber) => "Version ${version}+${buildNumber}";
 
-  static String m3(stage) => "Delete stage \'${stage}\' from methodic?";
+  static String m3(appVersion) => "Version: ${appVersion}";
 
-  static String m4(cnt) =>
+  static String m4(stage) => "Delete stage \'${stage}\' from methodic?";
+
+  static String m5(cnt) =>
       "There are ${cnt} records in Database. Save results to Database?";
 
-  static String m5(buildNumber) => "Build:${buildNumber}";
+  static String m6(buildNumber) => "Build:${buildNumber}";
 
-  static String m6(deviceName) => "Connectiong to the stimulator ${deviceName}";
+  static String m7(deviceName) => "Connectiong to the stimulator ${deviceName}";
 
-  static String m7(duration) => "Длительность: ${duration} мин";
+  static String m8(progName) => "Delete methodic ${progName}?";
 
-  static String m8(dvcName) => "Stimulator ${dvcName}";
+  static String m9(duration) => "Длительность: ${duration} мин";
 
-  static String m9(shortDeviceName) =>
+  static String m10(dvcName) => "Stimulator ${dvcName}";
+
+  static String m11(shortDeviceName) =>
       "Electrical stimulator ${shortDeviceName}";
 
-  static String m10(sFN) => "Firmware number: ${sFN}";
+  static String m12(sFN) => "Firmware number: ${sFN}";
 
-  static String m11(frequency) => "${frequency} Гц";
+  static String m13(frequency) => "${frequency} Гц";
 
-  static String m12(average) => "Average = ${average}";
+  static String m14(average) => "Average = ${average}";
 
-  static String m13(duration) => "Durat. = ${duration}";
+  static String m15(duration) => "Durat. = ${duration}";
 
-  static String m14(max) => "Maximum = ${max}";
+  static String m16(max) => "Maximum = ${max}";
 
-  static String m15(playingTime) => "Time passed - ${playingTime}";
+  static String m17(playingTime) => "Time passed - ${playingTime}";
 
-  static String m16(programTitle) => "Программа ${programTitle}";
+  static String m18(programTitle) => "Программа ${programTitle}";
 
-  static String m17(idxStage, stageComment) =>
+  static String m19(idxStage, stageComment) =>
       "Stage ${idxStage} : ${stageComment}";
 
-  static String m18(idxStage, nameStage) => "Stage ${idxStage} : ${nameStage}";
+  static String m20(idxStage, nameStage) => "Stage ${idxStage} : ${nameStage}";
 
-  static String m19(stageNum) => "Stage ${stageNum}";
+  static String m21(stageNum) => "Stage ${stageNum}";
 
-  static String m20(stageTime, duration) => "${stageTime} out of ${duration}";
+  static String m22(stageTime, duration) => "${stageTime} out of ${duration}";
 
-  static String m21(stimulatorNumber) =>
+  static String m23(stimulatorNumber) =>
       "Electrical stimulator texel №${stimulatorNumber}";
 
-  static String m22(timeRemain) => "Time remaining ${timeRemain}";
+  static String m24(timeRemain) => "Time remaining ${timeRemain}";
 
-  static String m23(sTUD, sTC) => "Work duration: ${sTUD} ${sTC}";
+  static String m25(sTUD, sTC) => "Work duration: ${sTUD} ${sTC}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -96,6 +100,11 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Personal methods"),
         "SecondsOutOfBounds": MessageLookupByLibrary.simpleMessage(
             "There aren\'t time above 59 seconds"),
+        "ShouldInputAnyStages": MessageLookupByLibrary.simpleMessage(
+            "Должен быть хотя бы один этап"),
+        "ShouldInputProgramName": MessageLookupByLibrary.simpleMessage(
+            "Необходимо ввести название программы"),
+        "ShouldIntputStageName": m0,
         "Stages": MessageLookupByLibrary.simpleMessage("Stages"),
         "TheStimulatorNeedsToBeCharged": MessageLookupByLibrary.simpleMessage(
             "The stimulator needs to be charged"),
@@ -108,16 +117,16 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Amplitude modulation"),
         "amplitudeModulationAM":
             MessageLookupByLibrary.simpleMessage("Ampl. modulation (AM)"),
-        "appName": m0,
-        "appVersion": m1,
-        "appVersion1": m2,
+        "appName": m1,
+        "appVersion": m2,
+        "appVersion1": m3,
         "areasStimulation":
             MessageLookupByLibrary.simpleMessage("Areas of stimulation: "),
         "askClearLog":
             MessageLookupByLibrary.simpleMessage("Clear the log data?"),
         "askContinueInterrupted": MessageLookupByLibrary.simpleMessage(
             "Continue execution of the interrupted methodic?"),
-        "askDeleteStageFromProgram": m3,
+        "askDeleteStageFromProgram": m4,
         "askExitProgram":
             MessageLookupByLibrary.simpleMessage("Exit the program?"),
         "askRunCustomMethodic":
@@ -126,7 +135,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Increasing the stimulation power may be unsafe.\nContinue increasing the stimulation power?"),
         "askSwitchToOfflineMode":
             MessageLookupByLibrary.simpleMessage("Switch to offline mode?"),
-        "askToSaveResults": m4,
+        "askToSaveResults": m5,
         "attention": MessageLookupByLibrary.simpleMessage("Attention"),
         "availableMethodics":
             MessageLookupByLibrary.simpleMessage("Available methodics"),
@@ -134,7 +143,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Average stimulation power"),
         "beforeConnectDescription": MessageLookupByLibrary.simpleMessage(
             "Turn the stimulator on, place it on the magnetic contacts of the electrode and press the button"),
-        "buildNumber": m5,
+        "buildNumber": m6,
         "byCategories": MessageLookupByLibrary.simpleMessage("By categories"),
         "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
         "cancelProgramExecution":
@@ -143,7 +152,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "close": MessageLookupByLibrary.simpleMessage("Close"),
         "compatibleElectrodeTypes": MessageLookupByLibrary.simpleMessage(
             "Compatible electrode types: "),
-        "connectToStimulator": m6,
+        "connectToStimulator": m7,
         "contraindications": MessageLookupByLibrary.simpleMessage(
             "- For children;\n- During pregnancy;\n- On the head, heart, and major vessels; in cases of varicose veins, thrombosis, and thrombophlebitis; in cases of open and closed bleeding; injuries to bones, nerves, muscles, tendons, and soft tissue; hernias and tissue protrusions; in cases of skin lesions and diseases (including nevi (birthmarks));\n- Individuals with unstable mental health;\n- Individuals with epilepsy, pacemakers (artificial pacemakers), acute ischemic and hemorrhagic lesions of the brain and heart, and oncological diseases;\n- In case of allergic reactions;\n- When driving vehicles, operating machinery, or electrical equipment;\n- If the device is damaged.\n\nAfter the procedure, short-term redness in the treatment area is possible. Avoid pain and discomfort. Do not use the electrode on dry conductive surfaces."),
         "dataExchangeLog":
@@ -153,22 +162,23 @@ class MessageLookup extends MessageLookupByLibrary {
         "deleteMethod": MessageLookupByLibrary.simpleMessage("Delete method"),
         "deleteStimulatorFromList": MessageLookupByLibrary.simpleMessage(
             "Remove stimulator from the list?"),
+        "deleteUserProgram": m8,
         "disconnect": MessageLookupByLibrary.simpleMessage("Disconnect"),
-        "durationMin": m7,
+        "durationMin": m9,
         "durationMmSs":
             MessageLookupByLibrary.simpleMessage("Duration, min:sec"),
-        "dvcName": m8,
+        "dvcName": m10,
         "editMethod": MessageLookupByLibrary.simpleMessage("Edit method"),
         "electrostimulationShouldNeverBeUsed":
             MessageLookupByLibrary.simpleMessage(
                 "Electrostimulation should never be used:"),
-        "electrostimulatorTexelN": m9,
+        "electrostimulatorTexelN": m11,
         "electrostimulatorsTexel": MessageLookupByLibrary.simpleMessage(
             "Electrical stimulators texel"),
         "exit": MessageLookupByLibrary.simpleMessage("Done"),
         "failedToConnect": MessageLookupByLibrary.simpleMessage(
             "Failed to connect to the stimulator"),
-        "firmwareNumber": m10,
+        "firmwareNumber": m12,
         "freeMethodic": MessageLookupByLibrary.simpleMessage("Custom methodic"),
         "freeMethodicDescription": MessageLookupByLibrary.simpleMessage(
             "Manual control of the stimulation mode"),
@@ -177,15 +187,15 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Frequency modulation"),
         "frequencyModulationFM":
             MessageLookupByLibrary.simpleMessage("Freq. modulation (FM)"),
-        "frequencyValue": m11,
+        "frequencyValue": m13,
         "frrequencyHZ": MessageLookupByLibrary.simpleMessage("frequency, Hz"),
         "goBack": MessageLookupByLibrary.simpleMessage("< Back"),
         "havingContraindications":
             MessageLookupByLibrary.simpleMessage("there are contraindications"),
         "hh_mm_ss": MessageLookupByLibrary.simpleMessage("hh:mm:ss"),
-        "histAverage": m12,
-        "histDuration": m13,
-        "histMax": m14,
+        "histAverage": m14,
+        "histDuration": m15,
+        "histMax": m16,
         "inputMethodDescription":
             MessageLookupByLibrary.simpleMessage("Input method\'s description"),
         "inputMethodName":
@@ -226,12 +236,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "personalMode": MessageLookupByLibrary.simpleMessage("Personal mode"),
         "personalModeDescription": MessageLookupByLibrary.simpleMessage(
             "Stimulator operating mode with individual settings"),
-        "playingTime": m15,
+        "playingTime": m17,
         "previousDevices":
             MessageLookupByLibrary.simpleMessage("Previous devices"),
         "programExecutionTime":
             MessageLookupByLibrary.simpleMessage("Program execution time"),
-        "programTitle": m16,
+        "programTitle": m18,
         "recommendationsForProcedure": MessageLookupByLibrary.simpleMessage(
             "Recommendations for the procedure:"),
         "run": MessageLookupByLibrary.simpleMessage("Run"),
@@ -246,11 +256,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "settings": MessageLookupByLibrary.simpleMessage("Settings"),
         "share": MessageLookupByLibrary.simpleMessage("Share"),
         "stageDuration": MessageLookupByLibrary.simpleMessage("Stage duration"),
-        "stageIdxComment": m17,
-        "stageIdxNamestage": m18,
+        "stageIdxComment": m19,
+        "stageIdxNamestage": m20,
         "stageName": MessageLookupByLibrary.simpleMessage("Stage name"),
-        "stageNum": m19,
-        "stageTmeDuration": m20,
+        "stageNum": m21,
+        "stageTmeDuration": m22,
         "start": MessageLookupByLibrary.simpleMessage("Start"),
         "stimulationWillBeContinue": MessageLookupByLibrary.simpleMessage(
             "The stimulation will be continue"),
@@ -258,16 +268,16 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Stimulator settings"),
         "stimulatorTurnedOffLowBattery": MessageLookupByLibrary.simpleMessage(
             "The stimulator turned off due to low battery."),
-        "texelStimulatorNumber": m21,
+        "texelStimulatorNumber": m23,
         "time": MessageLookupByLibrary.simpleMessage("Time"),
-        "timeRemain": m22,
+        "timeRemain": m24,
         "toGoMode": MessageLookupByLibrary.simpleMessage("Go to offline mode"),
         "tryAgain": MessageLookupByLibrary.simpleMessage("Please try again"),
         "turnObBluetooth": MessageLookupByLibrary.simpleMessage(
             "Turn on Bluetooth to connect the stimulator"),
         "turnOn": MessageLookupByLibrary.simpleMessage("Turn On"),
         "warning": MessageLookupByLibrary.simpleMessage("Warning"),
-        "workDuration": m23,
+        "workDuration": m25,
         "yes": MessageLookupByLibrary.simpleMessage("Yes")
       };
 }

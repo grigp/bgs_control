@@ -1389,6 +1389,46 @@ class S {
       args: [],
     );
   }
+
+  /// `Delete methodic {progName}?`
+  String deleteUserProgram(Object progName) {
+    return Intl.message(
+      'Delete methodic $progName?',
+      name: 'deleteUserProgram',
+      desc: '',
+      args: [progName],
+    );
+  }
+
+  /// `Необходимо ввести название программы`
+  String get ShouldInputProgramName {
+    return Intl.message(
+      'Необходимо ввести название программы',
+      name: 'ShouldInputProgramName',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Должен быть хотя бы один этап`
+  String get ShouldInputAnyStages {
+    return Intl.message(
+      'Должен быть хотя бы один этап',
+      name: 'ShouldInputAnyStages',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `У этапа {numStage} не введено название`
+  String ShouldIntputStageName(Object numStage) {
+    return Intl.message(
+      'У этапа $numStage не введено название',
+      name: 'ShouldIntputStageName',
+      desc: '',
+      args: [numStage],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

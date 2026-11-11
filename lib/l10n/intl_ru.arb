@@ -133,5 +133,9 @@
   "InputTimeTotal_min_sec": "Введите время полностью (ММ:СС)",
   "SecondsOutOfBounds": "Не может быть больше 59 секунд",
   "MinutesOutOfBound": "Максимум 99 минут",
-  "Time_mm_ss": "Время (ММ:СС)"
+  "Time_mm_ss": "Время (ММ:СС)",
+  "deleteUserProgram": "Удалить программу стимуляции {progName}?",
+  "ShouldInputProgramName": "Необходимо ввести название программы",
+  "ShouldInputAnyStages": "Должен быть хотя бы один этап",
+  "ShouldIntputStageName": "У этапа {numStage} не введено название"
 }

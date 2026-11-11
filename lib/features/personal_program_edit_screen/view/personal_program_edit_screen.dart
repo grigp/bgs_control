@@ -205,15 +205,16 @@ class _PersonalProgramEditScreenState extends State<PersonalProgramEditScreen> {
   }
 
   void _save() async {
-    if (widget.editMode == EditMode.emAdd) {
-      GetIt.I<ProgramStorage>().addUserProgram(_program);
-    } else
-      if  (widget.editMode == EditMode.emEdit) {
+    if (_isprogramCorrect()) {
+      if (widget.editMode == EditMode.emAdd) {
+        GetIt.I<ProgramStorage>().addUserProgram(_program);
+      } else if (widget.editMode == EditMode.emEdit) {
         GetIt.I<ProgramStorage>().editUserProgram(_program);
       }
 
-    widget.onUpdate();
-    Navigator.pop(context, 0);
+      widget.onUpdate();
+      Navigator.pop(context, 0);
+    }
   }
 
   void _cancel() async {
@@ -499,5 +500,43 @@ class _PersonalProgramEditScreenState extends State<PersonalProgramEditScreen> {
     if (_idxSelStage >= 0) {
       _program.setStageIntensivity(_idxSelStage, intensivity);
     }
+  }
+
+  bool _isprogramCorrect() {
+    if (_program.title == ""){
+      _showMessageDialog(S.of(context).ShouldInputProgramName);
+      return false;
+    }
+    if (_program.stagesCount() == 0){
+      _showMessageDialog(S.of(context).ShouldInputAnyStages);
+      return false;
+    }
+    for (int i = 0; i < _program.stagesCount(); ++i){
+      if (_program.stage(i).comment == "") {
+        _showMessageDialog(S.of(context).ShouldIntputStageName(i+1));
+        return false;
+      }
+    }
+    return true;
+  }
+
+  /// Сообщение на экране с кнопкой OK
+  Future<bool?> _showMessageDialog(String message) async {
+    return await showDialog<bool>(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) => AlertDialog(
+        title: Text(
+          message,
+        ),
+        actions: <Widget>[
+          TexelButton.accent(
+            onPressed: () => Navigator.pop(context, false),
+            text: S.of(context).ok,
+            width: 120,
+          ),
+        ],
+      ),
+    );
   }
 }

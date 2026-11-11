@@ -133,5 +133,9 @@
   "InputTimeTotal_min_sec": "Enter the full time (mm:ss)",
   "SecondsOutOfBounds": "There aren't time above 59 seconds",
   "MinutesOutOfBound": "Maximum 99 minutes",
-  "Time_mm_ss": "Time (mm:ss)"
+  "Time_mm_ss": "Time (mm:ss)",
+  "deleteUserProgram": "Delete methodic {progName}?",
+  "ShouldInputProgramName": "Необходимо ввести название программы",
+  "ShouldInputAnyStages": "Должен быть хотя бы один этап",
+  "ShouldIntputStageName": "У этапа {numStage} не введено название"
 }

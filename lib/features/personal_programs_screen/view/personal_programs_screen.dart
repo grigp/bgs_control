@@ -238,7 +238,7 @@ class _PersonalProgramsScreenState extends State<PersonalProgramsScreen> {
       barrierDismissible: false,
       builder: (BuildContext context) => AlertDialog(
         title: Text(
-          'Удалить программу стимуляции $progName?',
+          S.of(context).deleteUserProgram(progName),
         ),
         actions: <Widget>[
           TexelButton.accent(
