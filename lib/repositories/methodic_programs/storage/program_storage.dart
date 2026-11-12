@@ -50,6 +50,7 @@ class ProgramStorage {
     program.uid = _getNextProgramUid();
     program.image = 'man.png';
     _listPrograms.add(program);
+    _saveUserPrograms();
   }
 
   /// Изменить пользовательскую программу
@@ -76,6 +77,7 @@ class ProgramStorage {
         }
       }
     }
+    _saveUserPrograms();
   }
 
   /// Удалить пользовательскую программу
@@ -85,6 +87,39 @@ class ProgramStorage {
         _listPrograms.removeAt(i);
       }
     }
+    _saveUserPrograms();
+  }
+
+  /// Сохраняет пользовательские программы стимуляции в отдельном файле
+  void _saveUserPrograms() async {
+    List<Map<String, dynamic>> programs = [];
+    for (int i = 0; i < _listPrograms.length; ++i) {
+      /// Сохраняем только программы, введенные пользователем (isDefault == false)
+      if (!_listPrograms[i].isDefault) {
+        var jsonProgram = _listPrograms[i].toJson();
+        programs.add(jsonProgram);
+      }
+    }
+
+    Map<String, dynamic> jsonPrograms = {
+      'programs' : programs,
+    };
+    var strJsonPrograms = jsonEncode(jsonPrograms);
+
+    final dir = Platform.isAndroid
+        ? await getExternalStorageDirectory()
+        : await getApplicationSupportDirectory();
+
+    final file = File('${dir?.path}/user_programs.json');
+    await file.writeAsString(strJsonPrograms);
+
+    // print('');
+    // print('');
+    // print('<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>');
+    // print('$jsonPrograms');
+    // print('<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>');
+    // print('');
+    // print('');
   }
 
   /// Заполняет рабочий список программ, беря его из предустановленного файла json
@@ -117,6 +152,24 @@ class ProgramStorage {
           kDebugMode) {
         _listPrograms.add(program);
       }
+    }
+
+    /// Чтение пользовательских программ
+    final dir = Platform.isAndroid
+        ? await getExternalStorageDirectory()
+        : await getApplicationSupportDirectory();
+
+    var f = File('${dir?.path}/user_programs.json');
+    if (await f.exists()) {
+      await f.readAsString().then((String sJsonProgram) {
+        var dd = json.decode(sJsonProgram);
+        final listPPDef = dd['programs'] as List<dynamic>?;
+
+        for (int i = 0; i < listPPDef!.length; ++i) {
+          var program = MethodicProgram.fromJson(listPPDef[i]);
+          _listPrograms.add(program);
+        }
+      });
     }
   }
 

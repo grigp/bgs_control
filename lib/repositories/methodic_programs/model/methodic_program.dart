@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import '../../bgs_connect/bgs_defines.dart';
 
 /// Класс, содержащий данные об этапе
@@ -21,6 +23,45 @@ class ProgramStage {
   AmMode amMode;
   Intensivity intensivity;
   double frequency;
+
+  Map<String, dynamic> toJson({required int num}) {
+    return {
+      'num': num,
+      'duration': duration,
+      'start_power': 1,
+      'power': 1,
+      'frequency': frequency % 1 == 0 ? frequency.toInt() : frequency,
+      'am': isAm,
+      'am_mode': _amModeToInt(amMode),
+      'intensivity': _intensivityToInt(intensivity),
+      'fm': isFm,
+      'comment': comment,
+    };
+  }
+
+  int _amModeToInt(AmMode mode) {
+    switch (mode) {
+      case AmMode.am_11:
+        return 11;
+      case AmMode.am_31:
+        return 31;
+      case AmMode.am_51:
+        return 51;
+    }
+  }
+
+  int _intensivityToInt(Intensivity value) {
+    switch (value) {
+      case Intensivity.one:
+        return 1;
+      case Intensivity.two:
+        return 2;
+      case Intensivity.three:
+        return 3;
+      case Intensivity.four:
+        return 4;
+    }
+  }
 }
 
 /// Класс, содержащий данные о программе.
@@ -296,6 +337,29 @@ class MethodicProgram {
   void clearStages() {
     _stages.clear();
   }
+
+  /// Преобразует объект в Map для последующей сериализации в JSON
+  Map<String, dynamic> toJson() {
+    return {
+      'id': int.tryParse(uid) ?? uid,
+      'title': title,
+      'description': description,
+      'electrods': electrods,
+      'areases': areases,
+      'recomendations': recomendations,
+      'file': image,
+      'icon': image,
+      'default': isDefault,
+      'attributes': attributes.map((attr) => {'id': attr}).toList(),
+      'electrode': 6,
+      'stage': _stages.asMap().entries.map((entry) {
+        return entry.value.toJson(num: entry.key + 1);
+      }).toList(),
+    };
+  }
+
+  /// Возвращает готовую JSON-строку
+  String toJsonString() => jsonEncode(toJson());
 }
 
 /// Типы программ
