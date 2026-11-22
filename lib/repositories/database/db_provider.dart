@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:sqflite/sqflite.dart';
@@ -28,7 +29,10 @@ class DbProvider {
 
   Future _openDB() async {
     if (_dbPath == '') {
-      _dbPath = '${await getDatabasesPath()}/data/database.db';
+      /// Каталог data/ не создаётся автоматически — создаём его заранее
+      final dir = Directory('${await getDatabasesPath()}/data');
+      await dir.create(recursive: true);
+      _dbPath = '${dir.path}/database.db';
       _db = await openDatabase(_dbPath, version: 1,
           onCreate: (Database db, int version) async {
             await db.execute(
@@ -88,7 +92,7 @@ class DbProvider {
     await _openDB();
 
     /// Удалить запись для этого пациента
-    await _db.rawQuery('DELETE FROM Seances WHERE uid = \'seanceUid\'');
+    await _db.rawDelete('DELETE FROM Seances WHERE uid = ?', [seanceUid]);
 
     /// Известим интересующихся об удалении теста
     for (int i = 0; i < _handlers.length; ++i) {
