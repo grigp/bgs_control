@@ -1,0 +1,1294 @@
+{
+  "programs": [
+    {
+      "id": 1,
+      "title": "Gelenke. Periodisches leichtes Unbehagen (chronisch)",
+      "description": "Ein Zustand lang anhaltenden Unbehagens im Gelenkbereich, sowohl bei Bewegung als auch in Ruhe",
+      "electrods": "Knöchel, Knie, Schulter, Handgelenk",
+      "areases": "Gelenke der Arme und Beine",
+      "recomendations": "Beginnen Sie mit dem Gelenk, das dem Bereich des Unbehagens symmetrisch gegenüberliegt. Wenn beide Gelenke betroffen sind, behandeln Sie zuerst das Gelenk mit dem geringsten Unbehagen. In der zweiten Stufe versetzen Sie die Elektrode an das andere Gelenk.",
+      "file": "ortez1.png",
+      "icon": "joints_discomfort_1.png",
+      "default": true,
+      "attributes": [
+        {
+          "id": "Gelenke"
+        }
+      ],
+      "electrode": 6,
+      "stage": [
+        {
+          "num": 1,
+          "duration": 300000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 100,
+          "am": true,
+          "am_mode": 31,
+          "intensivity": 1,
+          "fm": true,
+          "comment": "Vorbereitung auf die Behandlung"
+        },
+        {
+          "num": 2,
+          "duration": 600000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 60,
+          "am": true,
+          "am_mode": 31,
+          "intensivity": 3,
+          "fm": false,
+          "comment": "Aufwärmen der Muskeln"
+        },
+        {
+          "num": 3,
+          "duration": 600000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 90,
+          "am": true,
+          "am_mode": 31,
+          "intensivity": 2,
+          "fm": false,
+          "comment": "Muskelbehandlung"
+        },
+        {
+          "num": 4,
+          "duration": 300000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 90,
+          "am": true,
+          "am_mode": 31,
+          "intensivity": 1,
+          "fm": true,
+          "comment": "Festigung der Ergebnisse"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "title": "Gelenke. Deutliches Unbehagen (akut)",
+      "description": "Ein Zustand plötzlich auftretenden Unbehagens im Gelenkbereich, sowohl bei Bewegung als auch in Ruhe",
+      "electrods": "Knöchel, Knie, Schulter, Handgelenk",
+      "areases": "Gelenke der Arme und Beine",
+      "recomendations": "Beginnen Sie mit dem Gelenk, das das stärkste Unbehagen verursacht. Wenn beide Gelenke betroffen sind, behandeln Sie zuerst das Gelenk mit dem stärksten Unbehagen. Nach Stufe 3 versetzen Sie die Elektrode an das andere Gelenk.",
+      "file": "ortez1.png",
+      "icon": "joints_discomfort_2.png",
+      "default": true,
+      "attributes": [
+        {
+          "id": "Gelenke"
+        }
+      ],
+      "electrode": 6,
+      "stage": [
+        {
+          "num": 1,
+          "duration": 600000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 120,
+          "am": true,
+          "am_mode": 31,
+          "intensivity": 3,
+          "fm": false,
+          "comment": "Intensive Behandlung"
+        },
+        {
+          "num": 2,
+          "duration": 600000,
+          "start_power": 1,
+          "power": 10,
+          "frequency": 60,
+          "am": true,
+          "am_mode": 11,
+          "intensivity": 2,
+          "fm": true,
+          "comment": "Adaptive Behandlung"
+        },
+        {
+          "num": 3,
+          "duration": 300000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 90,
+          "am": true,
+          "am_mode": 11,
+          "intensivity": 2,
+          "fm": false,
+          "comment": "Normalisierung der Funktionen"
+        },
+        {
+          "num": 4,
+          "duration": 300000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 120,
+          "am": true,
+          "am_mode": 31,
+          "intensivity": 3,
+          "fm": false,
+          "comment": "Festigung der Ergebnisse"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "title": "Muskeln. Lang anhaltende Verspannung (chronisch)",
+      "description": "Ein Zustand lang anhaltenden Muskelspannungsgefühls oder Unbehagens im Rücken (Brust- und Lendenbereich) und Gesäß, sowohl bei Bewegung als auch in Ruhe.",
+      "electrods": "Der breite Gürtel, der schmale Gürtel",
+      "areases": "Rücken- und Gesäßmuskeln",
+      "recomendations": "Legen Sie die Elektrode auf den Bereich des Unbehagens und führen Sie das Verfahren durch, ohne die Elektrode auf andere Bereiche zu versetzen.",
+      "file": "ortez1.png",
+      "icon": "muscles_longterm_voltage_1.png",
+      "default": true,
+      "attributes": [
+        {
+          "id": "Muskeln"
+        }
+      ],
+      "electrode": 6,
+      "stage": [
+        {
+          "num": 1,
+          "duration": 600000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 15,
+          "am": true,
+          "am_mode": 11,
+          "intensivity": 3,
+          "fm": false,
+          "comment": "Aufwärmen der Muskeln"
+        },
+        {
+          "num": 2,
+          "duration": 600000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 90,
+          "am": true,
+          "am_mode": 31,
+          "intensivity": 2,
+          "fm": true,
+          "comment": "Behandlung"
+        },
+        {
+          "num": 3,
+          "duration": 300000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 60,
+          "am": true,
+          "am_mode": 31,
+          "intensivity": 1,
+          "fm": false,
+          "comment": "Festigung der Ergebnisse"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "title": "Muskeln. Lang anhaltende Verspannung (chronisch). Sondermodus",
+      "description": "Wenn der Bereich der Muskelverspannung oder des Unbehagens nicht von den Elektrodenpads abgedeckt werden kann, muss der Gürtel zunächst auf dem Bereich der Wirbelsäule platziert werden, der horizontal mit dem Bereich des Muskelunbehagens verbunden wird.",
+      "electrods": "Der breite Gürtel, der schmale Gürtel",
+      "areases": "Rücken- und Gesäßmuskeln",
+      "recomendations": "Legen Sie die Elektrode zunächst so an, dass ihre Kontakte sich beidseitig der Wirbelsäule auf gleicher Höhe wie der Problembereich befinden. In der zweiten Stufe versetzen Sie die Elektrode direkt auf den Bereich des Unbehagens.",
+      "file": "ortez1.png",
+      "icon": "muscles_longterm_voltage_2.png",
+      "default": true,
+      "attributes": [
+        {
+          "id": "Muskeln"
+        }
+      ],
+      "electrode": 6,
+      "stage": [
+        {
+          "num": 1,
+          "duration": 300000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 15,
+          "am": true,
+          "am_mode": 31,
+          "intensivity": 1,
+          "fm": true,
+          "comment": "Vorbereitung"
+        },
+        {
+          "num": 2,
+          "duration": 600000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 15,
+          "am": true,
+          "am_mode": 31,
+          "intensivity": 3,
+          "fm": false,
+          "comment": "Aufwärmen der Muskeln"
+        },
+        {
+          "num": 3,
+          "duration": 600000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 60,
+          "am": true,
+          "am_mode": 31,
+          "intensivity": 2,
+          "fm": false,
+          "comment": "Behandlung"
+        },
+        {
+          "num": 4,
+          "duration": 300000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 60,
+          "am": true,
+          "am_mode": 31,
+          "intensivity": 1,
+          "fm": true,
+          "comment": "Festigung der Ergebnisse"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "title": "Muskeln. Plötzliche Verspannung (akut)",
+      "description": "Wenn der Bereich der Muskelverspannung möglichst nahe an der Wirbelsäule liegt und von den Elektrodenpads abgedeckt werden kann.",
+      "electrods": "Der breite Gürtel, der schmale Gürtel",
+      "areases": "Rücken- und Gesäßmuskeln",
+      "recomendations": "Legen Sie die Elektrode auf den Bereich des Unbehagens und führen Sie das Verfahren durch, ohne die Elektrode auf andere Bereiche zu versetzen.",
+      "file": "ortez1.png",
+      "icon": "muscles_sharp_voltage_1.png",
+      "default": true,
+      "attributes": [
+        {
+          "id": "Muskeln"
+        }
+      ],
+      "electrode": 6,
+      "stage": [
+        {
+          "num": 1,
+          "duration": 600000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 120,
+          "am": true,
+          "am_mode": 31,
+          "intensivity": 3,
+          "fm": false,
+          "comment": "Intensive Behandlung"
+        },
+        {
+          "num": 2,
+          "duration": 600000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 90,
+          "am": true,
+          "am_mode": 11,
+          "intensivity": 3,
+          "fm": true,
+          "comment": "Adaptive Behandlung"
+        },
+        {
+          "num": 3,
+          "duration": 600000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 90,
+          "am": true,
+          "am_mode": 11,
+          "intensivity": 1,
+          "fm": false,
+          "comment": "Normalisierung der Funktionen"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "title": "Muskeln. Plötzliche Verspannung (akut). Sondermodus",
+      "description": "Wenn der Bereich der Muskelverspannung weit von der Wirbelsäule entfernt liegt und nicht von den Elektrodenpads abgedeckt werden kann, muss der Gürtel zunächst auf die direkte Projektion des Bereichs des Muskelunbehagens gelegt werden.",
+      "electrods": "Der breite Gürtel, der schmale Gürtel",
+      "areases": "Rücken- und Gesäßmuskeln",
+      "recomendations": "Legen Sie die Elektrode zunächst auf den Bereich des Unbehagens. Nach Abschluss von Stufe 3 positionieren Sie die Elektrode so um, dass ihre Kontakte sich beidseitig der Wirbelsäule auf gleicher Höhe wie der Problembereich befinden.",
+      "file": "ortez1.png",
+      "icon": "muscles_sharp_voltage_2.png",
+      "default": true,
+      "attributes": [
+        {
+          "id": "Muskeln"
+        }
+      ],
+      "electrode": 6,
+      "stage": [
+        {
+          "num": 1,
+          "duration": 600000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 120,
+          "am": true,
+          "am_mode": 31,
+          "intensivity": 3,
+          "fm": false,
+          "comment": "Intensive Behandlung"
+        },
+        {
+          "num": 2,
+          "duration": 600000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 14,
+          "am": true,
+          "am_mode": 11,
+          "intensivity": 2,
+          "fm": true,
+          "comment": "Adaptive Behandlung"
+        },
+        {
+          "num": 3,
+          "duration": 300000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 90,
+          "am": true,
+          "am_mode": 11,
+          "intensivity": 1,
+          "fm": false,
+          "comment": "Normalisierung der Funktionen"
+        },
+        {
+          "num": 4,
+          "duration": 300000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 120,
+          "am": true,
+          "am_mode": 31,
+          "intensivity": 3,
+          "fm": false,
+          "comment": "Festigung der Ergebnisse"
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "title": "Wellness-Massage. Muskeln",
+      "description": "Wellness-Massage (Heimanwendung) sowie für Nutzer mit aktivem Lebensstil (Sport und Fitness).",
+      "electrods": "",
+      "areases": "",
+      "recomendations": "Diese Methode ist für Nutzer gedacht, die ein sanftes, unterstützendes Regime für Muskelbereiche ohne deutliches Unbehagen benötigen.\nSie eignet sich als Wellness-Behandlung nach einem Arbeitstag, körperlicher Aktivität oder wenn eine regelmäßige Muskelpflege erforderlich ist.\nSie kann als eines der vielseitigsten Regime für die wiederholte Heimanwendung verwendet werden.",
+      "file": "ortez1.png",
+      "icon": "revitalizing_muscle_massage.png",
+      "default": true,
+      "attributes": [
+        {
+          "id": "Muskeln"
+        },
+        {
+          "id": "Massage"
+        }
+      ],
+      "electrode": 6,
+      "stage": [
+        {
+          "num": 1,
+          "duration": 300000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 60,
+          "am": true,
+          "am_mode": 31,
+          "intensivity": 2,
+          "fm": false,
+          "comment": "Aufwärmen der Muskeln"
+        },
+        {
+          "num": 2,
+          "duration": 300000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 90,
+          "am": true,
+          "am_mode": 31,
+          "intensivity": 2,
+          "fm": true,
+          "comment": "Muskelaufwärmung"
+        },
+        {
+          "num": 3,
+          "duration": 600000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 90,
+          "am": true,
+          "am_mode": 31,
+          "intensivity": 1,
+          "fm": false,
+          "comment": "Normalisierung der Funktionen"
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "title": "Wellness-Massage. Gelenke",
+      "description": "Wellness-Massage (Heimanwendung) sowie für Nutzer mit aktivem Lebensstil (Sport und Fitness).",
+      "electrods": "",
+      "areases": "",
+      "recomendations": "Diese Methode ist für eine sanfte und gleichmäßige Anwendung im Gelenkbereich im Rahmen regelmäßiger Wellness-Behandlungen gedacht.\nSie ist geeignet, wenn der Nutzer den subjektiven Komfort im Gelenkbereich nach Bewegung oder im Alltag erhalten möchte.\nSie ist eine gute Option für wiederholte Heimanwendungen ohne Fokus auf akute Zustände.",
+      "file": "ortez1.png",
+      "icon": "healing_massage_joints.png",
+      "default": true,
+      "attributes": [
+        {
+          "id": "Gelenke"
+        },
+        {
+          "id": "Massage"
+        }
+      ],
+      "electrode": 6,
+      "stage": [
+        {
+          "num": 1,
+          "duration": 300000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 90,
+          "am": true,
+          "am_mode": 31,
+          "intensivity": 2,
+          "fm": false,
+          "comment": "Aufwärmen der Muskeln"
+        },
+        {
+          "num": 2,
+          "duration": 300000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 90,
+          "am": false,
+          "am_mode": 11,
+          "intensivity": 2,
+          "fm": true,
+          "comment": "Muskelaufwärmung"
+        },
+        {
+          "num": 3,
+          "duration": 300000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 90,
+          "am": true,
+          "am_mode": 31,
+          "intensivity": 1,
+          "fm": false,
+          "comment": "Normalisierung der Funktionen"
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "title": "Entspannungsmassage. Muskeln",
+      "description": "Entspannungsmassage (Heimanwendung) sowie für Nutzer mit aktivem Lebensstil (Sport und Fitness).",
+      "electrods": "",
+      "areases": "",
+      "recomendations": "Diese Methode ist für Situationen gedacht, in denen nicht das starke Unbehagen im Vordergrund steht, sondern der Wunsch, die Muskeln zu entspannen und angestaute Spannung zu lösen.\nSie eignet sich gut nach sitzender Arbeit, Reisen, Hausarbeit oder Bewegung.\nDas Programm kann als angenehme Abendroutine oder als Teil einer regelmäßigen Heimpflege verwendet werden.",
+      "file": "ortez1.png",
+      "icon": "relaxing_muscle_massage.png",
+      "default": true,
+      "attributes": [
+        {
+          "id": "Muskeln"
+        },
+        {
+          "id": "Massage"
+        }
+      ],
+      "electrode": 6,
+      "stage": [
+        {
+          "num": 1,
+          "duration": 300000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 60,
+          "am": true,
+          "am_mode": 31,
+          "intensivity": 3,
+          "fm": false,
+          "comment": "Vorbereitung"
+        },
+        {
+          "num": 2,
+          "duration": 300000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 15,
+          "am": true,
+          "am_mode": 11,
+          "intensivity": 2,
+          "fm": false,
+          "comment": "Entspannung"
+        },
+        {
+          "num": 3,
+          "duration": 600000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 15,
+          "am": true,
+          "am_mode": 11,
+          "intensivity": 2,
+          "fm": false,
+          "comment": "Normalisierung der Funktionen"
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "title": "Entspannungsmassage. Gelenke",
+      "description": "Entspannungsmassage (Heimanwendung) sowie für Nutzer mit aktivem Lebensstil (Sport und Fitness).",
+      "electrods": "",
+      "areases": "",
+      "recomendations": "Diese Methode wird als sanfte, angenehme Behandlung für den Gelenkbereich eingesetzt, wenn eine sanfte, angenehme Stimulation erforderlich ist.\nSie ist nach Alltagsaktivitäten, intensiver Bewegung oder Training am Tagesende geeignet, wenn Steifheit empfunden wird.\nGeeignet für Nutzer, die regelmäßig ein einfaches und unkompliziertes Gelenkregime benötigen.",
+      "file": "ortez1.png",
+      "icon": "relaxing_massage_joints.png",
+      "default": true,
+      "attributes": [
+        {
+          "id": "Gelenke"
+        },
+        {
+          "id": "Massage"
+        }
+      ],
+      "electrode": 6,
+      "stage": [
+        {
+          "num": 1,
+          "duration": 300000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 90,
+          "am": true,
+          "am_mode": 31,
+          "intensivity": 3,
+          "fm": false,
+          "comment": "Vorbereitung"
+        },
+        {
+          "num": 2,
+          "duration": 300000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 15,
+          "am": true,
+          "am_mode": 11,
+          "intensivity": 2,
+          "fm": false,
+          "comment": "Entspannung"
+        },
+        {
+          "num": 3,
+          "duration": 300000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 15,
+          "am": true,
+          "am_mode": 11,
+          "intensivity": 1,
+          "fm": false,
+          "comment": "Normalisierung der Funktionen"
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "title": "Fitness. Gelenke. Aufwärmen",
+      "description": "Lokale Elektroimpulsmassage für Nutzer mit aktivem Lebensstil (Sport und Fitness).",
+      "electrods": "",
+      "areases": "",
+      "recomendations": "Diese Methode ist für die Anwendung vor sportlicher Aktivität gedacht und dient als vorbereitender Schritt, bevor der Gelenkbereich belastet wird.\nSie hilft, einen gleichmäßigeren Einstieg in die Bewegung zu gestalten, und kann vor Training, Sport oder aktivem Aufwärmen nützlich sein.\nDas Programm eignet sich besonders für Nutzer, die eine schrittweise Trainingsroutine aufbauen möchten.",
+      "file": "ortez1.png",
+      "icon": "sport_joints_warmup.png",
+      "default": true,
+      "attributes": [
+        {
+          "id": "Gelenke"
+        },
+        {
+          "id": "Fitness"
+        }
+      ],
+      "electrode": 6,
+      "stage": [
+        {
+          "num": 1,
+          "duration": 300000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 90,
+          "am": true,
+          "am_mode": 31,
+          "intensivity": 2,
+          "fm": false,
+          "comment": "Vorbereitung"
+        },
+        {
+          "num": 2,
+          "duration": 300000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 60,
+          "am": true,
+          "am_mode": 31,
+          "intensivity": 3,
+          "fm": false,
+          "comment": "Aufwärmen der Muskeln"
+        }
+      ]
+    },
+    {
+      "id": 12,
+      "title": "Fitness. Gelenke. Training",
+      "description": "Lokale Elektroimpulsmassage für Nutzer mit aktivem Lebensstil (Sport und Fitness).",
+      "electrods": "",
+      "areases": "",
+      "recomendations": "Diese Methode ist für Nutzer mit regelmäßiger körperlicher Aktivität gedacht und wird als primäres Gelenkregime in Sportszenarien eingesetzt.\nSie kann als zentraler Teil eines umfassenden Verfahrens verwendet werden.\nSie ist am besten im Zusammenhang mit den vorbereitenden und abschließenden Stufen zu verstehen.",
+      "file": "ortez1.png",
+      "icon": "sport_joints_workout.png",
+      "default": true,
+      "attributes": [
+        {
+          "id": "Gelenke"
+        },
+        {
+          "id": "Fitness"
+        }
+      ],
+      "electrode": 6,
+      "stage": [
+        {
+          "num": 1,
+          "duration": 600000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 90,
+          "am": true,
+          "am_mode": 31,
+          "intensivity": 4,
+          "fm": true,
+          "comment": "Anpassung an die Belastung"
+        },
+        {
+          "num": 2,
+          "duration": 300000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 60,
+          "am": true,
+          "am_mode": 31,
+          "intensivity": 4,
+          "fm": false,
+          "comment": "Intensive Behandlung"
+        }
+      ]
+    },
+    {
+      "id": 13,
+      "title": "Fitness. Gelenke. Entspannung",
+      "description": "Lokale Elektroimpulsmassage für Nutzer mit aktivem Lebensstil (Sport und Fitness).",
+      "electrods": "",
+      "areases": "",
+      "recomendations": "Diese Methode ist dafür gedacht, ein sportbezogenes Verfahren im Gelenkbereich nach der Hauptbelastung abzuschließen.\nSie hilft beim Übergang von einer aktiven Phase in einen entspannteren Zustand und kann nach einem Training, einer Einheit oder intensiver körperlicher Aktivität verwendet werden.\nGeeignet als abschließender Teil einer sportlichen Routine.",
+      "file": "ortez1.png",
+      "icon": "sport_joints_relaxation.png",
+      "default": true,
+      "attributes": [
+        {
+          "id": "Gelenke"
+        },
+        {
+          "id": "Fitness"
+        }
+      ],
+      "electrode": 6,
+      "stage": [
+        {
+          "num": 1,
+          "duration": 300000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 15,
+          "am": true,
+          "am_mode": 11,
+          "intensivity": 2,
+          "fm": false,
+          "comment": "Entspannung"
+        },
+        {
+          "num": 2,
+          "duration": 300000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 15,
+          "am": true,
+          "am_mode": 11,
+          "intensivity": 3,
+          "fm": false,
+          "comment": "Normalisierung der Funktionen"
+        }
+      ]
+    },
+    {
+      "id": 14,
+      "title": "Sport. Muskeln. Aufwärmen",
+      "description": "Lokale Elektroimpulsmassage für Nutzer mit aktivem Lebensstil (Sport und Fitness).",
+      "electrods": "",
+      "areases": "",
+      "recomendations": "Diese Methode wird vor der Hauptbelastung der Muskeln angewendet und ist dafür gedacht, den Bereich sanfter zu aktivieren.\nSie kann vor Training, körperlicher Aktivität oder aktiven Erholungseinheiten verwendet werden.\nSie ist besonders als erste Stufe einer sportlichen Routine für die Rücken- und Gesäßmuskulatur geeignet.",
+      "file": "ortez1.png",
+      "icon": "sport_muscles_warmup.png",
+      "default": true,
+      "attributes": [
+        {
+          "id": "Muskeln"
+        },
+        {
+          "id": "Sport"
+        }
+      ],
+      "electrode": 6,
+      "stage": [
+        {
+          "num": 1,
+          "duration": 300000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 60,
+          "am": true,
+          "am_mode": 31,
+          "intensivity": 2,
+          "fm": false,
+          "comment": "Vorbereitung"
+        },
+        {
+          "num": 2,
+          "duration": 300000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 60,
+          "am": true,
+          "am_mode": 31,
+          "intensivity": 3,
+          "fm": false,
+          "comment": "Aufwärmen der Muskeln"
+        }
+      ]
+    },
+    {
+      "id": 15,
+      "title": "Sport. Muskeln. Training",
+      "description": "Lokale Elektroimpulsmassage für Nutzer mit aktivem Lebensstil (Sport und Fitness).",
+      "electrods": "",
+      "areases": "",
+      "recomendations": "Die Methode richtet sich an Nutzer, die regelmäßig Sport oder Fitness betreiben und elektrische Impulse im Rahmen eines sportlichen Szenarios nutzen möchten.\nSie wird als Hauptstufe des Muskelkomplexes eingesetzt und ist am besten in der Logik Aufwärmen - Hauptarbeit - Entspannung zu verstehen.\nGeeignet für Nutzer mit guter Verträglichkeit der Belastung.",
+      "file": "ortez1.png",
+      "icon": "sport_muscles_workout.png",
+      "default": true,
+      "attributes": [
+        {
+          "id": "Muskeln"
+        },
+        {
+          "id": "Sport"
+        }
+      ],
+      "electrode": 6,
+      "stage": [
+        {
+          "num": 1,
+          "duration": 600000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 90,
+          "am": true,
+          "am_mode": 31,
+          "intensivity": 4,
+          "fm": true,
+          "comment": "Anpassung an die Belastung"
+        },
+        {
+          "num": 2,
+          "duration": 600000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 60,
+          "am": true,
+          "am_mode": 31,
+          "intensivity": 4,
+          "fm": false,
+          "comment": "Intensive Behandlung"
+        }
+      ]
+    },
+    {
+      "id": 16,
+      "title": "Sport. Muskeln. Entspannung",
+      "description": "Lokale Elektroimpulsmassage für Nutzer mit aktivem Lebensstil (Sport und Fitness).",
+      "electrods": "",
+      "areases": "",
+      "recomendations": "Die Methode wird als abschließende Stufe eines Muskeltrainings nach intensiver Belastung oder anstrengender Arbeit eingesetzt.\nSie eignet sich für Situationen, die einen sanften Übergang von einem intensiven Regime zu einem entspannteren subjektiven Empfinden erfordern.\nSie kann auch unabhängig als kurze Behandlung nach dem Training verwendet werden.",
+      "file": "ortez1.png",
+      "icon": "sport_muscles_relaxation.png",
+      "default": true,
+      "attributes": [
+        {
+          "id": "Muskeln"
+        },
+        {
+          "id": "Sport"
+        }
+      ],
+      "electrode": 6,
+      "stage": [
+        {
+          "num": 1,
+          "duration": 300000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 15,
+          "am": true,
+          "am_mode": 11,
+          "intensivity": 2,
+          "fm": false,
+          "comment": "Entspannung"
+        },
+        {
+          "num": 2,
+          "duration": 300000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 15,
+          "am": true,
+          "am_mode": 11,
+          "intensivity": 3,
+          "fm": false,
+          "comment": "Normalisierung der Funktionen"
+        }
+      ]
+    },
+    {
+      "id": 17,
+      "title": "Fitness. Gelenke.",
+      "description": "Lokale Elektroimpulsmassage für Nutzer mit aktivem Lebensstil (Sport und Fitness).",
+      "electrods": "",
+      "areases": "",
+      "recomendations": "Diese Methode ist für Nutzer gedacht, die Fitness, allgemein stärkende körperliche Aktivität oder Training mittlerer Intensität betreiben.\nSie eignet sich als eher universelles Gelenkregime zwischen Alltag und Sport.\nSie kann je nach individuellen Gewohnheiten und gewünschtem Ziel verwendet werden.",
+      "file": "ortez1.png",
+      "icon": "sport_joints.png",
+      "default": true,
+      "attributes": [
+        {
+          "id": "Gelenke"
+        },
+        {
+          "id": "Fitness"
+        }
+      ],
+      "electrode": 6,
+      "stage": [
+        {
+          "num": 1,
+          "duration": 300000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 90,
+          "am": true,
+          "am_mode": 31,
+          "intensivity": 2,
+          "fm": false,
+          "comment": "Vorbereitung"
+        },
+        {
+          "num": 2,
+          "duration": 300000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 60,
+          "am": true,
+          "am_mode": 31,
+          "intensivity": 3,
+          "fm": false,
+          "comment": "Aufwärmen der Muskeln"
+        },
+        {
+          "num": 3,
+          "duration": 600000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 90,
+          "am": true,
+          "am_mode": 31,
+          "intensivity": 4,
+          "fm": true,
+          "comment": "Anpassung an die Belastung"
+        },
+        {
+          "num": 4,
+          "duration": 300000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 60,
+          "am": true,
+          "am_mode": 31,
+          "intensivity": 4,
+          "fm": false,
+          "comment": "Intensive Behandlung"
+        },
+        {
+          "num": 5,
+          "duration": 300000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 15,
+          "am": true,
+          "am_mode": 11,
+          "intensivity": 2,
+          "fm": false,
+          "comment": "Entspannung"
+        },
+        {
+          "num": 6,
+          "duration": 300000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 15,
+          "am": true,
+          "am_mode": 11,
+          "intensivity": 3,
+          "fm": false,
+          "comment": "Normalisierung der Funktionen"
+        }
+      ]
+    },
+    {
+      "id": 18,
+      "title": "Fitness. Muskeln.",
+      "description": "Lokale Elektroimpulsmassage für Nutzer mit aktivem Lebensstil (Sport und Fitness).",
+      "electrods": "",
+      "areases": "",
+      "recomendations": "Die Methode richtet sich an Fitness-Enthusiasten und alle, die Alltagsaktivität mit regelmäßigem Training verbinden.\nSie wird als universelles Muskelaufbau-Regime wahrgenommen: nicht zu eng auf Sport ausgerichtet, aber aktiver als Standard-Alltagsprogramme.\nGeeignet für die regelmäßige Anwendung im Rahmen einer vertrauten Trainingsroutine.",
+      "file": "ortez1.png",
+      "icon": "sport_muscles.png",
+      "default": true,
+      "attributes": [
+        {
+          "id": "Muskeln"
+        },
+        {
+          "id": "Fitness"
+        }
+      ],
+      "electrode": 6,
+      "stage": [
+        {
+          "num": 1,
+          "duration": 300000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 60,
+          "am": true,
+          "am_mode": 31,
+          "intensivity": 2,
+          "fm": false,
+          "comment": "Vorbereitung"
+        },
+        {
+          "num": 2,
+          "duration": 300000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 60,
+          "am": true,
+          "am_mode": 31,
+          "intensivity": 3,
+          "fm": false,
+          "comment": "Aufwärmen der Muskeln"
+        },
+        {
+          "num": 3,
+          "duration": 600000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 90,
+          "am": true,
+          "am_mode": 31,
+          "intensivity": 4,
+          "fm": true,
+          "comment": "Anpassung an die Belastung"
+        },
+        {
+          "num": 4,
+          "duration": 600000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 60,
+          "am": true,
+          "am_mode": 31,
+          "intensivity": 4,
+          "fm": false,
+          "comment": "Intensive Behandlung"
+        },
+        {
+          "num": 5,
+          "duration": 300000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 15,
+          "am": true,
+          "am_mode": 11,
+          "intensivity": 2,
+          "fm": false,
+          "comment": "Entspannung"
+        },
+        {
+          "num": 6,
+          "duration": 300000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 15,
+          "am": true,
+          "am_mode": 11,
+          "intensivity": 3,
+          "fm": false,
+          "comment": "Normalisierung der Funktionen"
+        }
+      ]
+    },
+    {
+      "id": 118,
+      "title": "Test kurz 1 (6 Stufen)",
+      "description": "Fehlersuche",
+      "electrods": "",
+      "areases": "",
+      "recomendations": "",
+      "file": "ortez1.png",
+      "icon": "tunnel_syndrome_round.png",
+      "default": true,
+      "attributes": [
+        {
+          "id": "Muskeln"
+        },
+        {
+          "id": "Fitness"
+        },
+        {
+          "id": "debug"
+        }
+      ],
+      "electrode": 6,
+      "stage": [
+        {
+          "num": 1,
+          "duration": 10000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 60,
+          "am": true,
+          "am_mode": 31,
+          "intensivity": 2,
+          "fm": false,
+          "comment": "Vorbereitung"
+        },
+        {
+          "num": 2,
+          "duration": 10000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 60,
+          "am": true,
+          "am_mode": 31,
+          "intensivity": 3,
+          "fm": false,
+          "comment": "Aufwärmen"
+        },
+        {
+          "num": 3,
+          "duration": 20000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 90,
+          "am": true,
+          "am_mode": 31,
+          "intensivity": 4,
+          "fm": true,
+          "comment": "Anpassung"
+        },
+        {
+          "num": 4,
+          "duration": 20000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 60,
+          "am": true,
+          "am_mode": 31,
+          "intensivity": 4,
+          "fm": false,
+          "comment": "Intensiv"
+        },
+        {
+          "num": 5,
+          "duration": 10000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 15,
+          "am": true,
+          "am_mode": 11,
+          "intensivity": 2,
+          "fm": false,
+          "comment": "Entspannung"
+        },
+        {
+          "num": 6,
+          "duration": 10000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 15,
+          "am": true,
+          "am_mode": 11,
+          "intensivity": 3,
+          "fm": false,
+          "comment": "Normal"
+        }
+      ]
+    },
+    {
+      "id": 119,
+      "title": "Test kurz 2 (4 Stufen)",
+      "description": "Fehlersuche",
+      "electrods": "",
+      "areases": "",
+      "recomendations": "",
+      "file": "ortez1.png",
+      "icon": "tunnel_syndrome_round.png",
+      "default": true,
+      "attributes": [
+        {
+          "id": "Gelenke"
+        },
+        {
+          "id": "debug"
+        }
+      ],
+      "electrode": 6,
+      "stage": [
+        {
+          "num": 1,
+          "duration": 60000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 100,
+          "am": true,
+          "am_mode": 31,
+          "intensivity": 1,
+          "fm": true,
+          "comment": "Vorbereitung"
+        },
+        {
+          "num": 2,
+          "duration": 120000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 60,
+          "am": true,
+          "am_mode": 31,
+          "intensivity": 3,
+          "fm": false,
+          "comment": "Erwärmung"
+        },
+        {
+          "num": 3,
+          "duration": 60000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 90,
+          "am": true,
+          "am_mode": 31,
+          "intensivity": 2,
+          "fm": false,
+          "comment": "Stimulation"
+        },
+        {
+          "num": 4,
+          "duration": 60000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 90,
+          "am": true,
+          "am_mode": 31,
+          "intensivity": 1,
+          "fm": true,
+          "comment": "Entspannung"
+        }
+      ]
+    },
+    {
+      "id": 120,
+      "title": "Test kurz 2 (2 Stufen)",
+      "description": "Fehlersuche",
+      "electrods": "",
+      "areases": "",
+      "recomendations": "",
+      "file": "ortez1.png",
+      "icon": "tunnel_syndrome_round.png",
+      "default": true,
+      "attributes": [
+        {
+          "id": "Muskeln"
+        },
+        {
+          "id": "Sport"
+        },
+        {
+          "id": "debug"
+        }
+      ],
+      "electrode": 6,
+      "stage": [
+        {
+          "num": 1,
+          "duration": 10000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 15,
+          "am": true,
+          "am_mode": 11,
+          "intensivity": 2,
+          "fm": false,
+          "comment": "Entspannung"
+        },
+        {
+          "num": 2,
+          "duration": 10000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 15,
+          "am": true,
+          "am_mode": 11,
+          "intensivity": 3,
+          "fm": false,
+          "comment": "Ruhe"
+        }
+      ]
+    }
+  ]
+}

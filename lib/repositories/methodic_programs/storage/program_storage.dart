@@ -137,6 +137,8 @@ class ProgramStorage {
       methodicFilePath = 'lib/assets/programs/prg_main.json';
     } else if (deviceLocale.languageCode == 'en') {
       methodicFilePath = 'lib/assets/programs/prg_main_en.json';
+    } else if (deviceLocale.languageCode == 'de') {
+      methodicFilePath = 'lib/assets/programs/prg_main_de.json';
     }
     String dataDef = await rootBundle.loadString(methodicFilePath);
 

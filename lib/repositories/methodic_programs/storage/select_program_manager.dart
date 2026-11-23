@@ -22,6 +22,8 @@ class SelectProgramManager {
       selPrgMenuFilePath = 'lib/assets/programs/select_prg.json';
     } else if (deviceLocale.languageCode == 'en') {
       selPrgMenuFilePath = 'lib/assets/programs/select_prg_en.json';
+    } else if (deviceLocale.languageCode == 'de') {
+      selPrgMenuFilePath = 'lib/assets/programs/select_prg_de.json';
     }
 
     /// Список программ по умолчанию
