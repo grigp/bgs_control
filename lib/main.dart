@@ -57,7 +57,7 @@ void callbackDispatcher() {
   });
 }
 
-void main() {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   Workmanager().initialize(
     callbackDispatcher, // The top level function, aka callbackDispatcher
@@ -77,16 +77,15 @@ void main() {
   GetIt.I.registerLazySingleton<AppMonitor>(() => AppMonitor());
   GetIt.I.registerLazySingleton<DbProvider>(() => DbProvider());
 
+  /// Инициализируем хранилище программ
+  await GetIt.I<ProgramStorage>().init();
+  await GetIt.I<SelectProgramManager>().init();
 
-  WidgetsFlutterBinding.ensureInitialized();
-  SystemChrome.setPreferredOrientations(
+  await SystemChrome.setPreferredOrientations(
     [
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
     ],
-  ).then((_) {
-    // WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
-    // FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
-    runApp(const BgsApp());
-  });
+  );
+  runApp(const BgsApp());
 }

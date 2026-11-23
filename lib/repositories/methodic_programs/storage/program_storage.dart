@@ -14,9 +14,9 @@ class ProgramStorage {
   final List<MethodicProgram> _listPrograms = [];
   late int _currentSelectProgramPage = 0;
 
-  void init() async {
+  Future<void> init() async {
     await _fillWorkList();
-    _readCurrentPageFromFile();
+    await _readCurrentPageFromFile();
   }
 
   /// Возвращает список доступных программ
@@ -263,7 +263,7 @@ class ProgramStorage {
   }
 
   /// Читает текущую страницу PageView из файла
-  void _readCurrentPageFromFile() async {
+  Future<void> _readCurrentPageFromFile() async {
     final dir = Platform.isAndroid
         ? await getExternalStorageDirectory()
         : await getApplicationSupportDirectory();

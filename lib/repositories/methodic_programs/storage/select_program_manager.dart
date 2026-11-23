@@ -9,7 +9,7 @@ import '../model/select_item_info.dart';
 class SelectProgramManager {
   final List<SelectItemInfo> _listItems = [];
 
-  void init() async {
+  Future<void> init() async {
     await _fillWorkList();
   }
 

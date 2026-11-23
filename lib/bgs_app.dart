@@ -31,10 +31,6 @@ class _BgsAppState extends State<BgsApp> {
   void initState() {
     super.initState();
 
-    /// Инициализируем хранилище программ
-    GetIt.I<ProgramStorage>().init();
-    GetIt.I<SelectProgramManager>().init();
-
     _adapterStateStateSubscription = FlutterBluePlus.adapterState.listen((
       state,
     ) {
