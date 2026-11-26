@@ -46,27 +46,30 @@ class _StageTitleState extends State<StageTitle> {
           children: [
             Row(
               children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      S.of(context).stageNum(widget.num),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        S.of(context).stageNum(widget.num),
 //                      'Стадия ${widget.num}',
-                      style: TextStyle(color: widget.textColor, fontSize: 16),
-                      //theme.textTheme.titleMedium,
-                      overflow: TextOverflow.ellipsis,
-                      textScaler: const TextScaler.linear(1.0),
-                    ),
-                    Text(
-                      widget.stage.comment,
-                      style: TextStyle(color: widget.textColor, fontSize: 16),
-                      //theme.textTheme.titleMedium,
-                      overflow: TextOverflow.ellipsis,
-                      textScaler: const TextScaler.linear(1.0),
-                    ),
-                  ],
+                        style: TextStyle(color: widget.textColor, fontSize: 16),
+                        //theme.textTheme.titleMedium,
+                        overflow: TextOverflow.ellipsis,
+                        textScaler: const TextScaler.linear(1.0),
+                      ),
+                      Text(
+                        widget.stage.comment,
+                        softWrap: true,
+                        style: TextStyle(color: widget.textColor, fontSize: 16),
+                        //theme.textTheme.titleMedium,
+                        overflow: TextOverflow.ellipsis,
+                        textScaler: const TextScaler.linear(1.0),
+                      ),
+                    ],
+                  ),
                 ),
-                const Spacer(),
+                //const Spacer(),
                 Text(
                   getTimeBySecCount(widget.duration ~/ 1000),
                   style: TextStyle(color: widget.textColor, fontSize: 16),

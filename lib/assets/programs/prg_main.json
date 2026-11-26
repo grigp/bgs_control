@@ -31,6 +31,18 @@
         },
         {
           "num": 2,
+          "duration": 60000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 100,
+          "am": true,
+          "am_mode": 31,
+          "intensivity": 1,
+          "fm": true,
+          "comment": "Переместите стимуляор на симметричную точку"
+        },
+        {
+          "num": 3,
           "duration": 600000,
           "start_power": 1,
           "power": 1,
@@ -42,7 +54,7 @@
           "comment": "Разогрев"
         },
         {
-          "num": 3,
+          "num": 4,
           "duration": 600000,
           "start_power": 1,
           "power": 1,
@@ -54,7 +66,7 @@
           "comment": "Обработка"
         },
         {
-          "num": 4,
+          "num": 5,
           "duration": 300000,
           "start_power": 1,
           "power": 1,
@@ -1278,6 +1290,18 @@
         },
         {
           "num": 2,
+          "duration": 60000,
+          "start_power": 1,
+          "power": 1,
+          "frequency": 100,
+          "am": true,
+          "am_mode": 31,
+          "intensivity": 1,
+          "fm": true,
+          "comment": "Переместите стимуляор на симметричную точку"
+        },
+        {
+          "num": 3,
           "duration": 10000,
           "start_power": 1,
           "power": 1,

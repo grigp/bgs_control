@@ -61,7 +61,7 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
   bool _isGetPowerSetFromDevice = false;
   bool _isToGoMode = false;
 
-  bool _isOffLowLvlBat = false;  // Shutdown by low level battery
+  bool _isOffLowLvlBat = false; // Shutdown by low level battery
 
   /// Устанавливается в true припереходе в автономный режим
 
@@ -143,15 +143,17 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
                             Icon(
                               getChargeIconByLevel(_chargeLevel),
                               size: 20,
-                              color: _chargeLevel > Constants.chargeAlarmBoundLevel
-                                  ? Colors.black
-                                  : Colors.red.shade800,
+                              color:
+                                  _chargeLevel > Constants.chargeAlarmBoundLevel
+                                      ? Colors.black
+                                      : Colors.red.shade800,
                             ),
                             Text(
                               '${_chargeLevel.toInt()}%',
                               style: TextStyle(
                                 fontSize: 14,
-                                color: _chargeLevel > Constants.chargeAlarmBoundLevel
+                                color: _chargeLevel >
+                                        Constants.chargeAlarmBoundLevel
                                     ? Colors.black
                                     : Colors.red.shade800,
                               ),
@@ -195,12 +197,17 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           /// Нвзвание этапа
-                          Text(
-                            S.of(context).stageIdxComment(widget.driver.idxStage() + 1, widget.driver.stage().comment),
-//                            'Этап ${widget.driver.idxStage() + 1} : "${widget.driver.stage().comment}"',
-                            style: theme.textTheme.bodyMedium,
-                            textScaler: const TextScaler.linear(1.0),
+                          Expanded(
+                            child: Text(
+                              S.of(context).stageIdxComment(
+                                  widget.driver.idxStage() + 1,
+                                  widget.driver.stage().comment),
+                              style: theme.textTheme.bodyMedium,
+                              textAlign: TextAlign.center,
+                              textScaler: const TextScaler.linear(1.0),
+                            ),
                           ),
+
                           const SizedBox(width: 4),
                           const Icon(
                             Icons.info_outline,
@@ -313,7 +320,9 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            S.of(context).timeRemain(getTimeBySecCount(widget.driver.programDuration() - widget.driver.playingTime())),
+                            S.of(context).timeRemain(getTimeBySecCount(
+                                widget.driver.programDuration() -
+                                    widget.driver.playingTime())),
 //                            'До завершения осталось ${getTimeBySecCount(widget.driver.programDuration() - widget.driver.playingTime())}',
                             style: theme.textTheme.titleSmall,
                             textScaler: const TextScaler.linear(1.0),
@@ -349,7 +358,8 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
                                 textScaler: const TextScaler.linear(1.0),
                               )
                             : Text(
-                                S.of(context).playingTime(getTimeBySecCount(widget.driver.playingTime())),
+                                S.of(context).playingTime(getTimeBySecCount(
+                                    widget.driver.playingTime())),
 //                          'Прошло времени - ${getTimeBySecCount(widget.driver.playingTime())}',
                                 style: theme.textTheme.titleSmall,
                                 textScaler: const TextScaler.linear(1.0),
@@ -470,7 +480,8 @@ class _ExecuteScreenState extends State<ExecuteScreen> {
 
     /// Если мощность в процессе изменения значения слайдера превысила powerSafeLevel,
     /// то выдаем запрос на подтверждение увеличения мощности
-    if (_powerSet > Constants.powerSafeLevel && _sliderValueStart <= Constants.powerSafeLevel) {
+    if (_powerSet > Constants.powerSafeLevel &&
+        _sliderValueStart <= Constants.powerSafeLevel) {
       isEnable = await safeLevelDialog(context);
     }
 
